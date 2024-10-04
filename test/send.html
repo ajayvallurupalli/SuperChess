@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <title>Document</title>
+    <script>
+
+
+            var peer = new Peer(null);
+
+        
+            peer.on('open', () => {
+                var conn = peer.connect("880b9e40-8078-4eff-a386-7b22a8d907db", {
+                reliable: true
+            });
+                conn.on('open', () => {
+                    conn.send("handshake:help")
+                })
+            })
+
+
+
+
+    </script>
+
+
+</head>
+<body>
+    
+</body>
+</html>

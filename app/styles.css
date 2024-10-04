@@ -1,0 +1,46 @@
+td {
+    padding-block: 30px;
+}
+
+html, body {
+    height: 100%;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    min-height: 100%;
+  }
+
+.selected {
+    border-width: 3px;
+    border-width: 3px;
+    border-color: blue;
+    border-style: solid;
+}
+
+.can-move {
+    border-width: 3px;
+    border-width: 3px;
+    border-color: green;
+    border-style: solid;
+}
+
+.can-take {
+    border-width: 3px;
+    border-width: 3px;
+    border-color: yellow;
+    border-style: solid;
+}
+
+
+.blackTile{
+    background-color: darkgrey;
+}
+
+.whiteTile {
+    background-color: whitesmoke;
+}

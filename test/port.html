@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <title>Document</title>
+    <script>
+        var peer = new Peer("2d95f074-f7ff-472f-8a2f-096e2c955e49");
+        peer.on('open', function(id) {
+            hostId = id
+	        console.log('My peer ID is: ' + id);
+        });
+
+        peer.on('connection', function(conn) {
+            console.log("data!")
+            conn.on('data', function(data) {
+                console.log(data)
+            });
+        })
+    </script>
+
+</head>
+<body>
+    
+</body>
+</html>
