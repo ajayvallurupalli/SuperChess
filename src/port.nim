@@ -1,5 +1,6 @@
 import std/jsffi, std/strutils
 from sugar import `=>`
+from random import randomize, rand
 
 type
     Peer = JsObject
@@ -7,7 +8,10 @@ type
     MessageType* = enum
         Id, Handshake, Move
 
+const baseId: cstring = "9e4ada91-c493-4fd4-881d-3e05db99e100"
+
 proc newPeer*(): Peer {.importjs: "new Peer()".}
+proc newPeer*(data: cstring): Peer {.importjs: "new Peer(#)".}
 
 func messageType(data: cstring): MessageType =  
     var str = $data
@@ -22,10 +26,12 @@ func cutMessage(data: cstring): string =
     return split($data, ':')[1]
 
 proc newHost*(cb: proc(data: string, messageType: MessageType)): tuple[send: proc(data: cstring), destroy: proc()] =
-    var peer: Peer = newPeer()
+    randomize()
+    let roomId: int = rand(10000..99999)
+    var peer: Peer = newPeer(baseId & cstring($roomId))
     var conn: Connection
 
-    peer.on("open", ((id: cstring) => cb($id, Id)))
+    peer.on("open", ((id: cstring) => cb($roomId, Id)))
     peer.on("connection", proc (c: Connection) =
         conn = c
         conn.on("data", (data: cstring) => cb(cutMessage(data), messageType(data))))
@@ -41,7 +47,7 @@ proc newJoin*(id: cstring, cb: proc(data: string, messageType: MessageType)): tu
     var peer: Peer = newPeer()
     var conn: Connection
     peer.on("open", proc () = 
-        conn = peer.connect(id)
+        conn = peer.connect(baseId & id)
         conn.on("open", () => conn.send("handshake: hello"))
         conn.on("data", (data: cstring) => cb(cutMessage(data), messageType(data))))
     
