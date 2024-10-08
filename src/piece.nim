@@ -7,7 +7,7 @@ type
     ChessBoard* = array[0..7, Chessrow]
 
     PieceType* = enum
-        king, queen, bishop, pawn, rook, knight, none
+        king, queen, bishop, pawn, rook, knight, none, fairy
     Color* = enum
         black, white
 
@@ -28,6 +28,7 @@ type
         onTake*: onAction
         whenTake*: onAction 
         onEndTurn*: onAction 
+        promoted*: bool = false
 
 func getMovesOn*(p: Piece, board: ChessBoard): Moves = 
     for x in p.moves:
@@ -74,10 +75,11 @@ func pieceCopy*(initial: Piece,
                 onMove: onAction = initial.onMove,
                 onTake: onAction = initial.onTake,
                 whenTake: onAction = initial.whenTake,
-                onEndTurn: onAction = initial.onEndTurn): Piece = 
+                onEndTurn: onAction = initial.onEndTurn,
+                promoted: bool = initial.promoted): Piece = 
     return Piece(item: item, color: color, timesMoved: timesMoved, piecesTaken: piecesTaken,
                 tile: tile, moves: moves, takes: takes, onMove: onMove, onTake: onTake,
-                whenTake: whenTake, onEndTurn: onEndTurn)
+                whenTake: whenTake, onEndTurn: onEndTurn, promoted: promoted)
             
 
 func isAir*(p: Piece): bool = 
@@ -93,4 +95,4 @@ func `$`*(p: Piece): string =
     if p.item == none:
         return "none at " & $p.tile
     else: 
-        return $p.color & $p.item & " at " & $p.tile
+        return $p.color & $p.item

@@ -21,12 +21,12 @@ const
 
     air*: Piece = Piece(item: none, color: white)
 
-proc onPawnEnd(taker: Tile, taken: Tile, board: var ChessBoard) = 
+proc onPawnEnd*(taker: Tile, taken: Tile, board: var ChessBoard) = 
     let pawn = board[taken.rank][taken.file]
-    if taken.rank == 0:
-        board[taken.rank][taken.file] = whiteQueen.pieceCopy(piecesTaken=pawn.piecesTaken, tile=pawn.tile)
-    elif taken.rank == 7:
-        board[taken.rank][taken.file] = blackQueen.pieceCopy(piecesTaken=pawn.piecesTaken, tile=pawn.tile)
+    if taken.rank == 0 and not pawn.promoted:
+        board[taken.rank][taken.file] = whiteQueen.pieceCopy(piecesTaken=pawn.piecesTaken, tile=pawn.tile, promoted = true)
+    elif taken.rank == 7 and not pawn.promoted:
+        board[taken.rank][taken.file] = blackQueen.pieceCopy(piecesTaken=pawn.piecesTaken, tile=pawn.tile, promoted = true)
 
 #wierd order is because pawn requires onPawnEnd, which requires whiite queen. I wish Nim had hoisting, I think its the only thing that's missing
 const 

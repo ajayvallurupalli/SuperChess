@@ -17,12 +17,12 @@ func addIfFree*(addTo: var Moves, board: ChessBoard, t: Tile, shoot: Shooter): b
 #unlike `addIfFree`, returns true if air is found
 #and returns false if an occupied tile is found, unless if `throughFlag` is changed from default of false
 #this means that, in a loop, it continues until it finds a `Tile` to take, unless if can go through pieces
-#if `canabalismFlag` is true, pieces can take same colored pieces
+#if `cannibalismFlag` is true, pieces can take same colored pieces
 func addIfTake*(addTo: var Moves, board: ChessBoard, initialPiece: Piece, t: Tile, 
-                shoot: Shooter, throughFlag: bool = false, canabalismFlag: bool = false): bool = 
+                shoot: Shooter, throughFlag: bool = false, cannibalismFlag: bool = false): bool = 
     let target: Option[Piece] = board.boardRef(shoot(t)) #Options again used to avoid index errors
     if target.isSome() and not target.get().isAir() and #checks if tile exists and that it is occupied
-        (not sameColor(initialPiece, target.get()) or canabalismFlag): #only allows same color if `canabalismFlag` is true
+        (not sameColor(initialPiece, target.get()) or cannibalismFlag): #only allows same color if `cannibalismFlag` is true
             addTo.add(shoot(t))
             return false or throughFlag #returns false unless if through flag is enabled
     return target.isSome() and (target.get().isAir() or throughFlag)
@@ -36,12 +36,12 @@ func lineMoves*(board: ChessBoard, p: Piece, shoot: Shooter): Moves =
 
 # on `board`, returns sequence possible takes for a `Piece` at `Tile` `t`
 #following any move pattern descriped by `Shooter` `shoot` (see `tile.Shooter`)
-#`p` is used to stop same color takes, unless if `canabalismFlag` is true
+#`p` is used to stop same color takes, unless if `cannibalismFlag` is true
 #and takes will stop once the first is found, unless if `throughFlag` is enabled
 func lineTakes*(board: ChessBoard, p: Piece, shoot: Shooter, 
-                throughFlag: bool = false, canabalismFlag: bool = false): Moves = 
+                throughFlag: bool = false, cannibalismFlag: bool = false): Moves = 
     var next: Tile = p.tile
-    while result.addIfTake(board, p, next, shoot, throughFlag = throughFlag, canabalismFlag = canabalismFlag):
+    while result.addIfTake(board, p, next, shoot, throughFlag = throughFlag, cannibalismFlag = cannibalismFlag):
         next = shoot(next)
 
 
@@ -153,6 +153,6 @@ when isMainModule:
     assert lineTakes(testBoard, whitePawn, tileAbove) == @[(0,1)]
     assert lineTakes(testBoard, whitePawn, tileAbove, throughFlag = true) == @[(0,1), (0,0)]
     assert lineTakes(testBoard, blackPawn, tileAbove) == @[]
-    assert lineTakes(testBoard, blackPawn, tileAbove, canabalismFlag = true) == @[(0,1)]
-    assert lineTakes(testBoard, blackPawn, tileAbove, canabalismFlag = true, throughFlag = true) == @[(0,1), (0,0)]
-    assert lineTakes(testBoard, whitePawn, tileLeft, canabalismFlag = true, throughFlag = true) == @[]
+    assert lineTakes(testBoard, blackPawn, tileAbove, cannibalismFlag = true) == @[(0,1)]
+    assert lineTakes(testBoard, blackPawn, tileAbove, cannibalismFlag = true, throughFlag = true) == @[(0,1), (0,0)]
+    assert lineTakes(testBoard, whitePawn, tileLeft, cannibalismFlag = true, throughFlag = true) == @[]

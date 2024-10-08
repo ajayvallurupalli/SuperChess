@@ -2,8 +2,12 @@ include karax / prelude
 import piece, basePieces, port, karax/errors
 from strutils import split, parseInt
 
-type Screen {.pure.} = enum 
-    Lobby, CreateRoom, JoinRoom, Game
+type 
+    Screen {.pure.} = enum 
+        Lobby, CreateRoom, JoinRoom, Game
+    Gamemode = enum 
+        Normal
+
 
 var roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
 var peer: tuple[send: proc(data: cstring), destroy: proc()]
@@ -103,6 +107,7 @@ proc createTile(p: Piece, m: int, n: int): VNode =
                 else:
                     selectedTile = (-1,-1)
                     possibleMoves = @[]
+                    possibleTakes = @[]
 
             text $p
 
@@ -117,7 +122,7 @@ proc reverseBoard(): VNode =
     result = buildHtml(tdiv):
         for i in countdown(7, 0):
             tr:
-                for j in countdown(7, 0):
+                for j in 0..7:
                     createTile(theBoard[i][j], i, j)
 
 proc createLobby(): VNode = 
