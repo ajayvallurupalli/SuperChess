@@ -8,6 +8,7 @@ type
     Gamemode = enum 
         Normal
 
+echo "test"
 
 var roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
 var peer: tuple[send: proc(data: cstring), destroy: proc()]
