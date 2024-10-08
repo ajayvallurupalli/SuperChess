@@ -93,6 +93,6 @@ func isColor*(a: Piece, b: Color): bool =
 
 func `$`*(p: Piece): string = 
     if p.item == none:
-        return "none at " & $p.tile
+        return ""
     else: 
         return $p.color & $p.item
