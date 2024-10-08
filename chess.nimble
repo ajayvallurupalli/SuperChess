@@ -22,7 +22,7 @@ task html, "compiles html in main.nim":
     exec "mv app.js app"
 
 task jsc, "compiles just the js, instead of doing all that rewriting":
-    exec "nim js --out:app/app.js src/main.nim"
+    exec "nim js --out:app.js src/main.nim"
 
 task host, "hosts app.html, build from main.nim with task html":
     exec "npx parcel app/app.html"
