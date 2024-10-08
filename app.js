@@ -14,6 +14,7 @@ var NTI134217742 = {size: 0, kind: 17, base: null, node: null, finalizer: null};
 var NTI838861206 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
 var NTI1291845637 = {size: 0, kind: 14, base: null, node: null, finalizer: null};
 var NTI838861173 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
+var NTI889192517 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
 var NTI1358954499 = {size: 0,kind: 43,base: null,node: null,finalizer: null};
 var NTI1358954500 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
 var NTI687865865 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
@@ -1075,6 +1076,9 @@ NTI687865865.node = NNI687865865;
 var NNI1358954500 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "a0", len: 0, typ: NTI1358954499, name: "a0", sons: null}, 
 {kind: 1, offset: "a1", len: 0, typ: NTI1358954499, name: "a1", sons: null}]};
 NTI1358954500.node = NNI1358954500;
+var NNI889192517 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "a", len: 0, typ: NTI33554435, name: "a", sons: null}, 
+{kind: 1, offset: "b", len: 0, typ: NTI33554435, name: "b", sons: null}]};
+NTI889192517.node = NNI889192517;
 NTI838861173.base = NTI33554449;
 var NNI1291845637 = {kind: 2, offset: 0, typ: null, name: null, len: 3, sons: {"0": {kind: 1, offset: 0, typ: NTI1291845637, name: "Id", len: 0, sons: null}, 
 "1": {kind: 1, offset: 1, typ: NTI1291845637, name: "Handshake", len: 0, sons: null}, 
@@ -5587,31 +5591,50 @@ function rand_1358954607(r_1358954609, max_1358954610) {
 
 }
 
-function rand_1358954603(r_1358954604, max_1358954605) {
-  var result_1358954606 = 0;
+function rand_1291845701(r_1291845703, x_1291845704) {
+  var result_1291845705 = 0;
 
-  var F = {procname: "random.rand", prev: framePtr, filename: "/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/pure/random.nim", line: 0};
+  var F = {procname: "rand.rand", prev: framePtr, filename: "/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/pure/random.nim", line: 0};
   framePtr = F;
-    F.line = 244;
+    if (!((x_1291845704.a <= x_1291845704.b))) {
+    F.line = 339;
     F.filename = "random.nim";
-    result_1358954606 = Number(BigInt.asIntN(32, rand_1358954607(r_1358954604, BigInt.asUintN(64, BigInt(max_1358954605)))));
+    failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/pure/random.nim(339, 3) `x.a <= x.b` "));
+    }
+    
+    F.line = 346;
+    result_1291845705 = Number(BigInt.asIntN(32, BigInt.asUintN(64, (rand_1358954607(r_1291845703, BigInt.asUintN(64, (BigInt.asUintN(64, BigInt(x_1291845704.b)) - BigInt.asUintN(64, BigInt(x_1291845704.a))))) + BigInt.asUintN(64, BigInt(x_1291845704.a))))));
   framePtr = F.prev;
 
-  return result_1358954606;
+  return result_1291845705;
 
 }
 
-function rand_1358954632(max_1358954633) {
-  var result_1358954634 = 0;
+function rand_1291845693(x_1291845695) {
+  var result_1291845696 = 0;
 
-  var F = {procname: "random.rand", prev: framePtr, filename: "/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/pure/random.nim", line: 0};
+  var F = {procname: "rand.rand", prev: framePtr, filename: "/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/pure/random.nim", line: 0};
   framePtr = F;
-    F.line = 261;
+    F.line = 368;
     F.filename = "random.nim";
-    result_1358954634 = rand_1358954603(state_1358954510[0], chckRange(max_1358954633, 0, 2147483647));
+    result_1291845696 = rand_1291845701(state_1358954510[0], x_1291845695);
   framePtr = F.prev;
 
-  return result_1358954634;
+  return result_1291845696;
+
+}
+
+function HEX2EHEX2E_1056964656(a_1056964659, b_1056964660) {
+  var result_1056964661 = ({a: 0, b: 0});
+
+  var F = {procname: ".....", prev: framePtr, filename: "/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system.nim", line: 0};
+  framePtr = F;
+    F.line = 418;
+    F.filename = "system.nim";
+    result_1056964661 = nimCopy(result_1056964661, {a: a_1056964659, b: b_1056964660}, NTI889192517);
+  framePtr = F.prev;
+
+  return result_1056964661;
 
 }
 
@@ -6011,25 +6034,25 @@ function messageType_1291845650(data_1291845651) {
 
 function newHost_1291845673(cb_1291845677) {
     
-function HEX3Aanonymous_1291845705(id_1291845706) {
+function HEX3Aanonymous_1291845737(id_1291845738) {
       var F = {procname: "newHost.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
       framePtr = F;
         F.line = 34;
         F.filename = "port.nim";
-        cb_1291845677(HEX24_369098760(roomId_1291845684), 0);
+        cb_1291845677(HEX24_369098760(roomId_1291845716), 0);
       framePtr = F.prev;
 
       
     }
     
-function HEX3Aanonymous_1291845734(c_1291845735) {
+function HEX3Aanonymous_1291845766(c_1291845767) {
         
-function HEX3Aanonymous_1291845736(data_1291845737) {
+function HEX3Aanonymous_1291845768(data_1291845769) {
           var F = {procname: ":anonymous.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
           framePtr = F;
             F.line = 37;
             F.filename = "port.nim";
-            cb_1291845677(cutMessage_1291845670(data_1291845737), messageType_1291845650(data_1291845737));
+            cb_1291845677(cutMessage_1291845670(data_1291845769), messageType_1291845650(data_1291845769));
           framePtr = F.prev;
 
           
@@ -6039,26 +6062,26 @@ function HEX3Aanonymous_1291845736(data_1291845737) {
       framePtr = F;
         F.line = 36;
         F.filename = "port.nim";
-        conn_1291845686 = c_1291845735;
-        conn_1291845686.on(("data"), (HEX3Aanonymous_1291845736));
+        conn_1291845718 = c_1291845767;
+        conn_1291845718.on(("data"), (HEX3Aanonymous_1291845768));
       framePtr = F.prev;
 
       
     }
     
-function HEX3Aanonymous_1291845775() {
+function HEX3Aanonymous_1291845807() {
       var F = {procname: "newHost.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
       framePtr = F;
-        peer_1291845685.destroy();
+        peer_1291845717.destroy();
       framePtr = F.prev;
 
       
     }
     
-function HEX3Aanonymous_1291845780(data_1291845781) {
+function HEX3Aanonymous_1291845812(data_1291845813) {
       var F = {procname: "newHost.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
       framePtr = F;
-        conn_1291845686.send((data_1291845781));
+        conn_1291845718.send((data_1291845813));
       framePtr = F.prev;
 
       
@@ -6072,17 +6095,17 @@ function HEX3Aanonymous_1291845780(data_1291845781) {
     F.filename = "port.nim";
     randomize_1358954794();
     F.line = 30;
-    var roomId_1291845684 = rand_1358954632(10000);
+    var roomId_1291845716 = rand_1291845693(HEX2EHEX2E_1056964656(10000, 99999));
     F.line = 31;
-    var peer_1291845685 = new Peer(("9e4ada91-c493-4fd4-881d-3e05db99e100" + toJSStr(HEX24_369098760(roomId_1291845684))));
+    var peer_1291845717 = new Peer(("9e4ada91-c493-4fd4-881d-3e05db99e100" + toJSStr(HEX24_369098760(roomId_1291845716))));
     F.line = 32;
-    var conn_1291845686 = null;
-    peer_1291845685.on(("open"), (HEX3Aanonymous_1291845705));
-    peer_1291845685.on(("connection"), (HEX3Aanonymous_1291845734));
+    var conn_1291845718 = null;
+    peer_1291845717.on(("open"), (HEX3Aanonymous_1291845737));
+    peer_1291845717.on(("connection"), (HEX3Aanonymous_1291845766));
     F.line = 39;
-    result_1291845683.Field1 = HEX3Aanonymous_1291845775;
+    result_1291845683.Field1 = HEX3Aanonymous_1291845807;
     F.line = 42;
-    result_1291845683.Field0 = HEX3Aanonymous_1291845780;
+    result_1291845683.Field0 = HEX3Aanonymous_1291845812;
   framePtr = F.prev;
 
   return result_1291845683;
@@ -6826,30 +6849,30 @@ function HEX3Aanonymous_520093944() {
 
 }
 
-function newJoin_1291845808(id_1291845809, cb_1291845813) {
+function newJoin_1291845840(id_1291845841, cb_1291845845) {
     
-function HEX3Aanonymous_1291845822() {
+function HEX3Aanonymous_1291845854() {
         
-function HEX3Aanonymous_1291845834() {
-          var result_1291845835 = null;
+function HEX3Aanonymous_1291845866() {
+          var result_1291845867 = null;
 
           var F = {procname: ":anonymous.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
           framePtr = F;
             F.line = 51;
             F.filename = "port.nim";
-            result_1291845835 = conn_1291845821.send(("handshake: hello"));
+            result_1291845867 = conn_1291845853.send(("handshake: hello"));
           framePtr = F.prev;
 
-          return result_1291845835;
+          return result_1291845867;
 
         }
         
-function HEX3Aanonymous_1291845865(data_1291845866) {
+function HEX3Aanonymous_1291845897(data_1291845898) {
           var F = {procname: ":anonymous.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
           framePtr = F;
             F.line = 52;
             F.filename = "port.nim";
-            cb_1291845813(cutMessage_1291845670(data_1291845866), messageType_1291845650(data_1291845866));
+            cb_1291845845(cutMessage_1291845670(data_1291845898), messageType_1291845650(data_1291845898));
           framePtr = F.prev;
 
           
@@ -6859,49 +6882,49 @@ function HEX3Aanonymous_1291845865(data_1291845866) {
       framePtr = F;
         F.line = 50;
         F.filename = "port.nim";
-        conn_1291845821 = peer_1291845820.connect((("9e4ada91-c493-4fd4-881d-3e05db99e100" + id_1291845809)));
-        conn_1291845821.on(("open"), (HEX3Aanonymous_1291845834));
-        conn_1291845821.on(("data"), (HEX3Aanonymous_1291845865));
+        conn_1291845853 = peer_1291845852.connect((("9e4ada91-c493-4fd4-881d-3e05db99e100" + id_1291845841)));
+        conn_1291845853.on(("open"), (HEX3Aanonymous_1291845866));
+        conn_1291845853.on(("data"), (HEX3Aanonymous_1291845897));
       framePtr = F.prev;
 
       
     }
     
-function HEX3Aanonymous_1291845904() {
+function HEX3Aanonymous_1291845936() {
       var F = {procname: "newJoin.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
       framePtr = F;
-        peer_1291845820.destroy();
+        peer_1291845852.destroy();
       framePtr = F.prev;
 
       
     }
     
-function HEX3Aanonymous_1291845909(data_1291845910) {
+function HEX3Aanonymous_1291845941(data_1291845942) {
       var F = {procname: "newJoin.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
       framePtr = F;
-        conn_1291845821.send((data_1291845910));
+        conn_1291845853.send((data_1291845942));
       framePtr = F.prev;
 
       
     }
 
-  var result_1291845819 = {Field0: null, Field1: null};
+  var result_1291845851 = {Field0: null, Field1: null};
 
   var F = {procname: "port.newJoin", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
   framePtr = F;
     F.line = 47;
     F.filename = "port.nim";
-    var peer_1291845820 = new Peer();
+    var peer_1291845852 = new Peer();
     F.line = 48;
-    var conn_1291845821 = null;
-    peer_1291845820.on(("open"), (HEX3Aanonymous_1291845822));
+    var conn_1291845853 = null;
+    peer_1291845852.on(("open"), (HEX3Aanonymous_1291845854));
     F.line = 54;
-    result_1291845819.Field1 = HEX3Aanonymous_1291845904;
+    result_1291845851.Field1 = HEX3Aanonymous_1291845936;
     F.line = 57;
-    result_1291845819.Field0 = HEX3Aanonymous_1291845909;
+    result_1291845851.Field0 = HEX3Aanonymous_1291845941;
   framePtr = F.prev;
 
-  return result_1291845819;
+  return result_1291845851;
 
 }
 
@@ -6951,7 +6974,7 @@ function HEX3Aanonymous_520094198(__520094199, __520094200) {
         }
         
         F.line = 163;
-        peer_520093729[0] = nimCopy(peer_520093729[0], newJoin_1291845808(id_520094201, joinLogic_520093934), NTI520093705);
+        peer_520093729[0] = nimCopy(peer_520093729[0], newJoin_1291845840(id_520094201, joinLogic_520093934), NTI520093705);
       framePtr = F.prev;
 
       
