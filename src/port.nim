@@ -10,8 +10,28 @@ type
 
 const baseId: cstring = "9e4ada91-c493-4fd4-881d-3e05db99e100"
 
-proc newPeer*(): Peer {.importjs: "new Peer(null, {debug: 3})".}
-proc newPeer*(data: cstring): Peer {.importjs: "new Peer(#, {debug: 3})".}
+proc newPeer*(): Peer {.importjs:
+ """new Peer(null, {config: {
+                        iceServers: [
+                            {
+                                urls: "turn:standard.relay.metered.ca:80",
+                                username: "4eadefa5a1ad93a461469d19",
+                                credential: "wLlcdHP/D2ZcRAg/",
+                            }
+                        ]
+                    }
+                })""".}
+proc newPeer*(data: cstring): Peer {.importjs: 
+"""new Peer(#, {config: {
+                        iceServers: [
+                            {
+                                urls: "turn:standard.relay.metered.ca:80",
+                                username: "4eadefa5a1ad93a461469d19",
+                                credential: "wLlcdHP/D2ZcRAg/",
+                            }
+                        ]
+                    }
+                })""".}
 
 func messageType(data: cstring): MessageType =  
     var str = $data

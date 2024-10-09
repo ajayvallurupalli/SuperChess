@@ -5979,7 +5979,7 @@ function cutMessage_1308622886(data_1308622887) {
   var F = {procname: "port.cutMessage", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
   framePtr = F;
   BeforeRet: {
-    F.line = 26;
+    F.line = 46;
     F.filename = "port.nim";
     result_1308622888 = nimCopy(null, (Temporary1 = nsuSplitChar(cstrToNimstr(data_1308622887), 58, (-1)), Temporary1)[chckIndx(1, 0, (Temporary1).length - 1)], NTI33554449);
     break BeforeRet;
@@ -6235,23 +6235,23 @@ function messageType_1308622866(data_1308622867) {
   var F = {procname: "port.messageType", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
   framePtr = F;
   BeforeRet: {
-    F.line = 17;
+    F.line = 37;
     F.filename = "port.nim";
     var str_1308622869 = cstrToNimstr(data_1308622867);
     if (contains_838862678(str_1308622869, [105,100,58])) {
-    F.line = 19;
+    F.line = 39;
     result_1308622868 = 0;
     break BeforeRet;
     }
     else {
     if (contains_838862678(str_1308622869, [104,97,110,100,115,104,97,107,101,58])) {
-    F.line = 21;
+    F.line = 41;
     result_1308622868 = 1;
     break BeforeRet;
     }
     else {
     if (contains_838862678(str_1308622869, [109,111,118,101,58])) {
-    F.line = 23;
+    F.line = 43;
     result_1308622868 = 2;
     break BeforeRet;
     }
@@ -6268,7 +6268,7 @@ function newHost_1308622889(cb_1308622893) {
 function HEX3Aanonymous_1308622953(id_1308622954) {
       var F = {procname: "newHost.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
       framePtr = F;
-        F.line = 34;
+        F.line = 54;
         F.filename = "port.nim";
         cb_1308622893(HEX24_369098760(roomId_1308622932), 0);
       framePtr = F.prev;
@@ -6281,7 +6281,7 @@ function HEX3Aanonymous_1308622982(c_1308622983) {
 function HEX3Aanonymous_1308622984(data_1308622985) {
           var F = {procname: ":anonymous.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
           framePtr = F;
-            F.line = 37;
+            F.line = 57;
             F.filename = "port.nim";
             cb_1308622893(cutMessage_1308622886(data_1308622985), messageType_1308622866(data_1308622985));
           framePtr = F.prev;
@@ -6291,7 +6291,7 @@ function HEX3Aanonymous_1308622984(data_1308622985) {
 
       var F = {procname: "newHost.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
       framePtr = F;
-        F.line = 36;
+        F.line = 56;
         F.filename = "port.nim";
         conn_1308622934 = c_1308622983;
         conn_1308622934.on(("data"), (HEX3Aanonymous_1308622984));
@@ -6322,20 +6322,29 @@ function HEX3Aanonymous_1308623028(data_1308623029) {
 
   var F = {procname: "port.newHost", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
   framePtr = F;
-    F.line = 29;
+    F.line = 49;
     F.filename = "port.nim";
     randomize_1375732010();
-    F.line = 30;
+    F.line = 50;
     var roomId_1308622932 = rand_1308622909(HEX2EHEX2E_1056964656(10000, 99999));
-    F.line = 31;
-    var peer_1308622933 = new Peer(("9e4ada91-c493-4fd4-881d-3e05db99e100" + toJSStr(HEX24_369098760(roomId_1308622932))), {debug: 3});
-    F.line = 32;
+    F.line = 51;
+    var peer_1308622933 = new Peer(("9e4ada91-c493-4fd4-881d-3e05db99e100" + toJSStr(HEX24_369098760(roomId_1308622932))), {config: {
+                        iceServers: [
+                            {
+                                urls: "turn:standard.relay.metered.ca:80",
+                                username: "4eadefa5a1ad93a461469d19",
+                                credential: "wLlcdHP/D2ZcRAg/",
+                            }
+                        ]
+                    }
+                });
+    F.line = 52;
     var conn_1308622934 = null;
     peer_1308622933.on(("open"), (HEX3Aanonymous_1308622953));
     peer_1308622933.on(("connection"), (HEX3Aanonymous_1308622982));
-    F.line = 39;
+    F.line = 59;
     result_1308622899.Field1 = HEX3Aanonymous_1308623023;
-    F.line = 42;
+    F.line = 62;
     result_1308622899.Field0 = HEX3Aanonymous_1308623028;
   framePtr = F.prev;
 
@@ -7087,7 +7096,7 @@ function HEX3Aanonymous_1308623082() {
 
           var F = {procname: ":anonymous.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
           framePtr = F;
-            F.line = 51;
+            F.line = 71;
             F.filename = "port.nim";
             result_1308623083 = conn_1308623069.send(("handshake:hello"));
           framePtr = F.prev;
@@ -7099,7 +7108,7 @@ function HEX3Aanonymous_1308623082() {
 function HEX3Aanonymous_1308623113(data_1308623114) {
           var F = {procname: ":anonymous.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
           framePtr = F;
-            F.line = 52;
+            F.line = 72;
             F.filename = "port.nim";
             cb_1308623061(cutMessage_1308622886(data_1308623114), messageType_1308622866(data_1308623114));
           framePtr = F.prev;
@@ -7109,7 +7118,7 @@ function HEX3Aanonymous_1308623113(data_1308623114) {
 
       var F = {procname: "newJoin.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
       framePtr = F;
-        F.line = 50;
+        F.line = 70;
         F.filename = "port.nim";
         conn_1308623069 = peer_1308623068.connect((("9e4ada91-c493-4fd4-881d-3e05db99e100" + id_1308623057)));
         conn_1308623069.on(("open"), (HEX3Aanonymous_1308623082));
@@ -7141,15 +7150,24 @@ function HEX3Aanonymous_1308623157(data_1308623158) {
 
   var F = {procname: "port.newJoin", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/port.nim", line: 0};
   framePtr = F;
-    F.line = 47;
+    F.line = 67;
     F.filename = "port.nim";
-    var peer_1308623068 = new Peer(null, {debug: 3});
-    F.line = 48;
+    var peer_1308623068 = new Peer(null, {config: {
+                        iceServers: [
+                            {
+                                urls: "turn:standard.relay.metered.ca:80",
+                                username: "4eadefa5a1ad93a461469d19",
+                                credential: "wLlcdHP/D2ZcRAg/",
+                            }
+                        ]
+                    }
+                });
+    F.line = 68;
     var conn_1308623069 = null;
     peer_1308623068.on(("open"), (HEX3Aanonymous_1308623070));
-    F.line = 54;
+    F.line = 74;
     result_1308623067.Field1 = HEX3Aanonymous_1308623152;
-    F.line = 57;
+    F.line = 77;
     result_1308623067.Field0 = HEX3Aanonymous_1308623157;
   framePtr = F.prev;
 
