@@ -6097,7 +6097,7 @@ function HEX3Aanonymous_1291845812(data_1291845813) {
     F.line = 30;
     var roomId_1291845716 = rand_1291845693(HEX2EHEX2E_1056964656(10000, 99999));
     F.line = 31;
-    var peer_1291845717 = new Peer(("9e4ada91-c493-4fd4-881d-3e05db99e100" + toJSStr(HEX24_369098760(roomId_1291845716))));
+    var peer_1291845717 = new Peer(("9e4ada91-c493-4fd4-881d-3e05db99e100" + toJSStr(HEX24_369098760(roomId_1291845716))), {debug: 3});
     F.line = 32;
     var conn_1291845718 = null;
     peer_1291845717.on(("open"), (HEX3Aanonymous_1291845737));
