@@ -1,5 +1,8 @@
 import board, piece, std/options
-#export Shooter, ShooterFactory
+from std/sequtils import filterIt
+
+#hoisted up here because of some circular usage. also you can do that????
+func inCheck*(p: Piece, b: ChessBoard): bool
 
 #checks if `shoot(t)` is air in `board`. 
 #If it is, `shoot(t)` is added to `addTo` and returns true
@@ -92,6 +95,34 @@ const kingTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
     for i in -1..1:
         for j in -1..1:
             discard result.addIfTake(board, p, p.tile, shooterFactory(i,j))
+
+const kingCastles*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
+    if p.timesMoved != 0 or p.tile.file != 4: return @[]
+
+    if board[p.tile.rank][p.tile.file + 1].isAir() and
+        board[p.tile.rank][p.tile.file + 2].isAir() and
+        board[p.tile.rank][p.tile.file + 3].item == rook and
+        board[p.tile.rank][p.tile.file + 3].timesMoved == 0 and
+        not p.inCheck(board):
+            discard result.addIfTake(board, p, p.tile, shooterFactory(3, 0), cannibalismFlag = true)
+
+    if board[p.tile.rank][p.tile.file - 1].isAir() and
+        board[p.tile.rank][p.tile.file - 2].isAir() and
+        board[p.tile.rank][p.tile.file - 3].isAir() and
+        board[p.tile.rank][p.tile.file - 4].item == rook and
+        board[p.tile.rank][p.tile.file - 4].timesMoved == 0 and
+        not p.inCheck(board):
+            discard result.addIfTake(board, p, p.tile, shooterFactory(-4, 0), cannibalismFlag = true)
+
+func inCheck*(p: Piece, b: ChessBoard): bool = 
+    for i in 0..7:
+        for j in 0..7:
+            var piece = b[i][j]
+            if piece.item == king: piece.takes = filterIt(piece.takes, it != kingCastles)
+            if not piece.isAir() and not p.sameColor(piece) and p.tile in piece.getTakesOn(b):
+                return true
+
+    return false
 
 const rookMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
     result.add(lineMoves(board, p, tileAbove))

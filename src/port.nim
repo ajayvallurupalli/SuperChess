@@ -19,7 +19,7 @@ func messageType(data: cstring): MessageType =
         return Id
     elif "handshake:" in str:
         return Handshake
-    elif "move: " in str:
+    elif "move:" in str:
         return Move
 
 func cutMessage(data: cstring): string = 
@@ -48,7 +48,7 @@ proc newJoin*(id: cstring, cb: proc(data: string, messageType: MessageType)): tu
     var conn: Connection
     peer.on("open", proc () = 
         conn = peer.connect(baseId & id)
-        conn.on("open", () => conn.send("handshake: hello"))
+        conn.on("open", () => conn.send("handshake:hello"))
         conn.on("data", (data: cstring) => cb(cutMessage(data), messageType(data))))
     
     result.destroy = proc () = 

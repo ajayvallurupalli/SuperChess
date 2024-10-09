@@ -1,9 +1,15 @@
 td {
-    padding-block: 30px;
+    min-width: 80px;
+    min-height: 80px;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    vertical-align: middle;
 }
 
-html, body {
+html, body{
     height: 100%;
+    width: 100%;
 }
 
 .main {

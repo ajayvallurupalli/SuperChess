@@ -12,8 +12,8 @@ echo "test"
 
 var roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
 var peer: tuple[send: proc(data: cstring), destroy: proc()]
-var side: Color
-var turn: bool
+var side: Color# = white #only for testing, delete
+var turn: bool# = true #only for testing
 var theBoard: ChessBoard = startingBoard()
 var selectedTile: Tile = (file: -1, rank: -1)
 var possibleMoves: Moves = @[]
@@ -23,8 +23,8 @@ var currentScreen = Lobby
 proc pieceOf(tile: Tile): Piece = 
     theBoard[tile.rank][tile.file]
 
-proc isSelected(m: int, n: int): bool = 
-    return selectedTile.rank == m and selectedTile.file == n
+proc isSelected(n: int, m: int): bool = 
+    return selectedTile.rank == n and selectedTile.file == m
 
 proc otherMove(d: string) = 
     let data = split(d, ",")
@@ -35,7 +35,6 @@ proc otherMove(d: string) =
         pieceOf(mover).onMove(mover, moveTo, theBoard)
     elif data[0] == " take":
         pieceOf(mover).onTake(mover, moveTo, theBoard)
-    pieceOf(moveTo).onEndTurn(moveTo, mover, theBoard)
     turn = not turn
 
 proc sendMove(mode: string, start: Tile, to: Tile) = 
@@ -86,22 +85,20 @@ proc createTile(p: Piece, m: int, n: int): VNode =
 
     result = buildHtml():
         td(class=class):
-            proc onclick(_: Event; _: VNode) =                      
+            proc onclick(_: Event; _: VNode) =           
                 if possibleMoves.contains(p.tile) and p.isAir() and turn and pieceOf(selectedTile).isColor(side):
                     sendMove("move", selectedTile, p.tile)
                     pieceOf(selectedTile).onMove(selectedTile, p.tile, theBoard)
-                    pieceOf(p.tile).onEndTurn(p.tile, selectedTile, theBoard)
                     possibleMoves = @[]
                     selectedTile = (-1,-1)
                     possibleTakes = @[]
                 elif possibleTakes.contains(p.tile) and not p.isAir() and turn and pieceOf(selectedTile).isColor(side):
                     sendMove("take", selectedTile, p.tile)
                     pieceOf(selectedTile).onTake(selectedTile, p.tile, theBoard)
-                    pieceOf(p.tile).onEndTurn(p.tile, selectedTile, theBoard)
                     possibleTakes = @[]
                     selectedTile = (-1, -1)
                     possibleMoves = @[]
-                elif not isSelected(n, m):
+                elif not isSelected(m, n):
                     selectedTile = (n, m)
                     possibleMoves = p.getMovesOn(theBoard)        
                     possibleTakes = p.getTakesOn(theBoard)            
@@ -110,7 +107,7 @@ proc createTile(p: Piece, m: int, n: int): VNode =
                     possibleMoves = @[]
                     possibleTakes = @[]
 
-            text $p
+            text $p & ""
 
 proc createBoard(): VNode =
     result = buildHtml(tdiv):
@@ -123,7 +120,7 @@ proc reverseBoard(): VNode =
     result = buildHtml(tdiv):
         for i in countdown(7, 0):
             tr:
-                for j in 0..7:
+                for j in countdown(7, 0):
                     createTile(theBoard[i][j], i, j)
 
 proc createLobby(): VNode = 
