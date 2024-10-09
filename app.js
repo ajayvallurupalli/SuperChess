@@ -6914,7 +6914,7 @@ function HEX3Aanonymous_1291845941(data_1291845942) {
   framePtr = F;
     F.line = 47;
     F.filename = "port.nim";
-    var peer_1291845852 = new Peer();
+    var peer_1291845852 = new Peer(null, {debug: 3});
     F.line = 48;
     var conn_1291845853 = null;
     peer_1291845852.on(("open"), (HEX3Aanonymous_1291845854));

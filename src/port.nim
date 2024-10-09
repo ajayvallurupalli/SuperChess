@@ -10,7 +10,7 @@ type
 
 const baseId: cstring = "9e4ada91-c493-4fd4-881d-3e05db99e100"
 
-proc newPeer*(): Peer {.importjs: "new Peer()".}
+proc newPeer*(): Peer {.importjs: "new Peer(null, {debug: 3})".}
 proc newPeer*(data: cstring): Peer {.importjs: "new Peer(#, {debug: 3})".}
 
 func messageType(data: cstring): MessageType =  
