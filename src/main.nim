@@ -89,13 +89,13 @@ proc createTile(p: Piece, m: int, n: int): VNode =
         td(class=class):
             proc onclick(_: Event; _: VNode) =           
                 if possibleMoves.contains(p.tile) and p.isAir() and turn and pieceOf(selectedTile).isColor(side):
-                    #sendMove("move", selectedTile, p.tile)
+                    sendMove("move", selectedTile, p.tile)
                     pieceOf(selectedTile).onMove(selectedTile, p.tile, theBoard)
                     possibleMoves = @[]
                     selectedTile = (-1,-1)
                     possibleTakes = @[]
                 elif possibleTakes.contains(p.tile) and not p.isAir() and turn and pieceOf(selectedTile).isColor(side):
-                    #endMove("take", selectedTile, p.tile)
+                    sendMove("take", selectedTile, p.tile)
                     pieceOf(selectedTile).onTake(selectedTile, p.tile, theBoard)
                     possibleTakes = @[]
                     selectedTile = (-1, -1)
