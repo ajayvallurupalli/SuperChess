@@ -12,13 +12,13 @@ proc rookWhenTake(taker: Tile, taken: Tile, board: var ChessBoard): Tile =
                 board[taker.rank][taker.file] = Piece(item: none, tile: (taker.rank, taker.file))
                 board[taker.rank][taker.file - 1] = board[taken.rank][taken.file]
                 board[taken.rank][taken.file] = Piece(item: none, tile: (taker.rank, taker.file))
-                return (0, 0)
+                return (taker.rank, taker.file - 1)
             else:
                 board[taker.rank][taker.file + 2] = board[taker.rank][taker.file]
                 board[taker.rank][taker.file] = Piece(item: none, tile: (taker.rank, taker.file))
                 board[taker.rank][taker.file + 1] = board[taken.rank][taken.file]
                 board[taken.rank][taken.file] = Piece(item: none, tile: (taker.rank, taker.file))
-                return (0, 0)
+                return (taker.rank, taker.file + 1)
     else:
         return defaultWhenTake(taker, taken, board)
 
