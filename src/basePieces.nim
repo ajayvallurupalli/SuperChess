@@ -32,27 +32,27 @@ proc rookWhenTake(taker: Tile, taken: Tile, board: var ChessBoard): Tile =
 #its annoying to have to do the defaults here, but I couldn't find another way
 const
     blackRook*: Piece = Piece(item: rook, color: black, moves: @[rookMoves], takes: @[rookTakes], onMove: defaultOnMove, onTake: defaultOnTake, whenTake: rookWhenTake, onEndTurn: defaultOnEndTurn,
-                                filePath: "https://upload.wikimedia.org/wikipedia/commons/f/ff/Chess_rdt45.svg")
+                                filePath: "./icons/blackrook.svg")
     blackKnight*: Piece = Piece(item: knight, color: black, moves: @[knightMoves], takes: @[knightTakes], onMove: defaultOnMove, onTake: defaultOnTake, whenTake: defaultWhenTake, onEndTurn: defaultOnEndTurn,
-                                filePath: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Chess_ndt45.svg")
+                                filePath: "./icons/blackknight.svg")
     blackQueen*: Piece = Piece(item: queen, color: black, moves: queenMoves, takes: queenTakes, onMove: defaultOnMove, onTake: defaultOnTake, whenTake: defaultWhenTake, onEndTurn: defaultOnEndTurn,
-                                filePath: "https://upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg")
+                                filePath: "./icons/blackqueen.svg")
     blackKing*: Piece = Piece(item: king, color: black, moves: @[kingMoves], takes: @[kingTakes, kingCastles], onMove: defaultOnMove, onTake: defaultOnTake, whenTake: defaultWhenTake, onEndTurn: defaultOnEndTurn, 
-                                filePath: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg")
+                                filePath: "./icons/blackking.svg")
  
     blackBishop*: Piece = Piece(item: bishop, color: black, moves: @[bishopMoves], takes: @[bishopTakes], onMove: defaultOnMove, onTake: defaultOnTake, whenTake: defaultWhenTake, onEndTurn: defaultOnEndTurn,
-                                filePath: "https://upload.wikimedia.org/wikipedia/commons/9/98/Chess_bdt45.svg")
+                                filePath: "./icons/blackbishop.svg")
 
     whiteRook*: Piece = Piece(item: rook, color: white, moves: @[rookMoves], takes: @[rookTakes], onMove: defaultOnMove, onTake: defaultOnTake, whenTake: rookWhenTake, onEndTurn: defaultOnEndTurn,
-                                filePath: "https://upload.wikimedia.org/wikipedia/commons/7/72/Chess_rlt45.svg")
+                                filePath: "./icons/whiterook.svg")
     whiteKnight*: Piece = Piece(item: knight, color: white, moves: @[knightMoves], takes: @[knightTakes], onMove: defaultOnMove, onTake: defaultOnTake, whenTake: defaultWhenTake, onEndTurn: defaultOnEndTurn,
-                                filePath: "https://upload.wikimedia.org/wikipedia/commons/7/70/Chess_nlt45.svg")
+                                filePath: "./icons/whiteknight.svg")
     whiteQueen*: Piece = Piece(item: queen, color: white, moves: queenMoves, takes: queenTakes, onMove: defaultOnMove, onTake: defaultOnTake, whenTake: defaultWhenTake, onEndTurn: defaultOnEndTurn,
-                                filePath: "https://upload.wikimedia.org/wikipedia/commons/1/15/Chess_qlt45.svg")
+                                filePath: "./icons/whitequeen.svg")
     whiteKing*: Piece = Piece(item: king, color: white, moves: @[kingMoves], takes: @[kingTakes, kingCastles], onMove: defaultOnMove, onTake: defaultOnTake, whenTake: defaultWhenTake, onEndTurn: defaultOnEndTurn,
-                                filePath: "https://upload.wikimedia.org/wikipedia/commons/4/42/Chess_klt45.svg")
+                                filePath: "./icons/whiteking.svg")
     whiteBishop*: Piece = Piece(item: bishop, color: white, moves: @[bishopMoves], takes: @[bishopTakes], onMove: defaultOnMove, onTake: defaultOnTake, whenTake: defaultWhenTake, onEndTurn: defaultOnEndTurn,
-                                filePath: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Chess_blt45.svg")
+                                filePath: "./icons/whitebishop.svg")
     air*: Piece = Piece(item: none, color: white)
 
 proc onPawnEnd*(taker: Tile, taken: Tile, board: var ChessBoard) = 
@@ -66,9 +66,9 @@ proc onPawnEnd*(taker: Tile, taken: Tile, board: var ChessBoard) =
 #edit it turns out you can do hoist like in moves.nim but I can't figure out how to do it here
 const 
     blackPawn*: Piece = Piece(item: pawn, color: black, moves: @[blackPawnMoves], takes: @[blackPawnTakes], onMove: defaultOnMove, onTake: defaultOnTake, whenTake: defaultWhenTake, onEndTurn: onPawnEnd, 
-                                filePath: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg")
+                                filePath: "./icons/blackpawn.svg")
     whitePawn*: Piece = Piece(item: pawn, color: white, moves: @[whitePawnMoves], takes: @[whitePawnTakes], onMove: defaultOnMove, onTake: defaultOnTake, whenTake: defaultWhenTake, onEndTurn: onPawnEnd,
-                                filePath: "https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg")
+                                filePath: "./icons/whitepawn.svg")
 
 proc startingBoard*(): ChessBoard = 
     result = [[blackRook, blackKnight, blackBishop, blackQueen, blackKing, blackBishop, blackKnight, blackRook],

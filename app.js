@@ -4,9 +4,9 @@ var excHandler = 0;
 var lastJSError = null;
 var NTI1207959562 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
 var NTI721420574 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
-var NTI520093711 = {size: 0,kind: 25,base: null,node: null,finalizer: null};
-var NTI520093710 = {size: 0,kind: 25,base: null,node: null,finalizer: null};
-var NTI520093709 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
+var NTI520093707 = {size: 0,kind: 25,base: null,node: null,finalizer: null};
+var NTI520093706 = {size: 0,kind: 25,base: null,node: null,finalizer: null};
+var NTI520093705 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
 var NTI33555179 = {size: 0, kind: 17, base: null, node: null, finalizer: null};
 var NTI134217746 = {size: 0, kind: 17, base: null, node: null, finalizer: null};
 var NTI134217742 = {size: 0, kind: 17, base: null, node: null, finalizer: null};
@@ -137,10 +137,10 @@ var NTI134217741 = {size: 0, kind: 17, base: null, node: null, finalizer: null};
 var NTI134217743 = {size: 0, kind: 17, base: null, node: null, finalizer: null};
 var NTI33554450 = {size: 0,kind: 29,base: null,node: null,finalizer: null};
 var NTI33554466 = {size: 0,kind: 1,base: null,node: null,finalizer: null};
-var NTI520093707 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
-var NNI520093707 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI33554466, name: "Field0", sons: null}, 
+var NTI520093703 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
+var NNI520093703 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI33554466, name: "Field0", sons: null}, 
 {kind: 1, offset: "Field1", len: 0, typ: NTI33554450, name: "Field1", sons: null}]};
-NTI520093707.node = NNI520093707;
+NTI520093703.node = NNI520093703;
 var NNI134217743 = {kind: 2, len: 0, offset: 0, typ: null, name: null, sons: []};
 NTI134217743.node = NNI134217743;
 var NNI134217741 = {kind: 2, len: 0, offset: 0, typ: null, name: null, sons: []};
@@ -1100,83 +1100,11 @@ var NNI33555179 = {kind: 2, len: 0, offset: 0, typ: null, name: null, sons: []};
 NTI33555179.node = NNI33555179;
 NTI33555179.base = NTI33555177;
 NTI134217746.base = NTI33555179;
-var NNI520093709 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI520093710, name: "Field0", sons: null}, 
-{kind: 1, offset: "Field1", len: 0, typ: NTI520093711, name: "Field1", sons: null}]};
-NTI520093709.node = NNI520093709;
+var NNI520093705 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI520093706, name: "Field0", sons: null}, 
+{kind: 1, offset: "Field1", len: 0, typ: NTI520093707, name: "Field1", sons: null}]};
+NTI520093705.node = NNI520093705;
 NTI721420574.base = NTI33554450;
 NTI1207959562.base = NTI1207959555;
-
-function toJSStr(s_33556901) {
-  var result_33556902 = null;
-
-    var res_33556943 = newSeq_33556919((s_33556901).length);
-    var i_33556944 = 0;
-    var j_33556945 = 0;
-    Label1: {
-        Label2: while (true) {
-        if (!(i_33556944 < (s_33556901).length)) break Label2;
-          var c_33556946 = s_33556901[i_33556944];
-          if ((c_33556946 < 128)) {
-          res_33556943[j_33556945] = String.fromCharCode(c_33556946);
-          i_33556944 += 1;
-          }
-          else {
-            var helper_33556959 = newSeq_33556919(0);
-            Label3: {
-                Label4: while (true) {
-                if (!true) break Label4;
-                  var code_33556960 = c_33556946.toString(16);
-                  if ((((code_33556960) == null ? 0 : (code_33556960).length) == 1)) {
-                  helper_33556959.push("%0");;
-                  }
-                  else {
-                  helper_33556959.push("%");;
-                  }
-                  
-                  helper_33556959.push(code_33556960);;
-                  i_33556944 += 1;
-                  if ((((s_33556901).length <= i_33556944) || (s_33556901[i_33556944] < 128))) {
-                  break Label3;
-                  }
-                  
-                  c_33556946 = s_33556901[i_33556944];
-                }
-            };
-++excHandler;
-            try {
-            res_33556943[j_33556945] = decodeURIComponent(helper_33556959.join(""));
---excHandler;
-} catch (EXCEPTION) {
- var prevJSError = lastJSError;
- lastJSError = EXCEPTION;
- --excHandler;
-            res_33556943[j_33556945] = helper_33556959.join("");
-            lastJSError = prevJSError;
-            } finally {
-            }
-          }
-          
-          j_33556945 += 1;
-        }
-    };
-    if (res_33556943.length < j_33556945) { for (var i = res_33556943.length ; i < j_33556945 ; ++i) res_33556943.push(null); }
-               else { res_33556943.length = j_33556945; };
-    result_33556902 = res_33556943.join("");
-
-  return result_33556902;
-
-}
-
-function rawEcho() {
-          var buf = "";
-      for (var i = 0; i < arguments.length; ++i) {
-        buf += toJSStr(arguments[i]);
-      }
-      console.log(buf);
-    
-
-  
-}
 
 function setConstr() {
         var result = {};
@@ -1388,6 +1316,67 @@ function cstrToNimstr(c_33556898) {
   
 }
 
+function toJSStr(s_33556901) {
+  var result_33556902 = null;
+
+    var res_33556943 = newSeq_33556919((s_33556901).length);
+    var i_33556944 = 0;
+    var j_33556945 = 0;
+    Label1: {
+        Label2: while (true) {
+        if (!(i_33556944 < (s_33556901).length)) break Label2;
+          var c_33556946 = s_33556901[i_33556944];
+          if ((c_33556946 < 128)) {
+          res_33556943[j_33556945] = String.fromCharCode(c_33556946);
+          i_33556944 += 1;
+          }
+          else {
+            var helper_33556959 = newSeq_33556919(0);
+            Label3: {
+                Label4: while (true) {
+                if (!true) break Label4;
+                  var code_33556960 = c_33556946.toString(16);
+                  if ((((code_33556960) == null ? 0 : (code_33556960).length) == 1)) {
+                  helper_33556959.push("%0");;
+                  }
+                  else {
+                  helper_33556959.push("%");;
+                  }
+                  
+                  helper_33556959.push(code_33556960);;
+                  i_33556944 += 1;
+                  if ((((s_33556901).length <= i_33556944) || (s_33556901[i_33556944] < 128))) {
+                  break Label3;
+                  }
+                  
+                  c_33556946 = s_33556901[i_33556944];
+                }
+            };
+++excHandler;
+            try {
+            res_33556943[j_33556945] = decodeURIComponent(helper_33556959.join(""));
+--excHandler;
+} catch (EXCEPTION) {
+ var prevJSError = lastJSError;
+ lastJSError = EXCEPTION;
+ --excHandler;
+            res_33556943[j_33556945] = helper_33556959.join("");
+            lastJSError = prevJSError;
+            } finally {
+            }
+          }
+          
+          j_33556945 += 1;
+        }
+    };
+    if (res_33556943.length < j_33556945) { for (var i = res_33556943.length ; i < j_33556945 ; ++i) res_33556943.push(null); }
+               else { res_33556943.length = j_33556945; };
+    result_33556902 = res_33556943.join("");
+
+  return result_33556902;
+
+}
+
 function raiseException(e_33556653, ename_33556654) {
     e_33556653.name = ename_33556654;
     if ((excHandler == 0)) {
@@ -1429,6 +1418,17 @@ function makeNimstrLit(c_33556895) {
   
 }
 
+function rawEcho() {
+          var buf = "";
+      for (var i = 0; i < arguments.length; ++i) {
+        buf += toJSStr(arguments[i]);
+      }
+      console.log(buf);
+    
+
+  
+}
+
 function reprEnum(e_33557576, typ_33557577) {
   var result_33557578 = [];
 
@@ -1455,8 +1455,8 @@ function reprEnum(e_33557576, typ_33557577) {
   return result_33557578;
 
 }
-    var whiteQueen_1224736856 = {item: 1, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514382, HEX3Aanonymous_1241514340, HEX3Aanonymous_1241514217], takes: [HEX3Aanonymous_1241514403, HEX3Aanonymous_1241514361, HEX3Aanonymous_1241514232], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/1/15/Chess_qlt45.svg")};
-    var blackQueen_1224736819 = {item: 1, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514382, HEX3Aanonymous_1241514340, HEX3Aanonymous_1241514217], takes: [HEX3Aanonymous_1241514403, HEX3Aanonymous_1241514361, HEX3Aanonymous_1241514232], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg")};
+    var whiteQueen_1224736856 = {item: 1, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514382, HEX3Aanonymous_1241514340, HEX3Aanonymous_1241514217], takes: [HEX3Aanonymous_1241514403, HEX3Aanonymous_1241514361, HEX3Aanonymous_1241514232], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,119,104,105,116,101,113,117,101,101,110,46,115,118,103]};
+    var blackQueen_1224736819 = {item: 1, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514382, HEX3Aanonymous_1241514340, HEX3Aanonymous_1241514217], takes: [HEX3Aanonymous_1241514403, HEX3Aanonymous_1241514361, HEX3Aanonymous_1241514232], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,98,108,97,99,107,113,117,101,101,110,46,115,118,103]};
 var ConstSet2 = setConstr([88, 148]);
       var toTag_721420612 = ["#text", "#int", "#bool", "#vthunk", "#dthunk", "#component", "#verbatim", "html", "head", "title", "base", "link", "meta", "style", "script", "noscript", "body", "section", "nav", "article", "aside", "h1", "h2", "h3", "h4", "h5", "h6", "hgroup", "header", "footer", "address", "main", "p", "hr", "pre", "blockquote", "ol", "ul", "li", "dl", "dt", "dd", "figure", "figcaption", "div", "a", "em", "strong", "small", "s", "cite", "quote", "dfn", "abbr", "data", "time", "code", "var", "samp", "kbd", "sub", "sup", "i", "b", "u", "mark", "ruby", "rt", "rp", "bdi", "dbo", "span", "br", "wbr", "ins", "del", "img", "iframe", "embed", "object", "param", "video", "audio", "source", "track", "canvas", "map", "area", "animate", "animateMotion", "animateTransform", "circle", "clipPath", "defs", "desc", "discard", "ellipse", "feBlend", "feColorMatrix", "feComponentTransfer", "feComposite", "feConvolveMatrix", "feDiffuseLighting", "feDisplacementMap", "feDistantLight", "feDropShadow", "feFlood", "feFuncA", "feFuncB", "feFuncG", "feFuncR", "feGaussianBlur", "feImage", "feMerge", "feMergeNode", "feMorphology", "feOffset", "fePointLight", "feSpecularLighting", "feSpotLight", "feTile", "feTurbulence", "filter", "foreignObject", "g", "image", "line", "linearGradient", "marker", "mask", "metadata", "mpath", "path", "pattern", "polygon", "polyline", "radialGradient", "rect", "set", "stop", "svg", "switch", "symbol", "text", "textPath", "tspan", "unknown", "use", "view", "maction", "math", "menclose", "merror", "mfenced", "mfrac", "mglyph", "mi", "mlabeledtr", "mmultiscripts", "mn", "mo", "mover", "mpadded", "mphantom", "mroot", "mrow", "ms", "mspace", "msqrt", "mstyle", "msub", "msubsup", "msup", "mtable", "mtd", "mtext", "mtr", "munder", "munderover", "semantics", "table", "caption", "colgroup", "col", "tbody", "thead", "tfoot", "tr", "td", "th", "form", "fieldset", "legend", "label", "input", "button", "select", "datalist", "optgroup", "option", "textarea", "keygen", "output", "progress", "meter", "details", "summary", "command", "menu", "bdo", "dialog", "slot", "template"];
 var ConstSet3 = setConstr([149, 179]);
@@ -1834,19 +1834,6 @@ var F = {procname: "module errors", prev: framePtr, filename: "/Users/ajayvallur
 framePtr = F;
 framePtr = F.prev;
 
-function newSeq_33556919(len_33556921) {
-  var result_33556922 = [];
-
-  var F = {procname: "newSeq.newSeq", prev: framePtr, filename: "/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system.nim", line: 0};
-  framePtr = F;
-    F.line = 633;
-    F.filename = "system.nim";
-    result_33556922 = new Array(len_33556921); for (var i = 0 ; i < len_33556921 ; ++i) { result_33556922[i] = null; }  framePtr = F.prev;
-
-  return result_33556922;
-
-}
-
 function isFatPointer_33557259(ti_33557260) {
   var result_33557261 = false;
 
@@ -1934,19 +1921,19 @@ function addChars_301990090(result_301990092, result_301990092_Idx, x_301990093,
       var iHEX60gensym4_301990110 = 0;
       F.line = 128;
       F.filename = "iterators_1.nim";
-      var i_520094270 = 0;
+      var i_520094268 = 0;
       Label3: {
         F.line = 129;
           Label4: while (true) {
-          if (!(i_520094270 < n_301990095)) break Label4;
+          if (!(i_520094268 < n_301990095)) break Label4;
             F.line = 49;
             F.filename = "digitsutils.nim";
-            iHEX60gensym4_301990110 = i_520094270;
+            iHEX60gensym4_301990110 = i_520094268;
             F.line = 46;
             result_301990092[result_301990092_Idx][chckIndx(addInt(old_301990096, iHEX60gensym4_301990110), 0, (result_301990092[result_301990092_Idx]).length - 1)] = x_301990093.charCodeAt(chckIndx(addInt(start_301990094, iHEX60gensym4_301990110), 0, (x_301990093).length - 1));
             F.line = 131;
             F.filename = "iterators_1.nim";
-            i_520094270 = addInt(i_520094270, 1);
+            i_520094268 = addInt(i_520094268, 1);
           }
       };
     };
@@ -2036,13 +2023,13 @@ function auxWriteStackTrace_33556508(f_33556509) {
     
     Label5: {
       var j_33556554 = 0;
-      var colontmp__520094262 = 0;
-      colontmp__520094262 = (i_33556519 - 1);
-      var res_520094264 = colontmp__520094262;
+      var colontmp__520094260 = 0;
+      colontmp__520094260 = (i_33556519 - 1);
+      var res_520094262 = colontmp__520094260;
       Label6: {
           Label7: while (true) {
-          if (!(0 <= res_520094264)) break Label7;
-            j_33556554 = res_520094264;
+          if (!(0 <= res_520094262)) break Label7;
+            j_33556554 = res_520094262;
             result_33556510[0].push.apply(result_33556510[0], cstrToNimstr(tempFrames_33556521[j_33556554].Field2));;
             if ((0 < tempFrames_33556521[j_33556554].Field1)) {
             result_33556510[0].push.apply(result_33556510[0], [40]);;
@@ -2058,7 +2045,7 @@ function auxWriteStackTrace_33556508(f_33556509) {
             result_33556510[0].push.apply(result_33556510[0], [32,97,116,32]);;
             add_33556373(result_33556510, 0, tempFrames_33556521[j_33556554].Field0);
             result_33556510[0].push.apply(result_33556510[0], [10]);;
-            res_520094264 -= 1;
+            res_520094262 -= 1;
           }
       };
     };
@@ -2079,6 +2066,19 @@ function rawWriteStackTrace_33556604() {
     
 
   return result_33556605;
+
+}
+
+function newSeq_33556919(len_33556921) {
+  var result_33556922 = [];
+
+  var F = {procname: "newSeq.newSeq", prev: framePtr, filename: "/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system.nim", line: 0};
+  framePtr = F;
+    F.line = 633;
+    F.filename = "system.nim";
+    result_33556922 = new Array(len_33556921); for (var i = 0 ; i < len_33556921 ; ++i) { result_33556922[i] = null; }  framePtr = F.prev;
+
+  return result_33556922;
 
 }
 
@@ -2138,25 +2138,25 @@ function add_1207959645(x_1207959647, x_1207959647_Idx, y_1207959648) {
       var i_1207959669 = 0;
       F.line = 81;
       F.filename = "iterators_1.nim";
-      var colontmp__520094256 = 0;
+      var colontmp__520094254 = 0;
       F.line = 1212;
       F.filename = "system.nim";
-      colontmp__520094256 = (y_1207959648).length - 1;
+      colontmp__520094254 = (y_1207959648).length - 1;
       F.line = 96;
       F.filename = "iterators_1.nim";
-      var res_520094257 = 0;
+      var res_520094255 = 0;
       Label3: {
         F.line = 97;
           Label4: while (true) {
-          if (!(res_520094257 <= colontmp__520094256)) break Label4;
+          if (!(res_520094255 <= colontmp__520094254)) break Label4;
             F.line = 1212;
             F.filename = "system.nim";
-            i_1207959669 = res_520094257;
+            i_1207959669 = res_520094255;
             F.line = 1212;
             x_1207959647[x_1207959647_Idx][chckIndx(addInt(xl_1207959653, i_1207959669), 0, (x_1207959647[x_1207959647_Idx]).length - 1)] = nimCopy(x_1207959647[x_1207959647_Idx][chckIndx(addInt(xl_1207959653, i_1207959669), 0, (x_1207959647[x_1207959647_Idx]).length - 1)], y_1207959648[chckIndx(i_1207959669, 0, (y_1207959648).length - 1)], NTI1207959555);
             F.line = 102;
             F.filename = "iterators_1.nim";
-            res_520094257 = addInt(res_520094257, 1);
+            res_520094255 = addInt(res_520094255, 1);
           }
       };
     };
@@ -3339,12 +3339,12 @@ function onPawnEnd_1224736876(taker_1224736877, taken_1224736878, board_12247368
     var pawn_1224736880 = nimCopy(null, board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)][chckIndx(taken_1224736878.Field0, 0, (board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)]).length - 1)], NTI1207959567);
     if (((taken_1224736878.Field1 == 0) && !(pawn_1224736880.promoted))) {
     F.line = 61;
-    board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)][chckIndx(taken_1224736878.Field0, 0, (board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)]).length - 1)] = nimCopy(board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)][chckIndx(taken_1224736878.Field0, 0, (board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)]).length - 1)], pieceCopy_1207959923(whiteQueen_1224736856, 1, 1, 0, pawn_1224736880.piecesTaken, pawn_1224736880.tile, whiteQueen_1224736856.moves, whiteQueen_1224736856.takes, defaultOnMove_1207959815, defaultOnTake_1207959885, defaultWhenTake_1207959749, defaultOnEndTurn_1207959745, true, makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/1/15/Chess_qlt45.svg")), NTI1207959567);
+    board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)][chckIndx(taken_1224736878.Field0, 0, (board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)]).length - 1)] = nimCopy(board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)][chckIndx(taken_1224736878.Field0, 0, (board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)]).length - 1)], pieceCopy_1207959923(whiteQueen_1224736856, 1, 1, 0, pawn_1224736880.piecesTaken, pawn_1224736880.tile, whiteQueen_1224736856.moves, whiteQueen_1224736856.takes, defaultOnMove_1207959815, defaultOnTake_1207959885, defaultWhenTake_1207959749, defaultOnEndTurn_1207959745, true, [46,47,105,99,111,110,115,47,119,104,105,116,101,113,117,101,101,110,46,115,118,103]), NTI1207959567);
     }
     else {
     if (((taken_1224736878.Field1 == 7) && !(pawn_1224736880.promoted))) {
     F.line = 63;
-    board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)][chckIndx(taken_1224736878.Field0, 0, (board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)]).length - 1)] = nimCopy(board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)][chckIndx(taken_1224736878.Field0, 0, (board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)]).length - 1)], pieceCopy_1207959923(blackQueen_1224736819, 1, 0, 0, pawn_1224736880.piecesTaken, pawn_1224736880.tile, blackQueen_1224736819.moves, blackQueen_1224736819.takes, defaultOnMove_1207959815, defaultOnTake_1207959885, defaultWhenTake_1207959749, defaultOnEndTurn_1207959745, true, makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg")), NTI1207959567);
+    board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)][chckIndx(taken_1224736878.Field0, 0, (board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)]).length - 1)] = nimCopy(board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)][chckIndx(taken_1224736878.Field0, 0, (board_1224736879[chckIndx(taken_1224736878.Field1, 0, (board_1224736879).length - 1)]).length - 1)], pieceCopy_1207959923(blackQueen_1224736819, 1, 0, 0, pawn_1224736880.piecesTaken, pawn_1224736880.tile, blackQueen_1224736819.moves, blackQueen_1224736819.takes, defaultOnMove_1207959815, defaultOnTake_1207959885, defaultWhenTake_1207959749, defaultOnEndTurn_1207959745, true, [46,47,105,99,111,110,115,47,98,108,97,99,107,113,117,101,101,110,46,115,118,103]), NTI1207959567);
     }
     }
   framePtr = F.prev;
@@ -3401,7 +3401,7 @@ function startingBoard_1224736899() {
   framePtr = F;
     F.line = 74;
     F.filename = "basePieces.nim";
-    result_1224736900 = nimCopy(result_1224736900, [[{item: 4, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514340], takes: [HEX3Aanonymous_1241514361], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: rookWhenTake_1224736771, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/f/ff/Chess_rdt45.svg")}, {item: 5, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514434], takes: [HEX3Aanonymous_1241514439], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/e/ef/Chess_ndt45.svg")}, {item: 2, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514382], takes: [HEX3Aanonymous_1241514403], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/9/98/Chess_bdt45.svg")}, {item: 1, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514382, HEX3Aanonymous_1241514340, HEX3Aanonymous_1241514217], takes: [HEX3Aanonymous_1241514403, HEX3Aanonymous_1241514361, HEX3Aanonymous_1241514232], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg")}, {item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514217], takes: [HEX3Aanonymous_1241514232, HEX3Aanonymous_1241514247], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg")}, {item: 2, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514382], takes: [HEX3Aanonymous_1241514403], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/9/98/Chess_bdt45.svg")}, {item: 5, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514434], takes: [HEX3Aanonymous_1241514439], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/e/ef/Chess_ndt45.svg")}, {item: 4, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514340], takes: [HEX3Aanonymous_1241514361], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: rookWhenTake_1224736771, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/f/ff/Chess_rdt45.svg")}], [{item: 3, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514206], takes: [HEX3Aanonymous_1241514212], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg")}, {item: 3, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514206], takes: [HEX3Aanonymous_1241514212], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg")}, {item: 3, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514206], takes: [HEX3Aanonymous_1241514212], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg")}, {item: 3, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514206], takes: [HEX3Aanonymous_1241514212], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg")}, {item: 3, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514206], takes: [HEX3Aanonymous_1241514212], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg")}, {item: 3, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514206], takes: [HEX3Aanonymous_1241514212], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg")}, {item: 3, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514206], takes: [HEX3Aanonymous_1241514212], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg")}, {item: 3, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514206], takes: [HEX3Aanonymous_1241514212], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg")}], [{item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}], [{item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}], [{item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}], [{item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}], [{item: 3, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514179], takes: [HEX3Aanonymous_1241514201], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg")}, {item: 3, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514179], takes: [HEX3Aanonymous_1241514201], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg")}, {item: 3, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514179], takes: [HEX3Aanonymous_1241514201], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg")}, {item: 3, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514179], takes: [HEX3Aanonymous_1241514201], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg")}, {item: 3, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514179], takes: [HEX3Aanonymous_1241514201], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg")}, {item: 3, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514179], takes: [HEX3Aanonymous_1241514201], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg")}, {item: 3, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514179], takes: [HEX3Aanonymous_1241514201], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg")}, {item: 3, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514179], takes: [HEX3Aanonymous_1241514201], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg")}], [{item: 4, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514340], takes: [HEX3Aanonymous_1241514361], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: rookWhenTake_1224736771, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/7/72/Chess_rlt45.svg")}, {item: 5, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514434], takes: [HEX3Aanonymous_1241514439], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/7/70/Chess_nlt45.svg")}, {item: 2, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514382], takes: [HEX3Aanonymous_1241514403], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/b/b1/Chess_blt45.svg")}, {item: 1, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514382, HEX3Aanonymous_1241514340, HEX3Aanonymous_1241514217], takes: [HEX3Aanonymous_1241514403, HEX3Aanonymous_1241514361, HEX3Aanonymous_1241514232], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/1/15/Chess_qlt45.svg")}, {item: 0, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514217], takes: [HEX3Aanonymous_1241514232, HEX3Aanonymous_1241514247], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/4/42/Chess_klt45.svg")}, {item: 2, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514382], takes: [HEX3Aanonymous_1241514403], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/b/b1/Chess_blt45.svg")}, {item: 5, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514434], takes: [HEX3Aanonymous_1241514439], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/7/70/Chess_nlt45.svg")}, {item: 4, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514340], takes: [HEX3Aanonymous_1241514361], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: rookWhenTake_1224736771, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: makeNimstrLit("https://upload.wikimedia.org/wikipedia/commons/7/72/Chess_rlt45.svg")}]], NTI1207959559);
+    result_1224736900 = nimCopy(result_1224736900, [[{item: 4, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514340], takes: [HEX3Aanonymous_1241514361], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: rookWhenTake_1224736771, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,98,108,97,99,107,114,111,111,107,46,115,118,103]}, {item: 5, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514434], takes: [HEX3Aanonymous_1241514439], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,98,108,97,99,107,107,110,105,103,104,116,46,115,118,103]}, {item: 2, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514382], takes: [HEX3Aanonymous_1241514403], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,98,108,97,99,107,98,105,115,104,111,112,46,115,118,103]}, {item: 1, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514382, HEX3Aanonymous_1241514340, HEX3Aanonymous_1241514217], takes: [HEX3Aanonymous_1241514403, HEX3Aanonymous_1241514361, HEX3Aanonymous_1241514232], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,98,108,97,99,107,113,117,101,101,110,46,115,118,103]}, {item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514217], takes: [HEX3Aanonymous_1241514232, HEX3Aanonymous_1241514247], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,98,108,97,99,107,107,105,110,103,46,115,118,103]}, {item: 2, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514382], takes: [HEX3Aanonymous_1241514403], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,98,108,97,99,107,98,105,115,104,111,112,46,115,118,103]}, {item: 5, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514434], takes: [HEX3Aanonymous_1241514439], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,98,108,97,99,107,107,110,105,103,104,116,46,115,118,103]}, {item: 4, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514340], takes: [HEX3Aanonymous_1241514361], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: rookWhenTake_1224736771, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,98,108,97,99,107,114,111,111,107,46,115,118,103]}], [{item: 3, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514206], takes: [HEX3Aanonymous_1241514212], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: [46,47,105,99,111,110,115,47,98,108,97,99,107,112,97,119,110,46,115,118,103]}, {item: 3, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514206], takes: [HEX3Aanonymous_1241514212], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: [46,47,105,99,111,110,115,47,98,108,97,99,107,112,97,119,110,46,115,118,103]}, {item: 3, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514206], takes: [HEX3Aanonymous_1241514212], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: [46,47,105,99,111,110,115,47,98,108,97,99,107,112,97,119,110,46,115,118,103]}, {item: 3, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514206], takes: [HEX3Aanonymous_1241514212], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: [46,47,105,99,111,110,115,47,98,108,97,99,107,112,97,119,110,46,115,118,103]}, {item: 3, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514206], takes: [HEX3Aanonymous_1241514212], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: [46,47,105,99,111,110,115,47,98,108,97,99,107,112,97,119,110,46,115,118,103]}, {item: 3, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514206], takes: [HEX3Aanonymous_1241514212], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: [46,47,105,99,111,110,115,47,98,108,97,99,107,112,97,119,110,46,115,118,103]}, {item: 3, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514206], takes: [HEX3Aanonymous_1241514212], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: [46,47,105,99,111,110,115,47,98,108,97,99,107,112,97,119,110,46,115,118,103]}, {item: 3, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514206], takes: [HEX3Aanonymous_1241514212], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: [46,47,105,99,111,110,115,47,98,108,97,99,107,112,97,119,110,46,115,118,103]}], [{item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}], [{item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}], [{item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}], [{item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}, {item: 6, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [], takes: [], onMove: {Field0: null, Field1: null}, onTake: {Field0: null, Field1: null}, whenTake: {Field0: null, Field1: null}, onEndTurn: {Field0: null, Field1: null}, promoted: false, filePath: []}], [{item: 3, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514179], takes: [HEX3Aanonymous_1241514201], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: [46,47,105,99,111,110,115,47,119,104,105,116,101,112,97,119,110,46,115,118,103]}, {item: 3, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514179], takes: [HEX3Aanonymous_1241514201], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: [46,47,105,99,111,110,115,47,119,104,105,116,101,112,97,119,110,46,115,118,103]}, {item: 3, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514179], takes: [HEX3Aanonymous_1241514201], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: [46,47,105,99,111,110,115,47,119,104,105,116,101,112,97,119,110,46,115,118,103]}, {item: 3, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514179], takes: [HEX3Aanonymous_1241514201], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: [46,47,105,99,111,110,115,47,119,104,105,116,101,112,97,119,110,46,115,118,103]}, {item: 3, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514179], takes: [HEX3Aanonymous_1241514201], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: [46,47,105,99,111,110,115,47,119,104,105,116,101,112,97,119,110,46,115,118,103]}, {item: 3, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514179], takes: [HEX3Aanonymous_1241514201], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: [46,47,105,99,111,110,115,47,119,104,105,116,101,112,97,119,110,46,115,118,103]}, {item: 3, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514179], takes: [HEX3Aanonymous_1241514201], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: [46,47,105,99,111,110,115,47,119,104,105,116,101,112,97,119,110,46,115,118,103]}, {item: 3, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514179], takes: [HEX3Aanonymous_1241514201], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: onPawnEnd_1224736876, promoted: false, filePath: [46,47,105,99,111,110,115,47,119,104,105,116,101,112,97,119,110,46,115,118,103]}], [{item: 4, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514340], takes: [HEX3Aanonymous_1241514361], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: rookWhenTake_1224736771, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,119,104,105,116,101,114,111,111,107,46,115,118,103]}, {item: 5, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514434], takes: [HEX3Aanonymous_1241514439], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,119,104,105,116,101,107,110,105,103,104,116,46,115,118,103]}, {item: 2, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514382], takes: [HEX3Aanonymous_1241514403], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,119,104,105,116,101,98,105,115,104,111,112,46,115,118,103]}, {item: 1, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514382, HEX3Aanonymous_1241514340, HEX3Aanonymous_1241514217], takes: [HEX3Aanonymous_1241514403, HEX3Aanonymous_1241514361, HEX3Aanonymous_1241514232], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,119,104,105,116,101,113,117,101,101,110,46,115,118,103]}, {item: 0, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514217], takes: [HEX3Aanonymous_1241514232, HEX3Aanonymous_1241514247], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,119,104,105,116,101,107,105,110,103,46,115,118,103]}, {item: 2, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514382], takes: [HEX3Aanonymous_1241514403], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,119,104,105,116,101,98,105,115,104,111,112,46,115,118,103]}, {item: 5, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514434], takes: [HEX3Aanonymous_1241514439], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: defaultWhenTake_1207959749, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,119,104,105,116,101,107,110,105,103,104,116,46,115,118,103]}, {item: 4, color: 1, timesMoved: 0, piecesTaken: 0, tile: {Field0: (-1), Field1: (-1)}, moves: [HEX3Aanonymous_1241514340], takes: [HEX3Aanonymous_1241514361], onMove: defaultOnMove_1207959815, onTake: defaultOnTake_1207959885, whenTake: rookWhenTake_1224736771, onEndTurn: defaultOnEndTurn_1207959745, promoted: false, filePath: [46,47,105,99,111,110,115,47,119,104,105,116,101,114,111,111,107,46,115,118,103]}]], NTI1207959559);
     Label1: {
       F.line = 83;
       var j_1224736907 = 0;
@@ -3409,16 +3409,16 @@ function startingBoard_1224736899() {
       var r_1224736908 = [({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []})];
       F.line = 164;
       F.filename = "iterators.nim";
-      var i_520094253 = 0;
+      var i_520094251 = 0;
       Label2: {
         F.line = 165;
           Label3: while (true) {
           if (!true) break Label3;
             F.line = 83;
             F.filename = "basePieces.nim";
-            j_1224736907 = i_520094253;
+            j_1224736907 = i_520094251;
             F.line = 83;
-            r_1224736908 = nimCopy(r_1224736908, result_1224736900[chckIndx(i_520094253, 0, (result_1224736900).length - 1)], NTI1207959558);
+            r_1224736908 = nimCopy(r_1224736908, result_1224736900[chckIndx(i_520094251, 0, (result_1224736900).length - 1)], NTI1207959558);
             Label4: {
               F.line = 84;
               var i_1224736915 = 0;
@@ -3426,36 +3426,36 @@ function startingBoard_1224736899() {
               var x_1224736916 = ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []});
               F.line = 164;
               F.filename = "iterators.nim";
-              var i_520094250 = 0;
+              var i_520094248 = 0;
               Label5: {
                 F.line = 165;
                   Label6: while (true) {
                   if (!true) break Label6;
                     F.line = 84;
                     F.filename = "basePieces.nim";
-                    i_1224736915 = i_520094250;
+                    i_1224736915 = i_520094248;
                     F.line = 84;
-                    x_1224736916 = nimCopy(x_1224736916, r_1224736908[chckIndx(i_520094250, 0, (r_1224736908).length - 1)], NTI1207959567);
+                    x_1224736916 = nimCopy(x_1224736916, r_1224736908[chckIndx(i_520094248, 0, (r_1224736908).length - 1)], NTI1207959567);
                     F.line = 85;
                     result_1224736900[chckIndx(j_1224736907, 0, (result_1224736900).length - 1)][chckIndx(i_1224736915, 0, (result_1224736900[chckIndx(j_1224736907, 0, (result_1224736900).length - 1)]).length - 1)] = nimCopy(result_1224736900[chckIndx(j_1224736907, 0, (result_1224736900).length - 1)][chckIndx(i_1224736915, 0, (result_1224736900[chckIndx(j_1224736907, 0, (result_1224736900).length - 1)]).length - 1)], pieceCopy_1207959923(x_1224736916, x_1224736916.item, x_1224736916.color, x_1224736916.timesMoved, x_1224736916.piecesTaken, {Field0: nimCopy(null, i_1224736915, NTI1207959568), Field1: nimCopy(null, j_1224736907, NTI1207959574)}, x_1224736916.moves, x_1224736916.takes, x_1224736916.onMove, x_1224736916.onTake, x_1224736916.whenTake, x_1224736916.onEndTurn, x_1224736916.promoted, x_1224736916.filePath), NTI1207959567);
-                    if ((7 <= i_520094250)) {
+                    if ((7 <= i_520094248)) {
                     F.line = 167;
                     F.filename = "iterators.nim";
                     break Label5;
                     }
                     
                     F.line = 13;
-                    i_520094250 += 1;
+                    i_520094248 += 1;
                   }
               };
             };
-            if ((7 <= i_520094253)) {
+            if ((7 <= i_520094251)) {
             F.line = 167;
             break Label2;
             }
             
             F.line = 13;
-            i_520094253 += 1;
+            i_520094251 += 1;
           }
       };
     };
@@ -6725,7 +6725,7 @@ function pieceOf_520093749(tile_520093750) {
 
   var F = {procname: "main.pieceOf", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 25;
+    F.line = 23;
     F.filename = "main.nim";
     result_520093751 = nimCopy(result_520093751, theBoard_520093733[0][chckIndx(tile_520093750.Field1, 0, (theBoard_520093733[0]).length - 1)][chckIndx(tile_520093750.Field0, 0, (theBoard_520093733[0][chckIndx(tile_520093750.Field1, 0, (theBoard_520093733[0]).length - 1)]).length - 1)], NTI1207959567);
   framePtr = F.prev;
@@ -6737,26 +6737,26 @@ function pieceOf_520093749(tile_520093750) {
 function otherMove_520093756(d_520093757) {
   var F = {procname: "main.otherMove", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 31;
+    F.line = 29;
     F.filename = "main.nim";
     var data_520093758 = nsuSplitString(d_520093757, [44], (-1));
-    F.line = 32;
+    F.line = 30;
     var mover_520093759 = nimCopy(null, {Field0: nsuParseInt(data_520093758[chckIndx(2, 0, (data_520093758).length - 1)]), Field1: nsuParseInt(data_520093758[chckIndx(1, 0, (data_520093758).length - 1)])}, NTI1207959555);
-    F.line = 33;
+    F.line = 31;
     var moveTo_520093760 = nimCopy(null, {Field0: nsuParseInt(data_520093758[chckIndx(4, 0, (data_520093758).length - 1)]), Field1: nsuParseInt(data_520093758[chckIndx(3, 0, (data_520093758).length - 1)])}, NTI1207959555);
-    F.line = 34;
+    F.line = 32;
     rawEcho(HEX24_520093803(mover_520093759), HEX24_520093803(moveTo_520093760));
     if (eqStrings(data_520093758[chckIndx(0, 0, (data_520093758).length - 1)], [32,109,111,118,101])) {
-    F.line = 36;
+    F.line = 34;
     pieceOf_520093749(mover_520093759).onMove(mover_520093759, moveTo_520093760, theBoard_520093733[0]);
     }
     else {
     if (eqStrings(data_520093758[chckIndx(0, 0, (data_520093758).length - 1)], [32,116,97,107,101])) {
-    F.line = 38;
+    F.line = 36;
     pieceOf_520093749(mover_520093759).onTake(mover_520093759, moveTo_520093760, theBoard_520093733[0]);
     }
     }
-    F.line = 39;
+    F.line = 37;
     turn_520093732[0] = !(turn_520093732[0]);
   framePtr = F.prev;
 
@@ -6766,37 +6766,37 @@ function otherMove_520093756(d_520093757) {
 function hostLogic_520093861(d_520093862, m_520093863) {
   var F = {procname: "main.hostLogic", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 46;
+    F.line = 44;
     F.filename = "main.nim";
     rawEcho(reprEnum(m_520093863, NTI1308622853), [32,111,102,32], d_520093862, [10]);
-    F.line = 47;
+    F.line = 45;
     switch (m_520093863) {
     case 0:
-      F.line = 49;
+      F.line = 47;
       var colontmp__520094464 = true;
-      F.line = 49;
+      F.line = 47;
       var colontmp__520094465 = toJSStr(d_520093862);
-      F.line = 49;
-      roomId_520093724[0] = nimCopy(roomId_520093724[0], {Field0: colontmp__520094464, Field1: colontmp__520094465}, NTI520093707);
-      F.line = 50;
+      F.line = 47;
+      roomId_520093724[0] = nimCopy(roomId_520093724[0], {Field0: colontmp__520094464, Field1: colontmp__520094465}, NTI520093703);
+      F.line = 48;
       side_520093731[0] = 1;
       break;
     case 1:
-      F.line = 52;
+      F.line = 50;
       peer_520093730[0].Field0("options:deciding");
-      F.line = 53;
+      F.line = 51;
       currentScreen_520093747[0] = 4;
       break;
     case 2:
-      F.line = 54;
+      F.line = 52;
       otherMove_520093756(d_520093862);
       break;
     default: 
-      F.line = 55;
+      F.line = 53;
       rawEcho([117,110,105,109,112,108,101,109,101,110,116,101,100]);
       break;
     }
-    F.line = 56;
+    F.line = 54;
     redraw_687867377(kxi__);
   framePtr = F.prev;
 
@@ -6808,7 +6808,7 @@ function createLobby_520094075() {
 function HEX3Aanonymous_520094080(__520094081, __520094082) {
       var F = {procname: "createLobby.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
-        F.line = 138;
+        F.line = 136;
         F.filename = "main.nim";
         currentScreen_520093747[0] = 2;
       framePtr = F.prev;
@@ -6820,14 +6820,14 @@ function HEX3Aanonymous_520094083(__520094084, __520094085) {
       var F = {procname: "createLobby.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
         if (!((peer_520093730[0].Field1 == null))) {
-        F.line = 142;
+        F.line = 140;
         F.filename = "main.nim";
         peer_520093730[0].Field1();
         }
         
+        F.line = 141;
+        peer_520093730[0] = nimCopy(peer_520093730[0], newHost_1308622890(hostLogic_520093861), NTI520093705);
         F.line = 143;
-        peer_520093730[0] = nimCopy(peer_520093730[0], newHost_1308622890(hostLogic_520093861), NTI520093709);
-        F.line = 145;
         currentScreen_520093747[0] = 1;
       framePtr = F.prev;
 
@@ -6838,27 +6838,27 @@ function HEX3Aanonymous_520094083(__520094084, __520094085) {
 
   var F = {procname: "main.createLobby", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 134;
+    F.line = 132;
     F.filename = "main.nim";
-    F.line = 134;
+    F.line = 132;
     var tmp_520094077 = tree_721421184(44, []);
-    F.line = 134;
+    F.line = 132;
     tmp_520094077.class = "main";
-    F.line = 135;
+    F.line = 133;
     var tmp_520094078 = tree_721421184(195, []);
-    F.line = 136;
-    add_721421120(tmp_520094078, text_721421252([74,111,105,110,32,97,32,82,111,111,109]));
-    F.line = 137;
-    addEventHandler_687867670(tmp_520094078, 0, HEX3Aanonymous_520094080, kxi__);
     F.line = 134;
+    add_721421120(tmp_520094078, text_721421252([74,111,105,110,32,97,32,82,111,111,109]));
+    F.line = 135;
+    addEventHandler_687867670(tmp_520094078, 0, HEX3Aanonymous_520094080, kxi__);
+    F.line = 132;
     add_721421120(tmp_520094077, tmp_520094078);
-    F.line = 139;
+    F.line = 137;
     var tmp_520094079 = tree_721421184(195, []);
-    F.line = 140;
+    F.line = 138;
     addEventHandler_687867670(tmp_520094079, 0, HEX3Aanonymous_520094083, kxi__);
-    F.line = 146;
+    F.line = 144;
     add_721421120(tmp_520094079, text_721421252([67,114,101,97,116,101,32,97,32,82,111,111,109]));
-    F.line = 146;
+    F.line = 144;
     add_721421120(tmp_520094077, tmp_520094079);
     result_520094076 = tmp_520094077;
   framePtr = F.prev;
@@ -6886,28 +6886,28 @@ function createRoomMenu_520094153() {
 
   var F = {procname: "main.createRoomMenu", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 149;
+    F.line = 147;
     F.filename = "main.nim";
-    F.line = 149;
+    F.line = 147;
     var tmp_520094155 = tree_721421184(44, []);
-    F.line = 149;
+    F.line = 147;
     tmp_520094155.class = "main";
     if (!(roomId_520093724[0].Field0)) {
-    F.line = 151;
+    F.line = 149;
     add_721421120(tmp_520094155, text_721421252([67,114,101,97,116,105,110,103,32,114,111,111,109,32,107,101,121]));
     }
     else {
-      F.line = 153;
+      F.line = 151;
       var tmp_520094156 = tree_721421184(22, []);
-      F.line = 154;
+      F.line = 152;
       add_721421120(tmp_520094156, text_721421252([82,111,111,109,32,75,101,121,58,32]));
-      F.line = 154;
+      F.line = 152;
       add_721421120(tmp_520094155, tmp_520094156);
-      F.line = 155;
+      F.line = 153;
       var tmp_520094157 = tree_721421184(72, []);
-      F.line = 155;
+      F.line = 153;
       add_721421120(tmp_520094155, tmp_520094157);
-      F.line = 156;
+      F.line = 154;
       add_721421120(tmp_520094155, text_721421255(roomId_520093724[0].Field1));
     }
     
@@ -7089,15 +7089,15 @@ function validateNotEmpty_520093924(field_520093925) {
 function HEX3Aanonymous_520093928() {
       var F = {procname: "validateNotEmpty.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
-        F.line = 73;
+        F.line = 71;
         F.filename = "main.nim";
         var x_520093929 = getInputText_687867761(getVNodeById_687866162(field_520093925, kxi__));
         if (((x_520093929 == null) || (x_520093929 == ""))) {
-        F.line = 75;
+        F.line = 73;
         setError_1426063402(field_520093925, (field_520093925 + " must not be empty"));
         }
         else {
-          F.line = 77;
+          F.line = 75;
         setError_1426063402(field_520093925, "");
         }
         
@@ -7110,7 +7110,7 @@ function HEX3Aanonymous_520093928() {
 
   var F = {procname: "main.validateNotEmpty", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 72;
+    F.line = 70;
     F.filename = "main.nim";
     result_520093927 = HEX3Aanonymous_520093928;
   framePtr = F.prev;
@@ -7210,33 +7210,33 @@ function HEX3Aanonymous_1308623158(data_1308623159) {
 function joinLogic_520093918(d_520093919, m_520093920) {
   var F = {procname: "main.joinLogic", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 59;
+    F.line = 57;
     F.filename = "main.nim";
     rawEcho(reprEnum(m_520093920, NTI1308622853), [32,111,102,32], d_520093919, [10]);
-    F.line = 60;
+    F.line = 58;
     switch (m_520093920) {
     case 3:
-      F.line = 62;
+      F.line = 60;
       currentScreen_520093747[0] = 4;
-      F.line = 63;
+      F.line = 61;
       side_520093731[0] = 0;
       break;
     case 1:
-      F.line = 65;
+      F.line = 63;
       turn_520093732[0] = false;
-      F.line = 66;
+      F.line = 64;
       currentScreen_520093747[0] = 3;
       break;
     case 2:
-      F.line = 67;
+      F.line = 65;
       otherMove_520093756(d_520093919);
       break;
     default: 
-      F.line = 68;
+      F.line = 66;
       rawEcho([117,110,105,109,112,108,101,109,101,110,116,101,100]);
       break;
     }
-    F.line = 69;
+    F.line = 67;
     redraw_687867377(kxi__);
   framePtr = F.prev;
 
@@ -7248,16 +7248,16 @@ function createJoinMenu_520094158() {
 function HEX3Aanonymous_520094164(__520094165, __520094166) {
       var F = {procname: "createJoinMenu.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
-        F.line = 165;
+        F.line = 163;
         F.filename = "main.nim";
         var id_520094167 = getInputText_687867761(getVNodeById_687866162("joincode", kxi__));
         if (!((peer_520093730[0].Field1 == null))) {
-        F.line = 167;
+        F.line = 165;
         peer_520093730[0].Field1();
         }
         
-        F.line = 168;
-        peer_520093730[0] = nimCopy(peer_520093730[0], newJoin_1308623057(id_520094167, joinLogic_520093918), NTI520093709);
+        F.line = 166;
+        peer_520093730[0] = nimCopy(peer_520093730[0], newJoin_1308623057(id_520094167, joinLogic_520093918), NTI520093705);
       framePtr = F.prev;
 
       
@@ -7267,35 +7267,35 @@ function HEX3Aanonymous_520094164(__520094165, __520094166) {
 
   var F = {procname: "main.createJoinMenu", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 159;
+    F.line = 157;
     F.filename = "main.nim";
-    F.line = 159;
+    F.line = 157;
     var tmp_520094160 = tree_721421184(44, []);
-    F.line = 159;
+    F.line = 157;
     tmp_520094160.class = "main";
-    F.line = 160;
+    F.line = 158;
     var tmp_520094161 = tree_721421184(193, []);
-    F.line = 160;
+    F.line = 158;
     setAttr_721421035(tmp_520094161, "for", "joincode");
-    F.line = 161;
+    F.line = 159;
     add_721421120(tmp_520094161, text_721421252([74,111,105,110,32,67,111,100,101,58]));
-    F.line = 161;
+    F.line = 159;
     add_721421120(tmp_520094160, tmp_520094161);
-    F.line = 162;
+    F.line = 160;
     var tmp_520094162 = tree_721421184(194, []);
-    F.line = 162;
+    F.line = 160;
     tmp_520094162.id = "joincode";
-    F.line = 162;
+    F.line = 160;
     addEventHandler_687867678(tmp_520094162, 8, validateNotEmpty_520093924("joincode"), kxi__);
-    F.line = 162;
+    F.line = 160;
     add_721421120(tmp_520094160, tmp_520094162);
-    F.line = 163;
+    F.line = 161;
     var tmp_520094163 = tree_721421184(195, []);
-    F.line = 164;
+    F.line = 162;
     addEventHandler_687867670(tmp_520094163, 0, HEX3Aanonymous_520094164, kxi__);
-    F.line = 170;
+    F.line = 168;
     add_721421120(tmp_520094163, text_721421252([69,110,116,101,114]));
-    F.line = 170;
+    F.line = 168;
     add_721421120(tmp_520094160, tmp_520094163);
     result_520094159 = tmp_520094160;
   framePtr = F.prev;
@@ -7309,12 +7309,12 @@ function createOptionsMenu_520094173() {
 function HEX3Aanonymous_520094186(__520094187, __520094188) {
         var F = {procname: "createOptionsMenu.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
         framePtr = F;
-          F.line = 180;
+          F.line = 178;
           F.filename = "main.nim";
           peer_520093730[0].Field0("handshake:gamestart");
-          F.line = 181;
+          F.line = 179;
           turn_520093732[0] = true;
-          F.line = 182;
+          F.line = 180;
           currentScreen_520093747[0] = 3;
         framePtr = F.prev;
 
@@ -7325,60 +7325,60 @@ function HEX3Aanonymous_520094186(__520094187, __520094188) {
 
   var F = {procname: "main.createOptionsMenu", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 173;
+    F.line = 171;
     F.filename = "main.nim";
-    F.line = 173;
+    F.line = 171;
     var tmp_520094175 = tree_721421184(44, []);
-    F.line = 173;
+    F.line = 171;
     tmp_520094175.class = "main";
     if ((side_520093731[0] == 0)) {
-    F.line = 175;
+    F.line = 173;
     add_721421120(tmp_520094175, text_721421252([87,97,105,116,105,110,103,32,102,111,114,32,104,111,115,116,32,116,111,32,100,101,99,105,100,101,32,114,117,108,101,115,101,116,46,46,46]));
     }
     else {
-      F.line = 177;
+      F.line = 175;
       var tmp_520094176 = tree_721421184(44, []);
-      F.line = 177;
+      F.line = 175;
       tmp_520094176.class = "column";
-      F.line = 178;
+      F.line = 176;
       var tmp_520094177 = tree_721421184(195, []);
-      F.line = 179;
+      F.line = 177;
       addEventHandler_687867670(tmp_520094177, 0, HEX3Aanonymous_520094186, kxi__);
-      F.line = 184;
+      F.line = 182;
       add_721421120(tmp_520094177, text_721421252([78,111,114,109,97,108,32,67,104,101,115,115]));
-      F.line = 184;
+      F.line = 182;
       add_721421120(tmp_520094176, tmp_520094177);
-      F.line = 186;
+      F.line = 184;
       add_721421120(tmp_520094176, text_721421252([67,108,97,115,115,105,99,32,67,104,101,115,115,44,32,119,105,116,104,32,110,111,32,115,112,101,99,105,97,108,32,114,117,108,101,115,32,111,114,32,97,98,105,108,105,116,101,115,46]));
-      F.line = 186;
+      F.line = 184;
       add_721421120(tmp_520094175, tmp_520094176);
-      F.line = 188;
+      F.line = 186;
       var tmp_520094178 = tree_721421184(44, []);
-      F.line = 188;
+      F.line = 186;
       tmp_520094178.class = "column";
-      F.line = 189;
+      F.line = 187;
       var tmp_520094179 = tree_721421184(195, []);
-      F.line = 191;
+      F.line = 189;
       add_721421120(tmp_520094179, text_721421252([68,114,97,102,116,32,109,111,100,101]));
-      F.line = 191;
+      F.line = 189;
       add_721421120(tmp_520094178, tmp_520094179);
-      F.line = 192;
+      F.line = 190;
       add_721421120(tmp_520094178, text_721421252(makeNimstrLit("Take turns drafting power ups for your pieces, then play. \x0A                        Each side is guaranteed to get power ups of the same tier.")));
-      F.line = 192;
+      F.line = 190;
       add_721421120(tmp_520094175, tmp_520094178);
-      F.line = 195;
+      F.line = 193;
       var tmp_520094180 = tree_721421184(44, []);
-      F.line = 195;
+      F.line = 193;
       tmp_520094180.class = "column";
-      F.line = 196;
+      F.line = 194;
       var tmp_520094181 = tree_721421184(195, []);
-      F.line = 198;
+      F.line = 196;
       add_721421120(tmp_520094181, text_721421252([82,97,110,100,111,109,32,109,111,100,101]));
-      F.line = 198;
+      F.line = 196;
       add_721421120(tmp_520094180, tmp_520094181);
-      F.line = 200;
+      F.line = 198;
       add_721421120(tmp_520094180, text_721421252(makeNimstrLit("Draft powerups of random strength and quality, then play. \x0A                        Completely luck based.")));
-      F.line = 200;
+      F.line = 198;
       add_721421120(tmp_520094175, tmp_520094180);
     }
     
@@ -7395,7 +7395,7 @@ function isSelected_520093752(n_520093753, m_520093754) {
   var F = {procname: "main.isSelected", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
   BeforeRet: {
-    F.line = 28;
+    F.line = 26;
     F.filename = "main.nim";
     result_520093755 = ((selectedTile_520093736[0].Field1 == n_520093753) && (selectedTile_520093736[0].Field0 == m_520093754));
     break BeforeRet;
@@ -7456,58 +7456,58 @@ function HEX3Aanonymous_520093985(__520093986, __520093987) {
       var F = {procname: "createTile.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
         if ((((contains_1207959819(possibleMoves_520093741[0], p_520093931.tile) && isAir_1207959985(p_520093931)) && turn_520093732[0]) && isColor_1207960002(pieceOf_520093749(selectedTile_520093736[0]), side_520093731[0]))) {
-        F.line = 95;
+        F.line = 93;
         F.filename = "main.nim";
         pieceOf_520093749(selectedTile_520093736[0]).onMove(selectedTile_520093736[0], p_520093931.tile, theBoard_520093733[0]);
-        F.line = 96;
+        F.line = 94;
         possibleMoves_520093741[0] = nimCopy(null, [], NTI1241514189);
-        F.line = 97;
+        F.line = 95;
         var colontmp__520094488 = (-1);
-        F.line = 97;
+        F.line = 95;
         var colontmp__520094489 = (-1);
-        F.line = 97;
+        F.line = 95;
         selectedTile_520093736[0] = nimCopy(selectedTile_520093736[0], {Field0: colontmp__520094488, Field1: colontmp__520094489}, NTI1207959555);
-        F.line = 98;
+        F.line = 96;
         possibleTakes_520093746[0] = nimCopy(null, [], NTI1241514189);
         }
         else {
         if ((((contains_1207959819(possibleTakes_520093746[0], p_520093931.tile) && !(isAir_1207959985(p_520093931))) && turn_520093732[0]) && isColor_1207960002(pieceOf_520093749(selectedTile_520093736[0]), side_520093731[0]))) {
-        F.line = 101;
+        F.line = 99;
         pieceOf_520093749(selectedTile_520093736[0]).onTake(selectedTile_520093736[0], p_520093931.tile, theBoard_520093733[0]);
-        F.line = 102;
+        F.line = 100;
         possibleTakes_520093746[0] = nimCopy(null, [], NTI1241514189);
-        F.line = 103;
+        F.line = 101;
         var colontmp__520094490 = (-1);
-        F.line = 103;
+        F.line = 101;
         var colontmp__520094491 = (-1);
-        F.line = 103;
+        F.line = 101;
         selectedTile_520093736[0] = nimCopy(selectedTile_520093736[0], {Field0: colontmp__520094490, Field1: colontmp__520094491}, NTI1207959555);
-        F.line = 104;
+        F.line = 102;
         possibleMoves_520093741[0] = nimCopy(null, [], NTI1241514189);
         }
         else {
         if (!(isSelected_520093752(m_520093932, n_520093933))) {
-        F.line = 106;
+        F.line = 104;
         var colontmp__520094492 = n_520093933;
-        F.line = 106;
+        F.line = 104;
         var colontmp__520094493 = m_520093932;
-        F.line = 106;
+        F.line = 104;
         selectedTile_520093736[0] = nimCopy(selectedTile_520093736[0], {Field0: colontmp__520094492, Field1: colontmp__520094493}, NTI1207959555);
-        F.line = 107;
+        F.line = 105;
         possibleMoves_520093741[0] = nimCopy(null, getMovesOn_1207959618(p_520093931, theBoard_520093733[0]), NTI1207959562);
-        F.line = 108;
+        F.line = 106;
         possibleTakes_520093746[0] = nimCopy(null, getTakesOn_1207959733(p_520093931, theBoard_520093733[0]), NTI1207959562);
         }
         else {
-          F.line = 110;
+          F.line = 108;
           var colontmp__520094494 = (-1);
-          F.line = 110;
+          F.line = 108;
           var colontmp__520094495 = (-1);
-          F.line = 110;
+          F.line = 108;
           selectedTile_520093736[0] = nimCopy(selectedTile_520093736[0], {Field0: colontmp__520094494, Field1: colontmp__520094495}, NTI1207959555);
-          F.line = 111;
+          F.line = 109;
           possibleMoves_520093741[0] = nimCopy(null, [], NTI1241514189);
-          F.line = 112;
+          F.line = 110;
           possibleTakes_520093746[0] = nimCopy(null, [], NTI1241514189);
         }
         }}
@@ -7520,7 +7520,7 @@ function HEX3Aanonymous_520093985(__520093986, __520093987) {
 
   var F = {procname: "main.createTile", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 80;
+    F.line = 78;
     F.filename = "main.nim";
     if ((modInt(addInt(mulInt(m_520093932, 7), n_520093933), 2) == 0)) {
     Temporary1 = [119,104,105,116,101,84,105,108,101];
@@ -7531,41 +7531,41 @@ function HEX3Aanonymous_520093985(__520093986, __520093987) {
     
     var class_520093935 = nimCopy(null, Temporary1, NTI33554449);
     if (isSelected_520093752(m_520093932, n_520093933)) {
-    F.line = 82;
+    F.line = 80;
     class_520093935.push.apply(class_520093935, [32,115,101,108,101,99,116,101,100]);;
     }
     else {
     if (contains_1207959819(possibleMoves_520093741[0], p_520093931.tile)) {
-    F.line = 84;
+    F.line = 82;
     class_520093935.push.apply(class_520093935, [32,99,97,110,45,109,111,118,101]);;
     }
     else {
     if (contains_1207959819(possibleTakes_520093746[0], p_520093931.tile)) {
-    F.line = 86;
+    F.line = 84;
     class_520093935.push.apply(class_520093935, [32,99,97,110,45,116,97,107,101]);;
     }
     else {
-      F.line = 88;
+      F.line = 86;
     class_520093935.push.apply(class_520093935, [32,117,110,115,101,108,101,99,116,101,100]);;
     }
     }}
-    F.line = 90;
-    F.line = 91;
+    F.line = 88;
+    F.line = 89;
     var tmp_520093974 = tree_721421184(188, []);
-    F.line = 91;
+    F.line = 89;
     tmp_520093974.class = toJSStr(class_520093935);
-    F.line = 92;
+    F.line = 90;
     addEventHandler_687867670(tmp_520093974, 0, HEX3Aanonymous_520093985, kxi__);
     if (eqStrings(p_520093931.filePath, [])) {
-    F.line = 115;
+    F.line = 113;
     add_721421120(tmp_520093974, text_721421252(HEX24_1207960010(p_520093931)));
     }
     else {
-      F.line = 117;
+      F.line = 115;
       var tmp_520093984 = tree_721421184(76, []);
-      F.line = 117;
+      F.line = 115;
       setAttr_721421035(tmp_520093984, "src", toJSStr(p_520093931.filePath));
-      F.line = 117;
+      F.line = 115;
       add_721421120(tmp_520093974, tmp_520093984);
     }
     
@@ -7581,14 +7581,14 @@ function createBoard_520094039() {
 
   var F = {procname: "main.createBoard", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 120;
+    F.line = 118;
     F.filename = "main.nim";
-    F.line = 120;
+    F.line = 118;
     var tmp_520094041 = tree_721421184(44, []);
     Label1: {
-      F.line = 121;
+      F.line = 119;
       var i_520094049 = 0;
-      F.line = 121;
+      F.line = 119;
       var r_520094050 = [({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []})];
       F.line = 164;
       F.filename = "iterators.nim";
@@ -7597,17 +7597,17 @@ function createBoard_520094039() {
         F.line = 165;
           Label3: while (true) {
           if (!true) break Label3;
-            F.line = 121;
+            F.line = 119;
             F.filename = "main.nim";
             i_520094049 = i_520094486;
-            F.line = 121;
+            F.line = 119;
             r_520094050 = nimCopy(r_520094050, theBoard_520093733[0][chckIndx(i_520094486, 0, (theBoard_520093733[0]).length - 1)], NTI1207959558);
-            F.line = 122;
+            F.line = 120;
             var tmp_520094042 = tree_721421184(187, []);
             Label4: {
-              F.line = 123;
+              F.line = 121;
               var j_520094057 = 0;
-              F.line = 123;
+              F.line = 121;
               var p_520094058 = ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null, promoted: false, filePath: []});
               F.line = 164;
               F.filename = "iterators.nim";
@@ -7616,12 +7616,12 @@ function createBoard_520094039() {
                 F.line = 165;
                   Label6: while (true) {
                   if (!true) break Label6;
-                    F.line = 123;
+                    F.line = 121;
                     F.filename = "main.nim";
                     j_520094057 = i_520094484;
-                    F.line = 123;
+                    F.line = 121;
                     p_520094058 = nimCopy(p_520094058, r_520094050[chckIndx(i_520094484, 0, (r_520094050).length - 1)], NTI1207959567);
-                    F.line = 124;
+                    F.line = 122;
                     add_721421120(tmp_520094042, createTile_520093930(p_520094058, i_520094049, j_520094057));
                     if ((7 <= i_520094484)) {
                     F.line = 167;
@@ -7634,7 +7634,7 @@ function createBoard_520094039() {
                   }
               };
             };
-            F.line = 124;
+            F.line = 122;
             F.filename = "main.nim";
             add_721421120(tmp_520094041, tmp_520094042);
             if ((7 <= i_520094486)) {
@@ -7660,12 +7660,12 @@ function reverseBoard_520094059() {
 
   var F = {procname: "main.reverseBoard", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 127;
+    F.line = 125;
     F.filename = "main.nim";
-    F.line = 127;
+    F.line = 125;
     var tmp_520094061 = tree_721421184(44, []);
     Label1: {
-      F.line = 128;
+      F.line = 126;
       var i_520094068 = 0;
       F.line = 33;
       F.filename = "iterators_1.nim";
@@ -7674,13 +7674,13 @@ function reverseBoard_520094059() {
         F.line = 34;
           Label3: while (true) {
           if (!(0 <= res_520094500)) break Label3;
-            F.line = 128;
+            F.line = 126;
             F.filename = "main.nim";
             i_520094068 = res_520094500;
-            F.line = 129;
+            F.line = 127;
             var tmp_520094062 = tree_721421184(187, []);
             Label4: {
-              F.line = 130;
+              F.line = 128;
               var j_520094074 = 0;
               F.line = 33;
               F.filename = "iterators_1.nim";
@@ -7689,10 +7689,10 @@ function reverseBoard_520094059() {
                 F.line = 34;
                   Label6: while (true) {
                   if (!(0 <= res_520094498)) break Label6;
-                    F.line = 130;
+                    F.line = 128;
                     F.filename = "main.nim";
                     j_520094074 = res_520094498;
-                    F.line = 131;
+                    F.line = 129;
                     add_721421120(tmp_520094062, createTile_520093930(theBoard_520093733[0][chckIndx(i_520094068, 0, (theBoard_520093733[0]).length - 1)][chckIndx(j_520094074, 0, (theBoard_520093733[0][chckIndx(i_520094068, 0, (theBoard_520093733[0]).length - 1)]).length - 1)], i_520094068, j_520094074));
                     F.line = 39;
                     F.filename = "iterators_1.nim";
@@ -7700,7 +7700,7 @@ function reverseBoard_520094059() {
                   }
               };
             };
-            F.line = 131;
+            F.line = 129;
             F.filename = "main.nim";
             add_721421120(tmp_520094061, tmp_520094062);
             F.line = 39;
@@ -7721,37 +7721,37 @@ function main_520094191() {
 
   var F = {procname: "main.main", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 203;
+    F.line = 201;
     F.filename = "main.nim";
-    F.line = 203;
+    F.line = 201;
     var tmp_520094193 = tree_721421184(44, []);
-    F.line = 203;
+    F.line = 201;
     tmp_520094193.class = "main";
-    F.line = 204;
+    F.line = 202;
     switch (currentScreen_520093747[0]) {
     case 0:
-      F.line = 205;
+      F.line = 203;
       add_721421120(tmp_520094193, createLobby_520094075());
       break;
     case 1:
-      F.line = 206;
+      F.line = 204;
       add_721421120(tmp_520094193, createRoomMenu_520094153());
       break;
     case 2:
-      F.line = 207;
+      F.line = 205;
       add_721421120(tmp_520094193, createJoinMenu_520094158());
       break;
     case 4:
-      F.line = 208;
+      F.line = 206;
       add_721421120(tmp_520094193, createOptionsMenu_520094173());
       break;
     case 3:
       if ((side_520093731[0] == 1)) {
-      F.line = 210;
+      F.line = 208;
       add_721421120(tmp_520094193, createBoard_520094039());
       }
       else {
-        F.line = 210;
+        F.line = 208;
       add_721421120(tmp_520094193, reverseBoard_520094059());
       }
       
@@ -7767,26 +7767,24 @@ var F = {procname: "module main", prev: framePtr, filename: "/Users/ajayvallurup
 framePtr = F;
 F.line = 11;
 F.filename = "main.nim";
-rawEcho([116,101,115,116]);
-F.line = 13;
-var roomId_520093724 = [nimCopy(null, {Field0: false, Field1: "Waiting..."}, NTI520093707)];
-F.line = 14;
+var roomId_520093724 = [nimCopy(null, {Field0: false, Field1: "Waiting..."}, NTI520093703)];
+F.line = 12;
 var peer_520093730 = [{Field0: null, Field1: null}];
-F.line = 15;
+F.line = 13;
 var side_520093731 = [0];
-F.line = 16;
+F.line = 14;
 var turn_520093732 = [false];
-F.line = 17;
+F.line = 15;
 var theBoard_520093733 = [startingBoard_1224736899()];
-F.line = 18;
+F.line = 16;
 var selectedTile_520093736 = [nimCopy(null, {Field0: (-1), Field1: (-1)}, NTI1207959555)];
-F.line = 19;
+F.line = 17;
 var possibleMoves_520093741 = [[]];
-F.line = 20;
+F.line = 18;
 var possibleTakes_520093746 = [[]];
-F.line = 21;
+F.line = 19;
 var currentScreen_520093747 = [0];
-F.line = 22;
+F.line = 20;
 var gameMode_520093748 = [0];
 setRenderer_687867621(main_520094191, "ROOT", null);
 framePtr = F.prev;
