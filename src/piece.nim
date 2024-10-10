@@ -30,6 +30,7 @@ type
         whenTake*: OnTakeAction 
         onEndTurn*: OnAction 
         promoted*: bool = false
+        filePath*: string = ""
 
 func getMovesOn*(p: Piece, board: ChessBoard): Moves = 
     for x in p.moves:
@@ -43,10 +44,11 @@ proc defaultOnEndTurn*(taker: Tile, taken: Tile, board: var ChessBoard) =
     discard nil
 
 proc defaultWhenTake*(taker: Tile, taken: Tile, board: var ChessBoard): Tile = 
+    board[taker.rank][taker.file].tile = taken
     board[taken.rank][taken.file] = board[taker.rank][taker.file]
     board[taker.rank][taker.file] = Piece(item: none, tile: taker)
     board[taker.rank][taker.file].piecesTaken += 1
-    return (taker.file, taker.rank)
+    return (taken.file, taken.rank)
 
 proc defaultOnMove*(taker: Tile, taken: Tile, board: var ChessBoard) = 
     assert board[taker.rank][taker.file].getMovesOn(board).contains(taken)
@@ -59,10 +61,10 @@ proc defaultOnMove*(taker: Tile, taken: Tile, board: var ChessBoard) =
 
 proc defaultOnTake*(taker: Tile, taken: Tile, board: var ChessBoard) = 
     assert board[taker.rank][taker.file].getTakesOn(board).contains(taken)
-    board[taker.rank][taker.file].tile = taken
     board[taker.rank][taker.file].timesMoved += 1
     let newTile = board[taken.rank][taken.file].whenTake(taker, taken, board)
 
+    echo newTile.rank, newTile.file
     board[newTile.rank][newTile.file].onEndTurn(newTile, taken, board)
 
 
@@ -78,10 +80,11 @@ func pieceCopy*(initial: Piece,
                 onTake: OnAction = initial.onTake,
                 whenTake: OnTakeAction = initial.whenTake,
                 onEndTurn: OnAction = initial.onEndTurn,
-                promoted: bool = initial.promoted): Piece = 
+                promoted: bool = initial.promoted,
+                filePath: string = initial.filePath): Piece = 
     return Piece(item: item, color: color, timesMoved: timesMoved, piecesTaken: piecesTaken,
                 tile: tile, moves: moves, takes: takes, onMove: onMove, onTake: onTake,
-                whenTake: whenTake, onEndTurn: onEndTurn, promoted: promoted)
+                whenTake: whenTake, onEndTurn: onEndTurn, promoted: promoted, filePath: filePath)
             
 
 func isAir*(p: Piece): bool = 

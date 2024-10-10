@@ -12,8 +12,8 @@ echo "test"
 
 var roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
 var peer: tuple[send: proc(data: cstring), destroy: proc()]
-var side: Color # = white only for testing, delete
-var turn: bool# = true #only for testing
+var side: Color  # = white only for testing, delete
+var turn: bool #only for testing
 var theBoard: ChessBoard = startingBoard()
 var selectedTile: Tile = (file: -1, rank: -1)
 var possibleMoves: Moves = @[]
@@ -84,18 +84,20 @@ proc createTile(p: Piece, m: int, n: int): VNode =
         class &= " can-move"
     elif possibleTakes.contains(p.tile):
         class &= " can-take"
+    else:
+        class &= " unselected"
 
     result = buildHtml():
         td(class=class):
             proc onclick(_: Event; _: VNode) =           
                 if possibleMoves.contains(p.tile) and p.isAir() and turn and pieceOf(selectedTile).isColor(side):
-                    sendMove("move", selectedTile, p.tile)
+                    #sendMove("move", selectedTile, p.tile)
                     pieceOf(selectedTile).onMove(selectedTile, p.tile, theBoard)
                     possibleMoves = @[]
                     selectedTile = (-1,-1)
                     possibleTakes = @[]
                 elif possibleTakes.contains(p.tile) and not p.isAir() and turn and pieceOf(selectedTile).isColor(side):
-                    sendMove("take", selectedTile, p.tile)
+                    #endMove("take", selectedTile, p.tile)
                     pieceOf(selectedTile).onTake(selectedTile, p.tile, theBoard)
                     possibleTakes = @[]
                     selectedTile = (-1, -1)
@@ -109,7 +111,10 @@ proc createTile(p: Piece, m: int, n: int): VNode =
                     possibleMoves = @[]
                     possibleTakes = @[]
 
-            text $p & ""
+            if p.filePath == "":
+                text $p
+            else:
+                img(src=p.filePath)
 
 proc createBoard(): VNode =
     result = buildHtml(tdiv):
