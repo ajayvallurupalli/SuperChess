@@ -2783,9 +2783,9 @@ function defaultWhenTake_1207959748(taker_1207959749, taken_1207959750, board_12
     F.line = 48;
     board_1207959751[chckIndx(taker_1207959749.Field1, 0, (board_1207959751).length - 1)][chckIndx(taker_1207959749.Field0, 0, (board_1207959751[chckIndx(taker_1207959749.Field1, 0, (board_1207959751).length - 1)]).length - 1)].piecesTaken = addInt(board_1207959751[chckIndx(taker_1207959749.Field1, 0, (board_1207959751).length - 1)][chckIndx(taker_1207959749.Field0, 0, (board_1207959751[chckIndx(taker_1207959749.Field1, 0, (board_1207959751).length - 1)]).length - 1)].piecesTaken, 1);
     F.line = 49;
-    var colontmp__520094298 = taker_1207959749.Field1;
+    var colontmp__520094298 = taker_1207959749.Field0;
     F.line = 49;
-    var colontmp__520094299 = taker_1207959749.Field0;
+    var colontmp__520094299 = taker_1207959749.Field1;
     F.line = 49;
     result_1207959752 = nimCopy(result_1207959752, {Field0: colontmp__520094298, Field1: colontmp__520094299}, NTI1207959555);
     break BeforeRet;
@@ -2821,9 +2821,9 @@ function rookWhenTake_1224736771(taker_1224736772, taken_1224736773, board_12247
     F.line = 14;
     board_1224736774[chckIndx(taken_1224736773.Field1, 0, (board_1224736774).length - 1)][chckIndx(taken_1224736773.Field0, 0, (board_1224736774[chckIndx(taken_1224736773.Field1, 0, (board_1224736774).length - 1)]).length - 1)] = nimCopy(board_1224736774[chckIndx(taken_1224736773.Field1, 0, (board_1224736774).length - 1)][chckIndx(taken_1224736773.Field0, 0, (board_1224736774[chckIndx(taken_1224736773.Field1, 0, (board_1224736774).length - 1)]).length - 1)], {item: 6, tile: nimCopy(null, {Field0: taker_1224736772.Field1, Field1: taker_1224736772.Field0}, NTI1207959555), timesMoved: 0, piecesTaken: 0, promoted: false, color: 0, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null}, NTI1207959567);
     F.line = 15;
-    var colontmp__520094294 = taker_1224736772.Field1;
+    var colontmp__520094294 = subInt(taker_1224736772.Field0, 1);
     F.line = 15;
-    var colontmp__520094295 = subInt(taker_1224736772.Field0, 1);
+    var colontmp__520094295 = taker_1224736772.Field1;
     F.line = 15;
     result_1224736775 = nimCopy(result_1224736775, {Field0: colontmp__520094294, Field1: colontmp__520094295}, NTI1207959555);
     break BeforeRet;
@@ -2838,9 +2838,9 @@ function rookWhenTake_1224736771(taker_1224736772, taken_1224736773, board_12247
       F.line = 20;
       board_1224736774[chckIndx(taken_1224736773.Field1, 0, (board_1224736774).length - 1)][chckIndx(taken_1224736773.Field0, 0, (board_1224736774[chckIndx(taken_1224736773.Field1, 0, (board_1224736774).length - 1)]).length - 1)] = nimCopy(board_1224736774[chckIndx(taken_1224736773.Field1, 0, (board_1224736774).length - 1)][chckIndx(taken_1224736773.Field0, 0, (board_1224736774[chckIndx(taken_1224736773.Field1, 0, (board_1224736774).length - 1)]).length - 1)], {item: 6, tile: nimCopy(null, {Field0: taker_1224736772.Field1, Field1: taker_1224736772.Field0}, NTI1207959555), timesMoved: 0, piecesTaken: 0, promoted: false, color: 0, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: null}, NTI1207959567);
       F.line = 21;
-      var colontmp__520094296 = taker_1224736772.Field1;
+      var colontmp__520094296 = addInt(taker_1224736772.Field0, 1);
       F.line = 21;
-      var colontmp__520094297 = addInt(taker_1224736772.Field0, 1);
+      var colontmp__520094297 = taker_1224736772.Field1;
       F.line = 21;
       result_1224736775 = nimCopy(result_1224736775, {Field0: colontmp__520094296, Field1: colontmp__520094297}, NTI1207959555);
       break BeforeRet;

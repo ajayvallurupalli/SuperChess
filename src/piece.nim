@@ -46,7 +46,7 @@ proc defaultWhenTake*(taker: Tile, taken: Tile, board: var ChessBoard): Tile =
     board[taken.rank][taken.file] = board[taker.rank][taker.file]
     board[taker.rank][taker.file] = Piece(item: none, tile: taker)
     board[taker.rank][taker.file].piecesTaken += 1
-    return (taker.rank, taker.file)
+    return (taker.file, taker.rank)
 
 proc defaultOnMove*(taker: Tile, taken: Tile, board: var ChessBoard) = 
     assert board[taker.rank][taker.file].getMovesOn(board).contains(taken)
