@@ -7423,6 +7423,19 @@ function isColor_1207960002(a_1207960003, b_1207960004) {
 
 }
 
+function sendMove_520093855(mode_520093856, start_520093857, to_520093858) {
+  var F = {procname: "main.sendMove", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
+  framePtr = F;
+    F.line = 40;
+    F.filename = "main.nim";
+    peer_520093730[0].Field0(toJSStr(([109,111,118,101,58,32] || []).concat(mode_520093856 || [],[44] || [],HEX24_369098760(start_520093857.Field1) || [],[44] || [],HEX24_369098760(start_520093857.Field0) || [],[44] || [],HEX24_369098760(to_520093858.Field1) || [],[44] || [],HEX24_369098760(to_520093858.Field0) || [])));
+    F.line = 41;
+    turn_520093732[0] = !(turn_520093732[0]);
+  framePtr = F.prev;
+
+  
+}
+
 function HEX24_1207960010(p_1207960011) {
   var result_1207960012 = [];
 
@@ -7456,8 +7469,10 @@ function HEX3Aanonymous_520093985(__520093986, __520093987) {
       var F = {procname: "createTile.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
         if ((((contains_1207959819(possibleMoves_520093741[0], p_520093931.tile) && isAir_1207959985(p_520093931)) && turn_520093732[0]) && isColor_1207960002(pieceOf_520093749(selectedTile_520093736[0]), side_520093731[0]))) {
-        F.line = 93;
+        F.line = 92;
         F.filename = "main.nim";
+        sendMove_520093855([109,111,118,101], selectedTile_520093736[0], p_520093931.tile);
+        F.line = 93;
         pieceOf_520093749(selectedTile_520093736[0]).onMove(selectedTile_520093736[0], p_520093931.tile, theBoard_520093733[0]);
         F.line = 94;
         possibleMoves_520093741[0] = nimCopy(null, [], NTI1241514189);
@@ -7472,6 +7487,8 @@ function HEX3Aanonymous_520093985(__520093986, __520093987) {
         }
         else {
         if ((((contains_1207959819(possibleTakes_520093746[0], p_520093931.tile) && !(isAir_1207959985(p_520093931))) && turn_520093732[0]) && isColor_1207960002(pieceOf_520093749(selectedTile_520093736[0]), side_520093731[0]))) {
+        F.line = 98;
+        sendMove_520093855([116,97,107,101], selectedTile_520093736[0], p_520093931.tile);
         F.line = 99;
         pieceOf_520093749(selectedTile_520093736[0]).onTake(selectedTile_520093736[0], p_520093931.tile, theBoard_520093733[0]);
         F.line = 100;
