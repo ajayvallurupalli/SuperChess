@@ -8,17 +8,15 @@ type
     Gamemode = enum 
         Normal
 
-echo "test"
-
 var roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
 var peer: tuple[send: proc(data: cstring), destroy: proc()]
-var side: Color = white # = white only for testing, delete
-var turn: bool = true#only for testing
+var side: Color# = white # = white only for testing, delete
+var turn: bool# = true#only for testing
 var theBoard: ChessBoard = startingBoard()
 var selectedTile: Tile = (file: -1, rank: -1)
 var possibleMoves: Moves = @[]
 var possibleTakes: Moves = @[]
-var currentScreen = Game
+var currentScreen = Lobby
 var gameMode: Gamemode
 
 proc pieceOf(tile: Tile): Piece = 
