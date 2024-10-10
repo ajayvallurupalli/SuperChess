@@ -4,7 +4,7 @@ from strutils import split, parseInt
 
 type 
     Screen {.pure.} = enum 
-        Lobby, CreateRoom, JoinRoom, Game
+        Lobby, CreateRoom, JoinRoom, Game, Options
     Gamemode = enum 
         Normal
 
@@ -12,13 +12,14 @@ echo "test"
 
 var roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
 var peer: tuple[send: proc(data: cstring), destroy: proc()]
-var side: Color# = white #only for testing, delete
+var side: Color # = white only for testing, delete
 var turn: bool# = true #only for testing
 var theBoard: ChessBoard = startingBoard()
 var selectedTile: Tile = (file: -1, rank: -1)
 var possibleMoves: Moves = @[]
 var possibleTakes: Moves = @[]
 var currentScreen = Lobby
+var gameMode: Gamemode
 
 proc pieceOf(tile: Tile): Piece = 
     theBoard[tile.rank][tile.file]
@@ -46,11 +47,10 @@ proc hostLogic(d: string, m: MessageType) =
     case m
     of Id: 
         roomId = (true, d.kstring)
-    of HandShake: 
-        peer.send("handshake: game start")
         side = white
-        turn = true
-        currentScreen = Game
+    of HandShake: 
+        peer.send("options:deciding")
+        currentScreen = Options
     of Move: otherMove(d)
     else: echo "unimplemented"
     redraw()
@@ -58,8 +58,10 @@ proc hostLogic(d: string, m: MessageType) =
 proc joinLogic(d: string, m: MessageType) = 
     echo $m, " of ", d, "\n"
     case m
-    of Handshake:
+    of Options:
+        currentScreen = Options
         side = black
+    of Handshake:
         turn = false
         currentScreen = Game
     of Move: otherMove(d)
@@ -162,12 +164,43 @@ proc createJoinMenu(): VNode =
                 
             text "Enter"
 
+proc createOptionsMenu(): VNode = 
+    result = buildHtml(tdiv(class="main")):
+        if side == black:
+            text "Waiting for host to decide ruleset..."
+        else:
+            tdiv(class="column"):
+                button:
+                    proc onclick(_: Event, _: VNode) = 
+                        peer.send("handshake:gamestart")
+                        turn = true
+                        currentScreen = Game
+
+                    text "Normal Chess"
+
+                text "Classic Chess, with no special rules or abilites."
+                
+            tdiv(class="column"):
+                button:
+
+                    text "Draft mode"
+                text """Take turns drafting power ups for your pieces, then play. 
+                        Each side is guaranteed to get power ups of the same tier."""
+
+            tdiv(class="column"):
+                button:
+
+                    text "Random mode"
+
+                text """Draft powerups of random strength and quality, then play. 
+                        Completely luck based."""
 proc main(): VNode = 
     result = buildHtml(tdiv(class="main")):
         case currentScreen
         of Lobby: createLobby()
         of CreateRoom: createRoomMenu()
         of JoinRoom: createJoinMenu()
+        of Options: createOptionsMenu()
         of Game: 
             if side == white: createBoard() else: reverseBoard()
 
