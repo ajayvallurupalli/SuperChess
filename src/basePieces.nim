@@ -5,8 +5,9 @@ import piece, moves
 proc rookWhenTake(taker: Tile, taken: Tile, board: var ChessBoard): Tile =
     echo board[taker.rank][taker.file].item, board[taken.rank][taken.file].item
     if board[taker.rank][taker.file].item == king and 
-        board[taken.rank][taken.file].item == rook: 
-            assert board[taken.rank][taken.file].timesMoved == 0
+        board[taken.rank][taken.file].item == rook and
+        board[taker.rank][taker.file].timesMoved == 0 and
+        board[taken.rank][taken.file].timesMoved == 0: 
             if taken.file == 0:
                 board[taker.rank][taker.file].tile = (taker.file - 2, taker.rank)
                 board[taken.rank][taken.file].tile = (taker.file - 1, taker.rank)
