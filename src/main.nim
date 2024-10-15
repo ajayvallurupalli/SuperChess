@@ -49,7 +49,7 @@ var theBoard: ChessBoard = startingBoard()
 var selectedTile: Tile = (file: -1, rank: -1)
 var possibleMoves: Moves = @[]
 var possibleTakes: Moves = @[]
-var currentScreen: Screen = Game# = Draft
+var currentScreen: Screen = Lobby# = Draft
 var gameMode: Gamemode# = TrueRandom #deubg
 
 #also for debugging
