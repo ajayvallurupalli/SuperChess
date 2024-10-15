@@ -1,50 +1,28 @@
-import power, moves, piece, board, basePieces
+import power, moves, piece, basePieces, extraMoves
 
+#[prioity rules: 
+    higher priority happens later
+    5 - New Pieces. Any `Power.onStart` which reassigns the `Piece.moves` or `Piece.takes`
+    10 - default. Any `Power.onStart` which can't conflict should be here
+    15 - buffs. Any `Power.onStart` which adds elements to `Piece.moves` or `Piece.takes`, but does not reassign it
+    20 - premoves. Any `Power.onStart` which moves `Piece`s around the `ChessBoard`
+
+]#
 const empress: Power = Power(
     name: "Empress",
     tier: Uncommon,
     priority: 15,
     description: "Your queen ascends, gaining the movement of a standard knight. ",
     onStart: 
-        proc (side: Color, _: Color, b: var ChessBoard) =
-            let rank = if side == black: 0 else: 7
-            b[rank][3].moves.add(knightMoves)
-            b[rank][3].takes.add(knightTakes)
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == queen and b[i][j].isColor(side):
+                        b[i][j].takes.add(knightTakes)
+                        b[i][j].moves.add(knightMoves)
 )
 
-const diagnalMoves: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
-    discard result.addIfFree(board, p.tile, shooterFactory(1,1))
-    discard result.addIfFree(board, p.tile, shooterFactory(-1,1))
-    discard result.addIfFree(board, p.tile, shooterFactory(1,-1))
-    discard result.addIfFree(board, p.tile, shooterFactory(-1,-1))
-
-const diagnalTakes: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
-    discard result.addIfTake(board, p, p.tile, shooterFactory(1,1))
-    discard result.addIfTake(board, p, p.tile, shooterFactory(-1,1))
-    discard result.addIfTake(board, p, p.tile, shooterFactory(1,-1))
-    discard result.addIfTake(board, p, p.tile, shooterFactory(-1,-1))
-
-const leftRightMoves: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
-    discard result.addIfFree(board, p.tile, tileLeft)
-    discard result.addIfFree(board, p.tile, tileRight)
-
-const leftRightTakes: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
-    discard result.addIfTake(board, p, p.tile, tileLeft)
-    discard result.addIfTake(board, p, p.tile, tileRight)
-
-const whiteForwardMoves: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
-    discard result.addIfFree(board, p.tile, tileAbove)
-
-const blackForwardMoves: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
-    discard result.addIfFree(board, p.tile, tileBelow)
-
-const whiteForwardTakes: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
-    discard result.addIfTake(board, p, p.tile, tileAbove)
-
-const blackForwardTakes: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
-    discard result.addIfTake(board, p, p.tile, tileBelow)
-
-const silverGeneralPromote: OnAction = proc(taker: Tile, taken: Tile, board: var ChessBoard) = 
+const silverGeneralPromote*: OnAction = proc(taker: Tile, taken: Tile, board: var ChessBoard) = 
     if (taken.rank == 0 or taken.rank == 7) and not board[taken.rank][taken.file].promoted: 
         board[taken.rank][taken.file].moves &= leftRightMoves
         board[taken.rank][taken.file].moves &= leftRightTakes
@@ -53,7 +31,8 @@ const silverGeneralPromote: OnAction = proc(taker: Tile, taken: Tile, board: var
 
 const mysteriousSwordsmanLeft*: Power = Power(
     name: "Mysterious Swordsman", 
-    tier: Common, 
+    tier: Common,
+    priority: 5, 
     rarity: 4, 
     description: 
         """A mysterious swordsman joins your rank. 
@@ -76,6 +55,7 @@ const mysteriousSwordsmanLeft*: Power = Power(
 const mysteriousSwordsmanRight*: Power = Power(
     name: "Mysterious Swordsman", 
     tier: Common, 
+    priority: 5, 
     rarity: 4,
     description: 
         """A mysterious swordsman joins your rank. 
@@ -99,6 +79,7 @@ const mysteriousSwordsmanRight*: Power = Power(
 const developed*: Power = Power(
     name: "Developed",
     tier: Common,
+    priority: 20, 
     description: 
         """Your board arrives a little developed. Your 2 center pawns start one tile forward. 
         They can still move up 2 for their first move.""",
@@ -112,26 +93,10 @@ const developed*: Power = Power(
                 b[6][4].pieceMove(5, 4, b)         
 )
 
-const cannibalRookTakes: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
-    result.add(lineTakes(board, p, tileAbove, cannibalismFlag = true))
-    result.add(lineTakes(board, p, tileBelow, cannibalismFlag = true))
-    result.add(lineTakes(board, p, tileLeft, cannibalismFlag = true))
-    result.add(lineTakes(board, p, tileRight, cannibalismFlag = true))
-
-const cannibalBishopTakes: MoveProc = func (board: ChessBoard, p: Piece): Moves =
-    result.add(lineTakes(board, p, shooterFactory(1, 1), cannibalismFlag = true))
-    result.add(lineTakes(board, p, shooterFactory(-1, 1), cannibalismFlag = true))
-    result.add(lineTakes(board, p, shooterFactory(1, -1), cannibalismFlag = true))
-    result.add(lineTakes(board, p, shooterFactory(-1, -1), cannibalismFlag = true))
-
-const cannibalKingTakes: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
-    for i in -1..1:
-        for j in -1..1:
-            discard result.addIfTake(board, p, p.tile, shooterFactory(i,j), cannibalismFlag = true)
-
 const stepOnMe: Power = Power(
     name: "Step on me",
     tier: Common,
+    priority: 15, 
     description:
         """Your Queen can take your own pieces. It's literally useless, but if that's your thing...""",
     onStart: 
@@ -139,7 +104,7 @@ const stepOnMe: Power = Power(
             for i in 0 ..< b.len:
                 for j in 0 ..< b[0].len:
                     if b[i][j].item == queen and b[i][j].isColor(side):
-                        b[i][j].moves = @[cannibalBishopTakes, cannibalKingTakes, cannibalRookTakes]
+                        b[i][j].moves &= @[cannibalBishopTakes, cannibalKingTakes, cannibalRookTakes]
 )
 
 const illegalFormationRL: Power = Power(
@@ -206,6 +171,7 @@ proc putInTheWorkPromotion(taker: Tile, taken: Tile, board: var ChessBoard) =
 const putInTheWork*: Power = Power(
     name: "Put in the work!", 
     tier: Common,
+    priority: 10, 
     description:
         """Get to work son. If any of your pawns takes 3 pieces, it automatically promotes""",
     onStart:
@@ -220,6 +186,7 @@ const putInTheWork*: Power = Power(
 const wanderingRoninLeft*: Power = Power(
     name: "Wandering Ronin", 
     tier: Uncommon, 
+    priority: 5, 
     rarity: 4, 
     description: 
         """A wandering Ronin joins your rank. 
@@ -239,6 +206,7 @@ const wanderingRoninLeft*: Power = Power(
 const wanderingRoninRight*: Power = Power(
     name: "Wandering Ronin", 
     tier: Uncommon, 
+    priority: 5, 
     rarity: 4, 
     description: 
         """A wandering Ronin joins your rank. 
@@ -259,6 +227,7 @@ const wanderingRoninRight*: Power = Power(
 const warewolves*: Power = Power(
     name: "Warewolves",
     tier: Uncommon,
+    priority: 5, 
     description: 
         """Your leftmost and rightmost pawns are secretly warewolves! When they take a piece, they eat it and gain the ability to jump like a knight. They do not promote.""",
     onStart:
@@ -280,6 +249,7 @@ const warewolves*: Power = Power(
 const archBishops: Power = Power(
     name: "Archbishops",
     tier: Uncommon,
+    priority: 15, 
     description:
         """Your bishops ascend to archbishops, gaining the movement of a knight.""",
     onStart:
@@ -291,10 +261,49 @@ const archBishops: Power = Power(
                         b[i][j].takes &= knightTakes        
 )
 
+const giraffe: Power = Power(
+    name: "Giraffe",
+    tier: Rare,
+    priority: 5, 
+    description:
+        """Your knights try riding giraffes. It works surprisingly well. Their leap is improved, moving 4 across instead of 2 across.""",
+    icon: "blackgiraffe.svg",
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == bishop and b[i][j].isColor(side):
+                        b[i][j].moves = @[giraffeMoves]   
+                        b[i][j].takes = @[giraffeTakes]
+                        b[i][j].filePath = if side == black: "blackgiraffe.svg" else: "whitegiraffe.svg"
+)
+
+const calvary: Power = Power(
+    name: "Calvary",
+    tier: Common,
+    priority: 15,
+    description: 
+        """Your knights learn to ride forward. They aren't very good at it, but they're trying their best. 
+            They can charge forward 2 tiles, but they cannot jump for this move.""",
+    icon: "blackknight.svg",
+    onStart: 
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == knight and b[i][j].isColor(side):
+                        if side == black:                            
+                            b[i][j].moves &= blackForwardTwiceMoves 
+                            b[i][j].takes &= blackForwardTwiceTakes
+                        else:
+                            b[i][j].moves &= whiteForwardTwiceMoves 
+                            b[i][j].takes &= whiteForwardTwiceTakes                            
+)
+
 const anime*: Power = Power(
     name: "Anime Battle",
     tier: Rare,
-    rarity: 4,
+    priority: 5, 
+    rarity: 0,
     description:
         """Your board is imbued with the power of anime. You feel a odd sense of regret. Or is it guilt?""",
     onStart:
@@ -313,30 +322,27 @@ const samuraiSynergy: Synergy = (
     index: -1
 )
 
-const giraffeTakes: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
-    discard result.addIfTake(board, p, p.tile, shooterFactory(1,4))
-    discard result.addIfTake(board, p, p.tile, shooterFactory(-1,4))
-    discard result.addIfTake(board, p, p.tile, shooterFactory(1,-4))
-    discard result.addIfTake(board, p, p.tile, shooterFactory(-1,-4))
-
-const giraffeMoves: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
-    discard result.addIfFree(board, p.tile, shooterFactory(1,4))
-    discard result.addIfFree(board, p.tile, shooterFactory(-1,4))
-    discard result.addIfFree(board, p.tile, shooterFactory(1,-4))
-    discard result.addIfFree(board, p.tile, shooterFactory(-1,-4))
-
-const giraffe: Power = Power(
-    name: "Giraffe",
-    tier: Rare,
-    description:
-        """Your knights try riding giraffes. It works surprisingly well. Their leap is improved, moving 4 across instead of 2 across.""",
-    onStart:
-        proc (side: Color, _: Color, b: var ChessBoard) = 
+const masochistEmpressPower: Power = Power(
+    name: "Masochist Empress",
+    tier: UltraRare,
+    rarity: 0,
+    priority: 15,
+    onStart: 
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
                 for j in 0 ..< b[0].len:
-                    if b[i][j].item == bishop and b[i][j].isColor(side):
-                        b[i][j].moves &= knightMoves   
-                        b[i][j].takes &= knightTakes        
+                    if b[i][j].item == queen and b[i][j].isColor(side):
+                        b[i][j].takes.add(cannibalKnightTakes)
+                        b[i][j].moves.add(knightMoves)
+                        
+)
+
+const masochistEmpress: Synergy = (
+    power: masochistEmpressPower,
+    rarity: 0,
+    requirements: @[empress.name, stepOnMe.name],
+    replacements: @[empress.name],
+    index: -1
 )
 
 registerPower(empress)
@@ -353,6 +359,7 @@ registerPower(wanderingRoninLeft)
 registerPower(wanderingRoninRight)
 registerPower(archBishops)
 registerPower(warewolves)
-registerPower(anime)
+registerPower(giraffe)
 
 registerSynergy(samuraiSynergy)
+registerSynergy(masochistEmpress, true, true)

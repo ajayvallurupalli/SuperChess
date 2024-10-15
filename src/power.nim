@@ -13,7 +13,7 @@ type
         synergy*: bool = true
         tier*: Tier
         rarity*: int = 8
-        description*: string
+        description*: string = ""
         icon*: FilePath = ""
         onStart*: proc (drafterSide: Color, viewerSide: Color, b: var ChessBoard)
         index*: int = -1
@@ -23,7 +23,7 @@ type
         power: Power
         rarity: int
         requirements: seq[string]
-        replacements: seq[string] = @[]
+        replacements: seq[string]
         index: int 
     
     TierWeights* = tuple
@@ -47,30 +47,34 @@ const emptyPower: Power = Power(
 
 var 
     powers*: seq[Power] = @[emptyPower]
-    synergies*: seq[Synergy]
+    draftSynergies*: seq[Synergy]
+    secretSynergies*: seq[Synergy]
     commonPowers*: seq[Power]
     uncommonPowers*: seq[Power]
     rarePowers*: seq[Power]
     ultraRarePowers*: seq[Power]
 
-func `>`(a: Power, b: Power): bool = 
-    return a.priority > b.priority
-
-proc registerSynergy*(s: Synergy) = 
+proc registerSynergy*(s: Synergy, secret: bool = false, secretSecret = false) = 
     var x = s
     x.power.rarity = x.rarity
     x.power.index = powers[powers.len - 1].index + 1
-    x.power.description = "Synergy! " & x.power.description
     x.index = x.power.index
 
-    powers.add(x.power)
-    synergies.add(x)
+    if secret and not secretSecret:
+        let str = s.replacements.foldr(a & " + " & b)
+        x.power.description = "Secret synergy! (" & str & ") "  & x.power.description
+    elif not secret:
+        let str = s.replacements.foldr(a & " + " & b)
+        x.power.description = "Snergy! (" & str & ") "  & x.power.description   
 
-proc synergize(pool: seq[Power], currentPowers: seq[Power], t: Tier): seq[Power] =
+    powers.add(x.power)
+    if secret: secretSynergies.add(x) else: draftSynergies.add(x)
+
+proc synergize(pool: seq[Power], synergies: seq[Synergy], currentPowers: seq[Power], t: Tier, allTiers: bool = false): seq[Power] =
     result = pool 
     for s in synergies:
         if currentPowers.filterIt(it.name in s.requirements).len == s.requirements.len and 
-            s.power.tier == t:
+           (s.power.tier == t or allTiers):
                 if s.replacements.len == 0:
                     result &= powers[s.index]
                 else: 
@@ -91,8 +95,7 @@ proc registerPower*(p: Power) =
     seqOf(x.tier).add(x)
 
 proc randomPower(t: Tier, currentPowers: seq[Power], alreadySelected: seq[Power] = @[]): Power = 
-    let search = seqOf(t).filterIt(it.name notin alreadySelected.mapIt(it.name)).synergize(currentPowers, t)
-    echo "search: ", search, "\n"
+    let search = seqOf(t).filterIt(it.name notin alreadySelected.mapIt(it.name)).synergize(draftSynergies, currentPowers, t)
     if search.len == 0: return emptyPower
 
     let sum = foldr(search.mapIt(it.rarity), a + b)
@@ -124,5 +127,5 @@ proc draftRandomPower*(allSelected: seq[Power], drafterSelected: seq[Power], opt
         result.add(randomPower(randomTier(weights), drafterSelected, allSelected & result))
 
 proc executeOn*(drafts: seq[Power], draftSide: Color, mySide: Color, board: var ChessBoard) = 
-    for d in drafts.sortedByIt(it.priority):
+    for d in drafts.synergize(secretSynergies, drafts, Common, true).sortedByIt(it.priority):
         d.onStart(draftSide, mySide, board)
