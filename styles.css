@@ -1,3 +1,7 @@
+:root {
+    --border-width: 3px;
+}
+
 td {
     min-width: 80px;
     min-height: 80px;
@@ -7,14 +11,11 @@ td {
     vertical-align: middle;
 }
 
-.main > div  {
-    min-width: 33%;
-    width: 33%;
-}
-
 html, body{
     height: 100%;
     width: 100%;
+    min-height: 100%;
+    min-width: 100%;
 }
 
 img {
@@ -32,7 +33,7 @@ img {
     height: 100%;
     width: 100%;
     min-width: 100%;
-  }
+}
 
 .column {
     display: flex;
@@ -41,32 +42,56 @@ img {
     align-items: center;
     gap: 20px;
     text-align: center;
+    padding: 35px;
 }
 
-.column:first-child {
-    justify-content: flex-start;
+.power-menu {
+    flex-wrap: wrap;
+}
+
+.power {
+    padding: 20px;
+    min-height: 60%;
+    width: 180px;
+    min-width: 180px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    background-color: #F8F7F7;
+}
+
+.power:hover {
+    background-color: #DCDCDC;
+}
+
+.power > h1 {
+    text-align: center;
+    flex-basis: 90px;
 }
 
 .unselected {
-    border-width: 3px;
-    border-color: transparent;
-    border-style: hidden;
+    border-width: var(--border-width);
+    border-color: rgba(0, 0, 0, 0);
+    border-style: solid;
 }
 
 .selected {
-    border-width: 3px;
+    border-width: var(--border-width);
     border-color: blue;
     border-style: solid;
 }
 
 .can-move {
-    border-width: 3px;
+    border-width: var(--border-width);
     border-color: green;
     border-style: solid;
 }
 
 .can-take {
-    border-width: 3px;
+    border-width: var(--border-width);
     border-color: yellow;
     border-style: solid;
 }
@@ -78,4 +103,8 @@ img {
 
 .whiteTile {
     background-color: whitesmoke;
+}
+
+.rotate {
+    transform: rotate(180deg);
 }

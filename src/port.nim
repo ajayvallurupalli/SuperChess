@@ -6,7 +6,7 @@ type
     Peer = JsObject
     Connection = JsObject
     MessageType* = enum
-        Id, Handshake, Move, Options
+        Id, Handshake, Move, Options, Draft
 
 const baseId: cstring = "9e4ada91-c493-4fd4-881d-3e05db99e100"
 
@@ -43,6 +43,8 @@ func messageType(data: cstring): MessageType =
         return Move
     elif "options:" in str:
         return Options
+    elif "draft:" in str:
+        return Draft
 
 func cutMessage(data: cstring): string = 
     return split($data, ':')[1]
