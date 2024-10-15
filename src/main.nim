@@ -49,7 +49,7 @@ var theBoard: ChessBoard = startingBoard()
 var selectedTile: Tile = (file: -1, rank: -1)
 var possibleMoves: Moves = @[]
 var possibleTakes: Moves = @[]
-var currentScreen: Screen = Lobby# = Draft
+var currentScreen: Screen = Game# = Draft
 var gameMode: Gamemode# = TrueRandom #deubg
 
 #also for debugging
@@ -188,7 +188,7 @@ proc createTile(p: Piece, m: int, n: int): VNode =
                 img(src = iconsPath & p.filePath, class = class)
 
 proc createBoard(): VNode =
-    result = buildHtml(tdiv):
+    result = buildHtml(table):
         for i,r in theBoard:
             tr:
                 for j,p in r:
@@ -202,19 +202,22 @@ proc reverseBoard(): VNode =
                     createTile(theBoard[i][j], i, j)
 
 proc createLobby(): VNode = 
-    result = buildHtml(tdiv(class="main")):
-        button: 
-            text "Join a Room"
-            proc onclick(_: Event; _: VNode) = 
-                currentScreen = JoinRoom
-        button:
-            proc onclick(_: Event; _: VNode) = 
-                if not peer.destroy.isNil():
-                    peer.destroy()
-                peer = newHost(hostLogic)
-                
-                currentScreen = CreateRoom
-            text "Create a Room"
+    result = buildHtml(tdiv(class="column")):
+        tdiv(class="main"):
+            button: 
+                text "Join a Room"
+                proc onclick(_: Event; _: VNode) = 
+                    currentScreen = JoinRoom
+            button:
+                proc onclick(_: Event; _: VNode) = 
+                    if not peer.destroy.isNil():
+                        peer.destroy()
+                    peer = newHost(hostLogic)
+                    
+                    currentScreen = CreateRoom
+                text "Create a Room"
+        a(href = "https://docs.google.com/forms/d/e/1FAIpQLScSidB_dbpKlsWopscLZZn4ZJP_5U9gqb0WyMJ4-bN_yAruSg/viewform?usp=sf_link", target="_blank", rel="noopener noreferrer"):
+            text "Feedback form! Please fill out!"
 
 proc createRoomMenu(): VNode = 
     result = buildHtml(tdiv(class="main")):
@@ -317,6 +320,8 @@ proc main(): VNode =
         of Draft: createDraftMenu()
         of Game: 
             if side == white: createBoard() else: reverseBoard()
+
+
 
 
 setRenderer main

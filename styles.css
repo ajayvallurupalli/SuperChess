@@ -39,6 +39,7 @@ img {
     display: flex;
     min-height: 50%;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     gap: 20px;
     text-align: center;
