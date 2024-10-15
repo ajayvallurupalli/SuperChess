@@ -84,7 +84,7 @@ proc startingBoard*(): ChessBoard =
               [air,       air,         air,         air,        air,       air,         air,         air],
               [air,       air,         air,         air,        air,       air,         air,         air],
               [whitePawn, whitePawn,   whitePawn,   whitePawn,  whitePawn, whitePawn,   whitePawn,   whitePawn],
-              [whiteRook, whiteKnight, whiteBishop, whiteQueen, whiteKing, air, air, whiteRook]]
+              [whiteRook, whiteKnight, whiteBishop, whiteQueen, whiteKing, whiteBishop, whiteKnight, whiteRook]]
 
     for j, r in result:
         for i, x in r:

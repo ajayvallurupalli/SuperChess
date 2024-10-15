@@ -277,7 +277,7 @@ const giraffe: Power = Power(
         proc (side: Color, _: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
                 for j in 0 ..< b[0].len:
-                    if b[i][j].item == bishop and b[i][j].isColor(side):
+                    if b[i][j].item == knight and b[i][j].isColor(side):
                         b[i][j].moves = @[giraffeMoves]   
                         b[i][j].takes = @[giraffeTakes]
                         b[i][j].filePath = if side == black: "blackgiraffe.svg" else: "whitegiraffe.svg"

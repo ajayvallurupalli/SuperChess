@@ -87,9 +87,17 @@ const giraffeTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
     discard result.addIfTake(board, p, p.tile, shooterFactory(-1,4))
     discard result.addIfTake(board, p, p.tile, shooterFactory(1,-4))
     discard result.addIfTake(board, p, p.tile, shooterFactory(-1,-4))
+    discard result.addIfTake(board, p, p.tile, shooterFactory(4,1))
+    discard result.addIfTake(board, p, p.tile, shooterFactory(4,-1))
+    discard result.addIfTake(board, p, p.tile, shooterFactory(-4,1))
+    discard result.addIfTake(board, p, p.tile, shooterFactory(-4,-1))
 
 const giraffeMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
     discard result.addIfFree(board, p.tile, shooterFactory(1,4))
     discard result.addIfFree(board, p.tile, shooterFactory(-1,4))
     discard result.addIfFree(board, p.tile, shooterFactory(1,-4))
     discard result.addIfFree(board, p.tile, shooterFactory(-1,-4))
+    discard result.addIfFree(board, p.tile, shooterFactory(4,1))
+    discard result.addIfFree(board, p.tile, shooterFactory(4,-1))
+    discard result.addIfFree(board, p.tile, shooterFactory(-4,1))
+    discard result.addIfFree(board, p.tile, shooterFactory(-4,-1))
