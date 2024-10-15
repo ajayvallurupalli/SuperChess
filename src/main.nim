@@ -43,7 +43,7 @@ var myDrafts: seq[Power]# = @[anime, illegalFormationBL]
 var opponentDrafts: seq[Power]# = @[illegalFormationBL, anime]
 var draftOptions: seq[Power] = @[]
 var draftChoices: int = 3
-var drafts: int = 2
+var drafts: int = 1
 
 var theBoard: ChessBoard = startingBoard()
 var selectedTile: Tile = (file: -1, rank: -1)
@@ -94,10 +94,10 @@ proc hostLogic(d: string, m: MessageType) =
     of Draft:
         var x = d.split(",")
         if x[0] == "my":
-            dec drafts
             turn = true
+            opponentDrafts.add(powers[parseInt(x[1])])
             if drafts >= 1:
-                opponentDrafts.add(powers[parseInt(x[1])])
+                dec drafts
                 draft(myDrafts & opponentDrafts, myDrafts)
             else:
                 myDrafts.executeOn(white, side, theBoard)

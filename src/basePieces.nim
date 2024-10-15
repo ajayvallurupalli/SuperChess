@@ -81,8 +81,8 @@ proc startingBoard*(): ChessBoard =
               [blackPawn, blackPawn,   blackPawn,   blackPawn,  blackPawn, blackPawn,   blackPawn,   blackPawn],
               [air,       air,         air,         air,        air,       air,         air,         air],
               [air,       air,         air,         air,        air,       air,         air,         air],
-              [air,       air,         air,         blackpawn,        air,       air,         air,         air],
-              [air,       air,         air,         air,        blackPawn,       air,         air,         air],
+              [air,       air,         air,         air,        air,       air,         air,         air],
+              [air,       air,         air,         air,        air,       air,         air,         air],
               [whitePawn, whitePawn,   whitePawn,   whitePawn,  whitePawn, whitePawn,   whitePawn,   whitePawn],
               [whiteRook, whiteKnight, whiteBishop, whiteQueen, whiteKing, whiteBishop, whiteKnight, whiteRook]]
 

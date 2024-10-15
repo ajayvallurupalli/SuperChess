@@ -3,6 +3,7 @@ import power, moves, piece, board, basePieces
 const empress: Power = Power(
     name: "Empress",
     tier: Uncommon,
+    priority: 15,
     description: "Your queen ascends, gaining the movement of a standard knight. ",
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard) =
@@ -61,8 +62,12 @@ const mysteriousSwordsmanLeft*: Power = Power(
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             let rank = if side == black: 1 else: 6
-            b[rank][1].moves = @[diagnalMoves, blackForwardMoves]
-            b[rank][1].takes = @[diagnalTakes, blackForwardTakes]
+            if side == black:
+                b[rank][1].moves = @[diagnalMoves, blackForwardMoves]
+                b[rank][1].takes = @[diagnalTakes, blackForwardTakes]
+            else:
+                b[rank][1].moves = @[diagnalMoves, whiteForwardMoves]
+                b[rank][1].takes = @[diagnalTakes, whiteForwardTakes]
             b[rank][1].onEndTurn = @[silverGeneralPromote]
             b[rank][1].filePath = "silvergeneral.svg"
             if side != viewSide: b[rank][1].rotate = true
@@ -79,8 +84,12 @@ const mysteriousSwordsmanRight*: Power = Power(
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             let rank = if side == black: 1 else: 6
-            b[rank][6].moves = @[diagnalMoves, blackForwardMoves]
-            b[rank][6].takes = @[diagnalTakes, blackForwardTakes]
+            if side == black:
+                b[rank][6].moves = @[diagnalMoves, blackForwardMoves]
+                b[rank][6].takes = @[diagnalTakes, blackForwardTakes]
+            else:
+                b[rank][6].moves = @[diagnalMoves, whiteForwardMoves]
+                b[rank][6].takes = @[diagnalTakes, whiteForwardTakes]
             b[rank][6].onEndTurn = @[silverGeneralPromote]
             b[rank][6].item = fairy
             b[rank][6].filePath = "silvergeneral.svg"
