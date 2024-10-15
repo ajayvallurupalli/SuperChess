@@ -8,6 +8,7 @@ import power, moves, piece, basePieces, extraMoves
     20 - premoves. Any `Power.onStart` which moves `Piece`s around the `ChessBoard`
 
 ]#
+
 const empress: Power = Power(
     name: "Empress",
     tier: Uncommon,
@@ -195,8 +196,12 @@ const wanderingRoninLeft*: Power = Power(
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) =
             let rank = if side == black: 1 else: 6
-            b[rank][2].moves = @[diagnalMoves, blackForwardMoves, leftRightMoves]
-            b[rank][2].takes = @[diagnalTakes, blackForwardTakes, leftRightTakes]
+            if side == black:
+                b[rank][2].moves = @[diagnalMoves, blackForwardMoves, leftRightMoves]
+                b[rank][2].takes = @[diagnalTakes, blackForwardTakes, leftRightTakes]
+            else:
+                b[rank][2].moves = @[diagnalMoves, whiteForwardMoves, leftRightMoves]
+                b[rank][2].takes = @[diagnalTakes, whiteForwardTakes, leftRightTakes]                
             b[rank][2].onEndTurn = @[defaultOnEndTurn] #Gold generals do not promote
             b[rank][2].item = fairy
             b[rank][2].filePath = "goldgeneral.svg"

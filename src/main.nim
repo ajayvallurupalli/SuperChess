@@ -39,11 +39,11 @@ var peer: tuple[send: proc(data: cstring), destroy: proc()]
 var side: Color#= white # = white only for testing, delete
 var turn: bool# = true# = true#only for testing
 
-var myDrafts: seq[Power]# = @[anime, illegalFormationBL]
+var myDrafts: seq[Power]# = @[empress, stepOnMe]# = @[anime, illegalFormationBL]
 var opponentDrafts: seq[Power]# = @[illegalFormationBL, anime]
 var draftOptions: seq[Power] = @[]
 var draftChoices: int = 3
-var drafts: int = 1
+var drafts: int = 2
 
 var theBoard: ChessBoard = startingBoard()
 var selectedTile: Tile = (file: -1, rank: -1)

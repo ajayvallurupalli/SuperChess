@@ -9,12 +9,12 @@ proc rookWhenTake(taker: Tile, taken: Tile, board: var ChessBoard): tuple[endTil
         board[taker.rank][taker.file].timesMoved == 0 and
         board[taken.rank][taken.file].timesMoved == 0: 
             if taken.file == 0:
-                board[taker.rank][taker.file].pieceMove(taker.file - 2, taker.rank, board)
-                board[taken.rank][taken.file].pieceMove(taker.file - 1, taker.rank, board)
+                board[taker.rank][taker.file].pieceMove(taker.rank, taker.file - 2, board)
+                board[taken.rank][taken.file].pieceMove(taker.rank, taker.file - 1, board)
                 return ((taker.file - 1, taker.rank), false)
             else:
-                board[taker.rank][taker.file].pieceMove(taker.file + 2, taker.rank, board)
-                board[taken.rank][taken.file].pieceMove(taker.file + 1, taker.rank, board)
+                board[taker.rank][taker.file].pieceMove(taker.rank, taker.file + 2, board)
+                board[taken.rank][taken.file].pieceMove(taker.rank, taker.file + 1, board)
                 return ((taker.file + 1, taker.rank), false)
     else:
         return defaultWhenTake(taker, taken, board)
@@ -84,7 +84,7 @@ proc startingBoard*(): ChessBoard =
               [air,       air,         air,         air,        air,       air,         air,         air],
               [air,       air,         air,         air,        air,       air,         air,         air],
               [whitePawn, whitePawn,   whitePawn,   whitePawn,  whitePawn, whitePawn,   whitePawn,   whitePawn],
-              [whiteRook, whiteKnight, whiteBishop, whiteQueen, whiteKing, whiteBishop, whiteKnight, whiteRook]]
+              [whiteRook, whiteKnight, whiteBishop, whiteQueen, whiteKing, air, air, whiteRook]]
 
     for j, r in result:
         for i, x in r:
