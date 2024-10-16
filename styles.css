@@ -133,6 +133,10 @@ img {
     padding: 5px;
     background-color: #F8F7F7;
     justify-content: center;
+    height: 15%;
+    max-height: 15%;
+    min-width: 100%;
+    text-wrap: wrap;
 }
 
 .power-grid:hover {
@@ -154,6 +158,8 @@ img {
 
 .image {
     grid-area: img;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .power > h1 {

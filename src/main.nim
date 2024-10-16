@@ -39,7 +39,7 @@ var peer: tuple[send: proc(data: cstring), destroy: proc()]
 var side: Color#= white # = white only for testing, delete
 var turn: bool# = true# = true#only for testing
 
-var myDrafts: seq[Power]# = @[empress, putInTheWork, anime, illegalFormationBL, anime, anime, anime]# = @[anime, illegalFormationBL]
+var myDrafts: seq[Power] #= @[empress, putInTheWork, anime, illegalFormationBL, anime, anime, anime, wanderingRoninLeft]# = @[anime, illegalFormationBL]
 var opponentDrafts: seq[Power]# = @[illegalFormationBL, anime, putInTheWork, empress]
 var draftOptions: seq[Power] = @[]
 var draftChoices: int = 3
@@ -325,11 +325,11 @@ proc createGame(): VNode =
     result = buildHtml(tdiv(class="main")):
         tdiv(class="column-scroll"):
             for p in myDrafts:
-                    createPowerSummary(p)
+                createPowerSummary(p)
         if side == white: createBoard() else: reverseBoard()
         tdiv(class="column-scroll"):
             for p in opponentDrafts:
-                    createPowerSummary(p)
+                createPowerSummary(p)
 
 proc main(): VNode = 
     result = buildHtml(tdiv(class="main")):
@@ -340,8 +340,6 @@ proc main(): VNode =
         of Options: createOptionsMenu()
         of Draft: createDraftMenu()
         of Game: createGame()
-
-
 
 
 setRenderer main
