@@ -56,6 +56,8 @@ var gameMode: Gamemode# = TrueRandom #deubg
 myDrafts.executeOn(white, side, theBoard)
 opponentDrafts.executeOn(black, side,theBoard)
 
+proc alert(s: cstring) {.importjs: "alert(#)".}
+
 proc pieceOf(tile: Tile): Piece = 
     theBoard[tile.rank][tile.file]
 
@@ -261,6 +263,8 @@ proc createOptionsMenu(): VNode =
                 
             tdiv(class="column"):
                 button:
+                    proc onclick(_: Event, _: VNode) = 
+                        alert("This mode hasn't been made yet. Play random mode if you want to play with powers, or normal if you just want normal chess.")
 
                     text "Draft mode"
                 text """Take turns drafting power ups for your pieces, then play. 
