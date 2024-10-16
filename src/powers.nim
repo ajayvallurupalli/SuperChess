@@ -6,10 +6,9 @@ import power, moves, piece, basePieces, extraMoves
     10 - default. Any `Power.onStart` which can't conflict should be here
     15 - buffs. Any `Power.onStart` which adds elements to `Piece.moves` or `Piece.takes`, but does not reassign it
     20 - premoves. Any `Power.onStart` which moves `Piece`s around the `ChessBoard`
-
 ]#
 
-const empress: Power = Power(
+const empress*: Power = Power(
     name: "Empress",
     tier: Uncommon,
     priority: 15,
@@ -220,8 +219,12 @@ const wanderingRoninRight*: Power = Power(
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             let rank = if side == black: 1 else: 6
-            b[rank][5].moves = @[diagnalMoves, blackForwardMoves, leftRightMoves]
-            b[rank][5].takes = @[diagnalTakes, blackForwardTakes, leftRightTakes]
+            if side == black:
+                b[rank][5].moves = @[diagnalMoves, blackForwardMoves, leftRightMoves]
+                b[rank][5].takes = @[diagnalTakes, blackForwardTakes, leftRightTakes]
+            else:
+                b[rank][5].moves = @[diagnalMoves, whiteForwardMoves, leftRightMoves]
+                b[rank][5].takes = @[diagnalTakes, whiteForwardTakes, leftRightTakes]  
             b[rank][5].onEndTurn = @[defaultOnEndTurn] #Gold generals do not promote
             b[rank][5].item = fairy
             b[rank][5].filePath = "goldgeneral.svg"
@@ -230,11 +233,11 @@ const wanderingRoninRight*: Power = Power(
 )
 
 const warewolves*: Power = Power(
-    name: "Warewolves",
+    name: "Werewolves",
     tier: Uncommon,
     priority: 5, 
     description: 
-        """Your leftmost and rightmost pawns are secretly warewolves! When they take a piece, they eat it and gain the ability to jump like a knight. They do not promote.""",
+        """Your leftmost and rightmost pawns are secretly werewolves! When they take a piece, they eat it and gain the ability to jump like a knight. They do not promote.""",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             let update: OnAction = proc (taker: Tile, taken: Tile, board: var ChessBoard) = 

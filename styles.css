@@ -21,6 +21,8 @@ html, body{
 img {
     width: 100%;
     height: 100%;
+    max-height: inherit;
+    object-fit: contain;
 }
 
 .main {
@@ -46,6 +48,16 @@ img {
     padding: 35px;
 }
 
+.small-column {
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    text-align: center
+}
+
 .power-menu {
     flex-wrap: wrap;
 }
@@ -66,6 +78,82 @@ img {
 
 .power:hover {
     background-color: #DCDCDC;
+}
+
+.column-scroll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+    padding: 35px;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 70%;
+    min-height: 70%;
+    height: 70%;
+    transform: translateY(-5%);
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    height: 0px;
+    width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .1);
+}
+
+.power-row {
+    width: 100%;
+    min-width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    text-align: center;
+
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+}
+
+.power-grid {
+    display: grid;
+    grid-template-areas: 
+        'title title title .     .'
+        'desc  desc  desc  img   img'
+        'desc  desc  desc  img   img'
+        'desc  desc  desc  .     .';
+    gap: 10px;
+    padding: 5px;
+    background-color: #F8F7F7;
+    justify-content: center;
+}
+
+.power-grid:hover {
+    background-color: #DCDCDC;
+}
+
+.power-grid > h4 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.title {
+    grid-area: title;
+}
+
+.desc {
+    grid-area: desc;
+}
+
+.image {
+    grid-area: img;
 }
 
 .power > h1 {
@@ -108,4 +196,8 @@ img {
 
 .rotate {
     transform: rotate(180deg);
+}
+
+.small-text {
+    font-size: 15px;
 }
