@@ -46,6 +46,7 @@ const defaultOnEndTurn*: OnAction = proc (taker: Tile, taken: Tile, board: var C
         discard nil
 
 proc defaultWhenTake*(taker: Tile, taken: Tile, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
+    if (taker.file == taken.file) and (taker.rank == taken.file): return (taken, false) #stops pieces from taking themselves, though this can be overridden
     board[taker.rank][taker.file].tile = taken
     board[taken.rank][taken.file] = board[taker.rank][taker.file]
     board[taker.rank][taker.file] = Piece(item: none, tile: taker)
@@ -105,6 +106,10 @@ proc pieceSwap*(p1: Piece, p2: Piece, board: var ChessBoard) =
     board[p2.tile.rank][p2.tile.file] = temp
     board[p1.tile.rank][p1.tile.file].tile = (file: p1.tile.file, rank: p1.tile.rank)
     board[temp.tile.rank][temp.tile.file].tile = (file: temp.tile.file, rank: temp.tile.rank)
+
+proc piecePromote*(t: Tile, b: var ChessBoard) = 
+    for f in b[t.rank][t.file].onPromote:
+        f(t, t, b)
 
 func isAir*(p: Piece): bool = 
     return p.item == none

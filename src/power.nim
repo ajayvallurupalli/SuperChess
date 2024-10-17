@@ -13,7 +13,7 @@ type
         synergy*: bool = true
         tier*: Tier
         rarity*: int = 8
-        description*: string = ""
+        description*: string = "NONE"
         icon*: FilePath = ""
         onStart*: proc (drafterSide: Color, viewerSide: Color, b: var ChessBoard)
         index*: int = -1
@@ -49,12 +49,14 @@ var
     powers*: seq[Power] = @[emptyPower]
     draftSynergies*: seq[Synergy]
     secretSynergies*: seq[Synergy]
+    secretSecretSynergies*: seq[Synergy]
     commonPowers*: seq[Power]
     uncommonPowers*: seq[Power]
     rarePowers*: seq[Power]
     ultraRarePowers*: seq[Power]
 
 proc registerSynergy*(s: Synergy, secret: bool = false, secretSecret = false) = 
+    assert secret or not secretSecret #ensures that secret is true whenever secretSecret is true
     var x = s
     x.power.rarity = x.rarity
     x.power.index = powers[powers.len - 1].index + 1
@@ -62,13 +64,15 @@ proc registerSynergy*(s: Synergy, secret: bool = false, secretSecret = false) =
 
     if secret and not secretSecret:
         let str = s.replacements.foldr(a & " + " & b)
-        x.power.description = "Secret synergy! (" & str & ") "  & x.power.description
+        x.power.description = "Secret synergy! (" & str & ") -- "  & x.power.description
     elif not secret:
         let str = s.replacements.foldr(a & " + " & b)
         x.power.description = "Synergy! (" & str & ") "  & x.power.description   
 
     powers.add(x.power)
-    if secret: secretSynergies.add(x) else: draftSynergies.add(x)
+    if secretSecret: secretSecretSynergies.add(x) 
+    elif secret: secretSynergies.add(x)
+    else: draftSynergies.add(x)
 
 proc synergize(pool: seq[Power], synergies: seq[Synergy], currentPowers: seq[Power], t: Tier, allTiers: bool = false): seq[Power] =
     result = pool 
@@ -127,5 +131,12 @@ proc draftRandomPower*(allSelected: seq[Power], drafterSelected: seq[Power], opt
         result.add(randomPower(randomTier(weights), drafterSelected, allSelected & result))
 
 proc executeOn*(drafts: seq[Power], draftSide: Color, mySide: Color, board: var ChessBoard) = 
-    for d in drafts.synergize(secretSynergies, drafts, Common, true).sortedByIt(it.priority):
+    for d in drafts.synergize(secretSynergies & secretSecretSynergies, drafts, Common, true).sortedByIt(it.priority):
         d.onStart(draftSide, mySide, board)
+
+proc replaceAnySynergies*(powers: seq[Power]): seq[Power] = 
+    result = powers
+    for s in secretSynergies:
+        if powers.filterIt(it.name in s.requirements).len == s.requirements.len:
+            result = result.filterIt(it.name notin s.replacements)
+            result &= s.power

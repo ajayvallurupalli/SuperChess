@@ -101,3 +101,6 @@ const giraffeMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
     discard result.addIfFree(board, p.tile, shooterFactory(3,-1))
     discard result.addIfFree(board, p.tile, shooterFactory(-3,1))
     discard result.addIfFree(board, p.tile, shooterFactory(-3,-1))
+
+const takeSelf*: MoveProc = func(board: ChessBoard, p: Piece): Moves = 
+    result.add(p.tile)

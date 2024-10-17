@@ -64,7 +64,7 @@ img {
 
 .power {
     padding: 20px;
-    min-height: 60%;
+    min-height: 90%;
     width: 180px;
     min-width: 180px;
     
@@ -89,10 +89,12 @@ img {
     padding: 35px;
 
     overflow-y: scroll;
-    overflow-x: hidden;
+    overflow-x: scroll;
     max-height: 70%;
     min-height: 70%;
     height: 70%;
+    max-width: 33%;
+    width: 33%;
     transform: translateY(-5%);
 }
 
@@ -134,9 +136,10 @@ img {
     padding: 5px;
     background-color: #F8F7F7;
     justify-content: center;
-    height: 15%;
+    height: auto;
     min-height: 15%;
     min-width: 100%;
+    max-width: 100%;
     text-wrap: wrap;
 }
 

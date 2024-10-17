@@ -25,7 +25,7 @@ and give options for white and black
 and make black options for shogi pieces
 ---increase max height for drafts 
 stop queen from taking itself with step on me
-
+click enter to enter join code
 ]#
 
 const iconsPath: string  = "./icons/"
@@ -41,11 +41,11 @@ var peer: tuple[send: proc(data: cstring), destroy: proc()]
 var side: Color#= white # = white only for testing, delete
 var turn: bool# = true# = true#only for testing
 
-var myDrafts: seq[Power]# = @[empress, putInTheWork, anime, illegalFormationBL, anime, anime, anime, wanderingRoninLeft]# = @[anime, illegalFormationBL]
-var opponentDrafts: seq[Power]# = @[wanderingRoninLeft, anime, putInTheWork, empress]
+var myDrafts: seq[Power]# = @[empress, sacrifice]# = @[anime, illegalFormationBL]
+var opponentDrafts: seq[Power]# = @[stepOnMe, empress]
 var draftOptions: seq[Power] = @[]
 var draftChoices: int = 3
-var drafts: int = 3
+var drafts: int = 0
 
 var theBoard: ChessBoard = startingBoard()
 var selectedTile: Tile = (file: -1, rank: -1)
@@ -152,7 +152,9 @@ proc validateNotEmpty(field: kstring): proc () =
 
 proc createTile(p: Piece, m: int, n: int): VNode = 
     var class = if (m*7+n) mod 2 == 0: "whiteTile" else: "blackTile"
-    if isSelected(m,n):
+    if isSelected(m, n) and possibleTakes.contains(p.tile):
+        class &= " can-take"
+    elif isSelected(m,n):
         class &= " selected"
     elif possibleMoves.contains(p.tile):
         class &= " can-move"
@@ -330,11 +332,11 @@ proc createPowerSummary(p: Power): VNode =
 proc createGame(): VNode = 
     result = buildHtml(tdiv(class="main")):
         tdiv(class="column-scroll"):
-            for p in myDrafts:
+            for p in myDrafts.replaceAnySynergies():
                 createPowerSummary(p)
         if side == white: createBoard() else: reverseBoard()
         tdiv(class="column-scroll"):
-            for p in opponentDrafts:
+            for p in opponentDrafts.replaceAnySynergies():
                 createPowerSummary(p)
 
 proc main(): VNode = 

@@ -13,6 +13,7 @@ const empress*: Power = Power(
     tier: Uncommon,
     priority: 15,
     description: "Your queen ascends, gaining the movement of a standard knight. ",
+    icon: "blackqueen.svg",
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
@@ -93,7 +94,7 @@ const developed*: Power = Power(
                 b[6][4].pieceMove(5, 4, b)         
 )
 
-const stepOnMe: Power = Power(
+const stepOnMe*: Power = Power(
     name: "Step on me",
     tier: Common,
     priority: 15, 
@@ -256,7 +257,7 @@ const warewolves*: Power = Power(
 
 const archBishops: Power = Power(
     name: "Archbishops",
-    tier: Uncommon,
+    tier: Rare,
     priority: 15, 
     description:
         """Your bishops ascend to archbishops, gaining the movement of a knight.""",
@@ -271,7 +272,7 @@ const archBishops: Power = Power(
 
 const giraffe: Power = Power(
     name: "Giraffe",
-    tier: Rare,
+    tier: Uncommon,
     priority: 5, 
     description:
         """Your knights try riding giraffes. It works surprisingly well. Their leap is improved, moving 4 across instead of 2 across.""",
@@ -349,7 +350,74 @@ const masochistEmpress: Synergy = (
     power: masochistEmpressPower,
     rarity: 0,
     requirements: @[empress.name, stepOnMe.name],
-    replacements: @[empress.name],
+    replacements: @[empress.name, stepOnMe.name],
+    index: -1
+)
+
+proc sacrificeWhenTaken*(taker: Tile, taken: Tile, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
+    if ((taker.file == taken.file) and (taker.rank == taken.rank)):
+        for i in 0..<board.len:
+            for j in 0..<board[0].len:
+                if board[i][j].sameColor(board[taker.rank][taker.file]):
+                    piecePromote((file: j, rank: i), board)
+
+    board[taker.rank][taker.file].tile = taken
+    board[taken.rank][taken.file] = board[taker.rank][taker.file]
+    board[taker.rank][taker.file] = Piece(item: none, tile: taker)
+    board[taker.rank][taker.file].piecesTaken += 1
+    return ((taken.file, taken.rank), true)
+
+
+const sacrifice*: Power = Power(
+    name: "Sacrificial Maiden",
+    tier: UltraRare,
+    priority: 20,
+    description: """SACRIFICE THY MAIDENS TO THE BLOOD GOD""",
+    icon: "blackqueen.svg",
+    onStart:
+        proc (side: Color, viewSide: Color, b: var ChessBoard) =
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == queen and b[i][j].isColor(side):
+                        b[i][j].whenTake = sacrificeWhenTaken
+                        b[i][j].takes &= takeSelf
+)
+
+proc sacrificeWhenTakenEmpress*(taker: Tile, taken: Tile, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
+    if ((taker.file == taken.file) and (taker.rank == taken.rank)):
+        for i in 0..<board.len:
+            for j in 0..<board[0].len:
+                if board[i][j].sameColor(board[taker.rank][taker.file]):
+                    piecePromote((file: j, rank: i), board)
+                    board[i][j].moves &= knightMoves
+                    board[i][j].takes &= knightTakes
+
+    board[taker.rank][taker.file].tile = taken
+    board[taken.rank][taken.file] = board[taker.rank][taker.file]
+    board[taker.rank][taker.file] = Piece(item: none, tile: taker)
+    board[taker.rank][taker.file].piecesTaken += 1
+    return ((taken.file, taken.rank), true)
+
+
+const exodiaPower: Power = Power(
+    name: "Exodia",
+    tier: UltraRare,
+    priority: 0,
+    description: "You had your fun, but the game is over. Too bad right?",
+    onStart:
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == queen and b[i][j].isColor(side):
+                        b[i][j].whenTake = sacrificeWhenTakenEmpress
+                        b[i][j].takes &= takeSelf            
+)
+
+const exodia: Synergy = (
+    power: exodiaPower,
+    rarity: 0,
+    requirements: @[empress.name, sacrifice.name],
+    replacements: @[empress.name, sacrifice.name],
     index: -1
 )
 
@@ -368,6 +436,9 @@ registerPower(wanderingRoninRight)
 registerPower(archBishops)
 registerPower(warewolves)
 registerPower(giraffe)
+registerPower(sacrifice)
+registerPower(calvary)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(masochistEmpress, true, true)
+registerSynergy(exodia, true, false)
