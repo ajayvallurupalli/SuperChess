@@ -41,8 +41,8 @@ var peer: tuple[send: proc(data: cstring), destroy: proc()]
 var side: Color#= white # = white only for testing, delete
 var turn: bool# = true# = true#only for testing
 
-var myDrafts: seq[Power]# = @[empress, sacrifice]# = @[anime, illegalFormationBL]
-var opponentDrafts: seq[Power]# = @[stepOnMe, empress]
+var myDrafts: seq[Power]# = @[empress, stepOnMe, sacrifice]# = @[anime, illegalFormationBL]
+var opponentDrafts: seq[Power]# = @[stepOnMe, sacrifice, empress]
 var draftOptions: seq[Power] = @[]
 var draftChoices: int = 3
 var drafts: int = 0

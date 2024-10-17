@@ -2667,23 +2667,23 @@ function HEX3Aanonymous_1442840582(side_1442840583, viewSide_1442840584, b_14428
   
 }
 
-function HEX3Aanonymous_1459617797(board_1459617798, p_1459617799) {
-  var result_1459617800 = [[]];
+function HEX3Aanonymous_1459617796(board_1459617797, p_1459617798) {
+  var result_1459617799 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 4;
     F.filename = "extramoves.nim";
-    var _ = addIfFree_1241513992(result_1459617800, 0, board_1459617798, p_1459617799.tile, shooterFactory_1258291350(1, 1));
+    var _ = addIfFree_1241513992(result_1459617799, 0, board_1459617797, p_1459617798.tile, shooterFactory_1258291350(1, 1));
     F.line = 5;
-    var _ = addIfFree_1241513992(result_1459617800, 0, board_1459617798, p_1459617799.tile, shooterFactory_1258291350((-1), 1));
+    var _ = addIfFree_1241513992(result_1459617799, 0, board_1459617797, p_1459617798.tile, shooterFactory_1258291350((-1), 1));
     F.line = 6;
-    var _ = addIfFree_1241513992(result_1459617800, 0, board_1459617798, p_1459617799.tile, shooterFactory_1258291350(1, (-1)));
+    var _ = addIfFree_1241513992(result_1459617799, 0, board_1459617797, p_1459617798.tile, shooterFactory_1258291350(1, (-1)));
     F.line = 7;
-    var _ = addIfFree_1241513992(result_1459617800, 0, board_1459617798, p_1459617799.tile, shooterFactory_1258291350((-1), (-1)));
+    var _ = addIfFree_1241513992(result_1459617799, 0, board_1459617797, p_1459617798.tile, shooterFactory_1258291350((-1), (-1)));
   framePtr = F.prev;
 
-  return result_1459617800[0];
+  return result_1459617799[0];
 
 }
 
@@ -2708,51 +2708,51 @@ function tileBelow_1258291375(t_1258291376) {
 
 }
 
-function HEX3Aanonymous_1459617822(board_1459617823, p_1459617824) {
-  var result_1459617825 = [[]];
+function HEX3Aanonymous_1459617821(board_1459617822, p_1459617823) {
+  var result_1459617824 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 27;
     F.filename = "extramoves.nim";
-    var _ = addIfFree_1241513992(result_1459617825, 0, board_1459617823, p_1459617824.tile, tileBelow_1258291375);
+    var _ = addIfFree_1241513992(result_1459617824, 0, board_1459617822, p_1459617823.tile, tileBelow_1258291375);
   framePtr = F.prev;
 
-  return result_1459617825[0];
+  return result_1459617824[0];
 
 }
 
-function HEX3Aanonymous_1459617802(board_1459617803, p_1459617804) {
-  var result_1459617805 = [[]];
+function HEX3Aanonymous_1459617801(board_1459617802, p_1459617803) {
+  var result_1459617804 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 10;
     F.filename = "extramoves.nim";
-    var _ = addIfTake_1241514091(result_1459617805, 0, board_1459617803, p_1459617804, p_1459617804.tile, shooterFactory_1258291350(1, 1), false, false);
+    var _ = addIfTake_1241514091(result_1459617804, 0, board_1459617802, p_1459617803, p_1459617803.tile, shooterFactory_1258291350(1, 1), false, false);
     F.line = 11;
-    var _ = addIfTake_1241514091(result_1459617805, 0, board_1459617803, p_1459617804, p_1459617804.tile, shooterFactory_1258291350((-1), 1), false, false);
+    var _ = addIfTake_1241514091(result_1459617804, 0, board_1459617802, p_1459617803, p_1459617803.tile, shooterFactory_1258291350((-1), 1), false, false);
     F.line = 12;
-    var _ = addIfTake_1241514091(result_1459617805, 0, board_1459617803, p_1459617804, p_1459617804.tile, shooterFactory_1258291350(1, (-1)), false, false);
+    var _ = addIfTake_1241514091(result_1459617804, 0, board_1459617802, p_1459617803, p_1459617803.tile, shooterFactory_1258291350(1, (-1)), false, false);
     F.line = 13;
-    var _ = addIfTake_1241514091(result_1459617805, 0, board_1459617803, p_1459617804, p_1459617804.tile, shooterFactory_1258291350((-1), (-1)), false, false);
+    var _ = addIfTake_1241514091(result_1459617804, 0, board_1459617802, p_1459617803, p_1459617803.tile, shooterFactory_1258291350((-1), (-1)), false, false);
   framePtr = F.prev;
 
-  return result_1459617805[0];
+  return result_1459617804[0];
 
 }
 
-function HEX3Aanonymous_1459617832(board_1459617833, p_1459617834) {
-  var result_1459617835 = [[]];
+function HEX3Aanonymous_1459617831(board_1459617832, p_1459617833) {
+  var result_1459617834 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 33;
     F.filename = "extramoves.nim";
-    var _ = addIfTake_1241514091(result_1459617835, 0, board_1459617833, p_1459617834, p_1459617834.tile, tileBelow_1258291375, false, false);
+    var _ = addIfTake_1241514091(result_1459617834, 0, board_1459617832, p_1459617833, p_1459617833.tile, tileBelow_1258291375, false, false);
   framePtr = F.prev;
 
-  return result_1459617835[0];
+  return result_1459617834[0];
 
 }
 
@@ -2777,31 +2777,31 @@ function tileAbove_1258291372(t_1258291373) {
 
 }
 
-function HEX3Aanonymous_1459617817(board_1459617818, p_1459617819) {
-  var result_1459617820 = [[]];
+function HEX3Aanonymous_1459617816(board_1459617817, p_1459617818) {
+  var result_1459617819 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 24;
     F.filename = "extramoves.nim";
-    var _ = addIfFree_1241513992(result_1459617820, 0, board_1459617818, p_1459617819.tile, tileAbove_1258291372);
+    var _ = addIfFree_1241513992(result_1459617819, 0, board_1459617817, p_1459617818.tile, tileAbove_1258291372);
   framePtr = F.prev;
 
-  return result_1459617820[0];
+  return result_1459617819[0];
 
 }
 
-function HEX3Aanonymous_1459617827(board_1459617828, p_1459617829) {
-  var result_1459617830 = [[]];
+function HEX3Aanonymous_1459617826(board_1459617827, p_1459617828) {
+  var result_1459617829 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 30;
     F.filename = "extramoves.nim";
-    var _ = addIfTake_1241514091(result_1459617830, 0, board_1459617828, p_1459617829, p_1459617829.tile, tileAbove_1258291372, false, false);
+    var _ = addIfTake_1241514091(result_1459617829, 0, board_1459617827, p_1459617828, p_1459617828.tile, tileAbove_1258291372, false, false);
   framePtr = F.prev;
 
-  return result_1459617830[0];
+  return result_1459617829[0];
 
 }
 
@@ -2847,35 +2847,35 @@ function tileRight_1258291381(t_1258291382) {
 
 }
 
-function HEX3Aanonymous_1459617807(board_1459617808, p_1459617809) {
-  var result_1459617810 = [[]];
+function HEX3Aanonymous_1459617806(board_1459617807, p_1459617808) {
+  var result_1459617809 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 16;
     F.filename = "extramoves.nim";
-    var _ = addIfFree_1241513992(result_1459617810, 0, board_1459617808, p_1459617809.tile, tileLeft_1258291378);
+    var _ = addIfFree_1241513992(result_1459617809, 0, board_1459617807, p_1459617808.tile, tileLeft_1258291378);
     F.line = 17;
-    var _ = addIfFree_1241513992(result_1459617810, 0, board_1459617808, p_1459617809.tile, tileRight_1258291381);
+    var _ = addIfFree_1241513992(result_1459617809, 0, board_1459617807, p_1459617808.tile, tileRight_1258291381);
   framePtr = F.prev;
 
-  return result_1459617810[0];
+  return result_1459617809[0];
 
 }
 
-function HEX3Aanonymous_1459617812(board_1459617813, p_1459617814) {
-  var result_1459617815 = [[]];
+function HEX3Aanonymous_1459617811(board_1459617812, p_1459617813) {
+  var result_1459617814 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 20;
     F.filename = "extramoves.nim";
-    var _ = addIfTake_1241514091(result_1459617815, 0, board_1459617813, p_1459617814, p_1459617814.tile, tileLeft_1258291378, false, false);
+    var _ = addIfTake_1241514091(result_1459617814, 0, board_1459617812, p_1459617813, p_1459617813.tile, tileLeft_1258291378, false, false);
     F.line = 21;
-    var _ = addIfTake_1241514091(result_1459617815, 0, board_1459617813, p_1459617814, p_1459617814.tile, tileRight_1258291381, false, false);
+    var _ = addIfTake_1241514091(result_1459617814, 0, board_1459617812, p_1459617813, p_1459617813.tile, tileRight_1258291381, false, false);
   framePtr = F.prev;
 
-  return result_1459617815[0];
+  return result_1459617814[0];
 
 }
 
@@ -2885,9 +2885,9 @@ function HEX3Aanonymous_1442840623(taker_1442840624, taken_1442840625, board_144
     if ((((taken_1442840625.Field1 == 0) || (taken_1442840625.Field1 == 7)) && !(board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)][chckIndx(taken_1442840625.Field0, 0, (board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)]).length - 1)].promoted))) {
     F.line = 28;
     F.filename = "powers.nim";
-    board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)][chckIndx(taken_1442840625.Field0, 0, (board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617807);;
+    board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)][chckIndx(taken_1442840625.Field0, 0, (board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617806);;
     F.line = 29;
-    board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)][chckIndx(taken_1442840625.Field0, 0, (board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617812);;
+    board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)][chckIndx(taken_1442840625.Field0, 0, (board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617811);;
     F.line = 30;
     board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)][chckIndx(taken_1442840625.Field0, 0, (board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)]).length - 1)].promoted = true;
     F.line = 31;
@@ -2916,15 +2916,15 @@ function HEX3Aanonymous_1442840636(side_1442840637, viewSide_1442840638, b_14428
     var rank_1442840644 = Temporary1;
     if ((side_1442840637 == 0)) {
     F.line = 46;
-    b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)][chckIndx(1, 0, (b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617797, HEX3Aanonymous_1459617822], NTI1224736896);
+    b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)][chckIndx(1, 0, (b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617796, HEX3Aanonymous_1459617821], NTI1224736896);
     F.line = 47;
-    b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)][chckIndx(1, 0, (b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617802, HEX3Aanonymous_1459617832], NTI1224736896);
+    b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)][chckIndx(1, 0, (b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617801, HEX3Aanonymous_1459617831], NTI1224736896);
     }
     else {
       F.line = 49;
-      b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)][chckIndx(1, 0, (b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617797, HEX3Aanonymous_1459617817], NTI1224736896);
+      b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)][chckIndx(1, 0, (b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617796, HEX3Aanonymous_1459617816], NTI1224736896);
       F.line = 50;
-      b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)][chckIndx(1, 0, (b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617802, HEX3Aanonymous_1459617827], NTI1224736896);
+      b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)][chckIndx(1, 0, (b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617801, HEX3Aanonymous_1459617826], NTI1224736896);
     }
     
     F.line = 51;
@@ -2958,15 +2958,15 @@ function HEX3Aanonymous_1442840706(side_1442840707, viewSide_1442840708, b_14428
     var rank_1442840714 = Temporary1;
     if ((side_1442840707 == 0)) {
     F.line = 69;
-    b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)][chckIndx(6, 0, (b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617797, HEX3Aanonymous_1459617822], NTI1224736896);
+    b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)][chckIndx(6, 0, (b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617796, HEX3Aanonymous_1459617821], NTI1224736896);
     F.line = 70;
-    b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)][chckIndx(6, 0, (b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617802, HEX3Aanonymous_1459617832], NTI1224736896);
+    b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)][chckIndx(6, 0, (b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617801, HEX3Aanonymous_1459617831], NTI1224736896);
     }
     else {
       F.line = 72;
-      b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)][chckIndx(6, 0, (b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617797, HEX3Aanonymous_1459617817], NTI1224736896);
+      b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)][chckIndx(6, 0, (b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617796, HEX3Aanonymous_1459617816], NTI1224736896);
       F.line = 73;
-      b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)][chckIndx(6, 0, (b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617802, HEX3Aanonymous_1459617827], NTI1224736896);
+      b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)][chckIndx(6, 0, (b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617801, HEX3Aanonymous_1459617826], NTI1224736896);
     }
     
     F.line = 74;
@@ -3134,35 +3134,35 @@ function lineTakes_1241514171(board_1241514172, p_1241514173, shoot_1241514174, 
 
 }
 
-function HEX3Aanonymous_1459617884(board_1459617885, p_1459617886) {
-  var result_1459617887 = [[]];
+function HEX3Aanonymous_1459617883(board_1459617884, p_1459617885) {
+  var result_1459617886 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 67;
     F.filename = "extramoves.nim";
-    add_1207959651(result_1459617887, 0, lineTakes_1241514171(board_1459617885, p_1459617886, shooterFactory_1258291350(1, 1), false, true));
+    add_1207959651(result_1459617886, 0, lineTakes_1241514171(board_1459617884, p_1459617885, shooterFactory_1258291350(1, 1), false, true));
     F.line = 68;
-    add_1207959651(result_1459617887, 0, lineTakes_1241514171(board_1459617885, p_1459617886, shooterFactory_1258291350((-1), 1), false, true));
+    add_1207959651(result_1459617886, 0, lineTakes_1241514171(board_1459617884, p_1459617885, shooterFactory_1258291350((-1), 1), false, true));
     F.line = 69;
-    add_1207959651(result_1459617887, 0, lineTakes_1241514171(board_1459617885, p_1459617886, shooterFactory_1258291350(1, (-1)), false, true));
+    add_1207959651(result_1459617886, 0, lineTakes_1241514171(board_1459617884, p_1459617885, shooterFactory_1258291350(1, (-1)), false, true));
     F.line = 70;
-    add_1207959651(result_1459617887, 0, lineTakes_1241514171(board_1459617885, p_1459617886, shooterFactory_1258291350((-1), (-1)), false, true));
+    add_1207959651(result_1459617886, 0, lineTakes_1241514171(board_1459617884, p_1459617885, shooterFactory_1258291350((-1), (-1)), false, true));
   framePtr = F.prev;
 
-  return result_1459617887[0];
+  return result_1459617886[0];
 
 }
 
-function HEX3Aanonymous_1459617905(board_1459617906, p_1459617907) {
-  var result_1459617908 = [[]];
+function HEX3Aanonymous_1459617904(board_1459617905, p_1459617906) {
+  var result_1459617907 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     Label1: {
       F.line = 73;
       F.filename = "extramoves.nim";
-      var i_1459617913 = 0;
+      var i_1459617912 = 0;
       F.line = 96;
       F.filename = "iterators_1.nim";
       var res_1442841548 = (-1);
@@ -3172,10 +3172,10 @@ function HEX3Aanonymous_1459617905(board_1459617906, p_1459617907) {
           if (!(res_1442841548 <= 1)) break Label3;
             F.line = 73;
             F.filename = "extramoves.nim";
-            i_1459617913 = res_1442841548;
+            i_1459617912 = res_1442841548;
             Label4: {
               F.line = 74;
-              var j_1459617918 = 0;
+              var j_1459617917 = 0;
               F.line = 96;
               F.filename = "iterators_1.nim";
               var res_1442841546 = (-1);
@@ -3185,9 +3185,9 @@ function HEX3Aanonymous_1459617905(board_1459617906, p_1459617907) {
                   if (!(res_1442841546 <= 1)) break Label6;
                     F.line = 74;
                     F.filename = "extramoves.nim";
-                    j_1459617918 = res_1442841546;
+                    j_1459617917 = res_1442841546;
                     F.line = 75;
-                    var _ = addIfTake_1241514091(result_1459617908, 0, board_1459617906, p_1459617907, p_1459617907.tile, shooterFactory_1258291350(i_1459617913, j_1459617918), false, true);
+                    var _ = addIfTake_1241514091(result_1459617907, 0, board_1459617905, p_1459617906, p_1459617906.tile, shooterFactory_1258291350(i_1459617912, j_1459617917), false, true);
                     F.line = 102;
                     F.filename = "iterators_1.nim";
                     res_1442841546 = addInt(res_1442841546, 1);
@@ -3201,27 +3201,27 @@ function HEX3Aanonymous_1459617905(board_1459617906, p_1459617907) {
     };
   framePtr = F.prev;
 
-  return result_1459617908[0];
+  return result_1459617907[0];
 
 }
 
-function HEX3Aanonymous_1459617863(board_1459617864, p_1459617865) {
-  var result_1459617866 = [[]];
+function HEX3Aanonymous_1459617862(board_1459617863, p_1459617864) {
+  var result_1459617865 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 61;
     F.filename = "extramoves.nim";
-    add_1207959651(result_1459617866, 0, lineTakes_1241514171(board_1459617864, p_1459617865, tileAbove_1258291372, false, true));
+    add_1207959651(result_1459617865, 0, lineTakes_1241514171(board_1459617863, p_1459617864, tileAbove_1258291372, false, true));
     F.line = 62;
-    add_1207959651(result_1459617866, 0, lineTakes_1241514171(board_1459617864, p_1459617865, tileBelow_1258291375, false, true));
+    add_1207959651(result_1459617865, 0, lineTakes_1241514171(board_1459617863, p_1459617864, tileBelow_1258291375, false, true));
     F.line = 63;
-    add_1207959651(result_1459617866, 0, lineTakes_1241514171(board_1459617864, p_1459617865, tileLeft_1258291378, false, true));
+    add_1207959651(result_1459617865, 0, lineTakes_1241514171(board_1459617863, p_1459617864, tileLeft_1258291378, false, true));
     F.line = 64;
-    add_1207959651(result_1459617866, 0, lineTakes_1241514171(board_1459617864, p_1459617865, tileRight_1258291381, false, true));
+    add_1207959651(result_1459617865, 0, lineTakes_1241514171(board_1459617863, p_1459617864, tileRight_1258291381, false, true));
   framePtr = F.prev;
 
-  return result_1459617866[0];
+  return result_1459617865[0];
 
 }
 
@@ -3257,7 +3257,7 @@ function HEX3Aanonymous_1442840753(side_1442840754, __1442840755, b_1442840756) 
                     j_1442840780 = i_1442841531;
                     if (((b_1442840756[chckIndx(i_1442840768, 0, (b_1442840756).length - 1)][chckIndx(j_1442840780, 0, (b_1442840756[chckIndx(i_1442840768, 0, (b_1442840756).length - 1)]).length - 1)].item == 1) && isColor_1207960106(b_1442840756[chckIndx(i_1442840768, 0, (b_1442840756).length - 1)][chckIndx(j_1442840780, 0, (b_1442840756[chckIndx(i_1442840768, 0, (b_1442840756).length - 1)]).length - 1)], side_1442840754))) {
                     F.line = 108;
-                    add_1442840789(b_1442840756[chckIndx(i_1442840768, 0, (b_1442840756).length - 1)][chckIndx(j_1442840780, 0, (b_1442840756[chckIndx(i_1442840768, 0, (b_1442840756).length - 1)]).length - 1)], "moves", [HEX3Aanonymous_1459617884, HEX3Aanonymous_1459617905, HEX3Aanonymous_1459617863]);
+                    add_1442840789(b_1442840756[chckIndx(i_1442840768, 0, (b_1442840756).length - 1)][chckIndx(j_1442840780, 0, (b_1442840756[chckIndx(i_1442840768, 0, (b_1442840756).length - 1)]).length - 1)], "moves", [HEX3Aanonymous_1459617883, HEX3Aanonymous_1459617904, HEX3Aanonymous_1459617862]);
                     }
                     
                     F.line = 131;
@@ -3590,15 +3590,15 @@ function HEX3Aanonymous_1442840933(side_1442840934, viewSide_1442840935, b_14428
     var rank_1442840941 = Temporary1;
     if ((side_1442840934 == 0)) {
     F.line = 200;
-    b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)][chckIndx(2, 0, (b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617797, HEX3Aanonymous_1459617822, HEX3Aanonymous_1459617807], NTI1241514359);
+    b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)][chckIndx(2, 0, (b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617796, HEX3Aanonymous_1459617821, HEX3Aanonymous_1459617806], NTI1241514359);
     F.line = 201;
-    b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)][chckIndx(2, 0, (b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617802, HEX3Aanonymous_1459617832, HEX3Aanonymous_1459617812], NTI1241514359);
+    b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)][chckIndx(2, 0, (b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617801, HEX3Aanonymous_1459617831, HEX3Aanonymous_1459617811], NTI1241514359);
     }
     else {
       F.line = 203;
-      b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)][chckIndx(2, 0, (b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617797, HEX3Aanonymous_1459617817, HEX3Aanonymous_1459617807], NTI1241514359);
+      b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)][chckIndx(2, 0, (b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617796, HEX3Aanonymous_1459617816, HEX3Aanonymous_1459617806], NTI1241514359);
       F.line = 204;
-      b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)][chckIndx(2, 0, (b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617802, HEX3Aanonymous_1459617827, HEX3Aanonymous_1459617812], NTI1241514359);
+      b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)][chckIndx(2, 0, (b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617801, HEX3Aanonymous_1459617826, HEX3Aanonymous_1459617811], NTI1241514359);
     }
     
     F.line = 205;
@@ -3634,15 +3634,15 @@ function HEX3Aanonymous_1442840971(side_1442840972, viewSide_1442840973, b_14428
     var rank_1442840979 = Temporary1;
     if ((side_1442840972 == 0)) {
     F.line = 224;
-    b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)][chckIndx(5, 0, (b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617797, HEX3Aanonymous_1459617822, HEX3Aanonymous_1459617807], NTI1241514359);
+    b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)][chckIndx(5, 0, (b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617796, HEX3Aanonymous_1459617821, HEX3Aanonymous_1459617806], NTI1241514359);
     F.line = 225;
-    b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)][chckIndx(5, 0, (b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617802, HEX3Aanonymous_1459617832, HEX3Aanonymous_1459617812], NTI1241514359);
+    b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)][chckIndx(5, 0, (b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617801, HEX3Aanonymous_1459617831, HEX3Aanonymous_1459617811], NTI1241514359);
     }
     else {
       F.line = 227;
-      b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)][chckIndx(5, 0, (b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617797, HEX3Aanonymous_1459617817, HEX3Aanonymous_1459617807], NTI1241514359);
+      b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)][chckIndx(5, 0, (b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617796, HEX3Aanonymous_1459617816, HEX3Aanonymous_1459617806], NTI1241514359);
       F.line = 228;
-      b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)][chckIndx(5, 0, (b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617802, HEX3Aanonymous_1459617827, HEX3Aanonymous_1459617812], NTI1241514359);
+      b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)][chckIndx(5, 0, (b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617801, HEX3Aanonymous_1459617826, HEX3Aanonymous_1459617811], NTI1241514359);
     }
     
     F.line = 229;
@@ -3762,59 +3762,59 @@ function HEX3Aanonymous_1442841013(taker_1442841014, taken_1442841015, board_144
   
 }
 
-function HEX3Aanonymous_1459617930(board_1459617931, p_1459617932) {
-  var result_1459617933 = [[]];
+function HEX3Aanonymous_1459617929(board_1459617930, p_1459617931) {
+  var result_1459617932 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 99;
     F.filename = "extramoves.nim";
-    var _ = addIfFree_1241513992(result_1459617933, 0, board_1459617931, p_1459617932.tile, shooterFactory_1258291350(1, 3));
+    var _ = addIfFree_1241513992(result_1459617932, 0, board_1459617930, p_1459617931.tile, shooterFactory_1258291350(1, 3));
     F.line = 100;
-    var _ = addIfFree_1241513992(result_1459617933, 0, board_1459617931, p_1459617932.tile, shooterFactory_1258291350((-1), 3));
+    var _ = addIfFree_1241513992(result_1459617932, 0, board_1459617930, p_1459617931.tile, shooterFactory_1258291350((-1), 3));
     F.line = 101;
-    var _ = addIfFree_1241513992(result_1459617933, 0, board_1459617931, p_1459617932.tile, shooterFactory_1258291350(1, (-3)));
+    var _ = addIfFree_1241513992(result_1459617932, 0, board_1459617930, p_1459617931.tile, shooterFactory_1258291350(1, (-3)));
     F.line = 102;
-    var _ = addIfFree_1241513992(result_1459617933, 0, board_1459617931, p_1459617932.tile, shooterFactory_1258291350((-1), (-3)));
+    var _ = addIfFree_1241513992(result_1459617932, 0, board_1459617930, p_1459617931.tile, shooterFactory_1258291350((-1), (-3)));
     F.line = 103;
-    var _ = addIfFree_1241513992(result_1459617933, 0, board_1459617931, p_1459617932.tile, shooterFactory_1258291350(3, 1));
+    var _ = addIfFree_1241513992(result_1459617932, 0, board_1459617930, p_1459617931.tile, shooterFactory_1258291350(3, 1));
     F.line = 104;
-    var _ = addIfFree_1241513992(result_1459617933, 0, board_1459617931, p_1459617932.tile, shooterFactory_1258291350(3, (-1)));
+    var _ = addIfFree_1241513992(result_1459617932, 0, board_1459617930, p_1459617931.tile, shooterFactory_1258291350(3, (-1)));
     F.line = 105;
-    var _ = addIfFree_1241513992(result_1459617933, 0, board_1459617931, p_1459617932.tile, shooterFactory_1258291350((-3), 1));
+    var _ = addIfFree_1241513992(result_1459617932, 0, board_1459617930, p_1459617931.tile, shooterFactory_1258291350((-3), 1));
     F.line = 106;
-    var _ = addIfFree_1241513992(result_1459617933, 0, board_1459617931, p_1459617932.tile, shooterFactory_1258291350((-3), (-1)));
+    var _ = addIfFree_1241513992(result_1459617932, 0, board_1459617930, p_1459617931.tile, shooterFactory_1258291350((-3), (-1)));
   framePtr = F.prev;
 
-  return result_1459617933[0];
+  return result_1459617932[0];
 
 }
 
-function HEX3Aanonymous_1459617925(board_1459617926, p_1459617927) {
-  var result_1459617928 = [[]];
+function HEX3Aanonymous_1459617924(board_1459617925, p_1459617926) {
+  var result_1459617927 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 89;
     F.filename = "extramoves.nim";
-    var _ = addIfTake_1241514091(result_1459617928, 0, board_1459617926, p_1459617927, p_1459617927.tile, shooterFactory_1258291350(1, 3), false, false);
+    var _ = addIfTake_1241514091(result_1459617927, 0, board_1459617925, p_1459617926, p_1459617926.tile, shooterFactory_1258291350(1, 3), false, false);
     F.line = 90;
-    var _ = addIfTake_1241514091(result_1459617928, 0, board_1459617926, p_1459617927, p_1459617927.tile, shooterFactory_1258291350((-1), 3), false, false);
+    var _ = addIfTake_1241514091(result_1459617927, 0, board_1459617925, p_1459617926, p_1459617926.tile, shooterFactory_1258291350((-1), 3), false, false);
     F.line = 91;
-    var _ = addIfTake_1241514091(result_1459617928, 0, board_1459617926, p_1459617927, p_1459617927.tile, shooterFactory_1258291350(1, (-3)), false, false);
+    var _ = addIfTake_1241514091(result_1459617927, 0, board_1459617925, p_1459617926, p_1459617926.tile, shooterFactory_1258291350(1, (-3)), false, false);
     F.line = 92;
-    var _ = addIfTake_1241514091(result_1459617928, 0, board_1459617926, p_1459617927, p_1459617927.tile, shooterFactory_1258291350((-1), (-3)), false, false);
+    var _ = addIfTake_1241514091(result_1459617927, 0, board_1459617925, p_1459617926, p_1459617926.tile, shooterFactory_1258291350((-1), (-3)), false, false);
     F.line = 93;
-    var _ = addIfTake_1241514091(result_1459617928, 0, board_1459617926, p_1459617927, p_1459617927.tile, shooterFactory_1258291350(3, 1), false, false);
+    var _ = addIfTake_1241514091(result_1459617927, 0, board_1459617925, p_1459617926, p_1459617926.tile, shooterFactory_1258291350(3, 1), false, false);
     F.line = 94;
-    var _ = addIfTake_1241514091(result_1459617928, 0, board_1459617926, p_1459617927, p_1459617927.tile, shooterFactory_1258291350(3, (-1)), false, false);
+    var _ = addIfTake_1241514091(result_1459617927, 0, board_1459617925, p_1459617926, p_1459617926.tile, shooterFactory_1258291350(3, (-1)), false, false);
     F.line = 95;
-    var _ = addIfTake_1241514091(result_1459617928, 0, board_1459617926, p_1459617927, p_1459617927.tile, shooterFactory_1258291350((-3), 1), false, false);
+    var _ = addIfTake_1241514091(result_1459617927, 0, board_1459617925, p_1459617926, p_1459617926.tile, shooterFactory_1258291350((-3), 1), false, false);
     F.line = 96;
-    var _ = addIfTake_1241514091(result_1459617928, 0, board_1459617926, p_1459617927, p_1459617927.tile, shooterFactory_1258291350((-3), (-1)), false, false);
+    var _ = addIfTake_1241514091(result_1459617927, 0, board_1459617925, p_1459617926, p_1459617926.tile, shooterFactory_1258291350((-3), (-1)), false, false);
   framePtr = F.prev;
 
-  return result_1459617928[0];
+  return result_1459617927[0];
 
 }
 
@@ -3852,9 +3852,9 @@ function HEX3Aanonymous_1442841081(side_1442841082, __1442841083, b_1442841084) 
                     j_1442841108 = i_1442841577;
                     if (((b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)][chckIndx(j_1442841108, 0, (b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)]).length - 1)].item == 5) && isColor_1207960106(b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)][chckIndx(j_1442841108, 0, (b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)]).length - 1)], side_1442841082))) {
                     F.line = 285;
-                    b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)][chckIndx(j_1442841108, 0, (b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617930], NTI1224736805);
+                    b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)][chckIndx(j_1442841108, 0, (b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617929], NTI1224736805);
                     F.line = 286;
-                    b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)][chckIndx(j_1442841108, 0, (b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617925], NTI1224736805);
+                    b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)][chckIndx(j_1442841108, 0, (b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617924], NTI1224736805);
                     F.line = 287;
                     if ((side_1442841082 == 0)) {
                     Temporary7 = [98,108,97,99,107,103,105,114,97,102,102,101,46,115,118,103];
@@ -4000,18 +4000,18 @@ function sacrificeWhenTaken_1442841277(taker_1442841278, taken_1442841279, board
 
 }
 
-function HEX3Aanonymous_1459617935(board_1459617936, p_1459617937) {
-  var result_1459617938 = [];
+function HEX3Aanonymous_1459617934(board_1459617935, p_1459617936) {
+  var result_1459617937 = [];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 109;
     F.filename = "extramoves.nim";
-    var Temporary1 = nimCopy(null, p_1459617937.tile, NTI1207959555);
-    result_1459617938.push(Temporary1);;
+    var Temporary1 = nimCopy(null, p_1459617936.tile, NTI1207959555);
+    result_1459617937.push(Temporary1);;
   framePtr = F.prev;
 
-  return result_1459617938;
+  return result_1459617937;
 
 }
 
@@ -4049,7 +4049,7 @@ function HEX3Aanonymous_1442841314(side_1442841315, viewSide_1442841316, b_14428
                     F.line = 382;
                     b_1442841317[chckIndx(i_1442841329, 0, (b_1442841317).length - 1)][chckIndx(j_1442841341, 0, (b_1442841317[chckIndx(i_1442841329, 0, (b_1442841317).length - 1)]).length - 1)].whenTake = sacrificeWhenTaken_1442841277;
                     F.line = 383;
-                    b_1442841317[chckIndx(i_1442841329, 0, (b_1442841317).length - 1)][chckIndx(j_1442841341, 0, (b_1442841317[chckIndx(i_1442841329, 0, (b_1442841317).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617935);;
+                    b_1442841317[chckIndx(i_1442841329, 0, (b_1442841317).length - 1)][chckIndx(j_1442841341, 0, (b_1442841317[chckIndx(i_1442841329, 0, (b_1442841317).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617934);;
                     }
                     
                     F.line = 131;
@@ -4068,79 +4068,79 @@ function HEX3Aanonymous_1442841314(side_1442841315, viewSide_1442841316, b_14428
   
 }
 
-function HEX3Aanonymous_1459617857(board_1459617858, p_1459617859) {
-  var result_1459617860 = [[]];
+function HEX3Aanonymous_1459617856(board_1459617857, p_1459617858) {
+  var result_1459617859 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 54;
     F.filename = "extramoves.nim";
-    var next_1459617861 = addIfFree_1241513992(result_1459617860, 0, board_1459617858, p_1459617859.tile, tileBelow_1258291375);
-    if (next_1459617861) {
+    var next_1459617860 = addIfFree_1241513992(result_1459617859, 0, board_1459617857, p_1459617858.tile, tileBelow_1258291375);
+    if (next_1459617860) {
     F.line = 56;
-    var _ = addIfFree_1241513992(result_1459617860, 0, board_1459617858, tileBelow_1258291375(p_1459617859.tile), tileBelow_1258291375);
+    var _ = addIfFree_1241513992(result_1459617859, 0, board_1459617857, tileBelow_1258291375(p_1459617858.tile), tileBelow_1258291375);
     }
     
   framePtr = F.prev;
 
-  return result_1459617860[0];
+  return result_1459617859[0];
 
 }
 
-function HEX3Aanonymous_1459617845(board_1459617846, p_1459617847) {
-  var result_1459617848 = [[]];
+function HEX3Aanonymous_1459617844(board_1459617845, p_1459617846) {
+  var result_1459617847 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 44;
     F.filename = "extramoves.nim";
-    var next_1459617849 = addIfTake_1241514091(result_1459617848, 0, board_1459617846, p_1459617847, p_1459617847.tile, tileBelow_1258291375, false, false);
-    if (next_1459617849) {
+    var next_1459617848 = addIfTake_1241514091(result_1459617847, 0, board_1459617845, p_1459617846, p_1459617846.tile, tileBelow_1258291375, false, false);
+    if (next_1459617848) {
     F.line = 46;
-    var _ = addIfTake_1241514091(result_1459617848, 0, board_1459617846, p_1459617847, tileBelow_1258291375(p_1459617847.tile), tileBelow_1258291375, false, false);
+    var _ = addIfTake_1241514091(result_1459617847, 0, board_1459617845, p_1459617846, tileBelow_1258291375(p_1459617846.tile), tileBelow_1258291375, false, false);
     }
     
   framePtr = F.prev;
 
-  return result_1459617848[0];
+  return result_1459617847[0];
 
 }
 
-function HEX3Aanonymous_1459617851(board_1459617852, p_1459617853) {
-  var result_1459617854 = [[]];
+function HEX3Aanonymous_1459617850(board_1459617851, p_1459617852) {
+  var result_1459617853 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 49;
     F.filename = "extramoves.nim";
-    var next_1459617855 = addIfFree_1241513992(result_1459617854, 0, board_1459617852, p_1459617853.tile, tileAbove_1258291372);
-    if (next_1459617855) {
+    var next_1459617854 = addIfFree_1241513992(result_1459617853, 0, board_1459617851, p_1459617852.tile, tileAbove_1258291372);
+    if (next_1459617854) {
     F.line = 51;
-    var _ = addIfFree_1241513992(result_1459617854, 0, board_1459617852, tileAbove_1258291372(p_1459617853.tile), tileAbove_1258291372);
+    var _ = addIfFree_1241513992(result_1459617853, 0, board_1459617851, tileAbove_1258291372(p_1459617852.tile), tileAbove_1258291372);
     }
     
   framePtr = F.prev;
 
-  return result_1459617854[0];
+  return result_1459617853[0];
 
 }
 
-function HEX3Aanonymous_1459617839(board_1459617840, p_1459617841) {
-  var result_1459617842 = [[]];
+function HEX3Aanonymous_1459617838(board_1459617839, p_1459617840) {
+  var result_1459617841 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 39;
     F.filename = "extramoves.nim";
-    var next_1459617843 = addIfTake_1241514091(result_1459617842, 0, board_1459617840, p_1459617841, p_1459617841.tile, tileAbove_1258291372, false, false);
-    if (next_1459617843) {
+    var next_1459617842 = addIfTake_1241514091(result_1459617841, 0, board_1459617839, p_1459617840, p_1459617840.tile, tileAbove_1258291372, false, false);
+    if (next_1459617842) {
     F.line = 41;
-    var _ = addIfTake_1241514091(result_1459617842, 0, board_1459617840, p_1459617841, tileAbove_1258291372(p_1459617841.tile), tileAbove_1258291372, false, false);
+    var _ = addIfTake_1241514091(result_1459617841, 0, board_1459617839, p_1459617840, tileAbove_1258291372(p_1459617840.tile), tileAbove_1258291372, false, false);
     }
     
   framePtr = F.prev;
 
-  return result_1459617842[0];
+  return result_1459617841[0];
 
 }
 
@@ -4177,15 +4177,15 @@ function HEX3Aanonymous_1442841142(side_1442841143, __1442841144, b_1442841145) 
                     if (((b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].item == 5) && isColor_1207960106(b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)], side_1442841143))) {
                     if ((side_1442841143 == 0)) {
                     F.line = 304;
-                    b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617857);;
+                    b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617856);;
                     F.line = 305;
-                    b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617845);;
+                    b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617844);;
                     }
                     else {
                       F.line = 307;
-                      b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617851);;
+                      b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617850);;
                       F.line = 308;
-                      b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617839);;
+                      b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617838);;
                     }
                     
                     }
@@ -4239,12 +4239,12 @@ function HEX3Aanonymous_1442841447(side_1442841448, viewSide_1442841449, b_14428
                     if (((b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)][chckIndx(j_1442841474, 0, (b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)]).length - 1)].item == 3) && isColor_1207960106(b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)][chckIndx(j_1442841474, 0, (b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)]).length - 1)], side_1442841448))) {
                     if ((b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)][chckIndx(j_1442841474, 0, (b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)]).length - 1)].color == 0)) {
                     F.line = 435;
-                    b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)][chckIndx(j_1442841474, 0, (b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617817);;
+                    b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)][chckIndx(j_1442841474, 0, (b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617816);;
                     }
                     else {
                     if ((b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)][chckIndx(j_1442841474, 0, (b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)]).length - 1)].color == 1)) {
                     F.line = 437;
-                    b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)][chckIndx(j_1442841474, 0, (b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617822);;
+                    b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)][chckIndx(j_1442841474, 0, (b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617821);;
                     }
                     }
                     }
@@ -4428,31 +4428,31 @@ function HEX3Aanonymous_1442841195(side_1442841196, viewerSide_1442841197, b_144
   
 }
 
-function HEX3Aanonymous_1459617920(board_1459617921, p_1459617922) {
-  var result_1459617923 = [[]];
+function HEX3Aanonymous_1459617919(board_1459617920, p_1459617921) {
+  var result_1459617922 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 78;
     F.filename = "extramoves.nim";
-    var _ = addIfTake_1241514091(result_1459617923, 0, board_1459617921, p_1459617922, p_1459617922.tile, shooterFactory_1258291350(1, 2), false, true);
+    var _ = addIfTake_1241514091(result_1459617922, 0, board_1459617920, p_1459617921, p_1459617921.tile, shooterFactory_1258291350(1, 2), false, true);
     F.line = 79;
-    var _ = addIfTake_1241514091(result_1459617923, 0, board_1459617921, p_1459617922, p_1459617922.tile, shooterFactory_1258291350((-1), 2), false, true);
+    var _ = addIfTake_1241514091(result_1459617922, 0, board_1459617920, p_1459617921, p_1459617921.tile, shooterFactory_1258291350((-1), 2), false, true);
     F.line = 80;
-    var _ = addIfTake_1241514091(result_1459617923, 0, board_1459617921, p_1459617922, p_1459617922.tile, shooterFactory_1258291350(2, 1), false, true);
+    var _ = addIfTake_1241514091(result_1459617922, 0, board_1459617920, p_1459617921, p_1459617921.tile, shooterFactory_1258291350(2, 1), false, true);
     F.line = 81;
-    var _ = addIfTake_1241514091(result_1459617923, 0, board_1459617921, p_1459617922, p_1459617922.tile, shooterFactory_1258291350(2, (-1)), false, true);
+    var _ = addIfTake_1241514091(result_1459617922, 0, board_1459617920, p_1459617921, p_1459617921.tile, shooterFactory_1258291350(2, (-1)), false, true);
     F.line = 82;
-    var _ = addIfTake_1241514091(result_1459617923, 0, board_1459617921, p_1459617922, p_1459617922.tile, shooterFactory_1258291350(1, (-2)), false, true);
+    var _ = addIfTake_1241514091(result_1459617922, 0, board_1459617920, p_1459617921, p_1459617921.tile, shooterFactory_1258291350(1, (-2)), false, true);
     F.line = 83;
-    var _ = addIfTake_1241514091(result_1459617923, 0, board_1459617921, p_1459617922, p_1459617922.tile, shooterFactory_1258291350((-1), (-2)), false, true);
+    var _ = addIfTake_1241514091(result_1459617922, 0, board_1459617920, p_1459617921, p_1459617921.tile, shooterFactory_1258291350((-1), (-2)), false, true);
     F.line = 84;
-    var _ = addIfTake_1241514091(result_1459617923, 0, board_1459617921, p_1459617922, p_1459617922.tile, shooterFactory_1258291350((-2), 1), false, true);
+    var _ = addIfTake_1241514091(result_1459617922, 0, board_1459617920, p_1459617921, p_1459617921.tile, shooterFactory_1258291350((-2), 1), false, true);
     F.line = 85;
-    var _ = addIfTake_1241514091(result_1459617923, 0, board_1459617921, p_1459617922, p_1459617922.tile, shooterFactory_1258291350((-2), (-1)), false, true);
+    var _ = addIfTake_1241514091(result_1459617922, 0, board_1459617920, p_1459617921, p_1459617921.tile, shooterFactory_1258291350((-2), (-1)), false, true);
   framePtr = F.prev;
 
-  return result_1459617923[0];
+  return result_1459617922[0];
 
 }
 
@@ -4488,7 +4488,7 @@ function HEX3Aanonymous_1442841222(side_1442841223, viewSide_1442841224, b_14428
                     j_1442841249 = i_1442841622;
                     if (((b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)][chckIndx(j_1442841249, 0, (b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)]).length - 1)].item == 1) && isColor_1207960106(b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)][chckIndx(j_1442841249, 0, (b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)]).length - 1)], side_1442841223))) {
                     F.line = 344;
-                    b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)][chckIndx(j_1442841249, 0, (b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617920);;
+                    b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)][chckIndx(j_1442841249, 0, (b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617919);;
                     F.line = 345;
                     b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)][chckIndx(j_1442841249, 0, (b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1241514434);;
                     }
@@ -4622,7 +4622,7 @@ function HEX3Aanonymous_1442841396(side_1442841397, viewSide_1442841398, b_14428
                     F.line = 412;
                     b_1442841399[chckIndx(i_1442841411, 0, (b_1442841399).length - 1)][chckIndx(j_1442841423, 0, (b_1442841399[chckIndx(i_1442841411, 0, (b_1442841399).length - 1)]).length - 1)].whenTake = sacrificeWhenTakenEmpress_1442841351;
                     F.line = 413;
-                    b_1442841399[chckIndx(i_1442841411, 0, (b_1442841399).length - 1)][chckIndx(j_1442841423, 0, (b_1442841399[chckIndx(i_1442841411, 0, (b_1442841399).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617935);;
+                    b_1442841399[chckIndx(i_1442841411, 0, (b_1442841399).length - 1)][chckIndx(j_1442841423, 0, (b_1442841399[chckIndx(i_1442841411, 0, (b_1442841399).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617934);;
                     }
                     
                     F.line = 131;
