@@ -5,7 +5,7 @@ from sequtils import foldr, mapIt
 
 #[TO DO
 Check if a handshake is needed when drafting, or if no data would be lost
-add priotirty sustem to powers to fix conflicting issues
+---add priotirty sustem to powers to fix conflicting issues
 make castling a move instead so that the highlighted tile is green not yellow
 add invisible borders to prevent odd resizing when clicking
 lots of playtesting
@@ -39,8 +39,8 @@ var peer: tuple[send: proc(data: cstring), destroy: proc()]
 var side: Color#= white # = white only for testing, delete
 var turn: bool# = true# = true#only for testing
 
-var myDrafts: seq[Power] #= @[empress, putInTheWork, anime, illegalFormationBL, anime, anime, anime, wanderingRoninLeft]# = @[anime, illegalFormationBL]
-var opponentDrafts: seq[Power]# = @[illegalFormationBL, anime, putInTheWork, empress]
+var myDrafts: seq[Power]# = @[empress, putInTheWork, anime, illegalFormationBL, anime, anime, anime, wanderingRoninLeft]# = @[anime, illegalFormationBL]
+var opponentDrafts: seq[Power]# = @[wanderingRoninLeft, anime, putInTheWork, empress]
 var draftOptions: seq[Power] = @[]
 var draftChoices: int = 3
 var drafts: int = 2
@@ -49,7 +49,7 @@ var theBoard: ChessBoard = startingBoard()
 var selectedTile: Tile = (file: -1, rank: -1)
 var possibleMoves: Moves = @[]
 var possibleTakes: Moves = @[]
-var currentScreen: Screen = Lobby# = Draft
+var currentScreen: Screen = Lobby # = Draft
 var gameMode: Gamemode# = TrueRandom #deubg
 
 #also for debugging
