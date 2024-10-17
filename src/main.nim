@@ -28,7 +28,7 @@ stop queen from taking itself with step on me
 click enter to enter join code
 ]#
 
-const iconsPath: string  = "./icons/"
+const iconsPath: string  = "./icons"
 
 type 
     Screen {.pure.} = enum 

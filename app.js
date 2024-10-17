@@ -11242,7 +11242,7 @@ function HEX3Aanonymous_520094511(__520094512, __520094513) {
     F.line = 297;
     var tmp_520094504 = tree_721421184(76, []);
     F.line = 297;
-    setAttr_721421035(tmp_520094504, "src", toJSStr(([46,47,105,99,111,110,115,47] || []).concat(p_520094500.icon || [])));
+    setAttr_721421035(tmp_520094504, "src", toJSStr(([46,47,105,99,111,110,115] || []).concat(p_520094500.icon || [])));
     F.line = 297;
     add_721421120(tmp_520094502, tmp_520094504);
     }
@@ -11483,7 +11483,7 @@ function createPowerSummary_520094599(p_520094600) {
     F.line = 328;
     tmp_520094605.class = "image";
     F.line = 328;
-    setAttr_721421035(tmp_520094605, "src", toJSStr(([46,47,105,99,111,110,115,47] || []).concat(p_520094600.icon || [])));
+    setAttr_721421035(tmp_520094605, "src", toJSStr(([46,47,105,99,111,110,115] || []).concat(p_520094600.icon || [])));
     F.line = 328;
     add_721421120(tmp_520094602, tmp_520094605);
     }
@@ -11493,7 +11493,7 @@ function createPowerSummary_520094599(p_520094600) {
       F.line = 330;
       tmp_520094606.class = "image";
       F.line = 330;
-      setAttr_721421035(tmp_520094606, "src", "./icons/blackbishop.svg");
+      setAttr_721421035(tmp_520094606, "src", "./iconsblackbishop.svg");
       F.line = 330;
       add_721421120(tmp_520094602, tmp_520094606);
     }
@@ -11695,7 +11695,7 @@ function HEX3Aanonymous_520094266(__520094267, __520094268) {
       F.line = 194;
       var tmp_520094265 = tree_721421184(76, []);
       F.line = 194;
-      setAttr_721421035(tmp_520094265, "src", toJSStr(([46,47,105,99,111,110,115,47] || []).concat(p_520094208.filePath || [])));
+      setAttr_721421035(tmp_520094265, "src", toJSStr(([46,47,105,99,111,110,115] || []).concat(p_520094208.filePath || [])));
       F.line = 194;
       tmp_520094265.class = toJSStr(class_520094305);
       F.line = 194;
