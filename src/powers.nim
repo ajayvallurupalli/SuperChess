@@ -421,6 +421,22 @@ const exodia: Synergy = (
     index: -1
 )
 
+const backStep: Power = Power(
+    name: "Backstep",
+    tier: Rare,
+    description: "Your pawns receive some training. They can move one tile back. They cannot take this way.",
+    icon: "blackpawn.svg",
+    onStart:
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == pawn and b[i][j].isColor(side):
+                        if b[i][j].color == black:
+                            b[i][j].moves &= blackBackwardMove
+                        elif b[i][j].color == white:
+                            b[i][j].moves &= whiteBackwardMove
+)
+
 registerPower(empress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
@@ -438,6 +454,7 @@ registerPower(warewolves)
 registerPower(giraffe)
 registerPower(sacrifice)
 registerPower(calvary)
+registerPower(backstep)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(masochistEmpress, true, true)

@@ -32,6 +32,9 @@ const whiteForwardTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
 const blackForwardTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
     discard result.addIfTake(board, p, p.tile, tileBelow)
 
+const blackBackwardMove* = whiteForwardMoves
+const whiteBackwardMove* = blackForwardMoves
+
 const whiteForwardTwiceTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
     let next = result.addIfTake(board, p, p.tile, tileAbove)
     if next: 
