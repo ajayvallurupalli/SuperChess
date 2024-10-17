@@ -454,7 +454,7 @@ const headStart: Power = Power(
                             b[i][j].moves &= whiteForwardTwiceMoves
 )
 
-const queenTrade: Power = Power(
+const queenTrade*: Power = Power(
     name: "Patriarchy",
     tier: Rare,
     priority: 20,
@@ -497,6 +497,91 @@ const superPawn: Synergy = (
     index: -1    
 )
 
+const lesbianPride*: Power = Power(
+    name: "Lesbian Pride",
+    tier: UltraRare,
+    priority: 1,
+    description: "🧡🤍🩷",
+    icon: "lesbianprideflag.svg",
+    onStart: 
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == king and b[i][j].isColor(side):
+                        b[i][j] = whiteQueen.pieceCopy(color =  b[i][j].color, item = king, tile = b[i][j].tile) 
+                    elif b[i][j].item == bishop and b[i][j].isColor(side):
+                        b[i][j] = Piece(item: none, tile: b[i][j].tile)
+                        #`Piece.item` is still king so win/loss works
+)
+
+const queensWrathPower: Power = Power(
+    name: "Queen's Wrath",
+    tier: UltraRare,
+    rarity: 0,
+    priority: 1,
+    description: "Why must she die?",
+    icon: "blackqueen.svg",
+    onStart:
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item != queen and b[i][j].isColor(side):
+                        b[i][j] = Piece(item: none, tile: b[i][j].tile)
+                    elif b[i][j].item == queen and b[i][j].isColor(side):
+                        b[i][j].moves &= @[knightMoves, giraffeMoves]
+                        b[i][j].takes &= @[knightTakes, giraffeTakes]
+                        b[i][j].item = king
+            
+)
+
+const queensWrathSuperPower: Power = Power(
+    name: "Fallen Queen's Wrath",
+    tier: UltraRare,
+    rarity: 0,
+    priority: 0,
+    description: """Why must she die? They will suffer. They will suffer. They will suffer. 
+                    They will suffer. They will suffer. They will suffer. They will suffer. 
+                    They will suffer. They will suffer. They will suffer. They will suffer.
+                    They will suffer. They will suffer. They will suffer. They will suffer.""",
+    icon: "blackqueen.svg",
+    onStart:
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item != queen and b[i][j].isColor(side):
+                        b[i][j] = Piece(item: none, tile: b[i][j].tile)
+                    elif b[i][j].item == queen and b[i][j].isColor(side):
+                        b[i][j].moves &= @[knightMoves, giraffeMoves]
+                        b[i][j].takes &= @[knightTakes, giraffeTakes]
+                        b[i][j].item = king
+                    elif b[i][j].item == bishop and not b[i][j].isColor(side):
+                        b[i][j] = Piece(item: none, tile: b[i][j].tile)
+)
+
+const queensWrath: Synergy = (
+    power: queensWrathPower,
+    rarity: 0,
+    requirements: @[lesbianPride.name, queenTrade.name],
+    replacements: @[lesbianPride.name, queenTrade.name],
+    index: -1    
+)
+
+const queensWrath2: Synergy = (
+    power: queensWrathPower,
+    rarity: 0,
+    requirements: @[lesbianPride.name, sacrifice.name],
+    replacements: @[lesbianPride.name, sacrifice.name],
+    index: -1    
+)
+
+const queensWrathSuper: Synergy = (
+    power: queensWrathSuperPower,
+    rarity: 0,
+    requirements: @[lesbianPride.name, queenTrade.name, sacrifice.name],
+    replacements: @[lesbianPride.name, queenTrade.name, sacrifice.name],
+    index: -1
+)
+
 registerPower(empress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
@@ -517,8 +602,12 @@ registerPower(calvary)
 registerPower(backstep)
 registerPower(headStart)
 registerPower(queenTrade)
+registerPower(lesbianPride)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(masochistEmpress, true, true)
-registerSynergy(exodia, true, false)
+registerSynergy(exodia, true)
 registerSynergy(superPawn, true)
+registerSynergy(queensWrath, true)
+registerSynergy(queensWrath2, true)
+registerSynergy(queensWrathSuper, true)

@@ -41,8 +41,8 @@ var peer: tuple[send: proc(data: cstring), destroy: proc()]
 var side: Color# = white # = white only for testing, delete
 var turn: bool# = true# = true#only for testing
 
-var myDrafts: seq[Power] = @[]# = @[anime, illegalFormationBL]
-var opponentDrafts: seq[Power]# = @[stepOnMe, sacrifice, empress]
+var myDrafts: seq[Power]# = @[lesbianPride]
+var opponentDrafts: seq[Power]# = @[queenTrade, sacrifice]
 var draftOptions: seq[Power]
 var draftChoices: int = 3
 var drafts: int = 3
@@ -209,18 +209,25 @@ proc reverseBoard(): VNode =
 
 proc createLobby(): VNode = 
     result = buildHtml(tdiv(class="column")):
+        let join = proc() = 
+                if not peer.destroy.isNil():
+                    peer.destroy()
+                peer = newHost(hostLogic)
+                
+                currentScreen = CreateRoom
         tdiv(class="main"):
             button: 
                 text "Join a Room"
                 proc onclick(_: Event; _: VNode) = 
                     currentScreen = JoinRoom
             button:
-                proc onclick(_: Event; _: VNode) = 
-                    if not peer.destroy.isNil():
-                        peer.destroy()
-                    peer = newHost(hostLogic)
-                    
-                    currentScreen = CreateRoom
+                proc onclick(ev: Event; _: VNode) = 
+                    join()
+
+                proc onkeypressed(ev: Event; _: VNode) =
+                    echo ev.`type`
+
+                
                 text "Create a Room"
         a(href = "https://docs.google.com/forms/d/e/1FAIpQLScSidB_dbpKlsWopscLZZn4ZJP_5U9gqb0WyMJ4-bN_yAruSg/viewform?usp=sf_link", target="_blank", rel="noopener noreferrer"):
             text "Feedback form! Please fill out!"
