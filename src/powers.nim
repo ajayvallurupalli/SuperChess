@@ -233,6 +233,12 @@ const wanderingRoninRight*: Power = Power(
 
 )
 
+const werewolfEndTurn: OnAction = proc (taker: Tile, taken: Tile, board: var ChessBoard) = 
+    if board[taken.rank][taken.file].piecesTaken == 1 and not board[taken.rank][taken.file].promoted:
+        board[taken.rank][taken.file].moves &= knightMoves
+        board[taken.rank][taken.file].takes &= knightTakes
+        board[taken.rank][taken.file].promoted = true
+
 const warewolves*: Power = Power(
     name: "Werewolves",
     tier: Uncommon,
@@ -241,18 +247,11 @@ const warewolves*: Power = Power(
         """Your leftmost and rightmost pawns are secretly werewolves! When they take a piece, they eat it and gain the ability to jump like a knight. They do not promote.""",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
-            let update: OnAction = proc (taker: Tile, taken: Tile, board: var ChessBoard) = 
-                if board[taken.rank][taken.file].piecesTaken == 1 and not board[taken.rank][taken.file].promoted:
-                    board[taken.rank][taken.file].moves &= knightMoves
-                    board[taken.rank][taken.file].takes &= knightTakes
-                    board[taken.rank][taken.file].promoted = true
-
             let rank = if side == black: 1 else: 6
-            b[rank][0].onEndTurn = @[update]
+            b[rank][0].onEndTurn = @[werewolfEndTurn]
             b[rank][0].item = fairy
-            b[rank][7].onEndTurn = @[update]
-            b[rank][7].item = fairy
-                
+            b[rank][7].onEndTurn = @[werewolfEndTurn]
+            b[rank][7].item = fairy     
 )
 
 const archBishops: Power = Power(
@@ -371,7 +370,7 @@ proc sacrificeWhenTaken*(taker: Tile, taken: Tile, board: var ChessBoard): tuple
 const sacrifice*: Power = Power(
     name: "Sacrificial Maiden",
     tier: UltraRare,
-    priority: 20,
+    priority: 15,
     description: """SACRIFICE THY MAIDENS TO THE BLOOD GOD""",
     icon: "blackqueen.svg",
     onStart:
@@ -402,7 +401,7 @@ proc sacrificeWhenTakenEmpress*(taker: Tile, taken: Tile, board: var ChessBoard)
 const exodiaPower: Power = Power(
     name: "Exodia",
     tier: UltraRare,
-    priority: 0,
+    priority: 15,
     description: "You had your fun, but the game is over. Too bad right?",
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
@@ -424,6 +423,7 @@ const exodia: Synergy = (
 const backStep: Power = Power(
     name: "Backstep",
     tier: Rare,
+    priority: 15,
     description: "Your pawns receive some training. They can move one tile back. They cannot take this way.",
     icon: "blackpawn.svg",
     onStart:
@@ -440,6 +440,7 @@ const backStep: Power = Power(
 const headStart: Power = Power(
     name: "Headstart",
     tier: Uncommon,
+    priority: 15,
     description: "Your pawns can always move 2 forward. They still take like normal. It's kind of boring, don't you think?",
     icon: "blackpawn.svg",
     onStart:
