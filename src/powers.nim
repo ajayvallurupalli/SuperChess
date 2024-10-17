@@ -437,6 +437,22 @@ const backStep: Power = Power(
                             b[i][j].moves &= whiteBackwardMove
 )
 
+const headStart: Power = Power(
+    name: "Headstart",
+    tier: Uncommon,
+    description: "Your pawns can always move 2 forward. They still take like normal. It's kind of boring, don't you think?",
+    icon: "blackpawn.svg",
+    onStart:
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == pawn and b[i][j].isColor(side):
+                        if b[i][j].color == black:
+                            b[i][j].moves &= blackForwardTwiceMoves
+                        elif b[i][j].color == white:
+                            b[i][j].moves &= whiteForwardTwiceMoves
+)
+
 registerPower(empress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
@@ -455,6 +471,7 @@ registerPower(giraffe)
 registerPower(sacrifice)
 registerPower(calvary)
 registerPower(backstep)
+registerPower(headStart)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(masochistEmpress, true, true)
