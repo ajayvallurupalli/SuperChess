@@ -2668,23 +2668,23 @@ function HEX3Aanonymous_1442840582(side_1442840583, viewSide_1442840584, b_14428
   
 }
 
-function HEX3Aanonymous_1459617796(board_1459617797, p_1459617798) {
-  var result_1459617799 = [[]];
+function HEX3Aanonymous_1459617797(board_1459617798, p_1459617799) {
+  var result_1459617800 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 4;
     F.filename = "extramoves.nim";
-    var _ = addIfFree_1241513992(result_1459617799, 0, board_1459617797, p_1459617798.tile, shooterFactory_1258291350(1, 1));
+    var _ = addIfFree_1241513992(result_1459617800, 0, board_1459617798, p_1459617799.tile, shooterFactory_1258291350(1, 1));
     F.line = 5;
-    var _ = addIfFree_1241513992(result_1459617799, 0, board_1459617797, p_1459617798.tile, shooterFactory_1258291350((-1), 1));
+    var _ = addIfFree_1241513992(result_1459617800, 0, board_1459617798, p_1459617799.tile, shooterFactory_1258291350((-1), 1));
     F.line = 6;
-    var _ = addIfFree_1241513992(result_1459617799, 0, board_1459617797, p_1459617798.tile, shooterFactory_1258291350(1, (-1)));
+    var _ = addIfFree_1241513992(result_1459617800, 0, board_1459617798, p_1459617799.tile, shooterFactory_1258291350(1, (-1)));
     F.line = 7;
-    var _ = addIfFree_1241513992(result_1459617799, 0, board_1459617797, p_1459617798.tile, shooterFactory_1258291350((-1), (-1)));
+    var _ = addIfFree_1241513992(result_1459617800, 0, board_1459617798, p_1459617799.tile, shooterFactory_1258291350((-1), (-1)));
   framePtr = F.prev;
 
-  return result_1459617799[0];
+  return result_1459617800[0];
 
 }
 
@@ -2709,51 +2709,51 @@ function tileBelow_1258291375(t_1258291376) {
 
 }
 
-function HEX3Aanonymous_1459617821(board_1459617822, p_1459617823) {
-  var result_1459617824 = [[]];
+function HEX3Aanonymous_1459617822(board_1459617823, p_1459617824) {
+  var result_1459617825 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 27;
     F.filename = "extramoves.nim";
-    var _ = addIfFree_1241513992(result_1459617824, 0, board_1459617822, p_1459617823.tile, tileBelow_1258291375);
+    var _ = addIfFree_1241513992(result_1459617825, 0, board_1459617823, p_1459617824.tile, tileBelow_1258291375);
   framePtr = F.prev;
 
-  return result_1459617824[0];
+  return result_1459617825[0];
 
 }
 
-function HEX3Aanonymous_1459617801(board_1459617802, p_1459617803) {
-  var result_1459617804 = [[]];
+function HEX3Aanonymous_1459617802(board_1459617803, p_1459617804) {
+  var result_1459617805 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 10;
     F.filename = "extramoves.nim";
-    var _ = addIfTake_1241514091(result_1459617804, 0, board_1459617802, p_1459617803, p_1459617803.tile, shooterFactory_1258291350(1, 1), false, false);
+    var _ = addIfTake_1241514091(result_1459617805, 0, board_1459617803, p_1459617804, p_1459617804.tile, shooterFactory_1258291350(1, 1), false, false);
     F.line = 11;
-    var _ = addIfTake_1241514091(result_1459617804, 0, board_1459617802, p_1459617803, p_1459617803.tile, shooterFactory_1258291350((-1), 1), false, false);
+    var _ = addIfTake_1241514091(result_1459617805, 0, board_1459617803, p_1459617804, p_1459617804.tile, shooterFactory_1258291350((-1), 1), false, false);
     F.line = 12;
-    var _ = addIfTake_1241514091(result_1459617804, 0, board_1459617802, p_1459617803, p_1459617803.tile, shooterFactory_1258291350(1, (-1)), false, false);
+    var _ = addIfTake_1241514091(result_1459617805, 0, board_1459617803, p_1459617804, p_1459617804.tile, shooterFactory_1258291350(1, (-1)), false, false);
     F.line = 13;
-    var _ = addIfTake_1241514091(result_1459617804, 0, board_1459617802, p_1459617803, p_1459617803.tile, shooterFactory_1258291350((-1), (-1)), false, false);
+    var _ = addIfTake_1241514091(result_1459617805, 0, board_1459617803, p_1459617804, p_1459617804.tile, shooterFactory_1258291350((-1), (-1)), false, false);
   framePtr = F.prev;
 
-  return result_1459617804[0];
+  return result_1459617805[0];
 
 }
 
-function HEX3Aanonymous_1459617831(board_1459617832, p_1459617833) {
-  var result_1459617834 = [[]];
+function HEX3Aanonymous_1459617832(board_1459617833, p_1459617834) {
+  var result_1459617835 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 33;
     F.filename = "extramoves.nim";
-    var _ = addIfTake_1241514091(result_1459617834, 0, board_1459617832, p_1459617833, p_1459617833.tile, tileBelow_1258291375, false, false);
+    var _ = addIfTake_1241514091(result_1459617835, 0, board_1459617833, p_1459617834, p_1459617834.tile, tileBelow_1258291375, false, false);
   framePtr = F.prev;
 
-  return result_1459617834[0];
+  return result_1459617835[0];
 
 }
 
@@ -2778,31 +2778,31 @@ function tileAbove_1258291372(t_1258291373) {
 
 }
 
-function HEX3Aanonymous_1459617816(board_1459617817, p_1459617818) {
-  var result_1459617819 = [[]];
+function HEX3Aanonymous_1459617817(board_1459617818, p_1459617819) {
+  var result_1459617820 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 24;
     F.filename = "extramoves.nim";
-    var _ = addIfFree_1241513992(result_1459617819, 0, board_1459617817, p_1459617818.tile, tileAbove_1258291372);
+    var _ = addIfFree_1241513992(result_1459617820, 0, board_1459617818, p_1459617819.tile, tileAbove_1258291372);
   framePtr = F.prev;
 
-  return result_1459617819[0];
+  return result_1459617820[0];
 
 }
 
-function HEX3Aanonymous_1459617826(board_1459617827, p_1459617828) {
-  var result_1459617829 = [[]];
+function HEX3Aanonymous_1459617827(board_1459617828, p_1459617829) {
+  var result_1459617830 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 30;
     F.filename = "extramoves.nim";
-    var _ = addIfTake_1241514091(result_1459617829, 0, board_1459617827, p_1459617828, p_1459617828.tile, tileAbove_1258291372, false, false);
+    var _ = addIfTake_1241514091(result_1459617830, 0, board_1459617828, p_1459617829, p_1459617829.tile, tileAbove_1258291372, false, false);
   framePtr = F.prev;
 
-  return result_1459617829[0];
+  return result_1459617830[0];
 
 }
 
@@ -2848,35 +2848,35 @@ function tileRight_1258291381(t_1258291382) {
 
 }
 
-function HEX3Aanonymous_1459617806(board_1459617807, p_1459617808) {
-  var result_1459617809 = [[]];
+function HEX3Aanonymous_1459617807(board_1459617808, p_1459617809) {
+  var result_1459617810 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 16;
     F.filename = "extramoves.nim";
-    var _ = addIfFree_1241513992(result_1459617809, 0, board_1459617807, p_1459617808.tile, tileLeft_1258291378);
+    var _ = addIfFree_1241513992(result_1459617810, 0, board_1459617808, p_1459617809.tile, tileLeft_1258291378);
     F.line = 17;
-    var _ = addIfFree_1241513992(result_1459617809, 0, board_1459617807, p_1459617808.tile, tileRight_1258291381);
+    var _ = addIfFree_1241513992(result_1459617810, 0, board_1459617808, p_1459617809.tile, tileRight_1258291381);
   framePtr = F.prev;
 
-  return result_1459617809[0];
+  return result_1459617810[0];
 
 }
 
-function HEX3Aanonymous_1459617811(board_1459617812, p_1459617813) {
-  var result_1459617814 = [[]];
+function HEX3Aanonymous_1459617812(board_1459617813, p_1459617814) {
+  var result_1459617815 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 20;
     F.filename = "extramoves.nim";
-    var _ = addIfTake_1241514091(result_1459617814, 0, board_1459617812, p_1459617813, p_1459617813.tile, tileLeft_1258291378, false, false);
+    var _ = addIfTake_1241514091(result_1459617815, 0, board_1459617813, p_1459617814, p_1459617814.tile, tileLeft_1258291378, false, false);
     F.line = 21;
-    var _ = addIfTake_1241514091(result_1459617814, 0, board_1459617812, p_1459617813, p_1459617813.tile, tileRight_1258291381, false, false);
+    var _ = addIfTake_1241514091(result_1459617815, 0, board_1459617813, p_1459617814, p_1459617814.tile, tileRight_1258291381, false, false);
   framePtr = F.prev;
 
-  return result_1459617814[0];
+  return result_1459617815[0];
 
 }
 
@@ -2886,9 +2886,9 @@ function HEX3Aanonymous_1442840623(taker_1442840624, taken_1442840625, board_144
     if ((((taken_1442840625.Field1 == 0) || (taken_1442840625.Field1 == 7)) && !(board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)][chckIndx(taken_1442840625.Field0, 0, (board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)]).length - 1)].promoted))) {
     F.line = 28;
     F.filename = "powers.nim";
-    board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)][chckIndx(taken_1442840625.Field0, 0, (board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617806);;
+    board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)][chckIndx(taken_1442840625.Field0, 0, (board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617807);;
     F.line = 29;
-    board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)][chckIndx(taken_1442840625.Field0, 0, (board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617811);;
+    board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)][chckIndx(taken_1442840625.Field0, 0, (board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617812);;
     F.line = 30;
     board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)][chckIndx(taken_1442840625.Field0, 0, (board_1442840626[chckIndx(taken_1442840625.Field1, 0, (board_1442840626).length - 1)]).length - 1)].promoted = true;
     F.line = 31;
@@ -2917,15 +2917,15 @@ function HEX3Aanonymous_1442840636(side_1442840637, viewSide_1442840638, b_14428
     var rank_1442840644 = Temporary1;
     if ((side_1442840637 == 0)) {
     F.line = 46;
-    b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)][chckIndx(1, 0, (b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617796, HEX3Aanonymous_1459617821], NTI1224736896);
+    b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)][chckIndx(1, 0, (b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617797, HEX3Aanonymous_1459617822], NTI1224736896);
     F.line = 47;
-    b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)][chckIndx(1, 0, (b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617801, HEX3Aanonymous_1459617831], NTI1224736896);
+    b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)][chckIndx(1, 0, (b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617802, HEX3Aanonymous_1459617832], NTI1224736896);
     }
     else {
       F.line = 49;
-      b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)][chckIndx(1, 0, (b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617796, HEX3Aanonymous_1459617816], NTI1224736896);
+      b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)][chckIndx(1, 0, (b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617797, HEX3Aanonymous_1459617817], NTI1224736896);
       F.line = 50;
-      b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)][chckIndx(1, 0, (b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617801, HEX3Aanonymous_1459617826], NTI1224736896);
+      b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)][chckIndx(1, 0, (b_1442840639[chckIndx(rank_1442840644, 0, (b_1442840639).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617802, HEX3Aanonymous_1459617827], NTI1224736896);
     }
     
     F.line = 51;
@@ -2959,15 +2959,15 @@ function HEX3Aanonymous_1442840706(side_1442840707, viewSide_1442840708, b_14428
     var rank_1442840714 = Temporary1;
     if ((side_1442840707 == 0)) {
     F.line = 69;
-    b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)][chckIndx(6, 0, (b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617796, HEX3Aanonymous_1459617821], NTI1224736896);
+    b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)][chckIndx(6, 0, (b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617797, HEX3Aanonymous_1459617822], NTI1224736896);
     F.line = 70;
-    b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)][chckIndx(6, 0, (b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617801, HEX3Aanonymous_1459617831], NTI1224736896);
+    b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)][chckIndx(6, 0, (b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617802, HEX3Aanonymous_1459617832], NTI1224736896);
     }
     else {
       F.line = 72;
-      b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)][chckIndx(6, 0, (b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617796, HEX3Aanonymous_1459617816], NTI1224736896);
+      b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)][chckIndx(6, 0, (b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617797, HEX3Aanonymous_1459617817], NTI1224736896);
       F.line = 73;
-      b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)][chckIndx(6, 0, (b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617801, HEX3Aanonymous_1459617826], NTI1224736896);
+      b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)][chckIndx(6, 0, (b_1442840709[chckIndx(rank_1442840714, 0, (b_1442840709).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617802, HEX3Aanonymous_1459617827], NTI1224736896);
     }
     
     F.line = 74;
@@ -3135,35 +3135,35 @@ function lineTakes_1241514171(board_1241514172, p_1241514173, shoot_1241514174, 
 
 }
 
-function HEX3Aanonymous_1459617883(board_1459617884, p_1459617885) {
-  var result_1459617886 = [[]];
+function HEX3Aanonymous_1459617884(board_1459617885, p_1459617886) {
+  var result_1459617887 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 67;
     F.filename = "extramoves.nim";
-    add_1207959651(result_1459617886, 0, lineTakes_1241514171(board_1459617884, p_1459617885, shooterFactory_1258291350(1, 1), false, true));
+    add_1207959651(result_1459617887, 0, lineTakes_1241514171(board_1459617885, p_1459617886, shooterFactory_1258291350(1, 1), false, true));
     F.line = 68;
-    add_1207959651(result_1459617886, 0, lineTakes_1241514171(board_1459617884, p_1459617885, shooterFactory_1258291350((-1), 1), false, true));
+    add_1207959651(result_1459617887, 0, lineTakes_1241514171(board_1459617885, p_1459617886, shooterFactory_1258291350((-1), 1), false, true));
     F.line = 69;
-    add_1207959651(result_1459617886, 0, lineTakes_1241514171(board_1459617884, p_1459617885, shooterFactory_1258291350(1, (-1)), false, true));
+    add_1207959651(result_1459617887, 0, lineTakes_1241514171(board_1459617885, p_1459617886, shooterFactory_1258291350(1, (-1)), false, true));
     F.line = 70;
-    add_1207959651(result_1459617886, 0, lineTakes_1241514171(board_1459617884, p_1459617885, shooterFactory_1258291350((-1), (-1)), false, true));
+    add_1207959651(result_1459617887, 0, lineTakes_1241514171(board_1459617885, p_1459617886, shooterFactory_1258291350((-1), (-1)), false, true));
   framePtr = F.prev;
 
-  return result_1459617886[0];
+  return result_1459617887[0];
 
 }
 
-function HEX3Aanonymous_1459617904(board_1459617905, p_1459617906) {
-  var result_1459617907 = [[]];
+function HEX3Aanonymous_1459617905(board_1459617906, p_1459617907) {
+  var result_1459617908 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     Label1: {
       F.line = 73;
       F.filename = "extramoves.nim";
-      var i_1459617912 = 0;
+      var i_1459617913 = 0;
       F.line = 96;
       F.filename = "iterators_1.nim";
       var res_1442841597 = (-1);
@@ -3173,10 +3173,10 @@ function HEX3Aanonymous_1459617904(board_1459617905, p_1459617906) {
           if (!(res_1442841597 <= 1)) break Label3;
             F.line = 73;
             F.filename = "extramoves.nim";
-            i_1459617912 = res_1442841597;
+            i_1459617913 = res_1442841597;
             Label4: {
               F.line = 74;
-              var j_1459617917 = 0;
+              var j_1459617918 = 0;
               F.line = 96;
               F.filename = "iterators_1.nim";
               var res_1442841595 = (-1);
@@ -3186,9 +3186,9 @@ function HEX3Aanonymous_1459617904(board_1459617905, p_1459617906) {
                   if (!(res_1442841595 <= 1)) break Label6;
                     F.line = 74;
                     F.filename = "extramoves.nim";
-                    j_1459617917 = res_1442841595;
+                    j_1459617918 = res_1442841595;
                     F.line = 75;
-                    var _ = addIfTake_1241514091(result_1459617907, 0, board_1459617905, p_1459617906, p_1459617906.tile, shooterFactory_1258291350(i_1459617912, j_1459617917), false, true);
+                    var _ = addIfTake_1241514091(result_1459617908, 0, board_1459617906, p_1459617907, p_1459617907.tile, shooterFactory_1258291350(i_1459617913, j_1459617918), false, true);
                     F.line = 102;
                     F.filename = "iterators_1.nim";
                     res_1442841595 = addInt(res_1442841595, 1);
@@ -3202,27 +3202,27 @@ function HEX3Aanonymous_1459617904(board_1459617905, p_1459617906) {
     };
   framePtr = F.prev;
 
-  return result_1459617907[0];
+  return result_1459617908[0];
 
 }
 
-function HEX3Aanonymous_1459617862(board_1459617863, p_1459617864) {
-  var result_1459617865 = [[]];
+function HEX3Aanonymous_1459617863(board_1459617864, p_1459617865) {
+  var result_1459617866 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 61;
     F.filename = "extramoves.nim";
-    add_1207959651(result_1459617865, 0, lineTakes_1241514171(board_1459617863, p_1459617864, tileAbove_1258291372, false, true));
+    add_1207959651(result_1459617866, 0, lineTakes_1241514171(board_1459617864, p_1459617865, tileAbove_1258291372, false, true));
     F.line = 62;
-    add_1207959651(result_1459617865, 0, lineTakes_1241514171(board_1459617863, p_1459617864, tileBelow_1258291375, false, true));
+    add_1207959651(result_1459617866, 0, lineTakes_1241514171(board_1459617864, p_1459617865, tileBelow_1258291375, false, true));
     F.line = 63;
-    add_1207959651(result_1459617865, 0, lineTakes_1241514171(board_1459617863, p_1459617864, tileLeft_1258291378, false, true));
+    add_1207959651(result_1459617866, 0, lineTakes_1241514171(board_1459617864, p_1459617865, tileLeft_1258291378, false, true));
     F.line = 64;
-    add_1207959651(result_1459617865, 0, lineTakes_1241514171(board_1459617863, p_1459617864, tileRight_1258291381, false, true));
+    add_1207959651(result_1459617866, 0, lineTakes_1241514171(board_1459617864, p_1459617865, tileRight_1258291381, false, true));
   framePtr = F.prev;
 
-  return result_1459617865[0];
+  return result_1459617866[0];
 
 }
 
@@ -3258,7 +3258,7 @@ function HEX3Aanonymous_1442840753(side_1442840754, __1442840755, b_1442840756) 
                     j_1442840780 = i_1442841580;
                     if (((b_1442840756[chckIndx(i_1442840768, 0, (b_1442840756).length - 1)][chckIndx(j_1442840780, 0, (b_1442840756[chckIndx(i_1442840768, 0, (b_1442840756).length - 1)]).length - 1)].item == 1) && isColor_1207960106(b_1442840756[chckIndx(i_1442840768, 0, (b_1442840756).length - 1)][chckIndx(j_1442840780, 0, (b_1442840756[chckIndx(i_1442840768, 0, (b_1442840756).length - 1)]).length - 1)], side_1442840754))) {
                     F.line = 108;
-                    add_1442840789(b_1442840756[chckIndx(i_1442840768, 0, (b_1442840756).length - 1)][chckIndx(j_1442840780, 0, (b_1442840756[chckIndx(i_1442840768, 0, (b_1442840756).length - 1)]).length - 1)], "moves", [HEX3Aanonymous_1459617883, HEX3Aanonymous_1459617904, HEX3Aanonymous_1459617862]);
+                    add_1442840789(b_1442840756[chckIndx(i_1442840768, 0, (b_1442840756).length - 1)][chckIndx(j_1442840780, 0, (b_1442840756[chckIndx(i_1442840768, 0, (b_1442840756).length - 1)]).length - 1)], "moves", [HEX3Aanonymous_1459617884, HEX3Aanonymous_1459617905, HEX3Aanonymous_1459617863]);
                     }
                     
                     F.line = 131;
@@ -3591,15 +3591,15 @@ function HEX3Aanonymous_1442840933(side_1442840934, viewSide_1442840935, b_14428
     var rank_1442840941 = Temporary1;
     if ((side_1442840934 == 0)) {
     F.line = 200;
-    b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)][chckIndx(2, 0, (b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617796, HEX3Aanonymous_1459617821, HEX3Aanonymous_1459617806], NTI1241514359);
+    b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)][chckIndx(2, 0, (b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617797, HEX3Aanonymous_1459617822, HEX3Aanonymous_1459617807], NTI1241514359);
     F.line = 201;
-    b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)][chckIndx(2, 0, (b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617801, HEX3Aanonymous_1459617831, HEX3Aanonymous_1459617811], NTI1241514359);
+    b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)][chckIndx(2, 0, (b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617802, HEX3Aanonymous_1459617832, HEX3Aanonymous_1459617812], NTI1241514359);
     }
     else {
       F.line = 203;
-      b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)][chckIndx(2, 0, (b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617796, HEX3Aanonymous_1459617816, HEX3Aanonymous_1459617806], NTI1241514359);
+      b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)][chckIndx(2, 0, (b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617797, HEX3Aanonymous_1459617817, HEX3Aanonymous_1459617807], NTI1241514359);
       F.line = 204;
-      b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)][chckIndx(2, 0, (b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617801, HEX3Aanonymous_1459617826, HEX3Aanonymous_1459617811], NTI1241514359);
+      b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)][chckIndx(2, 0, (b_1442840936[chckIndx(rank_1442840941, 0, (b_1442840936).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617802, HEX3Aanonymous_1459617827, HEX3Aanonymous_1459617812], NTI1241514359);
     }
     
     F.line = 205;
@@ -3635,15 +3635,15 @@ function HEX3Aanonymous_1442840971(side_1442840972, viewSide_1442840973, b_14428
     var rank_1442840979 = Temporary1;
     if ((side_1442840972 == 0)) {
     F.line = 224;
-    b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)][chckIndx(5, 0, (b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617796, HEX3Aanonymous_1459617821, HEX3Aanonymous_1459617806], NTI1241514359);
+    b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)][chckIndx(5, 0, (b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617797, HEX3Aanonymous_1459617822, HEX3Aanonymous_1459617807], NTI1241514359);
     F.line = 225;
-    b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)][chckIndx(5, 0, (b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617801, HEX3Aanonymous_1459617831, HEX3Aanonymous_1459617811], NTI1241514359);
+    b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)][chckIndx(5, 0, (b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617802, HEX3Aanonymous_1459617832, HEX3Aanonymous_1459617812], NTI1241514359);
     }
     else {
       F.line = 227;
-      b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)][chckIndx(5, 0, (b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617796, HEX3Aanonymous_1459617816, HEX3Aanonymous_1459617806], NTI1241514359);
+      b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)][chckIndx(5, 0, (b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617797, HEX3Aanonymous_1459617817, HEX3Aanonymous_1459617807], NTI1241514359);
       F.line = 228;
-      b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)][chckIndx(5, 0, (b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617801, HEX3Aanonymous_1459617826, HEX3Aanonymous_1459617811], NTI1241514359);
+      b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)][chckIndx(5, 0, (b_1442840974[chckIndx(rank_1442840979, 0, (b_1442840974).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617802, HEX3Aanonymous_1459617827, HEX3Aanonymous_1459617812], NTI1241514359);
     }
     
     F.line = 229;
@@ -3763,59 +3763,59 @@ function HEX3Aanonymous_1442841013(taker_1442841014, taken_1442841015, board_144
   
 }
 
-function HEX3Aanonymous_1459617929(board_1459617930, p_1459617931) {
-  var result_1459617932 = [[]];
+function HEX3Aanonymous_1459617930(board_1459617931, p_1459617932) {
+  var result_1459617933 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 99;
     F.filename = "extramoves.nim";
-    var _ = addIfFree_1241513992(result_1459617932, 0, board_1459617930, p_1459617931.tile, shooterFactory_1258291350(1, 3));
+    var _ = addIfFree_1241513992(result_1459617933, 0, board_1459617931, p_1459617932.tile, shooterFactory_1258291350(1, 3));
     F.line = 100;
-    var _ = addIfFree_1241513992(result_1459617932, 0, board_1459617930, p_1459617931.tile, shooterFactory_1258291350((-1), 3));
+    var _ = addIfFree_1241513992(result_1459617933, 0, board_1459617931, p_1459617932.tile, shooterFactory_1258291350((-1), 3));
     F.line = 101;
-    var _ = addIfFree_1241513992(result_1459617932, 0, board_1459617930, p_1459617931.tile, shooterFactory_1258291350(1, (-3)));
+    var _ = addIfFree_1241513992(result_1459617933, 0, board_1459617931, p_1459617932.tile, shooterFactory_1258291350(1, (-3)));
     F.line = 102;
-    var _ = addIfFree_1241513992(result_1459617932, 0, board_1459617930, p_1459617931.tile, shooterFactory_1258291350((-1), (-3)));
+    var _ = addIfFree_1241513992(result_1459617933, 0, board_1459617931, p_1459617932.tile, shooterFactory_1258291350((-1), (-3)));
     F.line = 103;
-    var _ = addIfFree_1241513992(result_1459617932, 0, board_1459617930, p_1459617931.tile, shooterFactory_1258291350(3, 1));
+    var _ = addIfFree_1241513992(result_1459617933, 0, board_1459617931, p_1459617932.tile, shooterFactory_1258291350(3, 1));
     F.line = 104;
-    var _ = addIfFree_1241513992(result_1459617932, 0, board_1459617930, p_1459617931.tile, shooterFactory_1258291350(3, (-1)));
+    var _ = addIfFree_1241513992(result_1459617933, 0, board_1459617931, p_1459617932.tile, shooterFactory_1258291350(3, (-1)));
     F.line = 105;
-    var _ = addIfFree_1241513992(result_1459617932, 0, board_1459617930, p_1459617931.tile, shooterFactory_1258291350((-3), 1));
+    var _ = addIfFree_1241513992(result_1459617933, 0, board_1459617931, p_1459617932.tile, shooterFactory_1258291350((-3), 1));
     F.line = 106;
-    var _ = addIfFree_1241513992(result_1459617932, 0, board_1459617930, p_1459617931.tile, shooterFactory_1258291350((-3), (-1)));
+    var _ = addIfFree_1241513992(result_1459617933, 0, board_1459617931, p_1459617932.tile, shooterFactory_1258291350((-3), (-1)));
   framePtr = F.prev;
 
-  return result_1459617932[0];
+  return result_1459617933[0];
 
 }
 
-function HEX3Aanonymous_1459617924(board_1459617925, p_1459617926) {
-  var result_1459617927 = [[]];
+function HEX3Aanonymous_1459617925(board_1459617926, p_1459617927) {
+  var result_1459617928 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 89;
     F.filename = "extramoves.nim";
-    var _ = addIfTake_1241514091(result_1459617927, 0, board_1459617925, p_1459617926, p_1459617926.tile, shooterFactory_1258291350(1, 3), false, false);
+    var _ = addIfTake_1241514091(result_1459617928, 0, board_1459617926, p_1459617927, p_1459617927.tile, shooterFactory_1258291350(1, 3), false, false);
     F.line = 90;
-    var _ = addIfTake_1241514091(result_1459617927, 0, board_1459617925, p_1459617926, p_1459617926.tile, shooterFactory_1258291350((-1), 3), false, false);
+    var _ = addIfTake_1241514091(result_1459617928, 0, board_1459617926, p_1459617927, p_1459617927.tile, shooterFactory_1258291350((-1), 3), false, false);
     F.line = 91;
-    var _ = addIfTake_1241514091(result_1459617927, 0, board_1459617925, p_1459617926, p_1459617926.tile, shooterFactory_1258291350(1, (-3)), false, false);
+    var _ = addIfTake_1241514091(result_1459617928, 0, board_1459617926, p_1459617927, p_1459617927.tile, shooterFactory_1258291350(1, (-3)), false, false);
     F.line = 92;
-    var _ = addIfTake_1241514091(result_1459617927, 0, board_1459617925, p_1459617926, p_1459617926.tile, shooterFactory_1258291350((-1), (-3)), false, false);
+    var _ = addIfTake_1241514091(result_1459617928, 0, board_1459617926, p_1459617927, p_1459617927.tile, shooterFactory_1258291350((-1), (-3)), false, false);
     F.line = 93;
-    var _ = addIfTake_1241514091(result_1459617927, 0, board_1459617925, p_1459617926, p_1459617926.tile, shooterFactory_1258291350(3, 1), false, false);
+    var _ = addIfTake_1241514091(result_1459617928, 0, board_1459617926, p_1459617927, p_1459617927.tile, shooterFactory_1258291350(3, 1), false, false);
     F.line = 94;
-    var _ = addIfTake_1241514091(result_1459617927, 0, board_1459617925, p_1459617926, p_1459617926.tile, shooterFactory_1258291350(3, (-1)), false, false);
+    var _ = addIfTake_1241514091(result_1459617928, 0, board_1459617926, p_1459617927, p_1459617927.tile, shooterFactory_1258291350(3, (-1)), false, false);
     F.line = 95;
-    var _ = addIfTake_1241514091(result_1459617927, 0, board_1459617925, p_1459617926, p_1459617926.tile, shooterFactory_1258291350((-3), 1), false, false);
+    var _ = addIfTake_1241514091(result_1459617928, 0, board_1459617926, p_1459617927, p_1459617927.tile, shooterFactory_1258291350((-3), 1), false, false);
     F.line = 96;
-    var _ = addIfTake_1241514091(result_1459617927, 0, board_1459617925, p_1459617926, p_1459617926.tile, shooterFactory_1258291350((-3), (-1)), false, false);
+    var _ = addIfTake_1241514091(result_1459617928, 0, board_1459617926, p_1459617927, p_1459617927.tile, shooterFactory_1258291350((-3), (-1)), false, false);
   framePtr = F.prev;
 
-  return result_1459617927[0];
+  return result_1459617928[0];
 
 }
 
@@ -3853,9 +3853,9 @@ function HEX3Aanonymous_1442841081(side_1442841082, __1442841083, b_1442841084) 
                     j_1442841108 = i_1442841626;
                     if (((b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)][chckIndx(j_1442841108, 0, (b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)]).length - 1)].item == 5) && isColor_1207960106(b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)][chckIndx(j_1442841108, 0, (b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)]).length - 1)], side_1442841082))) {
                     F.line = 285;
-                    b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)][chckIndx(j_1442841108, 0, (b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617929], NTI1224736805);
+                    b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)][chckIndx(j_1442841108, 0, (b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)]).length - 1)].moves = nimCopy(null, [HEX3Aanonymous_1459617930], NTI1224736805);
                     F.line = 286;
-                    b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)][chckIndx(j_1442841108, 0, (b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617924], NTI1224736805);
+                    b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)][chckIndx(j_1442841108, 0, (b_1442841084[chckIndx(i_1442841096, 0, (b_1442841084).length - 1)]).length - 1)].takes = nimCopy(null, [HEX3Aanonymous_1459617925], NTI1224736805);
                     F.line = 287;
                     if ((side_1442841082 == 0)) {
                     Temporary7 = [98,108,97,99,107,103,105,114,97,102,102,101,46,115,118,103];
@@ -4001,18 +4001,18 @@ function sacrificeWhenTaken_1442841277(taker_1442841278, taken_1442841279, board
 
 }
 
-function HEX3Aanonymous_1459617934(board_1459617935, p_1459617936) {
-  var result_1459617937 = [];
+function HEX3Aanonymous_1459617935(board_1459617936, p_1459617937) {
+  var result_1459617938 = [];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 109;
     F.filename = "extramoves.nim";
-    var Temporary1 = nimCopy(null, p_1459617936.tile, NTI1207959555);
-    result_1459617937.push(Temporary1);;
+    var Temporary1 = nimCopy(null, p_1459617937.tile, NTI1207959555);
+    result_1459617938.push(Temporary1);;
   framePtr = F.prev;
 
-  return result_1459617937;
+  return result_1459617938;
 
 }
 
@@ -4050,7 +4050,7 @@ function HEX3Aanonymous_1442841314(side_1442841315, viewSide_1442841316, b_14428
                     F.line = 382;
                     b_1442841317[chckIndx(i_1442841329, 0, (b_1442841317).length - 1)][chckIndx(j_1442841341, 0, (b_1442841317[chckIndx(i_1442841329, 0, (b_1442841317).length - 1)]).length - 1)].whenTake = sacrificeWhenTaken_1442841277;
                     F.line = 383;
-                    b_1442841317[chckIndx(i_1442841329, 0, (b_1442841317).length - 1)][chckIndx(j_1442841341, 0, (b_1442841317[chckIndx(i_1442841329, 0, (b_1442841317).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617934);;
+                    b_1442841317[chckIndx(i_1442841329, 0, (b_1442841317).length - 1)][chckIndx(j_1442841341, 0, (b_1442841317[chckIndx(i_1442841329, 0, (b_1442841317).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617935);;
                     }
                     
                     F.line = 131;
@@ -4069,79 +4069,79 @@ function HEX3Aanonymous_1442841314(side_1442841315, viewSide_1442841316, b_14428
   
 }
 
-function HEX3Aanonymous_1459617856(board_1459617857, p_1459617858) {
-  var result_1459617859 = [[]];
+function HEX3Aanonymous_1459617857(board_1459617858, p_1459617859) {
+  var result_1459617860 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 54;
     F.filename = "extramoves.nim";
-    var next_1459617860 = addIfFree_1241513992(result_1459617859, 0, board_1459617857, p_1459617858.tile, tileBelow_1258291375);
-    if (next_1459617860) {
+    var next_1459617861 = addIfFree_1241513992(result_1459617860, 0, board_1459617858, p_1459617859.tile, tileBelow_1258291375);
+    if (next_1459617861) {
     F.line = 56;
-    var _ = addIfFree_1241513992(result_1459617859, 0, board_1459617857, tileBelow_1258291375(p_1459617858.tile), tileBelow_1258291375);
+    var _ = addIfFree_1241513992(result_1459617860, 0, board_1459617858, tileBelow_1258291375(p_1459617859.tile), tileBelow_1258291375);
     }
     
   framePtr = F.prev;
 
-  return result_1459617859[0];
+  return result_1459617860[0];
 
 }
 
-function HEX3Aanonymous_1459617844(board_1459617845, p_1459617846) {
-  var result_1459617847 = [[]];
+function HEX3Aanonymous_1459617845(board_1459617846, p_1459617847) {
+  var result_1459617848 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 44;
     F.filename = "extramoves.nim";
-    var next_1459617848 = addIfTake_1241514091(result_1459617847, 0, board_1459617845, p_1459617846, p_1459617846.tile, tileBelow_1258291375, false, false);
-    if (next_1459617848) {
+    var next_1459617849 = addIfTake_1241514091(result_1459617848, 0, board_1459617846, p_1459617847, p_1459617847.tile, tileBelow_1258291375, false, false);
+    if (next_1459617849) {
     F.line = 46;
-    var _ = addIfTake_1241514091(result_1459617847, 0, board_1459617845, p_1459617846, tileBelow_1258291375(p_1459617846.tile), tileBelow_1258291375, false, false);
+    var _ = addIfTake_1241514091(result_1459617848, 0, board_1459617846, p_1459617847, tileBelow_1258291375(p_1459617847.tile), tileBelow_1258291375, false, false);
     }
     
   framePtr = F.prev;
 
-  return result_1459617847[0];
+  return result_1459617848[0];
 
 }
 
-function HEX3Aanonymous_1459617850(board_1459617851, p_1459617852) {
-  var result_1459617853 = [[]];
+function HEX3Aanonymous_1459617851(board_1459617852, p_1459617853) {
+  var result_1459617854 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 49;
     F.filename = "extramoves.nim";
-    var next_1459617854 = addIfFree_1241513992(result_1459617853, 0, board_1459617851, p_1459617852.tile, tileAbove_1258291372);
-    if (next_1459617854) {
+    var next_1459617855 = addIfFree_1241513992(result_1459617854, 0, board_1459617852, p_1459617853.tile, tileAbove_1258291372);
+    if (next_1459617855) {
     F.line = 51;
-    var _ = addIfFree_1241513992(result_1459617853, 0, board_1459617851, tileAbove_1258291372(p_1459617852.tile), tileAbove_1258291372);
+    var _ = addIfFree_1241513992(result_1459617854, 0, board_1459617852, tileAbove_1258291372(p_1459617853.tile), tileAbove_1258291372);
     }
     
   framePtr = F.prev;
 
-  return result_1459617853[0];
+  return result_1459617854[0];
 
 }
 
-function HEX3Aanonymous_1459617838(board_1459617839, p_1459617840) {
-  var result_1459617841 = [[]];
+function HEX3Aanonymous_1459617839(board_1459617840, p_1459617841) {
+  var result_1459617842 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 39;
     F.filename = "extramoves.nim";
-    var next_1459617842 = addIfTake_1241514091(result_1459617841, 0, board_1459617839, p_1459617840, p_1459617840.tile, tileAbove_1258291372, false, false);
-    if (next_1459617842) {
+    var next_1459617843 = addIfTake_1241514091(result_1459617842, 0, board_1459617840, p_1459617841, p_1459617841.tile, tileAbove_1258291372, false, false);
+    if (next_1459617843) {
     F.line = 41;
-    var _ = addIfTake_1241514091(result_1459617841, 0, board_1459617839, p_1459617840, tileAbove_1258291372(p_1459617840.tile), tileAbove_1258291372, false, false);
+    var _ = addIfTake_1241514091(result_1459617842, 0, board_1459617840, p_1459617841, tileAbove_1258291372(p_1459617841.tile), tileAbove_1258291372, false, false);
     }
     
   framePtr = F.prev;
 
-  return result_1459617841[0];
+  return result_1459617842[0];
 
 }
 
@@ -4178,15 +4178,15 @@ function HEX3Aanonymous_1442841142(side_1442841143, __1442841144, b_1442841145) 
                     if (((b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].item == 5) && isColor_1207960106(b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)], side_1442841143))) {
                     if ((side_1442841143 == 0)) {
                     F.line = 304;
-                    b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617856);;
+                    b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617857);;
                     F.line = 305;
-                    b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617844);;
+                    b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617845);;
                     }
                     else {
                       F.line = 307;
-                      b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617850);;
+                      b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617851);;
                       F.line = 308;
-                      b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617838);;
+                      b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)][chckIndx(j_1442841169, 0, (b_1442841145[chckIndx(i_1442841157, 0, (b_1442841145).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617839);;
                     }
                     
                     }
@@ -4240,12 +4240,12 @@ function HEX3Aanonymous_1442841447(side_1442841448, viewSide_1442841449, b_14428
                     if (((b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)][chckIndx(j_1442841474, 0, (b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)]).length - 1)].item == 3) && isColor_1207960106(b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)][chckIndx(j_1442841474, 0, (b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)]).length - 1)], side_1442841448))) {
                     if ((b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)][chckIndx(j_1442841474, 0, (b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)]).length - 1)].color == 0)) {
                     F.line = 435;
-                    b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)][chckIndx(j_1442841474, 0, (b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617816);;
+                    b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)][chckIndx(j_1442841474, 0, (b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617817);;
                     }
                     else {
                     if ((b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)][chckIndx(j_1442841474, 0, (b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)]).length - 1)].color == 1)) {
                     F.line = 437;
-                    b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)][chckIndx(j_1442841474, 0, (b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617821);;
+                    b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)][chckIndx(j_1442841474, 0, (b_1442841450[chckIndx(i_1442841462, 0, (b_1442841450).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617822);;
                     }
                     }
                     }
@@ -4299,12 +4299,12 @@ function HEX3Aanonymous_1442841496(side_1442841497, viewSide_1442841498, b_14428
                     if (((b_1442841499[chckIndx(i_1442841511, 0, (b_1442841499).length - 1)][chckIndx(j_1442841523, 0, (b_1442841499[chckIndx(i_1442841511, 0, (b_1442841499).length - 1)]).length - 1)].item == 3) && isColor_1207960106(b_1442841499[chckIndx(i_1442841511, 0, (b_1442841499).length - 1)][chckIndx(j_1442841523, 0, (b_1442841499[chckIndx(i_1442841511, 0, (b_1442841499).length - 1)]).length - 1)], side_1442841497))) {
                     if ((b_1442841499[chckIndx(i_1442841511, 0, (b_1442841499).length - 1)][chckIndx(j_1442841523, 0, (b_1442841499[chckIndx(i_1442841511, 0, (b_1442841499).length - 1)]).length - 1)].color == 0)) {
                     F.line = 451;
-                    b_1442841499[chckIndx(i_1442841511, 0, (b_1442841499).length - 1)][chckIndx(j_1442841523, 0, (b_1442841499[chckIndx(i_1442841511, 0, (b_1442841499).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617856);;
+                    b_1442841499[chckIndx(i_1442841511, 0, (b_1442841499).length - 1)][chckIndx(j_1442841523, 0, (b_1442841499[chckIndx(i_1442841511, 0, (b_1442841499).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617857);;
                     }
                     else {
                     if ((b_1442841499[chckIndx(i_1442841511, 0, (b_1442841499).length - 1)][chckIndx(j_1442841523, 0, (b_1442841499[chckIndx(i_1442841511, 0, (b_1442841499).length - 1)]).length - 1)].color == 1)) {
                     F.line = 453;
-                    b_1442841499[chckIndx(i_1442841511, 0, (b_1442841499).length - 1)][chckIndx(j_1442841523, 0, (b_1442841499[chckIndx(i_1442841511, 0, (b_1442841499).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617850);;
+                    b_1442841499[chckIndx(i_1442841511, 0, (b_1442841499).length - 1)][chckIndx(j_1442841523, 0, (b_1442841499[chckIndx(i_1442841511, 0, (b_1442841499).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1459617851);;
                     }
                     }
                     }
@@ -4488,31 +4488,31 @@ function HEX3Aanonymous_1442841195(side_1442841196, viewerSide_1442841197, b_144
   
 }
 
-function HEX3Aanonymous_1459617919(board_1459617920, p_1459617921) {
-  var result_1459617922 = [[]];
+function HEX3Aanonymous_1459617920(board_1459617921, p_1459617922) {
+  var result_1459617923 = [[]];
 
   var F = {procname: "extramoves.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/extramoves.nim", line: 0};
   framePtr = F;
     F.line = 78;
     F.filename = "extramoves.nim";
-    var _ = addIfTake_1241514091(result_1459617922, 0, board_1459617920, p_1459617921, p_1459617921.tile, shooterFactory_1258291350(1, 2), false, true);
+    var _ = addIfTake_1241514091(result_1459617923, 0, board_1459617921, p_1459617922, p_1459617922.tile, shooterFactory_1258291350(1, 2), false, true);
     F.line = 79;
-    var _ = addIfTake_1241514091(result_1459617922, 0, board_1459617920, p_1459617921, p_1459617921.tile, shooterFactory_1258291350((-1), 2), false, true);
+    var _ = addIfTake_1241514091(result_1459617923, 0, board_1459617921, p_1459617922, p_1459617922.tile, shooterFactory_1258291350((-1), 2), false, true);
     F.line = 80;
-    var _ = addIfTake_1241514091(result_1459617922, 0, board_1459617920, p_1459617921, p_1459617921.tile, shooterFactory_1258291350(2, 1), false, true);
+    var _ = addIfTake_1241514091(result_1459617923, 0, board_1459617921, p_1459617922, p_1459617922.tile, shooterFactory_1258291350(2, 1), false, true);
     F.line = 81;
-    var _ = addIfTake_1241514091(result_1459617922, 0, board_1459617920, p_1459617921, p_1459617921.tile, shooterFactory_1258291350(2, (-1)), false, true);
+    var _ = addIfTake_1241514091(result_1459617923, 0, board_1459617921, p_1459617922, p_1459617922.tile, shooterFactory_1258291350(2, (-1)), false, true);
     F.line = 82;
-    var _ = addIfTake_1241514091(result_1459617922, 0, board_1459617920, p_1459617921, p_1459617921.tile, shooterFactory_1258291350(1, (-2)), false, true);
+    var _ = addIfTake_1241514091(result_1459617923, 0, board_1459617921, p_1459617922, p_1459617922.tile, shooterFactory_1258291350(1, (-2)), false, true);
     F.line = 83;
-    var _ = addIfTake_1241514091(result_1459617922, 0, board_1459617920, p_1459617921, p_1459617921.tile, shooterFactory_1258291350((-1), (-2)), false, true);
+    var _ = addIfTake_1241514091(result_1459617923, 0, board_1459617921, p_1459617922, p_1459617922.tile, shooterFactory_1258291350((-1), (-2)), false, true);
     F.line = 84;
-    var _ = addIfTake_1241514091(result_1459617922, 0, board_1459617920, p_1459617921, p_1459617921.tile, shooterFactory_1258291350((-2), 1), false, true);
+    var _ = addIfTake_1241514091(result_1459617923, 0, board_1459617921, p_1459617922, p_1459617922.tile, shooterFactory_1258291350((-2), 1), false, true);
     F.line = 85;
-    var _ = addIfTake_1241514091(result_1459617922, 0, board_1459617920, p_1459617921, p_1459617921.tile, shooterFactory_1258291350((-2), (-1)), false, true);
+    var _ = addIfTake_1241514091(result_1459617923, 0, board_1459617921, p_1459617922, p_1459617922.tile, shooterFactory_1258291350((-2), (-1)), false, true);
   framePtr = F.prev;
 
-  return result_1459617922[0];
+  return result_1459617923[0];
 
 }
 
@@ -4548,7 +4548,7 @@ function HEX3Aanonymous_1442841222(side_1442841223, viewSide_1442841224, b_14428
                     j_1442841249 = i_1442841677;
                     if (((b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)][chckIndx(j_1442841249, 0, (b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)]).length - 1)].item == 1) && isColor_1207960106(b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)][chckIndx(j_1442841249, 0, (b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)]).length - 1)], side_1442841223))) {
                     F.line = 344;
-                    b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)][chckIndx(j_1442841249, 0, (b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617919);;
+                    b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)][chckIndx(j_1442841249, 0, (b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617920);;
                     F.line = 345;
                     b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)][chckIndx(j_1442841249, 0, (b_1442841225[chckIndx(i_1442841237, 0, (b_1442841225).length - 1)]).length - 1)].moves.push(HEX3Aanonymous_1241514434);;
                     }
@@ -4682,7 +4682,7 @@ function HEX3Aanonymous_1442841396(side_1442841397, viewSide_1442841398, b_14428
                     F.line = 412;
                     b_1442841399[chckIndx(i_1442841411, 0, (b_1442841399).length - 1)][chckIndx(j_1442841423, 0, (b_1442841399[chckIndx(i_1442841411, 0, (b_1442841399).length - 1)]).length - 1)].whenTake = sacrificeWhenTakenEmpress_1442841351;
                     F.line = 413;
-                    b_1442841399[chckIndx(i_1442841411, 0, (b_1442841399).length - 1)][chckIndx(j_1442841423, 0, (b_1442841399[chckIndx(i_1442841411, 0, (b_1442841399).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617934);;
+                    b_1442841399[chckIndx(i_1442841411, 0, (b_1442841399).length - 1)][chckIndx(j_1442841423, 0, (b_1442841399[chckIndx(i_1442841411, 0, (b_1442841399).length - 1)]).length - 1)].takes.push(HEX3Aanonymous_1459617935);;
                     }
                     
                     F.line = 131;
@@ -4868,14 +4868,14 @@ function find_1207959854(a_1207959857, item_1207959858) {
       var i_1207959872 = {Field0: 0, Field1: 0};
       F.line = 18;
       F.filename = "iterators.nim";
-      var i_520094674 = 0;
+      var i_520094670 = 0;
       Label2: {
         F.line = 19;
           Label3: while (true) {
-          if (!(i_520094674 < (a_1207959857).length)) break Label3;
+          if (!(i_520094670 < (a_1207959857).length)) break Label3;
             F.line = 1672;
             F.filename = "system.nim";
-            i_1207959872 = a_1207959857[chckIndx(i_520094674, 0, (a_1207959857).length - 1)];
+            i_1207959872 = a_1207959857[chckIndx(i_520094670, 0, (a_1207959857).length - 1)];
             if (HEX3DHEX3D_1207959873(i_1207959872, item_1207959858)) {
             F.line = 1673;
             break BeforeRet;
@@ -4885,7 +4885,7 @@ function find_1207959854(a_1207959857, item_1207959858) {
             result_1207959859 = addInt(result_1207959859, 1);
             F.line = 13;
             F.filename = "iterators.nim";
-            i_520094674 += 1;
+            i_520094670 += 1;
           }
       };
     };
@@ -4927,22 +4927,22 @@ function getMovesOn_1207959624(p_1207959625, board_1207959626) {
       var x_1207959650 = null;
       F.line = 249;
       F.filename = "iterators.nim";
-      var i_520094678 = 0;
+      var i_520094674 = 0;
       F.line = 250;
-      var L_520094679 = (p_1207959625.moves).length;
+      var L_520094675 = (p_1207959625.moves).length;
       Label2: {
         F.line = 251;
           Label3: while (true) {
-          if (!(i_520094678 < L_520094679)) break Label3;
+          if (!(i_520094674 < L_520094675)) break Label3;
             F.line = 38;
             F.filename = "piece.nim";
-            x_1207959650 = p_1207959625.moves[chckIndx(i_520094678, 0, (p_1207959625.moves).length - 1)];
+            x_1207959650 = p_1207959625.moves[chckIndx(i_520094674, 0, (p_1207959625.moves).length - 1)];
             F.line = 39;
             add_1207959651(result_1207959627, 0, x_1207959650(board_1207959626, p_1207959625));
             F.line = 13;
             F.filename = "iterators.nim";
-            i_520094678 += 1;
-            if (!(((p_1207959625.moves).length == L_520094679))) {
+            i_520094674 += 1;
+            if (!(((p_1207959625.moves).length == L_520094675))) {
             F.line = 254;
             failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
             }
@@ -4978,28 +4978,28 @@ function defaultOnMove_1207959845(taker_1207959846, taken_1207959847, board_1207
       var f_1207959935 = null;
       F.line = 247;
       F.filename = "iterators.nim";
-      var colontmp__520094668 = [];
+      var colontmp__520094664 = [];
       F.line = 63;
       F.filename = "piece.nim";
-      colontmp__520094668 = board_1207959848[chckIndx(taken_1207959847.Field1, 0, (board_1207959848).length - 1)][chckIndx(taken_1207959847.Field0, 0, (board_1207959848[chckIndx(taken_1207959847.Field1, 0, (board_1207959848).length - 1)]).length - 1)].onEndTurn;
+      colontmp__520094664 = board_1207959848[chckIndx(taken_1207959847.Field1, 0, (board_1207959848).length - 1)][chckIndx(taken_1207959847.Field0, 0, (board_1207959848[chckIndx(taken_1207959847.Field1, 0, (board_1207959848).length - 1)]).length - 1)].onEndTurn;
       F.line = 249;
       F.filename = "iterators.nim";
-      var i_520094669 = 0;
+      var i_520094665 = 0;
       F.line = 250;
-      var L_520094670 = (colontmp__520094668).length;
+      var L_520094666 = (colontmp__520094664).length;
       Label2: {
         F.line = 251;
           Label3: while (true) {
-          if (!(i_520094669 < L_520094670)) break Label3;
+          if (!(i_520094665 < L_520094666)) break Label3;
             F.line = 63;
             F.filename = "piece.nim";
-            f_1207959935 = colontmp__520094668[chckIndx(i_520094669, 0, (colontmp__520094668).length - 1)];
+            f_1207959935 = colontmp__520094664[chckIndx(i_520094665, 0, (colontmp__520094664).length - 1)];
             F.line = 64;
             f_1207959935(taker_1207959846, taken_1207959847, board_1207959848);
             F.line = 13;
             F.filename = "iterators.nim";
-            i_520094669 += 1;
-            if (!(((colontmp__520094668).length == L_520094670))) {
+            i_520094665 += 1;
+            if (!(((colontmp__520094664).length == L_520094666))) {
             F.line = 254;
             failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
             }
@@ -5023,22 +5023,22 @@ function getTakesOn_1207959739(p_1207959740, board_1207959741) {
       var x_1207959746 = null;
       F.line = 249;
       F.filename = "iterators.nim";
-      var i_520094687 = 0;
+      var i_520094683 = 0;
       F.line = 250;
-      var L_520094688 = (p_1207959740.takes).length;
+      var L_520094684 = (p_1207959740.takes).length;
       Label2: {
         F.line = 251;
           Label3: while (true) {
-          if (!(i_520094687 < L_520094688)) break Label3;
+          if (!(i_520094683 < L_520094684)) break Label3;
             F.line = 42;
             F.filename = "piece.nim";
-            x_1207959746 = p_1207959740.takes[chckIndx(i_520094687, 0, (p_1207959740.takes).length - 1)];
+            x_1207959746 = p_1207959740.takes[chckIndx(i_520094683, 0, (p_1207959740.takes).length - 1)];
             F.line = 43;
             add_1207959651(result_1207959742, 0, x_1207959746(board_1207959741, p_1207959740));
             F.line = 13;
             F.filename = "iterators.nim";
-            i_520094687 += 1;
-            if (!(((p_1207959740.takes).length == L_520094688))) {
+            i_520094683 += 1;
+            if (!(((p_1207959740.takes).length == L_520094684))) {
             F.line = 254;
             failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
             }
@@ -5075,28 +5075,28 @@ function defaultOnTake_1207959970(taker_1207959971, taken_1207959972, board_1207
       var f_1207959995 = null;
       F.line = 247;
       F.filename = "iterators.nim";
-      var colontmp__520094682 = [];
+      var colontmp__520094678 = [];
       F.line = 73;
       F.filename = "piece.nim";
-      colontmp__520094682 = board_1207959973[chckIndx(newTile_1207959983.Field0.Field1, 0, (board_1207959973).length - 1)][chckIndx(newTile_1207959983.Field0.Field0, 0, (board_1207959973[chckIndx(newTile_1207959983.Field0.Field1, 0, (board_1207959973).length - 1)]).length - 1)].onEndTurn;
+      colontmp__520094678 = board_1207959973[chckIndx(newTile_1207959983.Field0.Field1, 0, (board_1207959973).length - 1)][chckIndx(newTile_1207959983.Field0.Field0, 0, (board_1207959973[chckIndx(newTile_1207959983.Field0.Field1, 0, (board_1207959973).length - 1)]).length - 1)].onEndTurn;
       F.line = 249;
       F.filename = "iterators.nim";
-      var i_520094683 = 0;
+      var i_520094679 = 0;
       F.line = 250;
-      var L_520094684 = (colontmp__520094682).length;
+      var L_520094680 = (colontmp__520094678).length;
       Label2: {
         F.line = 251;
           Label3: while (true) {
-          if (!(i_520094683 < L_520094684)) break Label3;
+          if (!(i_520094679 < L_520094680)) break Label3;
             F.line = 73;
             F.filename = "piece.nim";
-            f_1207959995 = colontmp__520094682[chckIndx(i_520094683, 0, (colontmp__520094682).length - 1)];
+            f_1207959995 = colontmp__520094678[chckIndx(i_520094679, 0, (colontmp__520094678).length - 1)];
             F.line = 74;
             f_1207959995(newTile_1207959983.Field0, taken_1207959972, board_1207959973);
             F.line = 13;
             F.filename = "iterators.nim";
-            i_520094683 += 1;
-            if (!(((colontmp__520094682).length == L_520094684))) {
+            i_520094679 += 1;
+            if (!(((colontmp__520094678).length == L_520094680))) {
             F.line = 254;
             failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
             }
@@ -5118,11 +5118,11 @@ function defaultWhenTake_1207959756(taker_1207959757, taken_1207959758, board_12
     if (((taker_1207959757.Field0 == taken_1207959758.Field0) && (taker_1207959757.Field1 == taken_1207959758.Field0))) {
     F.line = 49;
     F.filename = "piece.nim";
-    var colontmp__520094694 = nimCopy(null, taken_1207959758, NTI1207959555);
+    var colontmp__520094690 = nimCopy(null, taken_1207959758, NTI1207959555);
     F.line = 49;
-    var colontmp__520094695 = false;
+    var colontmp__520094691 = false;
     F.line = 49;
-    result_1207959762 = nimCopy(result_1207959762, {Field0: nimCopy(null, colontmp__520094694, NTI1207959555), Field1: colontmp__520094695}, NTI1207959692);
+    result_1207959762 = nimCopy(result_1207959762, {Field0: nimCopy(null, colontmp__520094690, NTI1207959555), Field1: colontmp__520094691}, NTI1207959692);
     break BeforeRet;
     }
     
@@ -5135,11 +5135,11 @@ function defaultWhenTake_1207959756(taker_1207959757, taken_1207959758, board_12
     F.line = 53;
     board_1207959759[chckIndx(taker_1207959757.Field1, 0, (board_1207959759).length - 1)][chckIndx(taker_1207959757.Field0, 0, (board_1207959759[chckIndx(taker_1207959757.Field1, 0, (board_1207959759).length - 1)]).length - 1)].piecesTaken = addInt(board_1207959759[chckIndx(taker_1207959757.Field1, 0, (board_1207959759).length - 1)][chckIndx(taker_1207959757.Field0, 0, (board_1207959759[chckIndx(taker_1207959757.Field1, 0, (board_1207959759).length - 1)]).length - 1)].piecesTaken, 1);
     F.line = 54;
-    var colontmp__520094696 = {Field0: taken_1207959758.Field0, Field1: taken_1207959758.Field1};
+    var colontmp__520094692 = {Field0: taken_1207959758.Field0, Field1: taken_1207959758.Field1};
     F.line = 54;
-    var colontmp__520094697 = true;
+    var colontmp__520094693 = true;
     F.line = 54;
-    result_1207959762 = nimCopy(result_1207959762, {Field0: nimCopy(null, colontmp__520094696, NTI1207959555), Field1: colontmp__520094697}, NTI1207959692);
+    result_1207959762 = nimCopy(result_1207959762, {Field0: nimCopy(null, colontmp__520094692, NTI1207959555), Field1: colontmp__520094693}, NTI1207959692);
     break BeforeRet;
   };
   framePtr = F.prev;
@@ -5164,11 +5164,11 @@ function rookWhenTake_1224736771(taker_1224736772, taken_1224736773, board_12247
     F.line = 13;
     pieceMove_1207960064(board_1224736774[chckIndx(taken_1224736773.Field1, 0, (board_1224736774).length - 1)][chckIndx(taken_1224736773.Field0, 0, (board_1224736774[chckIndx(taken_1224736773.Field1, 0, (board_1224736774).length - 1)]).length - 1)], taker_1224736772.Field1, subInt(taker_1224736772.Field0, 1), board_1224736774);
     F.line = 14;
-    var colontmp__520094690 = {Field0: subInt(taker_1224736772.Field0, 1), Field1: taker_1224736772.Field1};
+    var colontmp__520094686 = {Field0: subInt(taker_1224736772.Field0, 1), Field1: taker_1224736772.Field1};
     F.line = 14;
-    var colontmp__520094691 = false;
+    var colontmp__520094687 = false;
     F.line = 14;
-    result_1224736777 = nimCopy(result_1224736777, {Field0: nimCopy(null, colontmp__520094690, NTI1207959555), Field1: colontmp__520094691}, NTI1224736773);
+    result_1224736777 = nimCopy(result_1224736777, {Field0: nimCopy(null, colontmp__520094686, NTI1207959555), Field1: colontmp__520094687}, NTI1224736773);
     break BeforeRet;
     }
     else {
@@ -5177,11 +5177,11 @@ function rookWhenTake_1224736771(taker_1224736772, taken_1224736773, board_12247
       F.line = 17;
       pieceMove_1207960064(board_1224736774[chckIndx(taken_1224736773.Field1, 0, (board_1224736774).length - 1)][chckIndx(taken_1224736773.Field0, 0, (board_1224736774[chckIndx(taken_1224736773.Field1, 0, (board_1224736774).length - 1)]).length - 1)], taker_1224736772.Field1, addInt(taker_1224736772.Field0, 1), board_1224736774);
       F.line = 18;
-      var colontmp__520094692 = {Field0: addInt(taker_1224736772.Field0, 1), Field1: taker_1224736772.Field1};
+      var colontmp__520094688 = {Field0: addInt(taker_1224736772.Field0, 1), Field1: taker_1224736772.Field1};
       F.line = 18;
-      var colontmp__520094693 = false;
+      var colontmp__520094689 = false;
       F.line = 18;
-      result_1224736777 = nimCopy(result_1224736777, {Field0: nimCopy(null, colontmp__520094692, NTI1207959555), Field1: colontmp__520094693}, NTI1224736773);
+      result_1224736777 = nimCopy(result_1224736777, {Field0: nimCopy(null, colontmp__520094688, NTI1207959555), Field1: colontmp__520094689}, NTI1224736773);
       break BeforeRet;
     }
     
@@ -5250,37 +5250,37 @@ function HEX3Aanonymous_1241514217(board_1241514218, p_1241514219) {
       var i_1241514225 = 0;
       F.line = 96;
       F.filename = "iterators_1.nim";
-      var res_520094702 = (-1);
+      var res_520094698 = (-1);
       Label2: {
         F.line = 97;
           Label3: while (true) {
-          if (!(res_520094702 <= 1)) break Label3;
+          if (!(res_520094698 <= 1)) break Label3;
             F.line = 90;
             F.filename = "moves.nim";
-            i_1241514225 = res_520094702;
+            i_1241514225 = res_520094698;
             Label4: {
               F.line = 91;
               var j_1241514230 = 0;
               F.line = 96;
               F.filename = "iterators_1.nim";
-              var res_520094700 = (-1);
+              var res_520094696 = (-1);
               Label5: {
                 F.line = 97;
                   Label6: while (true) {
-                  if (!(res_520094700 <= 1)) break Label6;
+                  if (!(res_520094696 <= 1)) break Label6;
                     F.line = 91;
                     F.filename = "moves.nim";
-                    j_1241514230 = res_520094700;
+                    j_1241514230 = res_520094696;
                     F.line = 92;
                     var _ = addIfFree_1241513992(result_1241514220, 0, board_1241514218, p_1241514219.tile, shooterFactory_1258291350(i_1241514225, j_1241514230));
                     F.line = 102;
                     F.filename = "iterators_1.nim";
-                    res_520094700 = addInt(res_520094700, 1);
+                    res_520094696 = addInt(res_520094696, 1);
                   }
               };
             };
             F.line = 102;
-            res_520094702 = addInt(res_520094702, 1);
+            res_520094698 = addInt(res_520094698, 1);
           }
       };
     };
@@ -5301,37 +5301,37 @@ function HEX3Aanonymous_1241514232(board_1241514233, p_1241514234) {
       var i_1241514240 = 0;
       F.line = 96;
       F.filename = "iterators_1.nim";
-      var res_520094708 = (-1);
+      var res_520094704 = (-1);
       Label2: {
         F.line = 97;
           Label3: while (true) {
-          if (!(res_520094708 <= 1)) break Label3;
+          if (!(res_520094704 <= 1)) break Label3;
             F.line = 95;
             F.filename = "moves.nim";
-            i_1241514240 = res_520094708;
+            i_1241514240 = res_520094704;
             Label4: {
               F.line = 96;
               var j_1241514245 = 0;
               F.line = 96;
               F.filename = "iterators_1.nim";
-              var res_520094706 = (-1);
+              var res_520094702 = (-1);
               Label5: {
                 F.line = 97;
                   Label6: while (true) {
-                  if (!(res_520094706 <= 1)) break Label6;
+                  if (!(res_520094702 <= 1)) break Label6;
                     F.line = 96;
                     F.filename = "moves.nim";
-                    j_1241514245 = res_520094706;
+                    j_1241514245 = res_520094702;
                     F.line = 97;
                     var _ = addIfTake_1241514091(result_1241514235, 0, board_1241514233, p_1241514234, p_1241514234.tile, shooterFactory_1258291350(i_1241514240, j_1241514245), false, false);
                     F.line = 102;
                     F.filename = "iterators_1.nim";
-                    res_520094706 = addInt(res_520094706, 1);
+                    res_520094702 = addInt(res_520094702, 1);
                   }
               };
             };
             F.line = 102;
-            res_520094708 = addInt(res_520094708, 1);
+            res_520094704 = addInt(res_520094704, 1);
           }
       };
     };
@@ -5366,27 +5366,27 @@ function inCheck_1241513989(p_1241513990, b_1241513991) {
       var i_1241514288 = 0;
       F.line = 96;
       F.filename = "iterators_1.nim";
-      var res_520094718 = 0;
+      var res_520094714 = 0;
       Label2: {
         F.line = 97;
           Label3: while (true) {
-          if (!(res_520094718 <= 7)) break Label3;
+          if (!(res_520094714 <= 7)) break Label3;
             F.line = 118;
             F.filename = "moves.nim";
-            i_1241514288 = res_520094718;
+            i_1241514288 = res_520094714;
             Label4: {
               F.line = 119;
               var j_1241514293 = 0;
               F.line = 96;
               F.filename = "iterators_1.nim";
-              var res_520094716 = 0;
+              var res_520094712 = 0;
               Label5: {
                 F.line = 97;
                   Label6: while (true) {
-                  if (!(res_520094716 <= 7)) break Label6;
+                  if (!(res_520094712 <= 7)) break Label6;
                     F.line = 119;
                     F.filename = "moves.nim";
-                    j_1241514293 = res_520094716;
+                    j_1241514293 = res_520094712;
                     F.line = 120;
                     var piece_1241514294 = nimCopy(null, b_1241513991[chckIndx(i_1241514288, 0, (b_1241513991).length - 1)][chckIndx(j_1241514293, 0, (b_1241513991[chckIndx(i_1241514288, 0, (b_1241513991).length - 1)]).length - 1)], NTI1207959567);
                     if ((piece_1241514294.item == 0)) {
@@ -5399,16 +5399,16 @@ function inCheck_1241513989(p_1241513990, b_1241513991) {
                       var it_1241514327 = null;
                       F.line = 249;
                       F.filename = "iterators.nim";
-                      var i_520094713 = 0;
+                      var i_520094709 = 0;
                       F.line = 250;
-                      var L_520094714 = (piece_1241514294.takes).length;
+                      var L_520094710 = (piece_1241514294.takes).length;
                       Label8: {
                         F.line = 251;
                           Label9: while (true) {
-                          if (!(i_520094713 < L_520094714)) break Label9;
+                          if (!(i_520094709 < L_520094710)) break Label9;
                             F.line = 653;
                             F.filename = "sequtils.nim";
-                            it_1241514327 = piece_1241514294.takes[chckIndx(i_520094713, 0, (piece_1241514294.takes).length - 1)];
+                            it_1241514327 = piece_1241514294.takes[chckIndx(i_520094709, 0, (piece_1241514294.takes).length - 1)];
                             if (!((it_1241514327 == HEX3Aanonymous_1241514247))) {
                             F.line = 654;
                             resultHEX60gensym3_1241514323.push(it_1241514327);;
@@ -5416,8 +5416,8 @@ function inCheck_1241513989(p_1241513990, b_1241513991) {
                             
                             F.line = 13;
                             F.filename = "iterators.nim";
-                            i_520094713 += 1;
-                            if (!(((piece_1241514294.takes).length == L_520094714))) {
+                            i_520094709 += 1;
+                            if (!(((piece_1241514294.takes).length == L_520094710))) {
                             F.line = 254;
                             failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
                             }
@@ -5437,12 +5437,12 @@ function inCheck_1241513989(p_1241513990, b_1241513991) {
                     
                     F.line = 102;
                     F.filename = "iterators_1.nim";
-                    res_520094716 = addInt(res_520094716, 1);
+                    res_520094712 = addInt(res_520094712, 1);
                   }
               };
             };
             F.line = 102;
-            res_520094718 = addInt(res_520094718, 1);
+            res_520094714 = addInt(res_520094714, 1);
           }
       };
     };
@@ -5618,16 +5618,16 @@ function startingBoard_1224737029() {
       var r_1224737038 = [({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false})];
       F.line = 164;
       F.filename = "iterators.nim";
-      var i_520094664 = 0;
+      var i_520094660 = 0;
       Label2: {
         F.line = 165;
           Label3: while (true) {
           if (!true) break Label3;
             F.line = 89;
             F.filename = "basePieces.nim";
-            j_1224737037 = i_520094664;
+            j_1224737037 = i_520094660;
             F.line = 89;
-            r_1224737038 = nimCopy(r_1224737038, result_1224737030[chckIndx(i_520094664, 0, (result_1224737030).length - 1)], NTI1207959558);
+            r_1224737038 = nimCopy(r_1224737038, result_1224737030[chckIndx(i_520094660, 0, (result_1224737030).length - 1)], NTI1207959558);
             Label4: {
               F.line = 90;
               var i_1224737045 = 0;
@@ -5635,36 +5635,36 @@ function startingBoard_1224737029() {
               var x_1224737046 = ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false});
               F.line = 164;
               F.filename = "iterators.nim";
-              var i_520094661 = 0;
+              var i_520094657 = 0;
               Label5: {
                 F.line = 165;
                   Label6: while (true) {
                   if (!true) break Label6;
                     F.line = 90;
                     F.filename = "basePieces.nim";
-                    i_1224737045 = i_520094661;
+                    i_1224737045 = i_520094657;
                     F.line = 90;
-                    x_1224737046 = nimCopy(x_1224737046, r_1224737038[chckIndx(i_520094661, 0, (r_1224737038).length - 1)], NTI1207959567);
+                    x_1224737046 = nimCopy(x_1224737046, r_1224737038[chckIndx(i_520094657, 0, (r_1224737038).length - 1)], NTI1207959567);
                     F.line = 91;
                     result_1224737030[chckIndx(j_1224737037, 0, (result_1224737030).length - 1)][chckIndx(i_1224737045, 0, (result_1224737030[chckIndx(j_1224737037, 0, (result_1224737030).length - 1)]).length - 1)] = nimCopy(result_1224737030[chckIndx(j_1224737037, 0, (result_1224737030).length - 1)][chckIndx(i_1224737045, 0, (result_1224737030[chckIndx(j_1224737037, 0, (result_1224737030).length - 1)]).length - 1)], pieceCopy_1207960000(x_1224737046, x_1224737046.item, x_1224737046.color, x_1224737046.timesMoved, x_1224737046.piecesTaken, {Field0: nimCopy(null, i_1224737045, NTI1207959568), Field1: nimCopy(null, j_1224737037, NTI1207959574)}, x_1224737046.moves, x_1224737046.takes, x_1224737046.onMove, x_1224737046.onTake, x_1224737046.whenTake, x_1224737046.onEndTurn, x_1224737046.onPromote, x_1224737046.promoted, x_1224737046.filePath, x_1224737046.rotate), NTI1207959567);
-                    if ((7 <= i_520094661)) {
+                    if ((7 <= i_520094657)) {
                     F.line = 167;
                     F.filename = "iterators.nim";
                     break Label5;
                     }
                     
                     F.line = 13;
-                    i_520094661 += 1;
+                    i_520094657 += 1;
                   }
               };
             };
-            if ((7 <= i_520094664)) {
+            if ((7 <= i_520094660)) {
             F.line = 167;
             break Label2;
             }
             
             F.line = 13;
-            i_520094664 += 1;
+            i_520094660 += 1;
           }
       };
     };
@@ -5831,25 +5831,25 @@ function sorted_1426064091(a_1426064093, cmp_1426064096, order_1426064097) {
       var i_1426064113 = 0;
       F.line = 81;
       F.filename = "iterators_1.nim";
-      var colontmp__520094727 = 0;
+      var colontmp__520094723 = 0;
       F.line = 449;
       F.filename = "algorithm.nim";
-      colontmp__520094727 = (a_1426064093).length - 1;
+      colontmp__520094723 = (a_1426064093).length - 1;
       F.line = 96;
       F.filename = "iterators_1.nim";
-      var res_520094728 = 0;
+      var res_520094724 = 0;
       Label2: {
         F.line = 97;
           Label3: while (true) {
-          if (!(res_520094728 <= colontmp__520094727)) break Label3;
+          if (!(res_520094724 <= colontmp__520094723)) break Label3;
             F.line = 449;
             F.filename = "algorithm.nim";
-            i_1426064113 = res_520094728;
+            i_1426064113 = res_520094724;
             F.line = 450;
             result_1426064098[chckIndx(i_1426064113, 0, (result_1426064098).length - 1)] = nimCopy(result_1426064098[chckIndx(i_1426064113, 0, (result_1426064098).length - 1)], a_1426064093[chckIndx(i_1426064113, 0, (a_1426064093).length - 1)], NTI1426063365);
             F.line = 102;
             F.filename = "iterators_1.nim";
-            res_520094728 = addInt(res_520094728, 1);
+            res_520094724 = addInt(res_520094724, 1);
           }
       };
     };
@@ -5876,14 +5876,14 @@ function find_1006633015(a_1006633018, item_1006633019) {
       var i_1006633024 = [];
       F.line = 18;
       F.filename = "iterators.nim";
-      var i_520094259 = 0;
+      var i_520094255 = 0;
       Label2: {
         F.line = 19;
           Label3: while (true) {
-          if (!(i_520094259 < (a_1006633018).length)) break Label3;
+          if (!(i_520094255 < (a_1006633018).length)) break Label3;
             F.line = 1672;
             F.filename = "system.nim";
-            i_1006633024 = a_1006633018[chckIndx(i_520094259, 0, (a_1006633018).length - 1)];
+            i_1006633024 = a_1006633018[chckIndx(i_520094255, 0, (a_1006633018).length - 1)];
             if (eqStrings(i_1006633024, item_1006633019)) {
             F.line = 1673;
             break BeforeRet;
@@ -5893,7 +5893,7 @@ function find_1006633015(a_1006633018, item_1006633019) {
             result_1006633020 = addInt(result_1006633020, 1);
             F.line = 13;
             F.filename = "iterators.nim";
-            i_520094259 += 1;
+            i_520094255 += 1;
           }
       };
     };
@@ -5936,25 +5936,25 @@ function HEX26_1426063675(x_1426063677, y_1426063678) {
       var i_1426063694 = 0;
       F.line = 81;
       F.filename = "iterators_1.nim";
-      var colontmp__520094749 = 0;
+      var colontmp__520094745 = 0;
       F.line = 1554;
       F.filename = "system.nim";
-      colontmp__520094749 = subInt((x_1426063677).length, 1);
+      colontmp__520094745 = subInt((x_1426063677).length, 1);
       F.line = 96;
       F.filename = "iterators_1.nim";
-      var res_520094750 = 0;
+      var res_520094746 = 0;
       Label2: {
         F.line = 97;
           Label3: while (true) {
-          if (!(res_520094750 <= colontmp__520094749)) break Label3;
+          if (!(res_520094746 <= colontmp__520094745)) break Label3;
             F.line = 1554;
             F.filename = "system.nim";
-            i_1426063694 = res_520094750;
+            i_1426063694 = res_520094746;
             F.line = 1555;
             result_1426063679[chckIndx(i_1426063694, 0, (result_1426063679).length - 1)] = nimCopy(result_1426063679[chckIndx(i_1426063694, 0, (result_1426063679).length - 1)], x_1426063677[chckIndx(i_1426063694, 0, (x_1426063677).length - 1)], NTI1426063365);
             F.line = 102;
             F.filename = "iterators_1.nim";
-            res_520094750 = addInt(res_520094750, 1);
+            res_520094746 = addInt(res_520094746, 1);
           }
       };
     };
@@ -5983,16 +5983,16 @@ function synergize_1426063554(pool_1426063555, synergies_1426063556, currentPowe
       var s_1426063583 = {Field0: ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0}), Field1: 0, Field2: [], Field3: [], Field4: 0};
       F.line = 249;
       F.filename = "iterators.nim";
-      var i_520094745 = 0;
+      var i_520094741 = 0;
       F.line = 250;
-      var L_520094746 = (synergies_1426063556).length;
+      var L_520094742 = (synergies_1426063556).length;
       Label2: {
         F.line = 251;
           Label3: while (true) {
-          if (!(i_520094745 < L_520094746)) break Label3;
+          if (!(i_520094741 < L_520094742)) break Label3;
             F.line = 79;
             F.filename = "power.nim";
-            s_1426063583 = synergies_1426063556[chckIndx(i_520094745, 0, (synergies_1426063556).length - 1)];
+            s_1426063583 = synergies_1426063556[chckIndx(i_520094741, 0, (synergies_1426063556).length - 1)];
               F.line = 652;
               F.filename = "sequtils.nim";
               var resultHEX60gensym12_1426063609 = newSeq_1426063585(0);
@@ -6001,16 +6001,16 @@ function synergize_1426063554(pool_1426063555, synergies_1426063556, currentPowe
                 var it_1426063631 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
                 F.line = 249;
                 F.filename = "iterators.nim";
-                var i_520094737 = 0;
+                var i_520094733 = 0;
                 F.line = 250;
-                var L_520094738 = (currentPowers_1426063557).length;
+                var L_520094734 = (currentPowers_1426063557).length;
                 Label6: {
                   F.line = 251;
                     Label7: while (true) {
-                    if (!(i_520094737 < L_520094738)) break Label7;
+                    if (!(i_520094733 < L_520094734)) break Label7;
                       F.line = 653;
                       F.filename = "sequtils.nim";
-                      it_1426063631 = currentPowers_1426063557[chckIndx(i_520094737, 0, (currentPowers_1426063557).length - 1)];
+                      it_1426063631 = currentPowers_1426063557[chckIndx(i_520094733, 0, (currentPowers_1426063557).length - 1)];
                       if (contains_1006633010(s_1426063583.Field2, it_1426063631.name)) {
                       F.line = 654;
                       var Temporary8 = nimCopy(null, it_1426063631, NTI1426063365);
@@ -6019,8 +6019,8 @@ function synergize_1426063554(pool_1426063555, synergies_1426063556, currentPowe
                       
                       F.line = 13;
                       F.filename = "iterators.nim";
-                      i_520094737 += 1;
-                      if (!(((currentPowers_1426063557).length == L_520094738))) {
+                      i_520094733 += 1;
+                      if (!(((currentPowers_1426063557).length == L_520094734))) {
                       F.line = 254;
                       failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
                       }
@@ -6045,16 +6045,16 @@ function synergize_1426063554(pool_1426063555, synergies_1426063556, currentPowe
                 var it_1426063666 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
                 F.line = 249;
                 F.filename = "iterators.nim";
-                var i_520094741 = 0;
+                var i_520094737 = 0;
                 F.line = 250;
-                var L_520094742 = (result_1426063560).length;
+                var L_520094738 = (result_1426063560).length;
                 Label11: {
                   F.line = 251;
                     Label12: while (true) {
-                    if (!(i_520094741 < L_520094742)) break Label12;
+                    if (!(i_520094737 < L_520094738)) break Label12;
                       F.line = 653;
                       F.filename = "sequtils.nim";
-                      it_1426063666 = result_1426063560[chckIndx(i_520094741, 0, (result_1426063560).length - 1)];
+                      it_1426063666 = result_1426063560[chckIndx(i_520094737, 0, (result_1426063560).length - 1)];
                       if (!(contains_1006633010(s_1426063583.Field3, it_1426063666.name))) {
                       F.line = 654;
                       var Temporary13 = nimCopy(null, it_1426063666, NTI1426063365);
@@ -6063,8 +6063,8 @@ function synergize_1426063554(pool_1426063555, synergies_1426063556, currentPowe
                       
                       F.line = 13;
                       F.filename = "iterators.nim";
-                      i_520094741 += 1;
-                      if (!(((result_1426063560).length == L_520094742))) {
+                      i_520094737 += 1;
+                      if (!(((result_1426063560).length == L_520094738))) {
                       F.line = 254;
                       failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
                       }
@@ -6078,8 +6078,8 @@ function synergize_1426063554(pool_1426063555, synergies_1426063556, currentPowe
             }
             
             F.line = 13;
-            i_520094745 += 1;
-            if (!(((synergies_1426063556).length == L_520094746))) {
+            i_520094741 += 1;
+            if (!(((synergies_1426063556).length == L_520094742))) {
             F.line = 254;
             failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
             }
@@ -6109,25 +6109,25 @@ function HEX26_1426064034(x_1426064036, y_1426064037) {
       var i_1426064056 = 0;
       F.line = 81;
       F.filename = "iterators_1.nim";
-      var colontmp__520094753 = 0;
+      var colontmp__520094749 = 0;
       F.line = 1538;
       F.filename = "system.nim";
-      colontmp__520094753 = subInt((x_1426064036).length, 1);
+      colontmp__520094749 = subInt((x_1426064036).length, 1);
       F.line = 96;
       F.filename = "iterators_1.nim";
-      var res_520094754 = 0;
+      var res_520094750 = 0;
       Label2: {
         F.line = 97;
           Label3: while (true) {
-          if (!(res_520094754 <= colontmp__520094753)) break Label3;
+          if (!(res_520094750 <= colontmp__520094749)) break Label3;
             F.line = 1538;
             F.filename = "system.nim";
-            i_1426064056 = res_520094754;
+            i_1426064056 = res_520094750;
             F.line = 1539;
             result_1426064038[chckIndx(i_1426064056, 0, (result_1426064038).length - 1)] = nimCopy(result_1426064038[chckIndx(i_1426064056, 0, (result_1426064038).length - 1)], x_1426064036[chckIndx(i_1426064056, 0, (x_1426064036).length - 1)], NTI1426063366);
             F.line = 102;
             F.filename = "iterators_1.nim";
-            res_520094754 = addInt(res_520094754, 1);
+            res_520094750 = addInt(res_520094750, 1);
           }
       };
     };
@@ -6137,25 +6137,25 @@ function HEX26_1426064034(x_1426064036, y_1426064037) {
       var i_1426064064 = 0;
       F.line = 81;
       F.filename = "iterators_1.nim";
-      var colontmp__520094757 = 0;
+      var colontmp__520094753 = 0;
       F.line = 1540;
       F.filename = "system.nim";
-      colontmp__520094757 = subInt((y_1426064037).length, 1);
+      colontmp__520094753 = subInt((y_1426064037).length, 1);
       F.line = 96;
       F.filename = "iterators_1.nim";
-      var res_520094758 = 0;
+      var res_520094754 = 0;
       Label5: {
         F.line = 97;
           Label6: while (true) {
-          if (!(res_520094758 <= colontmp__520094757)) break Label6;
+          if (!(res_520094754 <= colontmp__520094753)) break Label6;
             F.line = 1540;
             F.filename = "system.nim";
-            i_1426064064 = res_520094758;
+            i_1426064064 = res_520094754;
             F.line = 1541;
             result_1426064038[chckIndx(addInt(i_1426064064, (x_1426064036).length), 0, (result_1426064038).length - 1)] = nimCopy(result_1426064038[chckIndx(addInt(i_1426064064, (x_1426064036).length), 0, (result_1426064038).length - 1)], y_1426064037[chckIndx(i_1426064064, 0, (y_1426064037).length - 1)], NTI1426063366);
             F.line = 102;
             F.filename = "iterators_1.nim";
-            res_520094758 = addInt(res_520094758, 1);
+            res_520094754 = addInt(res_520094754, 1);
           }
       };
     };
@@ -6226,31 +6226,31 @@ function HEX3Aanonymous_1426064073(xHEX60gensym33_1426064077, yHEX60gensym33_142
       var d_1426064210 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
       F.line = 247;
       F.filename = "iterators.nim";
-      var colontmp__520094721 = [];
+      var colontmp__520094717 = [];
       F.line = 134;
       F.filename = "power.nim";
       F.line = 499;
       F.filename = "algorithm.nim";
       var resultHEX60gensym33_1426064206 = sorted_1426064091(synergize_1426063554(drafts_1426064030, HEX26_1426064034(secretSynergies_1426063420[0], secretSecretSynergies_1426063421[0]), drafts_1426064030, 0, true), HEX3Aanonymous_1426064073, 1);
-      colontmp__520094721 = resultHEX60gensym33_1426064206;
+      colontmp__520094717 = resultHEX60gensym33_1426064206;
       F.line = 249;
       F.filename = "iterators.nim";
-      var i_520094723 = 0;
+      var i_520094719 = 0;
       F.line = 250;
-      var L_520094724 = (colontmp__520094721).length;
+      var L_520094720 = (colontmp__520094717).length;
       Label2: {
         F.line = 251;
           Label3: while (true) {
-          if (!(i_520094723 < L_520094724)) break Label3;
+          if (!(i_520094719 < L_520094720)) break Label3;
             F.line = 134;
             F.filename = "power.nim";
-            d_1426064210 = colontmp__520094721[chckIndx(i_520094723, 0, (colontmp__520094721).length - 1)];
+            d_1426064210 = colontmp__520094717[chckIndx(i_520094719, 0, (colontmp__520094717).length - 1)];
             F.line = 135;
             d_1426064210.onStart(draftSide_1426064031, mySide_1426064032, board_1426064033);
             F.line = 13;
             F.filename = "iterators.nim";
-            i_520094723 += 1;
-            if (!(((colontmp__520094721).length == L_520094724))) {
+            i_520094719 += 1;
+            if (!(((colontmp__520094717).length == L_520094720))) {
             F.line = 254;
             failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
             }
@@ -6305,19 +6305,19 @@ function HEX5BHEX5D_687867297(s_687867301, x_687867302) {
       var i_687867320 = 0;
       F.line = 128;
       F.filename = "iterators_1.nim";
-      var i_520094761 = 0;
+      var i_520094757 = 0;
       Label2: {
         F.line = 129;
           Label3: while (true) {
-          if (!(i_520094761 < L_687867311)) break Label3;
+          if (!(i_520094757 < L_687867311)) break Label3;
             F.line = 142;
             F.filename = "indices.nim";
-            i_687867320 = i_520094761;
+            i_687867320 = i_520094757;
             F.line = 142;
             result_687867303[chckIndx(i_687867320, 0, (result_687867303).length - 1)] = s_687867301[chckIndx(addInt(i_687867320, a_687867305), 0, (s_687867301).length - 1)];
             F.line = 131;
             F.filename = "iterators_1.nim";
-            i_520094761 = addInt(i_520094761, 1);
+            i_520094757 = addInt(i_520094757, 1);
           }
       };
     };
@@ -6590,25 +6590,25 @@ function applyEvents_687866149(n_687866150) {
       var i_687866159 = 0;
       F.line = 126;
       F.filename = "iterators_1.nim";
-      var colontmp__520094784 = 0;
+      var colontmp__520094780 = 0;
       F.line = 151;
       F.filename = "karax.nim";
-      colontmp__520094784 = (n_687866150.events).length;
+      colontmp__520094780 = (n_687866150.events).length;
       F.line = 128;
       F.filename = "iterators_1.nim";
-      var i_520094785 = 0;
+      var i_520094781 = 0;
       Label2: {
         F.line = 129;
           Label3: while (true) {
-          if (!(i_520094785 < colontmp__520094784)) break Label3;
+          if (!(i_520094781 < colontmp__520094780)) break Label3;
             F.line = 151;
             F.filename = "karax.nim";
-            i_687866159 = i_520094785;
+            i_687866159 = i_520094781;
             F.line = 152;
             n_687866150.events[chckIndx(i_687866159, 0, (n_687866150.events).length - 1)]["Field2"] = wrapEvent_687866022(dest_687866151, n_687866150, n_687866150.events[chckIndx(i_687866159, 0, (n_687866150.events).length - 1)]["Field0"], n_687866150.events[chckIndx(i_687866159, 0, (n_687866150.events).length - 1)]["Field1"]);
             F.line = 131;
             F.filename = "iterators_1.nim";
-            i_520094785 = addInt(i_520094785, 1);
+            i_520094781 = addInt(i_520094781, 1);
           }
       };
     };
@@ -6628,25 +6628,25 @@ function applyStyle_788529666(n_788529667, s_788529668) {
       var i_788529681 = 0;
       F.line = 46;
       F.filename = "iterators_1.nim";
-      var colontmp__520094788 = 0;
+      var colontmp__520094784 = 0;
       F.line = 339;
       F.filename = "vstyles.nim";
-      colontmp__520094788 = subInt(s_788529668.length, 1);
+      colontmp__520094784 = subInt(s_788529668.length, 1);
       F.line = 68;
       F.filename = "iterators_1.nim";
-      var res_520094789 = 0;
+      var res_520094785 = 0;
       Label2: {
         F.line = 69;
           Label3: while (true) {
-          if (!(res_520094789 <= colontmp__520094788)) break Label3;
+          if (!(res_520094785 <= colontmp__520094784)) break Label3;
             F.line = 339;
             F.filename = "vstyles.nim";
-            i_788529681 = res_520094789;
+            i_788529681 = res_520094785;
             F.line = 340;
             n_788529667.style[s_788529668[i_788529681]] = s_788529668[addInt(i_788529681, 1)];
             F.line = 74;
             F.filename = "iterators_1.nim";
-            res_520094789 = addInt(res_520094789, 2);
+            res_520094785 = addInt(res_520094785, 2);
           }
       };
     };
@@ -6803,31 +6803,31 @@ function toDom_687866178(n_687866179, useAttachedNode_687866180, kxi_687866181) 
         Label3: {
           F.line = 334;
           F.filename = "vdom.nim";
-          var i_520094769 = 0;
+          var i_520094765 = 0;
           F.line = 126;
           F.filename = "iterators_1.nim";
-          var colontmp__520094770 = 0;
+          var colontmp__520094766 = 0;
           F.line = 334;
           F.filename = "vdom.nim";
-          colontmp__520094770 = (n_687866179.kids).length;
+          colontmp__520094766 = (n_687866179.kids).length;
           F.line = 128;
           F.filename = "iterators_1.nim";
-          var i_520094771 = 0;
+          var i_520094767 = 0;
           Label4: {
             F.line = 129;
               Label5: while (true) {
-              if (!(i_520094771 < colontmp__520094770)) break Label5;
+              if (!(i_520094767 < colontmp__520094766)) break Label5;
                 F.line = 334;
                 F.filename = "vdom.nim";
-                i_520094769 = i_520094771;
+                i_520094765 = i_520094767;
                 F.line = 209;
                 F.filename = "karax.nim";
-                k_687866299 = n_687866179.kids[chckIndx(i_520094769, 0, (n_687866179.kids).length - 1)];
+                k_687866299 = n_687866179.kids[chckIndx(i_520094765, 0, (n_687866179.kids).length - 1)];
                 F.line = 210;
                 result_687866182.appendChild(toDom_687866178(k_687866299, useAttachedNode_687866180, kxi_687866181));
                 F.line = 131;
                 F.filename = "iterators_1.nim";
-                i_520094771 = addInt(i_520094771, 1);
+                i_520094767 = addInt(i_520094767, 1);
               }
           };
         };
@@ -6865,28 +6865,28 @@ function toDom_687866178(n_687866179, useAttachedNode_687866180, kxi_687866181) 
       Label7: {
         F.line = 337;
         F.filename = "vdom.nim";
-        var i_520094779 = 0;
+        var i_520094775 = 0;
         F.line = 46;
         F.filename = "iterators_1.nim";
-        var colontmp__520094780 = 0;
+        var colontmp__520094776 = 0;
         F.line = 337;
         F.filename = "vdom.nim";
-        colontmp__520094780 = subInt((n_687866179.attrs).length, 2);
+        colontmp__520094776 = subInt((n_687866179.attrs).length, 2);
         F.line = 68;
         F.filename = "iterators_1.nim";
-        var res_520094781 = 0;
+        var res_520094777 = 0;
         Label8: {
           F.line = 69;
             Label9: while (true) {
-            if (!(res_520094781 <= colontmp__520094780)) break Label9;
+            if (!(res_520094777 <= colontmp__520094776)) break Label9;
               F.line = 337;
               F.filename = "vdom.nim";
-              i_520094779 = res_520094781;
+              i_520094775 = res_520094777;
               F.line = 223;
               F.filename = "karax.nim";
-              k_687866304 = n_687866179.attrs[chckIndx(i_520094779, 0, (n_687866179.attrs).length - 1)];
+              k_687866304 = n_687866179.attrs[chckIndx(i_520094775, 0, (n_687866179.attrs).length - 1)];
               F.line = 223;
-              v_687866305 = n_687866179.attrs[chckIndx(addInt(i_520094779, 1), 0, (n_687866179.attrs).length - 1)];
+              v_687866305 = n_687866179.attrs[chckIndx(addInt(i_520094775, 1), 0, (n_687866179.attrs).length - 1)];
               if (!((v_687866305 == null))) {
               F.line = 225;
               result_687866182.setAttribute(k_687866304, v_687866305);
@@ -6894,7 +6894,7 @@ function toDom_687866178(n_687866179, useAttachedNode_687866180, kxi_687866181) 
               
               F.line = 74;
               F.filename = "iterators_1.nim";
-              res_520094781 = addInt(res_520094781, 2);
+              res_520094777 = addInt(res_520094777, 2);
             }
         };
       };
@@ -7002,20 +7002,20 @@ function eq_788529410(a_788529411, b_788529412) {
       var i_788529448 = 0;
       F.line = 126;
       F.filename = "iterators_1.nim";
-      var colontmp__520094815 = 0;
+      var colontmp__520094811 = 0;
       F.line = 240;
       F.filename = "vstyles.nim";
-      colontmp__520094815 = a_788529411.length;
+      colontmp__520094811 = a_788529411.length;
       F.line = 128;
       F.filename = "iterators_1.nim";
-      var i_520094816 = 0;
+      var i_520094812 = 0;
       Label2: {
         F.line = 129;
           Label3: while (true) {
-          if (!(i_520094816 < colontmp__520094815)) break Label3;
+          if (!(i_520094812 < colontmp__520094811)) break Label3;
             F.line = 240;
             F.filename = "vstyles.nim";
-            i_788529448 = i_520094816;
+            i_788529448 = i_520094812;
             if (!((a_788529411[i_788529448] == b_788529412[i_788529448]))) {
             F.line = 241;
             result_788529413 = false;
@@ -7024,7 +7024,7 @@ function eq_788529410(a_788529411, b_788529412) {
             
             F.line = 131;
             F.filename = "iterators_1.nim";
-            i_520094816 = addInt(i_520094816, 1);
+            i_520094812 = addInt(i_520094812, 1);
           }
       };
     };
@@ -7068,20 +7068,20 @@ function sameAttrs_721421285(a_721421286, b_721421287) {
       var i_721421302 = 0;
       F.line = 126;
       F.filename = "iterators_1.nim";
-      var colontmp__520094819 = 0;
+      var colontmp__520094815 = 0;
       F.line = 343;
       F.filename = "vdom.nim";
-      colontmp__520094819 = (a_721421286.attrs).length;
+      colontmp__520094815 = (a_721421286.attrs).length;
       F.line = 128;
       F.filename = "iterators_1.nim";
-      var i_520094820 = 0;
+      var i_520094816 = 0;
       Label2: {
         F.line = 129;
           Label3: while (true) {
-          if (!(i_520094820 < colontmp__520094819)) break Label3;
+          if (!(i_520094816 < colontmp__520094815)) break Label3;
             F.line = 343;
             F.filename = "vdom.nim";
-            i_721421302 = i_520094820;
+            i_721421302 = i_520094816;
             if (!((a_721421286.attrs[chckIndx(i_721421302, 0, (a_721421286.attrs).length - 1)] == b_721421287.attrs[chckIndx(i_721421302, 0, (b_721421287.attrs).length - 1)]))) {
             F.line = 344;
             result_721421288 = false;
@@ -7090,7 +7090,7 @@ function sameAttrs_721421285(a_721421286, b_721421287) {
             
             F.line = 131;
             F.filename = "iterators_1.nim";
-            i_520094820 = addInt(i_520094820, 1);
+            i_520094816 = addInt(i_520094816, 1);
           }
       };
     };
@@ -7157,20 +7157,20 @@ function eq_687866411(a_687866412, b_687866413, recursive_687866414) {
       var i_687866432 = 0;
       F.line = 126;
       F.filename = "iterators_1.nim";
-      var colontmp__520094807 = 0;
+      var colontmp__520094803 = 0;
       F.line = 296;
       F.filename = "karax.nim";
-      colontmp__520094807 = len_721421105(a_687866412);
+      colontmp__520094803 = len_721421105(a_687866412);
       F.line = 128;
       F.filename = "iterators_1.nim";
-      var i_520094808 = 0;
+      var i_520094804 = 0;
       Label2: {
         F.line = 129;
           Label3: while (true) {
-          if (!(i_520094808 < colontmp__520094807)) break Label3;
+          if (!(i_520094804 < colontmp__520094803)) break Label3;
             F.line = 296;
             F.filename = "karax.nim";
-            i_687866432 = i_520094808;
+            i_687866432 = i_520094804;
             if ((eq_687866411(HEX5BHEX5D_721421112(a_687866412, i_687866432), HEX5BHEX5D_721421112(b_687866413, i_687866432), recursive_687866414) == 1)) {
             F.line = 297;
             result_687866415 = 1;
@@ -7179,7 +7179,7 @@ function eq_687866411(a_687866412, b_687866413, recursive_687866414) {
             
             F.line = 131;
             F.filename = "iterators_1.nim";
-            i_520094808 = addInt(i_520094808, 1);
+            i_520094804 = addInt(i_520094804, 1);
           }
       };
     };
@@ -7245,20 +7245,20 @@ function eq_687866411(a_687866412, b_687866413, recursive_687866414) {
       var i_687866458 = 0;
       F.line = 126;
       F.filename = "iterators_1.nim";
-      var colontmp__520094811 = 0;
+      var colontmp__520094807 = 0;
       F.line = 329;
       F.filename = "karax.nim";
-      colontmp__520094811 = len_721421105(a_687866412);
+      colontmp__520094807 = len_721421105(a_687866412);
       F.line = 128;
       F.filename = "iterators_1.nim";
-      var i_520094812 = 0;
+      var i_520094808 = 0;
       Label5: {
         F.line = 129;
           Label6: while (true) {
-          if (!(i_520094812 < colontmp__520094811)) break Label6;
+          if (!(i_520094808 < colontmp__520094807)) break Label6;
             F.line = 329;
             F.filename = "karax.nim";
-            i_687866458 = i_520094812;
+            i_687866458 = i_520094808;
             if (!((eq_687866411(HEX5BHEX5D_721421112(a_687866412, i_687866458), HEX5BHEX5D_721421112(b_687866413, i_687866458), true) == 3))) {
             F.line = 331;
             result_687866415 = 1;
@@ -7267,7 +7267,7 @@ function eq_687866411(a_687866412, b_687866413, recursive_687866414) {
             
             F.line = 131;
             F.filename = "iterators_1.nim";
-            i_520094812 = addInt(i_520094812, 1);
+            i_520094808 = addInt(i_520094808, 1);
           }
       };
     };
@@ -7343,33 +7343,33 @@ function updateAttributes_687866893(newNode_687866894, oldNode_687866895) {
       Label2: {
         F.line = 337;
         F.filename = "vdom.nim";
-        var i_520094824 = 0;
+        var i_520094820 = 0;
         F.line = 46;
         F.filename = "iterators_1.nim";
-        var colontmp__520094825 = 0;
+        var colontmp__520094821 = 0;
         F.line = 337;
         F.filename = "vdom.nim";
-        colontmp__520094825 = subInt((oldNode_687866895.attrs).length, 2);
+        colontmp__520094821 = subInt((oldNode_687866895.attrs).length, 2);
         F.line = 68;
         F.filename = "iterators_1.nim";
-        var res_520094826 = 0;
+        var res_520094822 = 0;
         Label3: {
           F.line = 69;
             Label4: while (true) {
-            if (!(res_520094826 <= colontmp__520094825)) break Label4;
+            if (!(res_520094822 <= colontmp__520094821)) break Label4;
               F.line = 337;
               F.filename = "vdom.nim";
-              i_520094824 = res_520094826;
+              i_520094820 = res_520094822;
               F.line = 353;
               F.filename = "karax.nim";
-              k_687866900 = oldNode_687866895.attrs[chckIndx(i_520094824, 0, (oldNode_687866895.attrs).length - 1)];
+              k_687866900 = oldNode_687866895.attrs[chckIndx(i_520094820, 0, (oldNode_687866895.attrs).length - 1)];
               F.line = 353;
-              __687866901 = oldNode_687866895.attrs[chckIndx(addInt(i_520094824, 1), 0, (oldNode_687866895.attrs).length - 1)];
+              __687866901 = oldNode_687866895.attrs[chckIndx(addInt(i_520094820, 1), 0, (oldNode_687866895.attrs).length - 1)];
               F.line = 354;
               oldNode_687866895.dom.removeAttribute(k_687866900);
               F.line = 74;
               F.filename = "iterators_1.nim";
-              res_520094826 = addInt(res_520094826, 2);
+              res_520094822 = addInt(res_520094822, 2);
             }
         };
       };
@@ -7383,28 +7383,28 @@ function updateAttributes_687866893(newNode_687866894, oldNode_687866895) {
       Label6: {
         F.line = 337;
         F.filename = "vdom.nim";
-        var i_520094830 = 0;
+        var i_520094826 = 0;
         F.line = 46;
         F.filename = "iterators_1.nim";
-        var colontmp__520094831 = 0;
+        var colontmp__520094827 = 0;
         F.line = 337;
         F.filename = "vdom.nim";
-        colontmp__520094831 = subInt((newNode_687866894.attrs).length, 2);
+        colontmp__520094827 = subInt((newNode_687866894.attrs).length, 2);
         F.line = 68;
         F.filename = "iterators_1.nim";
-        var res_520094832 = 0;
+        var res_520094828 = 0;
         Label7: {
           F.line = 69;
             Label8: while (true) {
-            if (!(res_520094832 <= colontmp__520094831)) break Label8;
+            if (!(res_520094828 <= colontmp__520094827)) break Label8;
               F.line = 337;
               F.filename = "vdom.nim";
-              i_520094830 = res_520094832;
+              i_520094826 = res_520094828;
               F.line = 355;
               F.filename = "karax.nim";
-              k_687866902 = newNode_687866894.attrs[chckIndx(i_520094830, 0, (newNode_687866894.attrs).length - 1)];
+              k_687866902 = newNode_687866894.attrs[chckIndx(i_520094826, 0, (newNode_687866894.attrs).length - 1)];
               F.line = 355;
-              v_687866903 = newNode_687866894.attrs[chckIndx(addInt(i_520094830, 1), 0, (newNode_687866894.attrs).length - 1)];
+              v_687866903 = newNode_687866894.attrs[chckIndx(addInt(i_520094826, 1), 0, (newNode_687866894.attrs).length - 1)];
               if (!((v_687866903 == null))) {
               F.line = 357;
               oldNode_687866895.dom.setAttribute(k_687866902, v_687866903);
@@ -7412,7 +7412,7 @@ function updateAttributes_687866893(newNode_687866894, oldNode_687866895) {
               
               F.line = 74;
               F.filename = "iterators_1.nim";
-              res_520094832 = addInt(res_520094832, 2);
+              res_520094828 = addInt(res_520094828, 2);
             }
         };
       };
@@ -7439,20 +7439,20 @@ function getAttr_721421084(n_721421085, key_721421086) {
       var i_721421096 = 0;
       F.line = 46;
       F.filename = "iterators_1.nim";
-      var colontmp__520094835 = 0;
+      var colontmp__520094831 = 0;
       F.line = 271;
       F.filename = "vdom.nim";
-      colontmp__520094835 = subInt((n_721421085.attrs).length, 2);
+      colontmp__520094831 = subInt((n_721421085.attrs).length, 2);
       F.line = 68;
       F.filename = "iterators_1.nim";
-      var res_520094836 = 0;
+      var res_520094832 = 0;
       Label2: {
         F.line = 69;
           Label3: while (true) {
-          if (!(res_520094836 <= colontmp__520094835)) break Label3;
+          if (!(res_520094832 <= colontmp__520094831)) break Label3;
             F.line = 271;
             F.filename = "vdom.nim";
-            i_721421096 = res_520094836;
+            i_721421096 = res_520094832;
             if ((n_721421085.attrs[chckIndx(i_721421096, 0, (n_721421085.attrs).length - 1)] == key_721421086)) {
             F.line = 272;
             result_721421087 = n_721421085.attrs[chckIndx(addInt(i_721421096, 1), 0, (n_721421085.attrs).length - 1)];
@@ -7461,7 +7461,7 @@ function getAttr_721421084(n_721421085, key_721421086) {
             
             F.line = 74;
             F.filename = "iterators_1.nim";
-            res_520094836 = addInt(res_520094836, 2);
+            res_520094832 = addInt(res_520094832, 2);
           }
       };
     };
@@ -7482,25 +7482,25 @@ function removeAllEventHandlers_687865980(d_687865981) {
       var i_687865997 = 0;
       F.line = 126;
       F.filename = "iterators_1.nim";
-      var colontmp__520094839 = 0;
+      var colontmp__520094835 = 0;
       F.line = 101;
       F.filename = "karax.nim";
-      colontmp__520094839 = d_687865981.karaxEvents.length;
+      colontmp__520094835 = d_687865981.karaxEvents.length;
       F.line = 128;
       F.filename = "iterators_1.nim";
-      var i_520094840 = 0;
+      var i_520094836 = 0;
       Label2: {
         F.line = 129;
           Label3: while (true) {
-          if (!(i_520094840 < colontmp__520094839)) break Label3;
+          if (!(i_520094836 < colontmp__520094835)) break Label3;
             F.line = 101;
             F.filename = "karax.nim";
-            i_687865997 = i_520094840;
+            i_687865997 = i_520094836;
             F.line = 102;
             d_687865981.removeEventListener(d_687865981.karaxEvents[i_687865997]["Field0"], d_687865981.karaxEvents[i_687865997]["Field1"]);
             F.line = 131;
             F.filename = "iterators_1.nim";
-            i_520094840 = addInt(i_520094840, 1);
+            i_520094836 = addInt(i_520094836, 1);
           }
       };
     };
@@ -7680,25 +7680,25 @@ function diff_687867077(newNode_687867078, oldNode_687867079, parent_687867080, 
         var i_687867150 = 0;
         F.line = 81;
         F.filename = "iterators_1.nim";
-        var colontmp__520094794 = 0;
+        var colontmp__520094790 = 0;
         F.line = 548;
         F.filename = "karax.nim";
-        colontmp__520094794 = subInt(pos_687867145, 1);
+        colontmp__520094790 = subInt(pos_687867145, 1);
         F.line = 96;
         F.filename = "iterators_1.nim";
-        var res_520094795 = commonPrefix_687867119;
+        var res_520094791 = commonPrefix_687867119;
         Label7: {
           F.line = 97;
             Label8: while (true) {
-            if (!(res_520094795 <= colontmp__520094794)) break Label8;
+            if (!(res_520094791 <= colontmp__520094790)) break Label8;
               F.line = 548;
               F.filename = "karax.nim";
-              i_687867150 = res_520094795;
+              i_687867150 = res_520094791;
               F.line = 549;
               diff_687867077(HEX5BHEX5D_721421112(newNode_687867078, i_687867150), HEX5BHEX5D_721421112(oldNode_687867079, i_687867150), current_687867081, HEX5BHEX5D_721421112(oldNode_687867079, i_687867150).dom, kxi_687867082);
               F.line = 102;
               F.filename = "iterators_1.nim";
-              res_520094795 = addInt(res_520094795, 1);
+              res_520094791 = addInt(res_520094791, 1);
             }
         };
       };
@@ -7709,19 +7709,19 @@ function diff_687867077(newNode_687867078, oldNode_687867079, parent_687867080, 
         var i_687867155 = 0;
         F.line = 96;
         F.filename = "iterators_1.nim";
-        var res_520094798 = pos_687867145;
+        var res_520094794 = pos_687867145;
         Label10: {
           F.line = 97;
             Label11: while (true) {
-            if (!(res_520094798 <= newPos_687867130)) break Label11;
+            if (!(res_520094794 <= newPos_687867130)) break Label11;
               F.line = 552;
               F.filename = "karax.nim";
-              i_687867155 = res_520094798;
+              i_687867155 = res_520094794;
               F.line = 553;
               addPatch_687866913(kxi_687867082, 2, current_687867081, null, HEX5BHEX5D_721421112(newNode_687867078, i_687867155), null);
               F.line = 102;
               F.filename = "iterators_1.nim";
-              res_520094798 = addInt(res_520094798, 1);
+              res_520094794 = addInt(res_520094794, 1);
             }
         };
       };
@@ -7735,19 +7735,19 @@ function diff_687867077(newNode_687867078, oldNode_687867079, parent_687867080, 
           var i_687867161 = 0;
           F.line = 96;
           F.filename = "iterators_1.nim";
-          var res_520094801 = pos_687867145;
+          var res_520094797 = pos_687867145;
           Label13: {
             F.line = 97;
               Label14: while (true) {
-              if (!(res_520094801 <= newPos_687867130)) break Label14;
+              if (!(res_520094797 <= newPos_687867130)) break Label14;
                 F.line = 556;
                 F.filename = "karax.nim";
-                i_687867161 = res_520094801;
+                i_687867161 = res_520094797;
                 F.line = 557;
                 addPatch_687866913(kxi_687867082, 3, current_687867081, before_687867156, HEX5BHEX5D_721421112(newNode_687867078, i_687867161), null);
                 F.line = 102;
                 F.filename = "iterators_1.nim";
-                res_520094801 = addInt(res_520094801, 1);
+                res_520094797 = addInt(res_520094797, 1);
               }
           };
         };
@@ -7759,21 +7759,21 @@ function diff_687867077(newNode_687867078, oldNode_687867079, parent_687867080, 
         var i_687867166 = 0;
         F.line = 96;
         F.filename = "iterators_1.nim";
-        var res_520094804 = pos_687867145;
+        var res_520094800 = pos_687867145;
         Label16: {
           F.line = 97;
             Label17: while (true) {
-            if (!(res_520094804 <= oldPos_687867129)) break Label17;
+            if (!(res_520094800 <= oldPos_687867129)) break Label17;
               F.line = 559;
               F.filename = "karax.nim";
-              i_687867166 = res_520094804;
+              i_687867166 = res_520094800;
               F.line = 560;
               addPatch_687866913(kxi__, 4, null, null, null, HEX5BHEX5D_721421112(oldNode_687867079, i_687867166));
               F.line = 562;
               addPatch_687866913(kxi_687867082, 1, current_687867081, current_687867081.childNodes[chckIndx(i_687867166, 0, (current_687867081.childNodes).length - 1)], null, null);
               F.line = 102;
               F.filename = "iterators_1.nim";
-              res_520094804 = addInt(res_520094804, 1);
+              res_520094800 = addInt(res_520094800, 1);
             }
         };
       };
@@ -7889,25 +7889,25 @@ function moveDom_687867007(dest_687867008, src_687867009) {
       var i_687867025 = 0;
       F.line = 126;
       F.filename = "iterators_1.nim";
-      var colontmp__520094850 = 0;
+      var colontmp__520094846 = 0;
       F.line = 420;
       F.filename = "karax.nim";
-      colontmp__520094850 = len_721421105(dest_687867008);
+      colontmp__520094846 = len_721421105(dest_687867008);
       F.line = 128;
       F.filename = "iterators_1.nim";
-      var i_520094851 = 0;
+      var i_520094847 = 0;
       Label2: {
         F.line = 129;
           Label3: while (true) {
-          if (!(i_520094851 < colontmp__520094850)) break Label3;
+          if (!(i_520094847 < colontmp__520094846)) break Label3;
             F.line = 420;
             F.filename = "karax.nim";
-            i_687867025 = i_520094851;
+            i_687867025 = i_520094847;
             F.line = 421;
             moveDom_687867007(HEX5BHEX5D_721421112(dest_687867008, i_687867025), HEX5BHEX5D_721421112(src_687867009, i_687867025));
             F.line = 131;
             F.filename = "iterators_1.nim";
-            i_520094851 = addInt(i_520094851, 1);
+            i_520094847 = addInt(i_520094847, 1);
           }
       };
     };
@@ -7936,14 +7936,14 @@ function applyPatch_687867026(kxi_687867027) {
       var i_687867032 = 0;
       F.line = 128;
       F.filename = "iterators_1.nim";
-      var i_520094844 = 0;
+      var i_520094840 = 0;
       Label2: {
         F.line = 129;
           Label3: while (true) {
-          if (!(i_520094844 < kxi_687867027.patchLen)) break Label3;
+          if (!(i_520094840 < kxi_687867027.patchLen)) break Label3;
             F.line = 424;
             F.filename = "karax.nim";
-            i_687867032 = i_520094844;
+            i_687867032 = i_520094840;
             F.line = 425;
             var p_687867033 = nimCopy(null, kxi_687867027.patches[chckIndx(i_687867032, 0, (kxi_687867027.patches).length - 1)], NTI687865864);
             F.line = 426;
@@ -8015,7 +8015,7 @@ function applyPatch_687867026(kxi_687867027) {
             }
             F.line = 131;
             F.filename = "iterators_1.nim";
-            i_520094844 = addInt(i_520094844, 1);
+            i_520094840 = addInt(i_520094840, 1);
           }
       };
     };
@@ -8027,14 +8027,14 @@ function applyPatch_687867026(kxi_687867027) {
       var i_687867064 = 0;
       F.line = 128;
       F.filename = "iterators_1.nim";
-      var i_520094847 = 0;
+      var i_520094843 = 0;
       Label5: {
         F.line = 129;
           Label6: while (true) {
-          if (!(i_520094847 < kxi_687867027.patchLenV)) break Label6;
+          if (!(i_520094843 < kxi_687867027.patchLenV)) break Label6;
             F.line = 455;
             F.filename = "karax.nim";
-            i_687867064 = i_520094847;
+            i_687867064 = i_520094843;
             F.line = 456;
             var p_687867065 = nimCopy(null, kxi_687867027.patchesV[chckIndx(i_687867064, 0, (kxi_687867027.patchesV).length - 1)], NTI687865865);
             F.line = 457;
@@ -8046,7 +8046,7 @@ function applyPatch_687867026(kxi_687867027) {
             
             F.line = 131;
             F.filename = "iterators_1.nim";
-            i_520094847 = addInt(i_520094847, 1);
+            i_520094843 = addInt(i_520094843, 1);
           }
       };
     };
@@ -8322,19 +8322,19 @@ function tree_721421184(kind_721421185, kids_721421186) {
       var k_721421200 = null;
       F.line = 18;
       F.filename = "iterators.nim";
-      var i_520094855 = 0;
+      var i_520094851 = 0;
       Label2: {
         F.line = 19;
           Label3: while (true) {
-          if (!(i_520094855 < (kids_721421186).length)) break Label3;
+          if (!(i_520094851 < (kids_721421186).length)) break Label3;
             F.line = 315;
             F.filename = "vdom.nim";
-            k_721421200 = kids_721421186[chckIndx(i_520094855, 0, (kids_721421186).length - 1)];
+            k_721421200 = kids_721421186[chckIndx(i_520094851, 0, (kids_721421186).length - 1)];
             F.line = 315;
             add_721421120(result_721421187, k_721421200);
             F.line = 13;
             F.filename = "iterators.nim";
-            i_520094855 += 1;
+            i_520094851 += 1;
           }
       };
     };
@@ -8490,27 +8490,27 @@ function skipRandomNumbers_1375731756(s_1375731757) {
       var i_1375731769 = 0;
       F.line = 96;
       F.filename = "iterators_1.nim";
-      var res_520094861 = 0;
+      var res_520094857 = 0;
       Label2: {
         F.line = 97;
           Label3: while (true) {
-          if (!(res_520094861 <= 1)) break Label3;
+          if (!(res_520094857 <= 1)) break Label3;
             F.line = 218;
             F.filename = "random.nim";
-            i_1375731769 = res_520094861;
+            i_1375731769 = res_520094857;
             Label4: {
               F.line = 219;
               var b_1375731774 = 0;
               F.line = 128;
               F.filename = "iterators_1.nim";
-              var i_520094859 = 0;
+              var i_520094855 = 0;
               Label5: {
                 F.line = 129;
                   Label6: while (true) {
-                  if (!(i_520094859 < 64)) break Label6;
+                  if (!(i_520094855 < 64)) break Label6;
                     F.line = 219;
                     F.filename = "random.nim";
-                    b_1375731774 = i_520094859;
+                    b_1375731774 = i_520094855;
                     if (!((((helper_1375731758[chckIndx(i_1375731769, 0, (helper_1375731758).length - 1)] & ((1 << b_1375731774) >>> 0)) >>> 0) == 0))) {
                     F.line = 221;
                     s0_1375731759 = ((s0_1375731759 ^ s_1375731757.a0) >>> 0);
@@ -8522,12 +8522,12 @@ function skipRandomNumbers_1375731756(s_1375731757) {
                     var _ = next_1375731747(s_1375731757);
                     F.line = 131;
                     F.filename = "iterators_1.nim";
-                    i_520094859 = addInt(i_520094859, 1);
+                    i_520094855 = addInt(i_520094855, 1);
                   }
               };
             };
             F.line = 102;
-            res_520094861 = addInt(res_520094861, 1);
+            res_520094857 = addInt(res_520094857, 1);
           }
       };
     };
@@ -8712,25 +8712,25 @@ function substr_33558084(s_33558085, first_33558086, last_33558087) {
       var i_33558095 = 0;
       F.line = 81;
       F.filename = "iterators_1.nim";
-      var colontmp__520094873 = 0;
+      var colontmp__520094869 = 0;
       F.line = 2679;
       F.filename = "system.nim";
-      colontmp__520094873 = subInt(L_33558090, 1);
+      colontmp__520094869 = subInt(L_33558090, 1);
       F.line = 96;
       F.filename = "iterators_1.nim";
-      var res_520094874 = 0;
+      var res_520094870 = 0;
       Label2: {
         F.line = 97;
           Label3: while (true) {
-          if (!(res_520094874 <= colontmp__520094873)) break Label3;
+          if (!(res_520094870 <= colontmp__520094869)) break Label3;
             F.line = 2679;
             F.filename = "system.nim";
-            i_33558095 = res_520094874;
+            i_33558095 = res_520094870;
             F.line = 2680;
             result_33558088[chckIndx(i_33558095, 0, (result_33558088).length - 1)] = s_33558085[chckIndx(addInt(i_33558095, first_33558089), 0, (s_33558085).length - 1)];
             F.line = 102;
             F.filename = "iterators_1.nim";
-            res_520094874 = addInt(res_520094874, 1);
+            res_520094870 = addInt(res_520094870, 1);
           }
       };
     };
@@ -8752,42 +8752,42 @@ function nsuSplitChar(s_838861345, sep_838861346, maxsplit_838861347) {
       F.line = 418;
       var xHEX60gensym67_838861354 = [];
       F.line = 389;
-      var lastHEX60gensym34_520094867 = 0;
+      var lastHEX60gensym34_520094863 = 0;
       F.line = 390;
-      var splitsHEX60gensym34_520094868 = maxsplit_838861347;
+      var splitsHEX60gensym34_520094864 = maxsplit_838861347;
       Label2: {
         F.line = 450;
           Label3: while (true) {
-          if (!(lastHEX60gensym34_520094867 <= (s_838861345).length)) break Label3;
+          if (!(lastHEX60gensym34_520094863 <= (s_838861345).length)) break Label3;
             F.line = 393;
-            var firstHEX60gensym34_520094870 = lastHEX60gensym34_520094867;
+            var firstHEX60gensym34_520094866 = lastHEX60gensym34_520094863;
             Label4: {
               F.line = 394;
                 Label5: while (true) {
-                if (!((lastHEX60gensym34_520094867 < (s_838861345).length) && !((s_838861345[chckIndx(lastHEX60gensym34_520094867, 0, (s_838861345).length - 1)] == sep_838861346)))) break Label5;
+                if (!((lastHEX60gensym34_520094863 < (s_838861345).length) && !((s_838861345[chckIndx(lastHEX60gensym34_520094863, 0, (s_838861345).length - 1)] == sep_838861346)))) break Label5;
                   F.line = 395;
-                  lastHEX60gensym34_520094867 = addInt(lastHEX60gensym34_520094867, 1);
+                  lastHEX60gensym34_520094863 = addInt(lastHEX60gensym34_520094863, 1);
                 }
             };
-            if ((splitsHEX60gensym34_520094868 == 0)) {
+            if ((splitsHEX60gensym34_520094864 == 0)) {
             F.line = 396;
-            lastHEX60gensym34_520094867 = (s_838861345).length;
+            lastHEX60gensym34_520094863 = (s_838861345).length;
             }
             
             F.line = 743;
-            xHEX60gensym67_838861354 = substr_33558084(s_838861345, firstHEX60gensym34_520094870, subInt(lastHEX60gensym34_520094867, 1));
+            xHEX60gensym67_838861354 = substr_33558084(s_838861345, firstHEX60gensym34_520094866, subInt(lastHEX60gensym34_520094863, 1));
             F.line = 418;
             var Temporary6 = nimCopy(null, xHEX60gensym67_838861354, NTI33554449);
             result_838861348.push(Temporary6);;
-            if ((splitsHEX60gensym34_520094868 == 0)) {
+            if ((splitsHEX60gensym34_520094864 == 0)) {
             F.line = 398;
             break Label2;
             }
             
             F.line = 399;
-            splitsHEX60gensym34_520094868 = subInt(splitsHEX60gensym34_520094868, 1);
+            splitsHEX60gensym34_520094864 = subInt(splitsHEX60gensym34_520094864, 1);
             F.line = 400;
-            lastHEX60gensym34_520094867 = addInt(lastHEX60gensym34_520094867, 1);
+            lastHEX60gensym34_520094863 = addInt(lastHEX60gensym34_520094863, 1);
           }
       };
     };
@@ -8841,20 +8841,20 @@ function nsuFindChar(s_838862499, sub_838862500, start_838862501, last_838862502
       var iHEX60gensym176_838862518 = 0;
       F.line = 81;
       F.filename = "iterators_1.nim";
-      var colontmp__520094881 = 0;
+      var colontmp__520094877 = 0;
       F.line = 1949;
       F.filename = "strutils.nim";
-      colontmp__520094881 = start_838862501;
+      colontmp__520094877 = start_838862501;
       F.line = 96;
       F.filename = "iterators_1.nim";
-      var res_520094882 = colontmp__520094881;
+      var res_520094878 = colontmp__520094877;
       Label3: {
         F.line = 97;
           Label4: while (true) {
-          if (!(res_520094882 <= last_838862504)) break Label4;
+          if (!(res_520094878 <= last_838862504)) break Label4;
             F.line = 1963;
             F.filename = "strutils.nim";
-            iHEX60gensym176_838862518 = res_520094882;
+            iHEX60gensym176_838862518 = res_520094878;
             if ((s_838862499[chckIndx(iHEX60gensym176_838862518, 0, (s_838862499).length - 1)] == sub_838862500)) {
             F.line = 1951;
             result_838862503 = iHEX60gensym176_838862518;
@@ -8863,7 +8863,7 @@ function nsuFindChar(s_838862499, sub_838862500, start_838862501, last_838862502
             
             F.line = 102;
             F.filename = "iterators_1.nim";
-            res_520094882 = addInt(res_520094882, 1);
+            res_520094878 = addInt(res_520094878, 1);
           }
       };
     };
@@ -8969,25 +8969,25 @@ function nsuInitSkipTable(a_838862419, sub_838862420) {
       var i_838862441 = 0;
       F.line = 126;
       F.filename = "iterators_1.nim";
-      var colontmp__520094887 = 0;
+      var colontmp__520094883 = 0;
       F.line = 1881;
       F.filename = "strutils.nim";
-      colontmp__520094887 = subInt(m_838862421, 1);
+      colontmp__520094883 = subInt(m_838862421, 1);
       F.line = 128;
       F.filename = "iterators_1.nim";
-      var i_520094888 = 0;
+      var i_520094884 = 0;
       Label2: {
         F.line = 129;
           Label3: while (true) {
-          if (!(i_520094888 < colontmp__520094887)) break Label3;
+          if (!(i_520094884 < colontmp__520094883)) break Label3;
             F.line = 1881;
             F.filename = "strutils.nim";
-            i_838862441 = i_520094888;
+            i_838862441 = i_520094884;
             F.line = 1882;
             a_838862419[chckIndx(sub_838862420[chckIndx(i_838862441, 0, (sub_838862420).length - 1)], 0, (a_838862419).length - 1)] = subInt(subInt(m_838862421, 1), i_838862441);
             F.line = 131;
             F.filename = "iterators_1.nim";
-            i_520094888 = addInt(i_520094888, 1);
+            i_520094884 = addInt(i_520094884, 1);
           }
       };
     };
@@ -9246,44 +9246,44 @@ function nsuSplitString(s_838861375, sep_838861376, maxsplit_838861377) {
       Temporary2 = (sep_838861376).length;
       }
       
-      var sepLen_520094906 = Temporary2;
+      var sepLen_520094902 = Temporary2;
       F.line = 389;
-      var lastHEX60gensym41_520094907 = 0;
+      var lastHEX60gensym41_520094903 = 0;
       F.line = 390;
-      var splitsHEX60gensym41_520094908 = maxsplit_838861377;
+      var splitsHEX60gensym41_520094904 = maxsplit_838861377;
       Label3: {
         F.line = 531;
           Label4: while (true) {
-          if (!(lastHEX60gensym41_520094907 <= (s_838861375).length)) break Label4;
+          if (!(lastHEX60gensym41_520094903 <= (s_838861375).length)) break Label4;
             F.line = 393;
-            var firstHEX60gensym41_520094910 = lastHEX60gensym41_520094907;
+            var firstHEX60gensym41_520094906 = lastHEX60gensym41_520094903;
             Label5: {
               F.line = 394;
                 Label6: while (true) {
-                if (!((lastHEX60gensym41_520094907 < (s_838861375).length) && !(substrEq_838861055(s_838861375, lastHEX60gensym41_520094907, sep_838861376)))) break Label6;
+                if (!((lastHEX60gensym41_520094903 < (s_838861375).length) && !(substrEq_838861055(s_838861375, lastHEX60gensym41_520094903, sep_838861376)))) break Label6;
                   F.line = 395;
-                  lastHEX60gensym41_520094907 = addInt(lastHEX60gensym41_520094907, 1);
+                  lastHEX60gensym41_520094903 = addInt(lastHEX60gensym41_520094903, 1);
                 }
             };
-            if ((splitsHEX60gensym41_520094908 == 0)) {
+            if ((splitsHEX60gensym41_520094904 == 0)) {
             F.line = 396;
-            lastHEX60gensym41_520094907 = (s_838861375).length;
+            lastHEX60gensym41_520094903 = (s_838861375).length;
             }
             
             F.line = 787;
-            xHEX60gensym69_838861384 = substr_33558084(s_838861375, firstHEX60gensym41_520094910, subInt(lastHEX60gensym41_520094907, 1));
+            xHEX60gensym69_838861384 = substr_33558084(s_838861375, firstHEX60gensym41_520094906, subInt(lastHEX60gensym41_520094903, 1));
             F.line = 418;
             var Temporary7 = nimCopy(null, xHEX60gensym69_838861384, NTI33554449);
             result_838861378.push(Temporary7);;
-            if ((splitsHEX60gensym41_520094908 == 0)) {
+            if ((splitsHEX60gensym41_520094904 == 0)) {
             F.line = 398;
             break Label3;
             }
             
             F.line = 399;
-            splitsHEX60gensym41_520094908 = subInt(splitsHEX60gensym41_520094908, 1);
+            splitsHEX60gensym41_520094904 = subInt(splitsHEX60gensym41_520094904, 1);
             F.line = 400;
-            lastHEX60gensym41_520094907 = addInt(lastHEX60gensym41_520094907, sepLen_520094906);
+            lastHEX60gensym41_520094903 = addInt(lastHEX60gensym41_520094903, sepLen_520094902);
           }
       };
     };
@@ -9535,22 +9535,22 @@ function randomPower_1426063779(t_1426063780, currentPowers_1426063781, alreadyS
       var it_1426063796 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
       F.line = 247;
       F.filename = "iterators.nim";
-      var colontmp__520094925 = [];
+      var colontmp__520094921 = [];
       F.line = 102;
       F.filename = "power.nim";
-      colontmp__520094925 = (Temporary2 = seqOf_1426063746(t_1426063780), Temporary2)[0][Temporary2[1]];
+      colontmp__520094921 = (Temporary2 = seqOf_1426063746(t_1426063780), Temporary2)[0][Temporary2[1]];
       F.line = 249;
       F.filename = "iterators.nim";
-      var i_520094926 = 0;
+      var i_520094922 = 0;
       F.line = 250;
-      var L_520094927 = (colontmp__520094925).length;
+      var L_520094923 = (colontmp__520094921).length;
       Label3: {
         F.line = 251;
           Label4: while (true) {
-          if (!(i_520094926 < L_520094927)) break Label4;
+          if (!(i_520094922 < L_520094923)) break Label4;
             F.line = 653;
             F.filename = "sequtils.nim";
-            it_1426063796 = colontmp__520094925[chckIndx(i_520094926, 0, (colontmp__520094925).length - 1)];
+            it_1426063796 = colontmp__520094921[chckIndx(i_520094922, 0, (colontmp__520094921).length - 1)];
               Label5: {
                 F.line = 1024;
                 var iHEX60gensym21_1426063817 = 0;
@@ -9561,16 +9561,16 @@ function randomPower_1426063779(t_1426063780, currentPowers_1426063781, alreadyS
                   var it_1426063828 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
                   F.line = 249;
                   F.filename = "iterators.nim";
-                  var i_520094922 = 0;
+                  var i_520094918 = 0;
                   F.line = 250;
-                  var L_520094923 = (alreadySelected_1426063786).length;
+                  var L_520094919 = (alreadySelected_1426063786).length;
                   Label7: {
                     F.line = 251;
                       Label8: while (true) {
-                      if (!(i_520094922 < L_520094923)) break Label8;
+                      if (!(i_520094918 < L_520094919)) break Label8;
                         F.line = 1026;
                         F.filename = "sequtils.nim";
-                        it_1426063828 = alreadySelected_1426063786[chckIndx(i_520094922, 0, (alreadySelected_1426063786).length - 1)];
+                        it_1426063828 = alreadySelected_1426063786[chckIndx(i_520094918, 0, (alreadySelected_1426063786).length - 1)];
                         F.line = 102;
                         F.filename = "power.nim";
                         resultHEX60gensym21_1426063824[chckIndx(iHEX60gensym21_1426063817, 0, (resultHEX60gensym21_1426063824).length - 1)] = nimCopy(null, it_1426063828.name, NTI33554449);
@@ -9579,8 +9579,8 @@ function randomPower_1426063779(t_1426063780, currentPowers_1426063781, alreadyS
                         iHEX60gensym21_1426063817 = addInt(iHEX60gensym21_1426063817, 1);
                         F.line = 13;
                         F.filename = "iterators.nim";
-                        i_520094922 += 1;
-                        if (!(((alreadySelected_1426063786).length == L_520094923))) {
+                        i_520094918 += 1;
+                        if (!(((alreadySelected_1426063786).length == L_520094919))) {
                         F.line = 254;
                         failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
                         }
@@ -9598,8 +9598,8 @@ function randomPower_1426063779(t_1426063780, currentPowers_1426063781, alreadyS
             
             F.line = 13;
             F.filename = "iterators.nim";
-            i_520094926 += 1;
-            if (!(((colontmp__520094925).length == L_520094927))) {
+            i_520094922 += 1;
+            if (!(((colontmp__520094921).length == L_520094923))) {
             F.line = 254;
             failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
             }
@@ -9628,16 +9628,16 @@ function randomPower_1426063779(t_1426063780, currentPowers_1426063781, alreadyS
         var it_1426063901 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
         F.line = 249;
         F.filename = "iterators.nim";
-        var i_520094931 = 0;
+        var i_520094927 = 0;
         F.line = 250;
-        var L_520094932 = (search_1426063841).length;
+        var L_520094928 = (search_1426063841).length;
         Label12: {
           F.line = 251;
             Label13: while (true) {
-            if (!(i_520094931 < L_520094932)) break Label13;
+            if (!(i_520094927 < L_520094928)) break Label13;
               F.line = 1026;
               F.filename = "sequtils.nim";
-              it_1426063901 = search_1426063841[chckIndx(i_520094931, 0, (search_1426063841).length - 1)];
+              it_1426063901 = search_1426063841[chckIndx(i_520094927, 0, (search_1426063841).length - 1)];
               F.line = 105;
               F.filename = "power.nim";
               resultHEX60gensym25_1426063897[chckIndx(iHEX60gensym25_1426063869, 0, (resultHEX60gensym25_1426063897).length - 1)] = it_1426063901.rarity;
@@ -9646,8 +9646,8 @@ function randomPower_1426063779(t_1426063780, currentPowers_1426063781, alreadyS
               iHEX60gensym25_1426063869 = addInt(iHEX60gensym25_1426063869, 1);
               F.line = 13;
               F.filename = "iterators.nim";
-              i_520094931 += 1;
-              if (!(((search_1426063841).length == L_520094932))) {
+              i_520094927 += 1;
+              if (!(((search_1426063841).length == L_520094928))) {
               F.line = 254;
               failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
               }
@@ -9672,20 +9672,20 @@ function randomPower_1426063779(t_1426063780, currentPowers_1426063781, alreadyS
       var iHEX60gensym24_1426063923 = 0;
       F.line = 6;
       F.filename = "iterators_1.nim";
-      var colontmp__520094935 = 0;
+      var colontmp__520094931 = 0;
       F.line = 979;
       F.filename = "sequtils.nim";
-      colontmp__520094935 = subInt(nHEX60gensym24_1426063911, 2);
+      colontmp__520094931 = subInt(nHEX60gensym24_1426063911, 2);
       F.line = 33;
       F.filename = "iterators_1.nim";
-      var res_520094936 = colontmp__520094935;
+      var res_520094932 = colontmp__520094931;
       Label15: {
         F.line = 34;
           Label16: while (true) {
-          if (!(0 <= res_520094936)) break Label16;
+          if (!(0 <= res_520094932)) break Label16;
             F.line = 979;
             F.filename = "sequtils.nim";
-            iHEX60gensym24_1426063923 = res_520094936;
+            iHEX60gensym24_1426063923 = res_520094932;
             F.line = 981;
             var a_1426063924 = sHEX60gensym24_1426063906[chckIndx(iHEX60gensym24_1426063923, 0, (sHEX60gensym24_1426063906).length - 1)];
             F.line = 982;
@@ -9695,7 +9695,7 @@ function randomPower_1426063779(t_1426063780, currentPowers_1426063781, alreadyS
             resultHEX60gensym24_1426063917 = addInt(a_1426063924, b_1426063925);
             F.line = 39;
             F.filename = "iterators_1.nim";
-            res_520094936 = subInt(res_520094936, 1);
+            res_520094932 = subInt(res_520094932, 1);
           }
       };
     };
@@ -9708,16 +9708,16 @@ function randomPower_1426063779(t_1426063780, currentPowers_1426063781, alreadyS
       var p_1426063931 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
       F.line = 249;
       F.filename = "iterators.nim";
-      var i_520094939 = 0;
+      var i_520094935 = 0;
       F.line = 250;
-      var L_520094940 = (search_1426063841).length;
+      var L_520094936 = (search_1426063841).length;
       Label18: {
         F.line = 251;
           Label19: while (true) {
-          if (!(i_520094939 < L_520094940)) break Label19;
+          if (!(i_520094935 < L_520094936)) break Label19;
             F.line = 108;
             F.filename = "power.nim";
-            p_1426063931 = search_1426063841[chckIndx(i_520094939, 0, (search_1426063841).length - 1)];
+            p_1426063931 = search_1426063841[chckIndx(i_520094935, 0, (search_1426063841).length - 1)];
             F.line = 109;
             x_1426063927 = subInt(x_1426063927, p_1426063931.rarity);
             if ((x_1426063927 <= 0)) {
@@ -9728,8 +9728,8 @@ function randomPower_1426063779(t_1426063780, currentPowers_1426063781, alreadyS
             
             F.line = 13;
             F.filename = "iterators.nim";
-            i_520094939 += 1;
-            if (!(((search_1426063841).length == L_520094940))) {
+            i_520094935 += 1;
+            if (!(((search_1426063841).length == L_520094936))) {
             F.line = 254;
             failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
             }
@@ -9800,25 +9800,25 @@ function HEX26_1426063972(x_1426063974, y_1426063975) {
       var i_1426063994 = 0;
       F.line = 81;
       F.filename = "iterators_1.nim";
-      var colontmp__520094943 = 0;
+      var colontmp__520094939 = 0;
       F.line = 1538;
       F.filename = "system.nim";
-      colontmp__520094943 = subInt((x_1426063974).length, 1);
+      colontmp__520094939 = subInt((x_1426063974).length, 1);
       F.line = 96;
       F.filename = "iterators_1.nim";
-      var res_520094944 = 0;
+      var res_520094940 = 0;
       Label2: {
         F.line = 97;
           Label3: while (true) {
-          if (!(res_520094944 <= colontmp__520094943)) break Label3;
+          if (!(res_520094940 <= colontmp__520094939)) break Label3;
             F.line = 1538;
             F.filename = "system.nim";
-            i_1426063994 = res_520094944;
+            i_1426063994 = res_520094940;
             F.line = 1539;
             result_1426063976[chckIndx(i_1426063994, 0, (result_1426063976).length - 1)] = nimCopy(result_1426063976[chckIndx(i_1426063994, 0, (result_1426063976).length - 1)], x_1426063974[chckIndx(i_1426063994, 0, (x_1426063974).length - 1)], NTI1426063365);
             F.line = 102;
             F.filename = "iterators_1.nim";
-            res_520094944 = addInt(res_520094944, 1);
+            res_520094940 = addInt(res_520094940, 1);
           }
       };
     };
@@ -9828,25 +9828,25 @@ function HEX26_1426063972(x_1426063974, y_1426063975) {
       var i_1426064002 = 0;
       F.line = 81;
       F.filename = "iterators_1.nim";
-      var colontmp__520094947 = 0;
+      var colontmp__520094943 = 0;
       F.line = 1540;
       F.filename = "system.nim";
-      colontmp__520094947 = subInt((y_1426063975).length, 1);
+      colontmp__520094943 = subInt((y_1426063975).length, 1);
       F.line = 96;
       F.filename = "iterators_1.nim";
-      var res_520094948 = 0;
+      var res_520094944 = 0;
       Label5: {
         F.line = 97;
           Label6: while (true) {
-          if (!(res_520094948 <= colontmp__520094947)) break Label6;
+          if (!(res_520094944 <= colontmp__520094943)) break Label6;
             F.line = 1540;
             F.filename = "system.nim";
-            i_1426064002 = res_520094948;
+            i_1426064002 = res_520094944;
             F.line = 1541;
             result_1426063976[chckIndx(addInt(i_1426064002, (x_1426063974).length), 0, (result_1426063976).length - 1)] = nimCopy(result_1426063976[chckIndx(addInt(i_1426064002, (x_1426063974).length), 0, (result_1426063976).length - 1)], y_1426063975[chckIndx(i_1426064002, 0, (y_1426063975).length - 1)], NTI1426063365);
             F.line = 102;
             F.filename = "iterators_1.nim";
-            res_520094948 = addInt(res_520094948, 1);
+            res_520094944 = addInt(res_520094944, 1);
           }
       };
     };
@@ -9867,25 +9867,25 @@ function draftRandomPower_1426064010(allSelected_1426064011, drafterSelected_142
       var x_1426064020 = 0;
       F.line = 81;
       F.filename = "iterators_1.nim";
-      var colontmp__520094916 = 0;
+      var colontmp__520094912 = 0;
       F.line = 130;
       F.filename = "power.nim";
-      colontmp__520094916 = subInt(options_1426064013, 1);
+      colontmp__520094912 = subInt(options_1426064013, 1);
       F.line = 96;
       F.filename = "iterators_1.nim";
-      var res_520094917 = 0;
+      var res_520094913 = 0;
       Label2: {
         F.line = 97;
           Label3: while (true) {
-          if (!(res_520094917 <= colontmp__520094916)) break Label3;
+          if (!(res_520094913 <= colontmp__520094912)) break Label3;
             F.line = 130;
             F.filename = "power.nim";
-            x_1426064020 = res_520094917;
+            x_1426064020 = res_520094913;
             F.line = 131;
             result_1426064015.push(randomPower_1426063779(randomTier_1426063936(weights_1426064014), drafterSelected_1426064012, HEX26_1426063972(allSelected_1426064011, result_1426064015)));;
             F.line = 102;
             F.filename = "iterators_1.nim";
-            res_520094917 = addInt(res_520094917, 1);
+            res_520094913 = addInt(res_520094913, 1);
           }
       };
     };
@@ -9895,13 +9895,13 @@ function draftRandomPower_1426064010(allSelected_1426064011, drafterSelected_142
 
 }
 
-function draft_520093879(allDrafts_520093884, drafter_520093889) {
+function draft_520093875(allDrafts_520093880, drafter_520093885) {
   var F = {procname: "main.draft", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    if ((gameMode_520093764[0] == 2)) {
+    if ((gameMode_520093760[0] == 2)) {
     F.line = 87;
     F.filename = "main.nim";
-    draftOptions_520093746[0] = nimCopy(null, draftRandomPower_1426064010(allDrafts_520093884, drafter_520093889, draftChoices_520093747[0], {Field0: 60, Field1: 30, Field2: 9, Field3: 1}), NTI1426063802);
+    draftOptions_520093742[0] = nimCopy(null, draftRandomPower_1426064010(allDrafts_520093880, drafter_520093885, draftChoices_520093743[0], {Field0: 60, Field1: 30, Field2: 9, Field3: 1}), NTI1426063802);
     }
     
   framePtr = F.prev;
@@ -10070,40 +10070,40 @@ function addEscapedChar_33558024(s_33558025, s_33558025_Idx, c_33558026) {
   
 }
 
-function addQuoted_520094030(s_520094032, s_520094032_Idx, x_520094033) {
+function addQuoted_520094026(s_520094028, s_520094028_Idx, x_520094029) {
   var F = {procname: "addQuoted.addQuoted", prev: framePtr, filename: "/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system.nim", line: 0};
   framePtr = F;
     F.line = 2518;
     F.filename = "system.nim";
-    s_520094032[s_520094032_Idx].push.apply(s_520094032[s_520094032_Idx], [34]);;
+    s_520094028[s_520094028_Idx].push.apply(s_520094028[s_520094028_Idx], [34]);;
     Label1: {
       F.line = 2519;
-      var c_520094034 = 0;
+      var c_520094030 = 0;
       F.line = 267;
       F.filename = "iterators.nim";
-      var i_520094956 = 0;
+      var i_520094952 = 0;
       F.line = 268;
-      var L_520094957 = (x_520094033).length;
+      var L_520094953 = (x_520094029).length;
       Label2: {
         F.line = 269;
           Label3: while (true) {
-          if (!(i_520094956 < L_520094957)) break Label3;
+          if (!(i_520094952 < L_520094953)) break Label3;
             F.line = 2519;
             F.filename = "system.nim";
-            c_520094034 = x_520094033[chckIndx(i_520094956, 0, (x_520094033).length - 1)];
-            if ((c_520094034 <= 127)) {
+            c_520094030 = x_520094029[chckIndx(i_520094952, 0, (x_520094029).length - 1)];
+            if ((c_520094030 <= 127)) {
             F.line = 2523;
-            addEscapedChar_33558024(s_520094032, s_520094032_Idx, c_520094034);
+            addEscapedChar_33558024(s_520094028, s_520094028_Idx, c_520094030);
             }
             else {
               F.line = 2525;
-            addChar(s_520094032[s_520094032_Idx], c_520094034);;
+            addChar(s_520094028[s_520094028_Idx], c_520094030);;
             }
             
             F.line = 13;
             F.filename = "iterators.nim";
-            i_520094956 += 1;
-            if (!(((x_520094033).length == L_520094957))) {
+            i_520094952 += 1;
+            if (!(((x_520094029).length == L_520094953))) {
             F.line = 272;
             failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(272, 11) `len(a) == L` the length of the string changed while iterating over it"));
             }
@@ -10113,52 +10113,52 @@ function addQuoted_520094030(s_520094032, s_520094032_Idx, x_520094033) {
     };
     F.line = 2526;
     F.filename = "system.nim";
-    s_520094032[s_520094032_Idx].push.apply(s_520094032[s_520094032_Idx], [34]);;
+    s_520094028[s_520094028_Idx].push.apply(s_520094028[s_520094028_Idx], [34]);;
   framePtr = F.prev;
 
   
 }
 
-function collectionToString_520093997(x_520093999, prefix_520094000, separator_520094001, suffix_520094002) {
-  var result_520094003 = [[]];
+function collectionToString_520093993(x_520093995, prefix_520093996, separator_520093997, suffix_520093998) {
+  var result_520093999 = [[]];
 
   var F = {procname: "collectionToString.collectionToString", prev: framePtr, filename: "/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/dollars.nim", line: 0};
   framePtr = F;
     F.line = 90;
     F.filename = "dollars.nim";
-    result_520094003[0] = nimCopy(null, prefix_520094000, NTI33554449);
+    result_520093999[0] = nimCopy(null, prefix_520093996, NTI33554449);
     F.line = 91;
-    var firstElement_520094004 = true;
+    var firstElement_520094000 = true;
     Label1: {
       F.line = 92;
-      var value_520094026 = [];
+      var value_520094022 = [];
       F.line = 249;
       F.filename = "iterators.nim";
-      var i_520094952 = 0;
+      var i_520094948 = 0;
       F.line = 250;
-      var L_520094953 = (x_520093999).length;
+      var L_520094949 = (x_520093995).length;
       Label2: {
         F.line = 251;
           Label3: while (true) {
-          if (!(i_520094952 < L_520094953)) break Label3;
+          if (!(i_520094948 < L_520094949)) break Label3;
             F.line = 92;
             F.filename = "dollars.nim";
-            value_520094026 = x_520093999[i_520094952];
-            if (firstElement_520094004) {
+            value_520094022 = x_520093995[i_520094948];
+            if (firstElement_520094000) {
             F.line = 94;
-            firstElement_520094004 = false;
+            firstElement_520094000 = false;
             }
             else {
               F.line = 96;
-            result_520094003[0].push.apply(result_520094003[0], separator_520094001);;
+            result_520093999[0].push.apply(result_520093999[0], separator_520093997);;
             }
             
             F.line = 105;
-            addQuoted_520094030(result_520094003, 0, value_520094026);
+            addQuoted_520094026(result_520093999, 0, value_520094022);
             F.line = 13;
             F.filename = "iterators.nim";
-            i_520094952 += 1;
-            if (!(((x_520093999).length == L_520094953))) {
+            i_520094948 += 1;
+            if (!(((x_520093995).length == L_520094949))) {
             F.line = 254;
             failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
             }
@@ -10168,24 +10168,24 @@ function collectionToString_520093997(x_520093999, prefix_520094000, separator_5
     };
     F.line = 106;
     F.filename = "dollars.nim";
-    result_520094003[0].push.apply(result_520094003[0], suffix_520094002);;
+    result_520093999[0].push.apply(result_520093999[0], suffix_520093998);;
   framePtr = F.prev;
 
-  return result_520094003[0];
+  return result_520093999[0];
 
 }
 
-function HEX24_520093993(x_520093995) {
-  var result_520093996 = [];
+function HEX24_520093989(x_520093991) {
+  var result_520093992 = [];
 
   var F = {procname: "$.$", prev: framePtr, filename: "/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/dollars.nim", line: 0};
   framePtr = F;
     F.line = 117;
     F.filename = "dollars.nim";
-    result_520093996 = nimCopy(null, collectionToString_520093997(x_520093995, [64,91], [44,32], [93]), NTI33554449);
+    result_520093992 = nimCopy(null, collectionToString_520093993(x_520093991, [64,91], [44,32], [93]), NTI33554449);
   framePtr = F.prev;
 
-  return result_520093996;
+  return result_520093992;
 
 }
 
@@ -10200,84 +10200,84 @@ function addQuoted_838862213(s_838862215, s_838862215_Idx, x_838862216) {
   
 }
 
-function HEX24_520093821(x_520093823) {
-  var result_520093824 = [[]];
+function HEX24_520093817(x_520093819) {
+  var result_520093820 = [[]];
 
   var F = {procname: "$.$", prev: framePtr, filename: "/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/dollars.nim", line: 0};
   framePtr = F;
     F.line = 19;
     F.filename = "miscdollars.nim";
-    result_520093824[0] = nimCopy(null, [40], NTI33554449);
+    result_520093820[0] = nimCopy(null, [40], NTI33554449);
     F.line = 21;
-    var countHEX60gensym7_520093835 = 0;
-    if ((0 < countHEX60gensym7_520093835)) {
+    var countHEX60gensym7_520093831 = 0;
+    if ((0 < countHEX60gensym7_520093831)) {
     F.line = 23;
-    result_520093824[0].push.apply(result_520093824[0], [44,32]);;
+    result_520093820[0].push.apply(result_520093820[0], [44,32]);;
     }
     
     F.line = 25;
-    result_520093824[0].push.apply(result_520093824[0], [102,105,108,101]);;
+    result_520093820[0].push.apply(result_520093820[0], [102,105,108,101]);;
     F.line = 26;
-    result_520093824[0].push.apply(result_520093824[0], [58,32]);;
+    result_520093820[0].push.apply(result_520093820[0], [58,32]);;
     F.line = 27;
-    countHEX60gensym7_520093835 += 1;
+    countHEX60gensym7_520093831 += 1;
     F.line = 33;
-    addQuoted_838862213(result_520093824, 0, x_520093823["Field0"]);
-    if ((0 < countHEX60gensym7_520093835)) {
+    addQuoted_838862213(result_520093820, 0, x_520093819["Field0"]);
+    if ((0 < countHEX60gensym7_520093831)) {
     F.line = 23;
-    result_520093824[0].push.apply(result_520093824[0], [44,32]);;
+    result_520093820[0].push.apply(result_520093820[0], [44,32]);;
     }
     
     F.line = 25;
-    result_520093824[0].push.apply(result_520093824[0], [114,97,110,107]);;
+    result_520093820[0].push.apply(result_520093820[0], [114,97,110,107]);;
     F.line = 26;
-    result_520093824[0].push.apply(result_520093824[0], [58,32]);;
+    result_520093820[0].push.apply(result_520093820[0], [58,32]);;
     F.line = 27;
-    countHEX60gensym7_520093835 += 1;
+    countHEX60gensym7_520093831 += 1;
     F.line = 33;
-    addQuoted_838862213(result_520093824, 0, x_520093823["Field1"]);
+    addQuoted_838862213(result_520093820, 0, x_520093819["Field1"]);
     F.line = 39;
-    result_520093824[0].push.apply(result_520093824[0], [41]);;
+    result_520093820[0].push.apply(result_520093820[0], [41]);;
   framePtr = F.prev;
 
-  return result_520093824[0];
+  return result_520093820[0];
 
 }
 
-function pieceOf_520093767(tile_520093768) {
-  var result_520093769 = ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false});
+function pieceOf_520093763(tile_520093764) {
+  var result_520093765 = ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false});
 
   var F = {procname: "main.pieceOf", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 64;
     F.filename = "main.nim";
-    result_520093769 = nimCopy(result_520093769, theBoard_520093749[0][chckIndx(tile_520093768.Field1, 0, (theBoard_520093749[0]).length - 1)][chckIndx(tile_520093768.Field0, 0, (theBoard_520093749[0][chckIndx(tile_520093768.Field1, 0, (theBoard_520093749[0]).length - 1)]).length - 1)], NTI1207959567);
+    result_520093765 = nimCopy(result_520093765, theBoard_520093745[0][chckIndx(tile_520093764.Field1, 0, (theBoard_520093745[0]).length - 1)][chckIndx(tile_520093764.Field0, 0, (theBoard_520093745[0][chckIndx(tile_520093764.Field1, 0, (theBoard_520093745[0]).length - 1)]).length - 1)], NTI1207959567);
   framePtr = F.prev;
 
-  return result_520093769;
+  return result_520093765;
 
 }
 
-function otherMove_520093774(d_520093775) {
+function otherMove_520093770(d_520093771) {
   var F = {procname: "main.otherMove", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 70;
     F.filename = "main.nim";
-    var data_520093776 = nsuSplitString(d_520093775, [44], (-1));
+    var data_520093772 = nsuSplitString(d_520093771, [44], (-1));
     F.line = 71;
-    var mover_520093777 = nimCopy(null, {Field0: nsuParseInt(data_520093776[chckIndx(2, 0, (data_520093776).length - 1)]), Field1: nsuParseInt(data_520093776[chckIndx(1, 0, (data_520093776).length - 1)])}, NTI1207959555);
+    var mover_520093773 = nimCopy(null, {Field0: nsuParseInt(data_520093772[chckIndx(2, 0, (data_520093772).length - 1)]), Field1: nsuParseInt(data_520093772[chckIndx(1, 0, (data_520093772).length - 1)])}, NTI1207959555);
     F.line = 72;
-    var moveTo_520093778 = nimCopy(null, {Field0: nsuParseInt(data_520093776[chckIndx(4, 0, (data_520093776).length - 1)]), Field1: nsuParseInt(data_520093776[chckIndx(3, 0, (data_520093776).length - 1)])}, NTI1207959555);
+    var moveTo_520093774 = nimCopy(null, {Field0: nsuParseInt(data_520093772[chckIndx(4, 0, (data_520093772).length - 1)]), Field1: nsuParseInt(data_520093772[chckIndx(3, 0, (data_520093772).length - 1)])}, NTI1207959555);
     F.line = 73;
-    rawEcho(HEX24_520093821(mover_520093777), HEX24_520093821(moveTo_520093778));
-    if (eqStrings(data_520093776[chckIndx(0, 0, (data_520093776).length - 1)], [32,109,111,118,101])) {
+    rawEcho(HEX24_520093817(mover_520093773), HEX24_520093817(moveTo_520093774));
+    if (eqStrings(data_520093772[chckIndx(0, 0, (data_520093772).length - 1)], [32,109,111,118,101])) {
     F.line = 75;
-    pieceOf_520093767(mover_520093777).onMove(mover_520093777, moveTo_520093778, theBoard_520093749[0]);
+    pieceOf_520093763(mover_520093773).onMove(mover_520093773, moveTo_520093774, theBoard_520093745[0]);
     }
     else {
-    if (eqStrings(data_520093776[chckIndx(0, 0, (data_520093776).length - 1)], [32,116,97,107,101])) {
+    if (eqStrings(data_520093772[chckIndx(0, 0, (data_520093772).length - 1)], [32,116,97,107,101])) {
     F.line = 77;
-    pieceOf_520093767(mover_520093777).onTake(mover_520093777, moveTo_520093778, theBoard_520093749[0]);
+    pieceOf_520093763(mover_520093773).onTake(mover_520093773, moveTo_520093774, theBoard_520093745[0]);
     }
     }
     F.line = 78;
@@ -10287,21 +10287,21 @@ function otherMove_520093774(d_520093775) {
   
 }
 
-function hostLogic_520093895(d_520093896, m_520093897) {
+function hostLogic_520093891(d_520093892, m_520093893) {
   var F = {procname: "main.hostLogic", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 90;
     F.filename = "main.nim";
-    rawEcho(reprEnum(m_520093897, NTI1308622853), [32,111,102,32], d_520093896, [10]);
+    rawEcho(reprEnum(m_520093893, NTI1308622853), [32,111,102,32], d_520093892, [10]);
     F.line = 91;
-    switch (m_520093897) {
+    switch (m_520093893) {
     case 0:
       F.line = 93;
-      var colontmp__520094891 = true;
+      var colontmp__520094887 = true;
       F.line = 93;
-      var colontmp__520094892 = toJSStr(d_520093896);
+      var colontmp__520094888 = toJSStr(d_520093892);
       F.line = 93;
-      roomId_520093731[0] = nimCopy(roomId_520093731[0], {Field0: colontmp__520094891, Field1: colontmp__520094892}, NTI520093703);
+      roomId_520093731[0] = nimCopy(roomId_520093731[0], {Field0: colontmp__520094887, Field1: colontmp__520094888}, NTI520093703);
       F.line = 94;
       side_520093738[0] = 1;
       break;
@@ -10309,64 +10309,64 @@ function hostLogic_520093895(d_520093896, m_520093897) {
       F.line = 96;
       peer_520093737[0].Field0("options:deciding");
       F.line = 97;
-      currentScreen_520093763[0] = 4;
+      currentScreen_520093759[0] = 4;
       break;
     case 4:
       F.line = 99;
-      var x_520093901 = nsuSplitString(d_520093896, [44], (-1));
-      if (eqStrings(x_520093901[chckIndx(0, 0, (x_520093901).length - 1)], [109,121])) {
+      var x_520093897 = nsuSplitString(d_520093892, [44], (-1));
+      if (eqStrings(x_520093897[chckIndx(0, 0, (x_520093897).length - 1)], [109,121])) {
       F.line = 101;
       turn_520093739[0] = true;
       F.line = 102;
-      var Temporary1 = nimCopy(null, powers_1426063418[0][chckIndx(nsuParseInt(x_520093901[chckIndx(1, 0, (x_520093901).length - 1)]), 0, (powers_1426063418[0]).length - 1)], NTI1426063365);
+      var Temporary1 = nimCopy(null, powers_1426063418[0][chckIndx(nsuParseInt(x_520093897[chckIndx(1, 0, (x_520093897).length - 1)]), 0, (powers_1426063418[0]).length - 1)], NTI1426063365);
       opponentDrafts_520093741[0].push(Temporary1);;
-      if ((1 <= drafts_520093748[0])) {
+      if ((1 <= drafts_520093744[0])) {
       F.line = 104;
-      drafts_520093748[0] = subInt(drafts_520093748[0], 1);
+      drafts_520093744[0] = subInt(drafts_520093744[0], 1);
       F.line = 105;
-      draft_520093879(HEX26_1426063972(myDrafts_520093740[0], opponentDrafts_520093741[0]), myDrafts_520093740[0]);
+      draft_520093875(HEX26_1426063972(myDrafts_520093740[0], opponentDrafts_520093741[0]), myDrafts_520093740[0]);
       }
       else {
         F.line = 107;
-        executeOn_1426064029(myDrafts_520093740[0], 1, side_520093738[0], theBoard_520093749[0]);
+        executeOn_1426064029(myDrafts_520093740[0], 1, side_520093738[0], theBoard_520093745[0]);
         F.line = 108;
-        executeOn_1426064029(opponentDrafts_520093741[0], 0, side_520093738[0], theBoard_520093749[0]);
+        executeOn_1426064029(opponentDrafts_520093741[0], 0, side_520093738[0], theBoard_520093745[0]);
         F.line = 109;
         peer_520093737[0].Field0("handshake:gamestart");
         F.line = 110;
-        currentScreen_520093763[0] = 3;
+        currentScreen_520093759[0] = 3;
         F.line = 111;
         Label2: {
           F.line = 1024;
           F.filename = "sequtils.nim";
-          var iHEX60gensym15_520093935 = 0;
+          var iHEX60gensym15_520093931 = 0;
           F.line = 1025;
-          var resultHEX60gensym15_520093942 = newSeq_503317026(chckRange((myDrafts_520093740[0]).length, 0, 2147483647));
+          var resultHEX60gensym15_520093938 = newSeq_503317026(chckRange((myDrafts_520093740[0]).length, 0, 2147483647));
           Label3: {
             F.line = 1026;
-            var it_520093946 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
+            var it_520093942 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
             F.line = 249;
             F.filename = "iterators.nim";
-            var i_520094895 = 0;
+            var i_520094891 = 0;
             F.line = 250;
-            var L_520094896 = (myDrafts_520093740[0]).length;
+            var L_520094892 = (myDrafts_520093740[0]).length;
             Label4: {
               F.line = 251;
                 Label5: while (true) {
-                if (!(i_520094895 < L_520094896)) break Label5;
+                if (!(i_520094891 < L_520094892)) break Label5;
                   F.line = 1026;
                   F.filename = "sequtils.nim";
-                  it_520093946 = myDrafts_520093740[0][chckIndx(i_520094895, 0, (myDrafts_520093740[0]).length - 1)];
+                  it_520093942 = myDrafts_520093740[0][chckIndx(i_520094891, 0, (myDrafts_520093740[0]).length - 1)];
                   F.line = 111;
                   F.filename = "main.nim";
-                  resultHEX60gensym15_520093942[chckIndx(iHEX60gensym15_520093935, 0, (resultHEX60gensym15_520093942).length - 1)] = nimCopy(null, it_520093946.name, NTI33554449);
+                  resultHEX60gensym15_520093938[chckIndx(iHEX60gensym15_520093931, 0, (resultHEX60gensym15_520093938).length - 1)] = nimCopy(null, it_520093942.name, NTI33554449);
                   F.line = 1028;
                   F.filename = "sequtils.nim";
-                  iHEX60gensym15_520093935 = addInt(iHEX60gensym15_520093935, 1);
+                  iHEX60gensym15_520093931 = addInt(iHEX60gensym15_520093931, 1);
                   F.line = 13;
                   F.filename = "iterators.nim";
-                  i_520094895 += 1;
-                  if (!(((myDrafts_520093740[0]).length == L_520094896))) {
+                  i_520094891 += 1;
+                  if (!(((myDrafts_520093740[0]).length == L_520094892))) {
                   F.line = 254;
                   failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
                   }
@@ -10378,34 +10378,34 @@ function hostLogic_520093895(d_520093896, m_520093897) {
         Label6: {
           F.line = 1024;
           F.filename = "sequtils.nim";
-          var iHEX60gensym22_520094055 = 0;
+          var iHEX60gensym22_520094051 = 0;
           F.line = 1025;
-          var resultHEX60gensym22_520094062 = newSeq_503317026(chckRange((opponentDrafts_520093741[0]).length, 0, 2147483647));
+          var resultHEX60gensym22_520094058 = newSeq_503317026(chckRange((opponentDrafts_520093741[0]).length, 0, 2147483647));
           Label7: {
             F.line = 1026;
-            var it_520094066 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
+            var it_520094062 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
             F.line = 249;
             F.filename = "iterators.nim";
-            var i_520094900 = 0;
+            var i_520094896 = 0;
             F.line = 250;
-            var L_520094901 = (opponentDrafts_520093741[0]).length;
+            var L_520094897 = (opponentDrafts_520093741[0]).length;
             Label8: {
               F.line = 251;
                 Label9: while (true) {
-                if (!(i_520094900 < L_520094901)) break Label9;
+                if (!(i_520094896 < L_520094897)) break Label9;
                   F.line = 1026;
                   F.filename = "sequtils.nim";
-                  it_520094066 = opponentDrafts_520093741[0][chckIndx(i_520094900, 0, (opponentDrafts_520093741[0]).length - 1)];
+                  it_520094062 = opponentDrafts_520093741[0][chckIndx(i_520094896, 0, (opponentDrafts_520093741[0]).length - 1)];
                   F.line = 111;
                   F.filename = "main.nim";
-                  resultHEX60gensym22_520094062[chckIndx(iHEX60gensym22_520094055, 0, (resultHEX60gensym22_520094062).length - 1)] = nimCopy(null, it_520094066.name, NTI33554449);
+                  resultHEX60gensym22_520094058[chckIndx(iHEX60gensym22_520094051, 0, (resultHEX60gensym22_520094058).length - 1)] = nimCopy(null, it_520094062.name, NTI33554449);
                   F.line = 1028;
                   F.filename = "sequtils.nim";
-                  iHEX60gensym22_520094055 = addInt(iHEX60gensym22_520094055, 1);
+                  iHEX60gensym22_520094051 = addInt(iHEX60gensym22_520094051, 1);
                   F.line = 13;
                   F.filename = "iterators.nim";
-                  i_520094900 += 1;
-                  if (!(((opponentDrafts_520093741[0]).length == L_520094901))) {
+                  i_520094896 += 1;
+                  if (!(((opponentDrafts_520093741[0]).length == L_520094897))) {
                   F.line = 254;
                   failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
                   }
@@ -10414,7 +10414,7 @@ function hostLogic_520093895(d_520093896, m_520093897) {
             };
           };
         };
-        rawEcho(HEX24_520093993(resultHEX60gensym15_520093942), HEX24_520093993(resultHEX60gensym22_520094062));
+        rawEcho(HEX24_520093989(resultHEX60gensym15_520093938), HEX24_520093989(resultHEX60gensym22_520094058));
       }
       
       }
@@ -10423,7 +10423,7 @@ function hostLogic_520093895(d_520093896, m_520093897) {
     case 2:
       F.line = 114;
       F.filename = "main.nim";
-      otherMove_520093774(d_520093896);
+      otherMove_520093770(d_520093892);
       break;
     default: 
       F.line = 115;
@@ -10452,20 +10452,20 @@ function setAttr_721421035(n_721421036, key_721421037, val_721421038) {
         var i_721421055 = 0;
         F.line = 46;
         F.filename = "iterators_1.nim";
-        var colontmp__520094960 = 0;
+        var colontmp__520094956 = 0;
         F.line = 250;
         F.filename = "vdom.nim";
-        colontmp__520094960 = subInt((n_721421036.attrs).length, 2);
+        colontmp__520094956 = subInt((n_721421036.attrs).length, 2);
         F.line = 68;
         F.filename = "iterators_1.nim";
-        var res_520094961 = 0;
+        var res_520094957 = 0;
         Label2: {
           F.line = 69;
             Label3: while (true) {
-            if (!(res_520094961 <= colontmp__520094960)) break Label3;
+            if (!(res_520094957 <= colontmp__520094956)) break Label3;
               F.line = 250;
               F.filename = "vdom.nim";
-              i_721421055 = res_520094961;
+              i_721421055 = res_520094957;
               if ((n_721421036.attrs[chckIndx(i_721421055, 0, (n_721421036.attrs).length - 1)] == key_721421037)) {
               F.line = 252;
               n_721421036.attrs[chckIndx(addInt(i_721421055, 1), 0, (n_721421036.attrs).length - 1)] = val_721421038;
@@ -10475,7 +10475,7 @@ function setAttr_721421035(n_721421036, key_721421037, val_721421038) {
               
               F.line = 74;
               F.filename = "iterators_1.nim";
-              res_520094961 = addInt(res_520094961, 2);
+              res_520094957 = addInt(res_520094957, 2);
             }
         };
       };
@@ -10492,20 +10492,20 @@ function setAttr_721421035(n_721421036, key_721421037, val_721421038) {
   
 }
 
-function createLobby_520094357() {
+function createLobby_520094353() {
     
-function HEX3Aanonymous_520094364(__520094365, __520094366) {
+function HEX3Aanonymous_520094360(__520094361, __520094362) {
       var F = {procname: "createLobby.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
         F.line = 216;
         F.filename = "main.nim";
-        currentScreen_520093763[0] = 2;
+        currentScreen_520093759[0] = 2;
       framePtr = F.prev;
 
       
     }
     
-function HEX3Aanonymous_520094367(__520094368, __520094369) {
+function HEX3Aanonymous_520094363(__520094364, __520094365) {
       var F = {procname: "createLobby.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
         if (!((peer_520093737[0].Field1 == null))) {
@@ -10515,62 +10515,62 @@ function HEX3Aanonymous_520094367(__520094368, __520094369) {
         }
         
         F.line = 221;
-        peer_520093737[0] = nimCopy(peer_520093737[0], newHost_1308622891(hostLogic_520093895), NTI520093705);
+        peer_520093737[0] = nimCopy(peer_520093737[0], newHost_1308622891(hostLogic_520093891), NTI520093705);
         F.line = 223;
-        currentScreen_520093763[0] = 1;
+        currentScreen_520093759[0] = 1;
       framePtr = F.prev;
 
       
     }
 
-  var result_520094358 = null;
+  var result_520094354 = null;
 
   var F = {procname: "main.createLobby", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 211;
     F.filename = "main.nim";
     F.line = 211;
-    var tmp_520094359 = tree_721421184(44, []);
+    var tmp_520094355 = tree_721421184(44, []);
     F.line = 211;
-    tmp_520094359.class = "column";
+    tmp_520094355.class = "column";
     F.line = 212;
-    var tmp_520094360 = tree_721421184(44, []);
+    var tmp_520094356 = tree_721421184(44, []);
     F.line = 212;
-    tmp_520094360.class = "main";
+    tmp_520094356.class = "main";
     F.line = 213;
-    var tmp_520094361 = tree_721421184(195, []);
+    var tmp_520094357 = tree_721421184(195, []);
     F.line = 214;
-    add_721421120(tmp_520094361, text_721421252([74,111,105,110,32,97,32,82,111,111,109]));
+    add_721421120(tmp_520094357, text_721421252([74,111,105,110,32,97,32,82,111,111,109]));
     F.line = 215;
-    addEventHandler_687867670(tmp_520094361, 0, HEX3Aanonymous_520094364, kxi__);
+    addEventHandler_687867670(tmp_520094357, 0, HEX3Aanonymous_520094360, kxi__);
     F.line = 211;
-    add_721421120(tmp_520094360, tmp_520094361);
+    add_721421120(tmp_520094356, tmp_520094357);
     F.line = 217;
-    var tmp_520094362 = tree_721421184(195, []);
+    var tmp_520094358 = tree_721421184(195, []);
     F.line = 218;
-    addEventHandler_687867670(tmp_520094362, 0, HEX3Aanonymous_520094367, kxi__);
+    addEventHandler_687867670(tmp_520094358, 0, HEX3Aanonymous_520094363, kxi__);
     F.line = 224;
-    add_721421120(tmp_520094362, text_721421252([67,114,101,97,116,101,32,97,32,82,111,111,109]));
+    add_721421120(tmp_520094358, text_721421252([67,114,101,97,116,101,32,97,32,82,111,111,109]));
     F.line = 224;
-    add_721421120(tmp_520094360, tmp_520094362);
+    add_721421120(tmp_520094356, tmp_520094358);
     F.line = 224;
-    add_721421120(tmp_520094359, tmp_520094360);
+    add_721421120(tmp_520094355, tmp_520094356);
     F.line = 225;
-    var tmp_520094363 = tree_721421184(45, []);
+    var tmp_520094359 = tree_721421184(45, []);
     F.line = 225;
-    setAttr_721421035(tmp_520094363, "href", "https://docs.google.com/forms/d/e/1FAIpQLScSidB_dbpKlsWopscLZZn4ZJP_5U9gqb0WyMJ4-bN_yAruSg/viewform?usp=sf_link");
+    setAttr_721421035(tmp_520094359, "href", "https://docs.google.com/forms/d/e/1FAIpQLScSidB_dbpKlsWopscLZZn4ZJP_5U9gqb0WyMJ4-bN_yAruSg/viewform?usp=sf_link");
     F.line = 225;
-    setAttr_721421035(tmp_520094363, "target", "_blank");
+    setAttr_721421035(tmp_520094359, "target", "_blank");
     F.line = 225;
-    setAttr_721421035(tmp_520094363, "rel", "noopener noreferrer");
+    setAttr_721421035(tmp_520094359, "rel", "noopener noreferrer");
     F.line = 226;
-    add_721421120(tmp_520094363, text_721421252([70,101,101,100,98,97,99,107,32,102,111,114,109,33,32,80,108,101,97,115,101,32,102,105,108,108,32,111,117,116,33]));
+    add_721421120(tmp_520094359, text_721421252([70,101,101,100,98,97,99,107,32,102,111,114,109,33,32,80,108,101,97,115,101,32,102,105,108,108,32,111,117,116,33]));
     F.line = 226;
-    add_721421120(tmp_520094359, tmp_520094363);
-    result_520094358 = tmp_520094359;
+    add_721421120(tmp_520094355, tmp_520094359);
+    result_520094354 = tmp_520094355;
   framePtr = F.prev;
 
-  return result_520094358;
+  return result_520094354;
 
 }
 
@@ -10588,40 +10588,40 @@ function text_721421255(s_721421256) {
 
 }
 
-function createRoomMenu_520094437() {
-  var result_520094438 = null;
+function createRoomMenu_520094433() {
+  var result_520094434 = null;
 
   var F = {procname: "main.createRoomMenu", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 229;
     F.filename = "main.nim";
     F.line = 229;
-    var tmp_520094439 = tree_721421184(44, []);
+    var tmp_520094435 = tree_721421184(44, []);
     F.line = 229;
-    tmp_520094439.class = "main";
+    tmp_520094435.class = "main";
     if (!(roomId_520093731[0].Field0)) {
     F.line = 231;
-    add_721421120(tmp_520094439, text_721421252([67,114,101,97,116,105,110,103,32,114,111,111,109,32,107,101,121]));
+    add_721421120(tmp_520094435, text_721421252([67,114,101,97,116,105,110,103,32,114,111,111,109,32,107,101,121]));
     }
     else {
       F.line = 233;
-      var tmp_520094440 = tree_721421184(22, []);
+      var tmp_520094436 = tree_721421184(22, []);
       F.line = 234;
-      add_721421120(tmp_520094440, text_721421252([82,111,111,109,32,75,101,121,58,32]));
+      add_721421120(tmp_520094436, text_721421252([82,111,111,109,32,75,101,121,58,32]));
       F.line = 234;
-      add_721421120(tmp_520094439, tmp_520094440);
+      add_721421120(tmp_520094435, tmp_520094436);
       F.line = 235;
-      var tmp_520094441 = tree_721421184(72, []);
+      var tmp_520094437 = tree_721421184(72, []);
       F.line = 235;
-      add_721421120(tmp_520094439, tmp_520094441);
+      add_721421120(tmp_520094435, tmp_520094437);
       F.line = 236;
-      add_721421120(tmp_520094439, text_721421255(roomId_520093731[0].Field1));
+      add_721421120(tmp_520094435, text_721421255(roomId_520093731[0].Field1));
     }
     
-    result_520094438 = tmp_520094439;
+    result_520094434 = tmp_520094435;
   framePtr = F.prev;
 
-  return result_520094438;
+  return result_520094434;
 
 }
 
@@ -10736,21 +10736,21 @@ function setError_1476395050(field_1476395051, msg_1476395052) {
   
 }
 
-function validateNotEmpty_520094201(field_520094202) {
+function validateNotEmpty_520094197(field_520094198) {
     
-function HEX3Aanonymous_520094205() {
+function HEX3Aanonymous_520094201() {
       var F = {procname: "validateNotEmpty.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
         F.line = 147;
         F.filename = "main.nim";
-        var x_520094206 = getInputText_687867761(getVNodeById_687866162(field_520094202, kxi__));
-        if (((x_520094206 == null) || (x_520094206 == ""))) {
+        var x_520094202 = getInputText_687867761(getVNodeById_687866162(field_520094198, kxi__));
+        if (((x_520094202 == null) || (x_520094202 == ""))) {
         F.line = 149;
-        setError_1476395050(field_520094202, (field_520094202 + " must not be empty"));
+        setError_1476395050(field_520094198, (field_520094198 + " must not be empty"));
         }
         else {
           F.line = 151;
-        setError_1476395050(field_520094202, "");
+        setError_1476395050(field_520094198, "");
         }
         
       framePtr = F.prev;
@@ -10758,16 +10758,16 @@ function HEX3Aanonymous_520094205() {
       
     }
 
-  var result_520094204 = null;
+  var result_520094200 = null;
 
   var F = {procname: "main.validateNotEmpty", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 146;
     F.filename = "main.nim";
-    result_520094204 = HEX3Aanonymous_520094205;
+    result_520094200 = HEX3Aanonymous_520094201;
   framePtr = F.prev;
 
-  return result_520094204;
+  return result_520094200;
 
 }
 
@@ -10859,55 +10859,55 @@ function HEX3Aanonymous_1308623159(data_1308623160) {
 
 }
 
-function HEX5BHEX5D_520094154(s_520094158, x_520094159) {
-  var result_520094160 = [];
+function HEX5BHEX5D_520094150(s_520094154, x_520094155) {
+  var result_520094156 = [];
 
   var F = {procname: "[].[]", prev: framePtr, filename: "/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/indices.nim", line: 0};
   framePtr = F;
     F.line = 139;
     F.filename = "indices.nim";
-    var a_520094162 = x_520094159.a;
+    var a_520094158 = x_520094155.a;
     F.line = 140;
-    var L_520094167 = addInt(subInt(subInt((s_520094158).length, x_520094159.b), a_520094162), 1);
+    var L_520094163 = addInt(subInt(subInt((s_520094154).length, x_520094155.b), a_520094158), 1);
     F.line = 141;
-    result_520094160 = new Array(chckRange(L_520094167, 0, 2147483647)); for (var i = 0 ; i < chckRange(L_520094167, 0, 2147483647) ; ++i) { result_520094160[i] = []; }    Label1: {
+    result_520094156 = new Array(chckRange(L_520094163, 0, 2147483647)); for (var i = 0 ; i < chckRange(L_520094163, 0, 2147483647) ; ++i) { result_520094156[i] = []; }    Label1: {
       F.line = 142;
-      var i_520094176 = 0;
+      var i_520094172 = 0;
       F.line = 128;
       F.filename = "iterators_1.nim";
-      var i_520094969 = 0;
+      var i_520094965 = 0;
       Label2: {
         F.line = 129;
           Label3: while (true) {
-          if (!(i_520094969 < L_520094167)) break Label3;
+          if (!(i_520094965 < L_520094163)) break Label3;
             F.line = 142;
             F.filename = "indices.nim";
-            i_520094176 = i_520094969;
+            i_520094172 = i_520094965;
             F.line = 142;
-            result_520094160[chckIndx(i_520094176, 0, (result_520094160).length - 1)] = nimCopy(null, s_520094158[chckIndx(addInt(i_520094176, a_520094162), 0, (s_520094158).length - 1)], NTI33554449);
+            result_520094156[chckIndx(i_520094172, 0, (result_520094156).length - 1)] = nimCopy(null, s_520094154[chckIndx(addInt(i_520094172, a_520094158), 0, (s_520094154).length - 1)], NTI33554449);
             F.line = 131;
             F.filename = "iterators_1.nim";
-            i_520094969 = addInt(i_520094969, 1);
+            i_520094965 = addInt(i_520094965, 1);
           }
       };
     };
   framePtr = F.prev;
 
-  return result_520094160;
+  return result_520094156;
 
 }
 
-function joinLogic_520094130(d_520094131, m_520094132) {
+function joinLogic_520094126(d_520094127, m_520094128) {
   var F = {procname: "main.joinLogic", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 119;
     F.filename = "main.nim";
-    rawEcho(reprEnum(m_520094132, NTI1308622853), [32,111,102,32], d_520094131, [10]);
+    rawEcho(reprEnum(m_520094128, NTI1308622853), [32,111,102,32], d_520094127, [10]);
     F.line = 120;
-    switch (m_520094132) {
+    switch (m_520094128) {
     case 3:
       F.line = 122;
-      currentScreen_520093763[0] = 4;
+      currentScreen_520093759[0] = 4;
       F.line = 123;
       side_520093738[0] = 0;
       F.line = 124;
@@ -10915,57 +10915,57 @@ function joinLogic_520094130(d_520094131, m_520094132) {
       break;
     case 1:
       F.line = 126;
-      executeOn_1426064029(myDrafts_520093740[0], 0, side_520093738[0], theBoard_520093749[0]);
+      executeOn_1426064029(myDrafts_520093740[0], 0, side_520093738[0], theBoard_520093745[0]);
       F.line = 127;
-      executeOn_1426064029(opponentDrafts_520093741[0], 1, side_520093738[0], theBoard_520093749[0]);
+      executeOn_1426064029(opponentDrafts_520093741[0], 1, side_520093738[0], theBoard_520093745[0]);
       F.line = 128;
-      currentScreen_520093763[0] = 3;
+      currentScreen_520093759[0] = 3;
       break;
     case 4:
       F.line = 130;
-      var x_520094136 = nsuSplitString(d_520094131, [44], (-1));
-      if (eqStrings(d_520094131, [115,116,97,114,116])) {
+      var x_520094132 = nsuSplitString(d_520094127, [44], (-1));
+      if (eqStrings(d_520094127, [115,116,97,114,116])) {
       F.line = 132;
-      currentScreen_520093763[0] = 5;
+      currentScreen_520093759[0] = 5;
       }
       else {
-      if (eqStrings(x_520094136[chckIndx(0, 0, (x_520094136).length - 1)], [109,121])) {
+      if (eqStrings(x_520094132[chckIndx(0, 0, (x_520094132).length - 1)], [109,121])) {
       F.line = 134;
-      var Temporary1 = nimCopy(null, powers_1426063418[0][chckIndx(nsuParseInt(x_520094136[chckIndx(1, 0, (x_520094136).length - 1)]), 0, (powers_1426063418[0]).length - 1)], NTI1426063365);
+      var Temporary1 = nimCopy(null, powers_1426063418[0][chckIndx(nsuParseInt(x_520094132[chckIndx(1, 0, (x_520094132).length - 1)]), 0, (powers_1426063418[0]).length - 1)], NTI1426063365);
       opponentDrafts_520093741[0].push(Temporary1);;
       }
       else {
-      if (eqStrings(x_520094136[chckIndx(0, 0, (x_520094136).length - 1)], [103,111])) {
+      if (eqStrings(x_520094132[chckIndx(0, 0, (x_520094132).length - 1)], [103,111])) {
       F.line = 136;
-      draftOptions_520093746[0] = nimCopy(null, [], NTI1426063632);
+      draftOptions_520093742[0] = nimCopy(null, [], NTI1426063632);
       Label2: {
         F.line = 137;
-        var i_520094180 = [];
+        var i_520094176 = [];
         F.line = 247;
         F.filename = "iterators.nim";
-        var colontmp__520094964 = [];
+        var colontmp__520094960 = [];
         F.line = 137;
         F.filename = "main.nim";
-        colontmp__520094964 = HEX5BHEX5D_520094154(x_520094136, HEX2EHEX2E_1006633065(1, 1));
+        colontmp__520094960 = HEX5BHEX5D_520094150(x_520094132, HEX2EHEX2E_1006633065(1, 1));
         F.line = 249;
         F.filename = "iterators.nim";
-        var i_520094965 = 0;
+        var i_520094961 = 0;
         F.line = 250;
-        var L_520094966 = (colontmp__520094964).length;
+        var L_520094962 = (colontmp__520094960).length;
         Label3: {
           F.line = 251;
             Label4: while (true) {
-            if (!(i_520094965 < L_520094966)) break Label4;
+            if (!(i_520094961 < L_520094962)) break Label4;
               F.line = 137;
               F.filename = "main.nim";
-              i_520094180 = colontmp__520094964[chckIndx(i_520094965, 0, (colontmp__520094964).length - 1)];
+              i_520094176 = colontmp__520094960[chckIndx(i_520094961, 0, (colontmp__520094960).length - 1)];
               F.line = 138;
-              var Temporary5 = nimCopy(null, powers_1426063418[0][chckIndx(nsuParseInt(i_520094180), 0, (powers_1426063418[0]).length - 1)], NTI1426063365);
-              draftOptions_520093746[0].push(Temporary5);;
+              var Temporary5 = nimCopy(null, powers_1426063418[0][chckIndx(nsuParseInt(i_520094176), 0, (powers_1426063418[0]).length - 1)], NTI1426063365);
+              draftOptions_520093742[0].push(Temporary5);;
               F.line = 13;
               F.filename = "iterators.nim";
-              i_520094965 += 1;
-              if (!(((colontmp__520094964).length == L_520094966))) {
+              i_520094961 += 1;
+              if (!(((colontmp__520094960).length == L_520094962))) {
               F.line = 254;
               failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
               }
@@ -10981,7 +10981,7 @@ function joinLogic_520094130(d_520094131, m_520094132) {
       break;
     case 2:
       F.line = 141;
-      otherMove_520093774(d_520094131);
+      otherMove_520093770(d_520094127);
       break;
     default: 
       F.line = 142;
@@ -10995,70 +10995,70 @@ function joinLogic_520094130(d_520094131, m_520094132) {
   
 }
 
-function createJoinMenu_520094442() {
+function createJoinMenu_520094438() {
     
-function HEX3Aanonymous_520094448(__520094449, __520094450) {
+function HEX3Aanonymous_520094444(__520094445, __520094446) {
       var F = {procname: "createJoinMenu.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
         F.line = 245;
         F.filename = "main.nim";
-        var id_520094451 = getInputText_687867761(getVNodeById_687866162("joincode", kxi__));
+        var id_520094447 = getInputText_687867761(getVNodeById_687866162("joincode", kxi__));
         if (!((peer_520093737[0].Field1 == null))) {
         F.line = 247;
         peer_520093737[0].Field1();
         }
         
         F.line = 248;
-        peer_520093737[0] = nimCopy(peer_520093737[0], newJoin_1308623058(id_520094451, joinLogic_520094130), NTI520093705);
+        peer_520093737[0] = nimCopy(peer_520093737[0], newJoin_1308623058(id_520094447, joinLogic_520094126), NTI520093705);
       framePtr = F.prev;
 
       
     }
 
-  var result_520094443 = null;
+  var result_520094439 = null;
 
   var F = {procname: "main.createJoinMenu", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 239;
     F.filename = "main.nim";
     F.line = 239;
-    var tmp_520094444 = tree_721421184(44, []);
+    var tmp_520094440 = tree_721421184(44, []);
     F.line = 239;
-    tmp_520094444.class = "main";
+    tmp_520094440.class = "main";
     F.line = 240;
-    var tmp_520094445 = tree_721421184(193, []);
+    var tmp_520094441 = tree_721421184(193, []);
     F.line = 240;
-    setAttr_721421035(tmp_520094445, "for", "joincode");
+    setAttr_721421035(tmp_520094441, "for", "joincode");
     F.line = 241;
-    add_721421120(tmp_520094445, text_721421252([74,111,105,110,32,67,111,100,101,58]));
+    add_721421120(tmp_520094441, text_721421252([74,111,105,110,32,67,111,100,101,58]));
     F.line = 241;
-    add_721421120(tmp_520094444, tmp_520094445);
+    add_721421120(tmp_520094440, tmp_520094441);
     F.line = 242;
-    var tmp_520094446 = tree_721421184(194, []);
+    var tmp_520094442 = tree_721421184(194, []);
     F.line = 242;
-    tmp_520094446.id = "joincode";
+    tmp_520094442.id = "joincode";
     F.line = 242;
-    addEventHandler_687867678(tmp_520094446, 8, validateNotEmpty_520094201("joincode"), kxi__);
+    addEventHandler_687867678(tmp_520094442, 8, validateNotEmpty_520094197("joincode"), kxi__);
     F.line = 242;
-    add_721421120(tmp_520094444, tmp_520094446);
+    add_721421120(tmp_520094440, tmp_520094442);
     F.line = 243;
-    var tmp_520094447 = tree_721421184(195, []);
+    var tmp_520094443 = tree_721421184(195, []);
     F.line = 244;
-    addEventHandler_687867670(tmp_520094447, 0, HEX3Aanonymous_520094448, kxi__);
+    addEventHandler_687867670(tmp_520094443, 0, HEX3Aanonymous_520094444, kxi__);
     F.line = 250;
-    add_721421120(tmp_520094447, text_721421252([69,110,116,101,114]));
+    add_721421120(tmp_520094443, text_721421252([69,110,116,101,114]));
     F.line = 250;
-    add_721421120(tmp_520094444, tmp_520094447);
-    result_520094443 = tmp_520094444;
+    add_721421120(tmp_520094440, tmp_520094443);
+    result_520094439 = tmp_520094440;
   framePtr = F.prev;
 
-  return result_520094443;
+  return result_520094439;
 
 }
 
-function createOptionsMenu_520094457() {
+function createOptionsMenu_520094453() {
       
-function HEX3Aanonymous_520094470(__520094471, __520094472) {
+function HEX3Aanonymous_520094466(__520094467, __520094468) {
         var F = {procname: "createOptionsMenu.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
         framePtr = F;
           F.line = 260;
@@ -11067,13 +11067,13 @@ function HEX3Aanonymous_520094470(__520094471, __520094472) {
           F.line = 261;
           turn_520093739[0] = true;
           F.line = 262;
-          currentScreen_520093763[0] = 3;
+          currentScreen_520093759[0] = 3;
         framePtr = F.prev;
 
         
       }
       
-function HEX3Aanonymous_520094475(__520094476, __520094477) {
+function HEX3Aanonymous_520094471(__520094472, __520094473) {
         var F = {procname: "createOptionsMenu.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
         framePtr = F;
           F.line = 271;
@@ -11084,147 +11084,147 @@ function HEX3Aanonymous_520094475(__520094476, __520094477) {
         
       }
       
-function HEX3Aanonymous_520094478(__520094479, __520094480) {
+function HEX3Aanonymous_520094474(__520094475, __520094476) {
         var F = {procname: "createOptionsMenu.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
         framePtr = F;
           F.line = 280;
           F.filename = "main.nim";
           peer_520093737[0].Field0("draft:start");
           F.line = 281;
-          currentScreen_520093763[0] = 5;
+          currentScreen_520093759[0] = 5;
           F.line = 282;
-          gameMode_520093764[0] = 2;
+          gameMode_520093760[0] = 2;
           F.line = 283;
           turn_520093739[0] = true;
           F.line = 284;
-          draft_520093879([], []);
+          draft_520093875([], []);
         framePtr = F.prev;
 
         
       }
 
-  var result_520094458 = null;
+  var result_520094454 = null;
 
   var F = {procname: "main.createOptionsMenu", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 253;
     F.filename = "main.nim";
     F.line = 253;
-    var tmp_520094459 = tree_721421184(44, []);
+    var tmp_520094455 = tree_721421184(44, []);
     F.line = 253;
-    tmp_520094459.class = "main";
+    tmp_520094455.class = "main";
     if ((side_520093738[0] == 0)) {
     F.line = 255;
-    add_721421120(tmp_520094459, text_721421252([87,97,105,116,105,110,103,32,102,111,114,32,104,111,115,116,32,116,111,32,100,101,99,105,100,101,32,114,117,108,101,115,101,116,46,46,46]));
+    add_721421120(tmp_520094455, text_721421252([87,97,105,116,105,110,103,32,102,111,114,32,104,111,115,116,32,116,111,32,100,101,99,105,100,101,32,114,117,108,101,115,101,116,46,46,46]));
     }
     else {
       F.line = 257;
-      var tmp_520094460 = tree_721421184(44, []);
+      var tmp_520094456 = tree_721421184(44, []);
       F.line = 257;
-      tmp_520094460.class = "column";
+      tmp_520094456.class = "column";
       F.line = 258;
-      var tmp_520094461 = tree_721421184(195, []);
+      var tmp_520094457 = tree_721421184(195, []);
       F.line = 259;
-      addEventHandler_687867670(tmp_520094461, 0, HEX3Aanonymous_520094470, kxi__);
+      addEventHandler_687867670(tmp_520094457, 0, HEX3Aanonymous_520094466, kxi__);
       F.line = 264;
-      add_721421120(tmp_520094461, text_721421252([78,111,114,109,97,108,32,67,104,101,115,115]));
+      add_721421120(tmp_520094457, text_721421252([78,111,114,109,97,108,32,67,104,101,115,115]));
       F.line = 264;
-      add_721421120(tmp_520094460, tmp_520094461);
+      add_721421120(tmp_520094456, tmp_520094457);
       F.line = 266;
-      add_721421120(tmp_520094460, text_721421252([67,108,97,115,115,105,99,32,67,104,101,115,115,44,32,119,105,116,104,32,110,111,32,115,112,101,99,105,97,108,32,114,117,108,101,115,32,111,114,32,97,98,105,108,105,116,101,115,46]));
+      add_721421120(tmp_520094456, text_721421252([67,108,97,115,115,105,99,32,67,104,101,115,115,44,32,119,105,116,104,32,110,111,32,115,112,101,99,105,97,108,32,114,117,108,101,115,32,111,114,32,97,98,105,108,105,116,101,115,46]));
       F.line = 266;
-      add_721421120(tmp_520094459, tmp_520094460);
+      add_721421120(tmp_520094455, tmp_520094456);
       F.line = 268;
-      var tmp_520094462 = tree_721421184(44, []);
+      var tmp_520094458 = tree_721421184(44, []);
       F.line = 268;
-      tmp_520094462.class = "column";
+      tmp_520094458.class = "column";
       F.line = 269;
-      var tmp_520094463 = tree_721421184(195, []);
+      var tmp_520094459 = tree_721421184(195, []);
       F.line = 270;
-      addEventHandler_687867670(tmp_520094463, 0, HEX3Aanonymous_520094475, kxi__);
+      addEventHandler_687867670(tmp_520094459, 0, HEX3Aanonymous_520094471, kxi__);
       F.line = 273;
-      add_721421120(tmp_520094463, text_721421252([68,114,97,102,116,32,109,111,100,101]));
+      add_721421120(tmp_520094459, text_721421252([68,114,97,102,116,32,109,111,100,101]));
       F.line = 273;
-      add_721421120(tmp_520094462, tmp_520094463);
+      add_721421120(tmp_520094458, tmp_520094459);
       F.line = 274;
-      add_721421120(tmp_520094462, text_721421252(makeNimstrLit("Take turns drafting power ups for your pieces, then play. \x0A                        Each side is guaranteed to get power ups of the same tier.")));
+      add_721421120(tmp_520094458, text_721421252(makeNimstrLit("Take turns drafting power ups for your pieces, then play. \x0A                        Each side is guaranteed to get power ups of the same tier.")));
       F.line = 274;
-      add_721421120(tmp_520094459, tmp_520094462);
+      add_721421120(tmp_520094455, tmp_520094458);
       F.line = 277;
-      var tmp_520094464 = tree_721421184(44, []);
+      var tmp_520094460 = tree_721421184(44, []);
       F.line = 277;
-      tmp_520094464.class = "column";
+      tmp_520094460.class = "column";
       F.line = 278;
-      var tmp_520094465 = tree_721421184(195, []);
+      var tmp_520094461 = tree_721421184(195, []);
       F.line = 279;
-      addEventHandler_687867670(tmp_520094465, 0, HEX3Aanonymous_520094478, kxi__);
+      addEventHandler_687867670(tmp_520094461, 0, HEX3Aanonymous_520094474, kxi__);
       F.line = 287;
-      add_721421120(tmp_520094465, text_721421252([82,97,110,100,111,109,32,109,111,100,101]));
+      add_721421120(tmp_520094461, text_721421252([82,97,110,100,111,109,32,109,111,100,101]));
       F.line = 287;
-      add_721421120(tmp_520094464, tmp_520094465);
+      add_721421120(tmp_520094460, tmp_520094461);
       F.line = 289;
-      add_721421120(tmp_520094464, text_721421252(makeNimstrLit("Draft powerups of random strength and quality, then play. \x0A                        Completely luck based.")));
+      add_721421120(tmp_520094460, text_721421252(makeNimstrLit("Draft powerups of random strength and quality, then play. \x0A                        Completely luck based.")));
       F.line = 289;
-      add_721421120(tmp_520094459, tmp_520094464);
+      add_721421120(tmp_520094455, tmp_520094460);
     }
     
-    result_520094458 = tmp_520094459;
+    result_520094454 = tmp_520094455;
   framePtr = F.prev;
 
-  return result_520094458;
+  return result_520094454;
 
 }
 
-function createPowerMenu_520094499(p_520094500) {
-    p_520094500 = nimCopy(null, p_520094500, NTI1426063365);
+function createPowerMenu_520094495(p_520094496) {
+    p_520094496 = nimCopy(null, p_520094496, NTI1426063365);
     
-function HEX3Aanonymous_520094511(__520094512, __520094513) {
+function HEX3Aanonymous_520094507(__520094508, __520094509) {
       var F = {procname: "createPowerMenu.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
         F.line = 306;
         F.filename = "main.nim";
-        peer_520093737[0].Field0(toJSStr(([100,114,97,102,116,58,109,121,44] || []).concat(HEX24_369098760(p_520094500.index) || [])));
+        peer_520093737[0].Field0(toJSStr(([100,114,97,102,116,58,109,121,44] || []).concat(HEX24_369098760(p_520094496.index) || [])));
         F.line = 307;
-        var Temporary1 = nimCopy(null, p_520094500, NTI1426063365);
+        var Temporary1 = nimCopy(null, p_520094496, NTI1426063365);
         myDrafts_520093740[0].push(Temporary1);;
         F.line = 308;
         turn_520093739[0] = false;
         if ((side_520093738[0] == 1)) {
         F.line = 310;
-        draft_520093879(HEX26_1426063972(myDrafts_520093740[0], opponentDrafts_520093741[0]), opponentDrafts_520093741[0]);
+        draft_520093875(HEX26_1426063972(myDrafts_520093740[0], opponentDrafts_520093741[0]), opponentDrafts_520093741[0]);
         F.line = 311;
         F.line = 975;
         F.filename = "sequtils.nim";
         Label2: {
           F.line = 1024;
-          var iHEX60gensym28_520094546 = 0;
+          var iHEX60gensym28_520094542 = 0;
           F.line = 1025;
-          var resultHEX60gensym28_520094553 = newSeq_503317026(chckRange((draftOptions_520093746[0]).length, 0, 2147483647));
+          var resultHEX60gensym28_520094549 = newSeq_503317026(chckRange((draftOptions_520093742[0]).length, 0, 2147483647));
           Label3: {
             F.line = 1026;
-            var it_520094557 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
+            var it_520094553 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
             F.line = 249;
             F.filename = "iterators.nim";
-            var i_520094986 = 0;
+            var i_520094982 = 0;
             F.line = 250;
-            var L_520094987 = (draftOptions_520093746[0]).length;
+            var L_520094983 = (draftOptions_520093742[0]).length;
             Label4: {
               F.line = 251;
                 Label5: while (true) {
-                if (!(i_520094986 < L_520094987)) break Label5;
+                if (!(i_520094982 < L_520094983)) break Label5;
                   F.line = 1026;
                   F.filename = "sequtils.nim";
-                  it_520094557 = draftOptions_520093746[0][chckIndx(i_520094986, 0, (draftOptions_520093746[0]).length - 1)];
+                  it_520094553 = draftOptions_520093742[0][chckIndx(i_520094982, 0, (draftOptions_520093742[0]).length - 1)];
                   F.line = 311;
                   F.filename = "main.nim";
-                  resultHEX60gensym28_520094553[chckIndx(iHEX60gensym28_520094546, 0, (resultHEX60gensym28_520094553).length - 1)] = nimCopy(null, ([44] || []).concat(HEX24_369098760(it_520094557.index) || []), NTI33554449);
+                  resultHEX60gensym28_520094549[chckIndx(iHEX60gensym28_520094542, 0, (resultHEX60gensym28_520094549).length - 1)] = nimCopy(null, ([44] || []).concat(HEX24_369098760(it_520094553.index) || []), NTI33554449);
                   F.line = 1028;
                   F.filename = "sequtils.nim";
-                  iHEX60gensym28_520094546 = addInt(iHEX60gensym28_520094546, 1);
+                  iHEX60gensym28_520094542 = addInt(iHEX60gensym28_520094542, 1);
                   F.line = 13;
                   F.filename = "iterators.nim";
-                  i_520094986 += 1;
-                  if (!(((draftOptions_520093746[0]).length == L_520094987))) {
+                  i_520094982 += 1;
+                  if (!(((draftOptions_520093742[0]).length == L_520094983))) {
                   F.line = 254;
                   failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
                   }
@@ -11233,50 +11233,50 @@ function HEX3Aanonymous_520094511(__520094512, __520094513) {
             };
           };
         };
-        var sHEX60gensym31_520094569 = nimCopy(null, resultHEX60gensym28_520094553, NTI503316801);
+        var sHEX60gensym31_520094565 = nimCopy(null, resultHEX60gensym28_520094549, NTI503316801);
         F.line = 976;
         F.filename = "sequtils.nim";
-        var nHEX60gensym31_520094573 = (sHEX60gensym31_520094569).length;
-        if (!((0 < nHEX60gensym31_520094573))) {
+        var nHEX60gensym31_520094569 = (sHEX60gensym31_520094565).length;
+        if (!((0 < nHEX60gensym31_520094569))) {
         F.line = 977;
         failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/pure/collections/sequtils.nim(977, 3) `n`gensym31 > 0` Can\'t fold empty sequences"));
         }
         
         F.line = 978;
-        var resultHEX60gensym31_520094579 = nimCopy(null, sHEX60gensym31_520094569[chckIndx(subInt(nHEX60gensym31_520094573, 1), 0, (sHEX60gensym31_520094569).length - 1)], NTI33554449);
+        var resultHEX60gensym31_520094575 = nimCopy(null, sHEX60gensym31_520094565[chckIndx(subInt(nHEX60gensym31_520094569, 1), 0, (sHEX60gensym31_520094565).length - 1)], NTI33554449);
         Label6: {
           F.line = 979;
-          var iHEX60gensym31_520094585 = 0;
+          var iHEX60gensym31_520094581 = 0;
           F.line = 6;
           F.filename = "iterators_1.nim";
-          var colontmp__520094990 = 0;
+          var colontmp__520094986 = 0;
           F.line = 979;
           F.filename = "sequtils.nim";
-          colontmp__520094990 = subInt(nHEX60gensym31_520094573, 2);
+          colontmp__520094986 = subInt(nHEX60gensym31_520094569, 2);
           F.line = 33;
           F.filename = "iterators_1.nim";
-          var res_520094991 = colontmp__520094990;
+          var res_520094987 = colontmp__520094986;
           Label7: {
             F.line = 34;
               Label8: while (true) {
-              if (!(0 <= res_520094991)) break Label8;
+              if (!(0 <= res_520094987)) break Label8;
                 F.line = 979;
                 F.filename = "sequtils.nim";
-                iHEX60gensym31_520094585 = res_520094991;
+                iHEX60gensym31_520094581 = res_520094987;
                 F.line = 981;
-                var a_520094586 = nimCopy(null, sHEX60gensym31_520094569[chckIndx(iHEX60gensym31_520094585, 0, (sHEX60gensym31_520094569).length - 1)], NTI33554449);
+                var a_520094582 = nimCopy(null, sHEX60gensym31_520094565[chckIndx(iHEX60gensym31_520094581, 0, (sHEX60gensym31_520094565).length - 1)], NTI33554449);
                 F.line = 982;
-                var b_520094587 = nimCopy(null, resultHEX60gensym31_520094579, NTI33554449);
+                var b_520094583 = nimCopy(null, resultHEX60gensym31_520094575, NTI33554449);
                 F.line = 311;
                 F.filename = "main.nim";
-                resultHEX60gensym31_520094579 = nimCopy(null, (a_520094586 || []).concat(b_520094587 || []), NTI33554449);
+                resultHEX60gensym31_520094575 = nimCopy(null, (a_520094582 || []).concat(b_520094583 || []), NTI33554449);
                 F.line = 39;
                 F.filename = "iterators_1.nim";
-                res_520094991 = subInt(res_520094991, 1);
+                res_520094987 = subInt(res_520094987, 1);
               }
           };
         };
-        peer_520093737[0].Field0(toJSStr(([100,114,97,102,116,58,103,111] || []).concat(resultHEX60gensym31_520094579 || [])));
+        peer_520093737[0].Field0(toJSStr(([100,114,97,102,116,58,103,111] || []).concat(resultHEX60gensym31_520094575 || [])));
         }
         
       framePtr = F.prev;
@@ -11284,93 +11284,93 @@ function HEX3Aanonymous_520094511(__520094512, __520094513) {
       
     }
 
-  var result_520094501 = null;
+  var result_520094497 = null;
 
   var F = {procname: "main.createPowerMenu", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 293;
     F.filename = "main.nim";
     F.line = 293;
-    var tmp_520094502 = tree_721421184(44, []);
+    var tmp_520094498 = tree_721421184(44, []);
     F.line = 293;
-    tmp_520094502.class = "power";
+    tmp_520094498.class = "power";
     F.line = 294;
-    var tmp_520094503 = tree_721421184(21, []);
+    var tmp_520094499 = tree_721421184(21, []);
     F.line = 295;
-    add_721421120(tmp_520094503, text_721421252(p_520094500.name));
+    add_721421120(tmp_520094499, text_721421252(p_520094496.name));
     F.line = 295;
-    add_721421120(tmp_520094502, tmp_520094503);
-    if (!(eqStrings(p_520094500.icon, []))) {
+    add_721421120(tmp_520094498, tmp_520094499);
+    if (!(eqStrings(p_520094496.icon, []))) {
     F.line = 297;
-    var tmp_520094504 = tree_721421184(76, []);
+    var tmp_520094500 = tree_721421184(76, []);
     F.line = 297;
-    setAttr_721421035(tmp_520094504, "src", toJSStr(([46,47,105,99,111,110,115,47] || []).concat(p_520094500.icon || [])));
+    setAttr_721421035(tmp_520094500, "src", toJSStr(([46,47,105,99,111,110,115,47] || []).concat(p_520094496.icon || [])));
     F.line = 297;
-    add_721421120(tmp_520094502, tmp_520094504);
+    add_721421120(tmp_520094498, tmp_520094500);
     }
     else {
       F.line = 299;
-      var tmp_520094505 = tree_721421184(76, []);
+      var tmp_520094501 = tree_721421184(76, []);
       F.line = 299;
-      setAttr_721421035(tmp_520094505, "src", "./icons/blackbishop.svg");
+      setAttr_721421035(tmp_520094501, "src", "./icons/blackbishop.svg");
       F.line = 299;
-      add_721421120(tmp_520094502, tmp_520094505);
+      add_721421120(tmp_520094498, tmp_520094501);
     }
     
     F.line = 300;
-    var tmp_520094506 = tree_721421184(22, []);
+    var tmp_520094502 = tree_721421184(22, []);
     F.line = 301;
-    add_721421120(tmp_520094506, text_721421252(reprEnum(p_520094500.tier, NTI1426063363)));
+    add_721421120(tmp_520094502, text_721421252(reprEnum(p_520094496.tier, NTI1426063363)));
     F.line = 301;
-    add_721421120(tmp_520094502, tmp_520094506);
+    add_721421120(tmp_520094498, tmp_520094502);
     F.line = 302;
-    var tmp_520094507 = tree_721421184(32, []);
+    var tmp_520094503 = tree_721421184(32, []);
     F.line = 303;
-    add_721421120(tmp_520094507, text_721421252(p_520094500.description));
+    add_721421120(tmp_520094503, text_721421252(p_520094496.description));
     F.line = 303;
-    add_721421120(tmp_520094502, tmp_520094507);
+    add_721421120(tmp_520094498, tmp_520094503);
     F.line = 305;
-    addEventHandler_687867670(tmp_520094502, 0, HEX3Aanonymous_520094511, kxi__);
-    result_520094501 = tmp_520094502;
+    addEventHandler_687867670(tmp_520094498, 0, HEX3Aanonymous_520094507, kxi__);
+    result_520094497 = tmp_520094498;
   framePtr = F.prev;
 
-  return result_520094501;
+  return result_520094497;
 
 }
 
-function createDraftMenu_520094592() {
-  var result_520094593 = null;
+function createDraftMenu_520094588() {
+  var result_520094589 = null;
 
   var F = {procname: "main.createDraftMenu", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 314;
     F.filename = "main.nim";
     F.line = 314;
-    var tmp_520094594 = tree_721421184(44, []);
+    var tmp_520094590 = tree_721421184(44, []);
     F.line = 314;
-    tmp_520094594.class = "main power-menu";
+    tmp_520094590.class = "main power-menu";
     if (turn_520093739[0]) {
     Label1: {
       F.line = 316;
-      var p_520094598 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
+      var p_520094594 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
       F.line = 249;
       F.filename = "iterators.nim";
-      var i_520094972 = 0;
+      var i_520094968 = 0;
       F.line = 250;
-      var L_520094973 = (draftOptions_520093746[0]).length;
+      var L_520094969 = (draftOptions_520093742[0]).length;
       Label2: {
         F.line = 251;
           Label3: while (true) {
-          if (!(i_520094972 < L_520094973)) break Label3;
+          if (!(i_520094968 < L_520094969)) break Label3;
             F.line = 316;
             F.filename = "main.nim";
-            p_520094598 = draftOptions_520093746[0][chckIndx(i_520094972, 0, (draftOptions_520093746[0]).length - 1)];
+            p_520094594 = draftOptions_520093742[0][chckIndx(i_520094968, 0, (draftOptions_520093742[0]).length - 1)];
             F.line = 317;
-            add_721421120(tmp_520094594, createPowerMenu_520094499(p_520094598));
+            add_721421120(tmp_520094590, createPowerMenu_520094495(p_520094594));
             F.line = 13;
             F.filename = "iterators.nim";
-            i_520094972 += 1;
-            if (!(((draftOptions_520093746[0]).length == L_520094973))) {
+            i_520094968 += 1;
+            if (!(((draftOptions_520093742[0]).length == L_520094969))) {
             F.line = 254;
             failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
             }
@@ -11382,13 +11382,13 @@ function createDraftMenu_520094592() {
     else {
       F.line = 319;
       F.filename = "main.nim";
-    add_721421120(tmp_520094594, text_721421252([79,112,112,111,110,101,110,116,32,105,115,32,100,114,97,102,116,105,110,103,46,46,46]));
+    add_721421120(tmp_520094590, text_721421252([79,112,112,111,110,101,110,116,32,105,115,32,100,114,97,102,116,105,110,103,46,46,46]));
     }
     
-    result_520094593 = tmp_520094594;
+    result_520094589 = tmp_520094590;
   framePtr = F.prev;
 
-  return result_520094593;
+  return result_520094589;
 
 }
 
@@ -11405,16 +11405,16 @@ function replaceAnySynergies_1426064244(powers_1426064245) {
       var s_1426064250 = {Field0: ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0}), Field1: 0, Field2: [], Field3: [], Field4: 0};
       F.line = 249;
       F.filename = "iterators.nim";
-      var i_520095012 = 0;
+      var i_520095008 = 0;
       F.line = 250;
-      var L_520095013 = (secretSynergies_1426063420[0]).length;
+      var L_520095009 = (secretSynergies_1426063420[0]).length;
       Label2: {
         F.line = 251;
           Label3: while (true) {
-          if (!(i_520095012 < L_520095013)) break Label3;
+          if (!(i_520095008 < L_520095009)) break Label3;
             F.line = 139;
             F.filename = "power.nim";
-            s_1426064250 = secretSynergies_1426063420[0][chckIndx(i_520095012, 0, (secretSynergies_1426063420[0]).length - 1)];
+            s_1426064250 = secretSynergies_1426063420[0][chckIndx(i_520095008, 0, (secretSynergies_1426063420[0]).length - 1)];
               F.line = 652;
               F.filename = "sequtils.nim";
               var resultHEX60gensym36_1426064255 = newSeq_1426063585(0);
@@ -11423,16 +11423,16 @@ function replaceAnySynergies_1426064244(powers_1426064245) {
                 var it_1426064259 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
                 F.line = 249;
                 F.filename = "iterators.nim";
-                var i_520095005 = 0;
+                var i_520095001 = 0;
                 F.line = 250;
-                var L_520095006 = (powers_1426064245).length;
+                var L_520095002 = (powers_1426064245).length;
                 Label5: {
                   F.line = 251;
                     Label6: while (true) {
-                    if (!(i_520095005 < L_520095006)) break Label6;
+                    if (!(i_520095001 < L_520095002)) break Label6;
                       F.line = 653;
                       F.filename = "sequtils.nim";
-                      it_1426064259 = powers_1426064245[chckIndx(i_520095005, 0, (powers_1426064245).length - 1)];
+                      it_1426064259 = powers_1426064245[chckIndx(i_520095001, 0, (powers_1426064245).length - 1)];
                       if (contains_1006633010(s_1426064250.Field2, it_1426064259.name)) {
                       F.line = 654;
                       var Temporary7 = nimCopy(null, it_1426064259, NTI1426063365);
@@ -11441,8 +11441,8 @@ function replaceAnySynergies_1426064244(powers_1426064245) {
                       
                       F.line = 13;
                       F.filename = "iterators.nim";
-                      i_520095005 += 1;
-                      if (!(((powers_1426064245).length == L_520095006))) {
+                      i_520095001 += 1;
+                      if (!(((powers_1426064245).length == L_520095002))) {
                       F.line = 254;
                       failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
                       }
@@ -11461,16 +11461,16 @@ function replaceAnySynergies_1426064244(powers_1426064245) {
               var it_1426064282 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
               F.line = 249;
               F.filename = "iterators.nim";
-              var i_520095009 = 0;
+              var i_520095005 = 0;
               F.line = 250;
-              var L_520095010 = (result_1426064246).length;
+              var L_520095006 = (result_1426064246).length;
               Label9: {
                 F.line = 251;
                   Label10: while (true) {
-                  if (!(i_520095009 < L_520095010)) break Label10;
+                  if (!(i_520095005 < L_520095006)) break Label10;
                     F.line = 653;
                     F.filename = "sequtils.nim";
-                    it_1426064282 = result_1426064246[chckIndx(i_520095009, 0, (result_1426064246).length - 1)];
+                    it_1426064282 = result_1426064246[chckIndx(i_520095005, 0, (result_1426064246).length - 1)];
                     if (!(contains_1006633010(s_1426064250.Field3, it_1426064282.name))) {
                     F.line = 654;
                     var Temporary11 = nimCopy(null, it_1426064282, NTI1426063365);
@@ -11479,8 +11479,8 @@ function replaceAnySynergies_1426064244(powers_1426064245) {
                     
                     F.line = 13;
                     F.filename = "iterators.nim";
-                    i_520095009 += 1;
-                    if (!(((result_1426064246).length == L_520095010))) {
+                    i_520095005 += 1;
+                    if (!(((result_1426064246).length == L_520095006))) {
                     F.line = 254;
                     failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
                     }
@@ -11497,8 +11497,8 @@ function replaceAnySynergies_1426064244(powers_1426064245) {
             
             F.line = 13;
             F.filename = "iterators.nim";
-            i_520095012 += 1;
-            if (!(((secretSynergies_1426063420[0]).length == L_520095013))) {
+            i_520095008 += 1;
+            if (!(((secretSynergies_1426063420[0]).length == L_520095009))) {
             F.line = 254;
             failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
             }
@@ -11512,84 +11512,84 @@ function replaceAnySynergies_1426064244(powers_1426064245) {
 
 }
 
-function createPowerSummary_520094599(p_520094600) {
-  var result_520094601 = null;
+function createPowerSummary_520094595(p_520094596) {
+  var result_520094597 = null;
 
   var F = {procname: "main.createPowerSummary", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 322;
     F.filename = "main.nim";
     F.line = 322;
-    var tmp_520094602 = tree_721421184(44, []);
+    var tmp_520094598 = tree_721421184(44, []);
     F.line = 322;
-    tmp_520094602.class = "power-grid";
+    tmp_520094598.class = "power-grid";
     F.line = 323;
-    var tmp_520094603 = tree_721421184(24, []);
+    var tmp_520094599 = tree_721421184(24, []);
     F.line = 323;
-    tmp_520094603.class = "title";
+    tmp_520094599.class = "title";
     F.line = 324;
-    add_721421120(tmp_520094603, text_721421252(p_520094600.name));
+    add_721421120(tmp_520094599, text_721421252(p_520094596.name));
     F.line = 324;
-    add_721421120(tmp_520094602, tmp_520094603);
+    add_721421120(tmp_520094598, tmp_520094599);
     F.line = 325;
-    var tmp_520094604 = tree_721421184(32, []);
+    var tmp_520094600 = tree_721421184(32, []);
     F.line = 325;
-    tmp_520094604.class = "small-text desc";
+    tmp_520094600.class = "small-text desc";
     F.line = 326;
-    add_721421120(tmp_520094604, text_721421252(p_520094600.description));
+    add_721421120(tmp_520094600, text_721421252(p_520094596.description));
     F.line = 326;
-    add_721421120(tmp_520094602, tmp_520094604);
-    if (!(eqStrings(p_520094600.icon, []))) {
+    add_721421120(tmp_520094598, tmp_520094600);
+    if (!(eqStrings(p_520094596.icon, []))) {
     F.line = 328;
-    var tmp_520094605 = tree_721421184(76, []);
+    var tmp_520094601 = tree_721421184(76, []);
     F.line = 328;
-    tmp_520094605.class = "image";
+    tmp_520094601.class = "image";
     F.line = 328;
-    setAttr_721421035(tmp_520094605, "src", toJSStr(([46,47,105,99,111,110,115,47] || []).concat(p_520094600.icon || [])));
+    setAttr_721421035(tmp_520094601, "src", toJSStr(([46,47,105,99,111,110,115,47] || []).concat(p_520094596.icon || [])));
     F.line = 328;
-    add_721421120(tmp_520094602, tmp_520094605);
+    add_721421120(tmp_520094598, tmp_520094601);
     }
     else {
       F.line = 330;
-      var tmp_520094606 = tree_721421184(76, []);
+      var tmp_520094602 = tree_721421184(76, []);
       F.line = 330;
-      tmp_520094606.class = "image";
+      tmp_520094602.class = "image";
       F.line = 330;
-      setAttr_721421035(tmp_520094606, "src", "./icons/blackbishop.svg");
+      setAttr_721421035(tmp_520094602, "src", "./icons/blackbishop.svg");
       F.line = 330;
-      add_721421120(tmp_520094602, tmp_520094606);
+      add_721421120(tmp_520094598, tmp_520094602);
     }
     
-    result_520094601 = tmp_520094602;
+    result_520094597 = tmp_520094598;
   framePtr = F.prev;
 
-  return result_520094601;
+  return result_520094597;
 
 }
 
-function isSelected_520093770(n_520093771, m_520093772) {
-  var result_520093773 = false;
+function isSelected_520093766(n_520093767, m_520093768) {
+  var result_520093769 = false;
 
   var F = {procname: "main.isSelected", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
   BeforeRet: {
     F.line = 67;
     F.filename = "main.nim";
-    result_520093773 = ((selectedTile_520093752[0].Field1 == n_520093771) && (selectedTile_520093752[0].Field0 == m_520093772));
+    result_520093769 = ((selectedTile_520093748[0].Field1 == n_520093767) && (selectedTile_520093748[0].Field0 == m_520093768));
     break BeforeRet;
   };
   framePtr = F.prev;
 
-  return result_520093773;
+  return result_520093769;
 
 }
 
-function sendMove_520093873(mode_520093874, start_520093875, to_520093876) {
+function sendMove_520093869(mode_520093870, start_520093871, to_520093872) {
   var F = {procname: "main.sendMove", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 81;
     F.filename = "main.nim";
-    peer_520093737[0].Field0(toJSStr(([109,111,118,101,58,32] || []).concat(mode_520093874 || [],[44] || [],HEX24_369098760(start_520093875.Field1) || [],[44] || [],HEX24_369098760(start_520093875.Field0) || [],[44] || [],HEX24_369098760(to_520093876.Field1) || [],[44] || [],HEX24_369098760(to_520093876.Field0) || [])));
+    peer_520093737[0].Field0(toJSStr(([109,111,118,101,58,32] || []).concat(mode_520093870 || [],[44] || [],HEX24_369098760(start_520093871.Field1) || [],[44] || [],HEX24_369098760(start_520093871.Field0) || [],[44] || [],HEX24_369098760(to_520093872.Field1) || [],[44] || [],HEX24_369098760(to_520093872.Field0) || [])));
     F.line = 82;
     turn_520093739[0] = !(turn_520093739[0]);
   framePtr = F.prev;
@@ -11622,71 +11622,71 @@ function HEX24_1207960114(p_1207960115) {
 
 }
 
-function createTile_520094207(p_520094208, m_520094209, n_520094210) {
+function createTile_520094203(p_520094204, m_520094205, n_520094206) {
     var Temporary1;
-    p_520094208 = nimCopy(null, p_520094208, NTI1207959567);
+    p_520094204 = nimCopy(null, p_520094204, NTI1207959567);
     
-function HEX3Aanonymous_520094266(__520094267, __520094268) {
+function HEX3Aanonymous_520094262(__520094263, __520094264) {
       var F = {procname: "createTile.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
-        if (((contains_1207959849(possibleMoves_520093757[0], p_520094208.tile) && turn_520093739[0]) && isColor_1207960106(pieceOf_520093767(selectedTile_520093752[0]), side_520093738[0]))) {
+        if (((contains_1207959849(possibleMoves_520093753[0], p_520094204.tile) && turn_520093739[0]) && isColor_1207960106(pieceOf_520093763(selectedTile_520093748[0]), side_520093738[0]))) {
         F.line = 170;
         F.filename = "main.nim";
-        sendMove_520093873([109,111,118,101], selectedTile_520093752[0], p_520094208.tile);
+        sendMove_520093869([109,111,118,101], selectedTile_520093748[0], p_520094204.tile);
         F.line = 171;
-        pieceOf_520093767(selectedTile_520093752[0]).onMove(selectedTile_520093752[0], p_520094208.tile, theBoard_520093749[0]);
+        pieceOf_520093763(selectedTile_520093748[0]).onMove(selectedTile_520093748[0], p_520094204.tile, theBoard_520093745[0]);
         F.line = 172;
-        possibleMoves_520093757[0] = nimCopy(null, [], NTI1241514189);
+        possibleMoves_520093753[0] = nimCopy(null, [], NTI1241514189);
         F.line = 173;
-        var colontmp__520095021 = (-1);
+        var colontmp__520095017 = (-1);
         F.line = 173;
-        var colontmp__520095022 = (-1);
+        var colontmp__520095018 = (-1);
         F.line = 173;
-        selectedTile_520093752[0] = nimCopy(selectedTile_520093752[0], {Field0: colontmp__520095021, Field1: colontmp__520095022}, NTI1207959555);
+        selectedTile_520093748[0] = nimCopy(selectedTile_520093748[0], {Field0: colontmp__520095017, Field1: colontmp__520095018}, NTI1207959555);
         F.line = 174;
-        possibleTakes_520093762[0] = nimCopy(null, [], NTI1241514189);
+        possibleTakes_520093758[0] = nimCopy(null, [], NTI1241514189);
         }
         else {
-        if (((contains_1207959849(possibleTakes_520093762[0], p_520094208.tile) && turn_520093739[0]) && isColor_1207960106(pieceOf_520093767(selectedTile_520093752[0]), side_520093738[0]))) {
+        if (((contains_1207959849(possibleTakes_520093758[0], p_520094204.tile) && turn_520093739[0]) && isColor_1207960106(pieceOf_520093763(selectedTile_520093748[0]), side_520093738[0]))) {
         F.line = 176;
-        sendMove_520093873([116,97,107,101], selectedTile_520093752[0], p_520094208.tile);
+        sendMove_520093869([116,97,107,101], selectedTile_520093748[0], p_520094204.tile);
         F.line = 177;
-        pieceOf_520093767(selectedTile_520093752[0]).onTake(selectedTile_520093752[0], p_520094208.tile, theBoard_520093749[0]);
+        pieceOf_520093763(selectedTile_520093748[0]).onTake(selectedTile_520093748[0], p_520094204.tile, theBoard_520093745[0]);
         F.line = 178;
-        possibleTakes_520093762[0] = nimCopy(null, [], NTI1241514189);
+        possibleTakes_520093758[0] = nimCopy(null, [], NTI1241514189);
         F.line = 179;
-        var colontmp__520095023 = (-1);
+        var colontmp__520095019 = (-1);
         F.line = 179;
-        var colontmp__520095024 = (-1);
+        var colontmp__520095020 = (-1);
         F.line = 179;
-        selectedTile_520093752[0] = nimCopy(selectedTile_520093752[0], {Field0: colontmp__520095023, Field1: colontmp__520095024}, NTI1207959555);
+        selectedTile_520093748[0] = nimCopy(selectedTile_520093748[0], {Field0: colontmp__520095019, Field1: colontmp__520095020}, NTI1207959555);
         F.line = 180;
-        possibleMoves_520093757[0] = nimCopy(null, [], NTI1241514189);
+        possibleMoves_520093753[0] = nimCopy(null, [], NTI1241514189);
         }
         else {
-        if (!(isSelected_520093770(m_520094209, n_520094210))) {
+        if (!(isSelected_520093766(m_520094205, n_520094206))) {
         F.line = 182;
-        var colontmp__520095025 = n_520094210;
+        var colontmp__520095021 = n_520094206;
         F.line = 182;
-        var colontmp__520095026 = m_520094209;
+        var colontmp__520095022 = m_520094205;
         F.line = 182;
-        selectedTile_520093752[0] = nimCopy(selectedTile_520093752[0], {Field0: colontmp__520095025, Field1: colontmp__520095026}, NTI1207959555);
+        selectedTile_520093748[0] = nimCopy(selectedTile_520093748[0], {Field0: colontmp__520095021, Field1: colontmp__520095022}, NTI1207959555);
         F.line = 183;
-        possibleMoves_520093757[0] = nimCopy(null, getMovesOn_1207959624(p_520094208, theBoard_520093749[0]), NTI1207959562);
+        possibleMoves_520093753[0] = nimCopy(null, getMovesOn_1207959624(p_520094204, theBoard_520093745[0]), NTI1207959562);
         F.line = 184;
-        possibleTakes_520093762[0] = nimCopy(null, getTakesOn_1207959739(p_520094208, theBoard_520093749[0]), NTI1207959562);
+        possibleTakes_520093758[0] = nimCopy(null, getTakesOn_1207959739(p_520094204, theBoard_520093745[0]), NTI1207959562);
         }
         else {
           F.line = 186;
-          var colontmp__520095027 = (-1);
+          var colontmp__520095023 = (-1);
           F.line = 186;
-          var colontmp__520095028 = (-1);
+          var colontmp__520095024 = (-1);
           F.line = 186;
-          selectedTile_520093752[0] = nimCopy(selectedTile_520093752[0], {Field0: colontmp__520095027, Field1: colontmp__520095028}, NTI1207959555);
+          selectedTile_520093748[0] = nimCopy(selectedTile_520093748[0], {Field0: colontmp__520095023, Field1: colontmp__520095024}, NTI1207959555);
           F.line = 187;
-          possibleMoves_520093757[0] = nimCopy(null, [], NTI1241514189);
+          possibleMoves_520093753[0] = nimCopy(null, [], NTI1241514189);
           F.line = 188;
-          possibleTakes_520093762[0] = nimCopy(null, [], NTI1241514189);
+          possibleTakes_520093758[0] = nimCopy(null, [], NTI1241514189);
         }
         }}
       framePtr = F.prev;
@@ -11695,264 +11695,264 @@ function HEX3Aanonymous_520094266(__520094267, __520094268) {
     }
       var Temporary2;
 
-  var result_520094211 = null;
+  var result_520094207 = null;
 
   var F = {procname: "main.createTile", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 154;
     F.filename = "main.nim";
-    if ((modInt(addInt(mulInt(m_520094209, 7), n_520094210), 2) == 0)) {
+    if ((modInt(addInt(mulInt(m_520094205, 7), n_520094206), 2) == 0)) {
     Temporary1 = [119,104,105,116,101,84,105,108,101];
     }
     else {
     Temporary1 = [98,108,97,99,107,84,105,108,101];
     }
     
-    var class_520094212 = nimCopy(null, Temporary1, NTI33554449);
-    if ((isSelected_520093770(m_520094209, n_520094210) && contains_1207959849(possibleTakes_520093762[0], p_520094208.tile))) {
+    var class_520094208 = nimCopy(null, Temporary1, NTI33554449);
+    if ((isSelected_520093766(m_520094205, n_520094206) && contains_1207959849(possibleTakes_520093758[0], p_520094204.tile))) {
     F.line = 156;
-    class_520094212.push.apply(class_520094212, [32,99,97,110,45,116,97,107,101]);;
+    class_520094208.push.apply(class_520094208, [32,99,97,110,45,116,97,107,101]);;
     }
     else {
-    if (isSelected_520093770(m_520094209, n_520094210)) {
+    if (isSelected_520093766(m_520094205, n_520094206)) {
     F.line = 158;
-    class_520094212.push.apply(class_520094212, [32,115,101,108,101,99,116,101,100]);;
+    class_520094208.push.apply(class_520094208, [32,115,101,108,101,99,116,101,100]);;
     }
     else {
-    if (contains_1207959849(possibleMoves_520093757[0], p_520094208.tile)) {
+    if (contains_1207959849(possibleMoves_520093753[0], p_520094204.tile)) {
     F.line = 160;
-    class_520094212.push.apply(class_520094212, [32,99,97,110,45,109,111,118,101]);;
+    class_520094208.push.apply(class_520094208, [32,99,97,110,45,109,111,118,101]);;
     }
     else {
-    if (contains_1207959849(possibleTakes_520093762[0], p_520094208.tile)) {
+    if (contains_1207959849(possibleTakes_520093758[0], p_520094204.tile)) {
     F.line = 162;
-    class_520094212.push.apply(class_520094212, [32,99,97,110,45,116,97,107,101]);;
+    class_520094208.push.apply(class_520094208, [32,99,97,110,45,116,97,107,101]);;
     }
     else {
       F.line = 164;
-    class_520094212.push.apply(class_520094212, [32,117,110,115,101,108,101,99,116,101,100]);;
+    class_520094208.push.apply(class_520094208, [32,117,110,115,101,108,101,99,116,101,100]);;
     }
     }}}
     F.line = 166;
     F.line = 167;
-    var tmp_520094255 = tree_721421184(188, []);
+    var tmp_520094251 = tree_721421184(188, []);
     F.line = 167;
-    tmp_520094255.class = toJSStr(class_520094212);
+    tmp_520094251.class = toJSStr(class_520094208);
     F.line = 168;
-    addEventHandler_687867670(tmp_520094255, 0, HEX3Aanonymous_520094266, kxi__);
-    if (eqStrings(p_520094208.filePath, [])) {
+    addEventHandler_687867670(tmp_520094251, 0, HEX3Aanonymous_520094262, kxi__);
+    if (eqStrings(p_520094204.filePath, [])) {
     F.line = 191;
-    add_721421120(tmp_520094255, text_721421252(HEX24_1207960114(p_520094208)));
+    add_721421120(tmp_520094251, text_721421252(HEX24_1207960114(p_520094204)));
     }
     else {
       F.line = 193;
-      if (p_520094208.rotate) {
+      if (p_520094204.rotate) {
       Temporary2 = [114,111,116,97,116,101];
       }
       else {
       Temporary2 = [];
       }
       
-      var class_520094305 = nimCopy(null, Temporary2, NTI33554449);
+      var class_520094301 = nimCopy(null, Temporary2, NTI33554449);
       F.line = 194;
-      var tmp_520094265 = tree_721421184(76, []);
+      var tmp_520094261 = tree_721421184(76, []);
       F.line = 194;
-      setAttr_721421035(tmp_520094265, "src", toJSStr(([46,47,105,99,111,110,115,47] || []).concat(p_520094208.filePath || [])));
+      setAttr_721421035(tmp_520094261, "src", toJSStr(([46,47,105,99,111,110,115,47] || []).concat(p_520094204.filePath || [])));
       F.line = 194;
-      tmp_520094265.class = toJSStr(class_520094305);
+      tmp_520094261.class = toJSStr(class_520094301);
       F.line = 194;
-      add_721421120(tmp_520094255, tmp_520094265);
+      add_721421120(tmp_520094251, tmp_520094261);
     }
     
-    result_520094211 = tmp_520094255;
+    result_520094207 = tmp_520094251;
   framePtr = F.prev;
 
-  return result_520094211;
+  return result_520094207;
 
 }
 
-function createBoard_520094321() {
-  var result_520094322 = null;
+function createBoard_520094317() {
+  var result_520094318 = null;
 
   var F = {procname: "main.createBoard", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 197;
     F.filename = "main.nim";
     F.line = 197;
-    var tmp_520094323 = tree_721421184(180, []);
+    var tmp_520094319 = tree_721421184(180, []);
     Label1: {
       F.line = 198;
-      var i_520094331 = 0;
+      var i_520094327 = 0;
       F.line = 198;
-      var r_520094332 = [({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false})];
+      var r_520094328 = [({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false})];
       F.line = 164;
       F.filename = "iterators.nim";
-      var i_520095019 = 0;
+      var i_520095015 = 0;
       Label2: {
         F.line = 165;
           Label3: while (true) {
           if (!true) break Label3;
             F.line = 198;
             F.filename = "main.nim";
-            i_520094331 = i_520095019;
+            i_520094327 = i_520095015;
             F.line = 198;
-            r_520094332 = nimCopy(r_520094332, theBoard_520093749[0][chckIndx(i_520095019, 0, (theBoard_520093749[0]).length - 1)], NTI1207959558);
+            r_520094328 = nimCopy(r_520094328, theBoard_520093745[0][chckIndx(i_520095015, 0, (theBoard_520093745[0]).length - 1)], NTI1207959558);
             F.line = 199;
-            var tmp_520094324 = tree_721421184(187, []);
+            var tmp_520094320 = tree_721421184(187, []);
             Label4: {
               F.line = 200;
-              var j_520094339 = 0;
+              var j_520094335 = 0;
               F.line = 200;
-              var p_520094340 = ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false});
+              var p_520094336 = ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false});
               F.line = 164;
               F.filename = "iterators.nim";
-              var i_520095017 = 0;
+              var i_520095013 = 0;
               Label5: {
                 F.line = 165;
                   Label6: while (true) {
                   if (!true) break Label6;
                     F.line = 200;
                     F.filename = "main.nim";
-                    j_520094339 = i_520095017;
+                    j_520094335 = i_520095013;
                     F.line = 200;
-                    p_520094340 = nimCopy(p_520094340, r_520094332[chckIndx(i_520095017, 0, (r_520094332).length - 1)], NTI1207959567);
+                    p_520094336 = nimCopy(p_520094336, r_520094328[chckIndx(i_520095013, 0, (r_520094328).length - 1)], NTI1207959567);
                     F.line = 201;
-                    add_721421120(tmp_520094324, createTile_520094207(p_520094340, i_520094331, j_520094339));
-                    if ((7 <= i_520095017)) {
+                    add_721421120(tmp_520094320, createTile_520094203(p_520094336, i_520094327, j_520094335));
+                    if ((7 <= i_520095013)) {
                     F.line = 167;
                     F.filename = "iterators.nim";
                     break Label5;
                     }
                     
                     F.line = 13;
-                    i_520095017 += 1;
+                    i_520095013 += 1;
                   }
               };
             };
             F.line = 201;
             F.filename = "main.nim";
-            add_721421120(tmp_520094323, tmp_520094324);
-            if ((7 <= i_520095019)) {
+            add_721421120(tmp_520094319, tmp_520094320);
+            if ((7 <= i_520095015)) {
             F.line = 167;
             F.filename = "iterators.nim";
             break Label2;
             }
             
             F.line = 13;
-            i_520095019 += 1;
+            i_520095015 += 1;
           }
       };
     };
-    result_520094322 = tmp_520094323;
+    result_520094318 = tmp_520094319;
   framePtr = F.prev;
 
-  return result_520094322;
+  return result_520094318;
 
 }
 
-function reverseBoard_520094341() {
-  var result_520094342 = null;
+function reverseBoard_520094337() {
+  var result_520094338 = null;
 
   var F = {procname: "main.reverseBoard", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 204;
     F.filename = "main.nim";
     F.line = 204;
-    var tmp_520094343 = tree_721421184(44, []);
+    var tmp_520094339 = tree_721421184(44, []);
     Label1: {
       F.line = 205;
-      var i_520094350 = 0;
+      var i_520094346 = 0;
       F.line = 33;
       F.filename = "iterators_1.nim";
-      var res_520095033 = 7;
+      var res_520095029 = 7;
       Label2: {
         F.line = 34;
           Label3: while (true) {
-          if (!(0 <= res_520095033)) break Label3;
+          if (!(0 <= res_520095029)) break Label3;
             F.line = 205;
             F.filename = "main.nim";
-            i_520094350 = res_520095033;
+            i_520094346 = res_520095029;
             F.line = 206;
-            var tmp_520094344 = tree_721421184(187, []);
+            var tmp_520094340 = tree_721421184(187, []);
             Label4: {
               F.line = 207;
-              var j_520094356 = 0;
+              var j_520094352 = 0;
               F.line = 33;
               F.filename = "iterators_1.nim";
-              var res_520095031 = 7;
+              var res_520095027 = 7;
               Label5: {
                 F.line = 34;
                   Label6: while (true) {
-                  if (!(0 <= res_520095031)) break Label6;
+                  if (!(0 <= res_520095027)) break Label6;
                     F.line = 207;
                     F.filename = "main.nim";
-                    j_520094356 = res_520095031;
+                    j_520094352 = res_520095027;
                     F.line = 208;
-                    add_721421120(tmp_520094344, createTile_520094207(theBoard_520093749[0][chckIndx(i_520094350, 0, (theBoard_520093749[0]).length - 1)][chckIndx(j_520094356, 0, (theBoard_520093749[0][chckIndx(i_520094350, 0, (theBoard_520093749[0]).length - 1)]).length - 1)], i_520094350, j_520094356));
+                    add_721421120(tmp_520094340, createTile_520094203(theBoard_520093745[0][chckIndx(i_520094346, 0, (theBoard_520093745[0]).length - 1)][chckIndx(j_520094352, 0, (theBoard_520093745[0][chckIndx(i_520094346, 0, (theBoard_520093745[0]).length - 1)]).length - 1)], i_520094346, j_520094352));
                     F.line = 39;
                     F.filename = "iterators_1.nim";
-                    res_520095031 = subInt(res_520095031, 1);
+                    res_520095027 = subInt(res_520095027, 1);
                   }
               };
             };
             F.line = 208;
             F.filename = "main.nim";
-            add_721421120(tmp_520094343, tmp_520094344);
+            add_721421120(tmp_520094339, tmp_520094340);
             F.line = 39;
             F.filename = "iterators_1.nim";
-            res_520095033 = subInt(res_520095033, 1);
+            res_520095029 = subInt(res_520095029, 1);
           }
       };
     };
-    result_520094342 = tmp_520094343;
+    result_520094338 = tmp_520094339;
   framePtr = F.prev;
 
-  return result_520094342;
+  return result_520094338;
 
 }
 
-function createGame_520094607() {
-  var result_520094608 = null;
+function createGame_520094603() {
+  var result_520094604 = null;
 
   var F = {procname: "main.createGame", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 333;
     F.filename = "main.nim";
     F.line = 333;
-    var tmp_520094609 = tree_721421184(44, []);
+    var tmp_520094605 = tree_721421184(44, []);
     F.line = 333;
-    tmp_520094609.class = "main";
+    tmp_520094605.class = "main";
     F.line = 334;
-    var tmp_520094610 = tree_721421184(44, []);
+    var tmp_520094606 = tree_721421184(44, []);
     F.line = 334;
-    tmp_520094610.class = "column-scroll";
+    tmp_520094606.class = "column-scroll";
     Label1: {
       F.line = 335;
-      var p_520094615 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
+      var p_520094611 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
       F.line = 247;
       F.filename = "iterators.nim";
-      var colontmp__520094994 = [];
+      var colontmp__520094990 = [];
       F.line = 335;
       F.filename = "main.nim";
-      colontmp__520094994 = replaceAnySynergies_1426064244(myDrafts_520093740[0]);
+      colontmp__520094990 = replaceAnySynergies_1426064244(myDrafts_520093740[0]);
       F.line = 249;
       F.filename = "iterators.nim";
-      var i_520094995 = 0;
+      var i_520094991 = 0;
       F.line = 250;
-      var L_520094996 = (colontmp__520094994).length;
+      var L_520094992 = (colontmp__520094990).length;
       Label2: {
         F.line = 251;
           Label3: while (true) {
-          if (!(i_520094995 < L_520094996)) break Label3;
+          if (!(i_520094991 < L_520094992)) break Label3;
             F.line = 335;
             F.filename = "main.nim";
-            p_520094615 = colontmp__520094994[chckIndx(i_520094995, 0, (colontmp__520094994).length - 1)];
+            p_520094611 = colontmp__520094990[chckIndx(i_520094991, 0, (colontmp__520094990).length - 1)];
             F.line = 336;
-            add_721421120(tmp_520094610, createPowerSummary_520094599(p_520094615));
+            add_721421120(tmp_520094606, createPowerSummary_520094595(p_520094611));
             F.line = 13;
             F.filename = "iterators.nim";
-            i_520094995 += 1;
-            if (!(((colontmp__520094994).length == L_520094996))) {
+            i_520094991 += 1;
+            if (!(((colontmp__520094990).length == L_520094992))) {
             F.line = 254;
             failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
             }
@@ -11962,47 +11962,47 @@ function createGame_520094607() {
     };
     F.line = 336;
     F.filename = "main.nim";
-    add_721421120(tmp_520094609, tmp_520094610);
+    add_721421120(tmp_520094605, tmp_520094606);
     if ((side_520093738[0] == 1)) {
     F.line = 337;
-    add_721421120(tmp_520094609, createBoard_520094321());
+    add_721421120(tmp_520094605, createBoard_520094317());
     }
     else {
       F.line = 337;
-    add_721421120(tmp_520094609, reverseBoard_520094341());
+    add_721421120(tmp_520094605, reverseBoard_520094337());
     }
     
     F.line = 338;
-    var tmp_520094611 = tree_721421184(44, []);
+    var tmp_520094607 = tree_721421184(44, []);
     F.line = 338;
-    tmp_520094611.class = "column-scroll";
+    tmp_520094607.class = "column-scroll";
     Label4: {
       F.line = 339;
-      var p_520094623 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
+      var p_520094619 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
       F.line = 247;
       F.filename = "iterators.nim";
-      var colontmp__520094999 = [];
+      var colontmp__520094995 = [];
       F.line = 339;
       F.filename = "main.nim";
-      colontmp__520094999 = replaceAnySynergies_1426064244(opponentDrafts_520093741[0]);
+      colontmp__520094995 = replaceAnySynergies_1426064244(opponentDrafts_520093741[0]);
       F.line = 249;
       F.filename = "iterators.nim";
-      var i_520095000 = 0;
+      var i_520094996 = 0;
       F.line = 250;
-      var L_520095001 = (colontmp__520094999).length;
+      var L_520094997 = (colontmp__520094995).length;
       Label5: {
         F.line = 251;
           Label6: while (true) {
-          if (!(i_520095000 < L_520095001)) break Label6;
+          if (!(i_520094996 < L_520094997)) break Label6;
             F.line = 339;
             F.filename = "main.nim";
-            p_520094623 = colontmp__520094999[chckIndx(i_520095000, 0, (colontmp__520094999).length - 1)];
+            p_520094619 = colontmp__520094995[chckIndx(i_520094996, 0, (colontmp__520094995).length - 1)];
             F.line = 340;
-            add_721421120(tmp_520094611, createPowerSummary_520094599(p_520094623));
+            add_721421120(tmp_520094607, createPowerSummary_520094595(p_520094619));
             F.line = 13;
             F.filename = "iterators.nim";
-            i_520095000 += 1;
-            if (!(((colontmp__520094999).length == L_520095001))) {
+            i_520094996 += 1;
+            if (!(((colontmp__520094995).length == L_520094997))) {
             F.line = 254;
             failedAssertImpl_268435541(makeNimstrLit("/Users/ajayvallurupalli/.choosenim/toolchains/nim-2.0.8/lib/system/iterators.nim(254, 11) `len(a) == L` the length of the seq changed while iterating over it"));
             }
@@ -12012,56 +12012,56 @@ function createGame_520094607() {
     };
     F.line = 340;
     F.filename = "main.nim";
-    add_721421120(tmp_520094609, tmp_520094611);
-    result_520094608 = tmp_520094609;
+    add_721421120(tmp_520094605, tmp_520094607);
+    result_520094604 = tmp_520094605;
   framePtr = F.prev;
 
-  return result_520094608;
+  return result_520094604;
 
 }
 
-function main_520094624() {
-  var result_520094625 = null;
+function main_520094620() {
+  var result_520094621 = null;
 
   var F = {procname: "main.main", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     F.line = 343;
     F.filename = "main.nim";
     F.line = 343;
-    var tmp_520094626 = tree_721421184(44, []);
+    var tmp_520094622 = tree_721421184(44, []);
     F.line = 343;
-    tmp_520094626.class = "main";
+    tmp_520094622.class = "main";
     F.line = 344;
-    switch (currentScreen_520093763[0]) {
+    switch (currentScreen_520093759[0]) {
     case 0:
       F.line = 345;
-      add_721421120(tmp_520094626, createLobby_520094357());
+      add_721421120(tmp_520094622, createLobby_520094353());
       break;
     case 1:
       F.line = 346;
-      add_721421120(tmp_520094626, createRoomMenu_520094437());
+      add_721421120(tmp_520094622, createRoomMenu_520094433());
       break;
     case 2:
       F.line = 347;
-      add_721421120(tmp_520094626, createJoinMenu_520094442());
+      add_721421120(tmp_520094622, createJoinMenu_520094438());
       break;
     case 4:
       F.line = 348;
-      add_721421120(tmp_520094626, createOptionsMenu_520094457());
+      add_721421120(tmp_520094622, createOptionsMenu_520094453());
       break;
     case 5:
       F.line = 349;
-      add_721421120(tmp_520094626, createDraftMenu_520094592());
+      add_721421120(tmp_520094622, createDraftMenu_520094588());
       break;
     case 3:
       F.line = 350;
-      add_721421120(tmp_520094626, createGame_520094607());
+      add_721421120(tmp_520094622, createGame_520094603());
       break;
     }
-    result_520094625 = tmp_520094626;
+    result_520094621 = tmp_520094622;
   framePtr = F.prev;
 
-  return result_520094625;
+  return result_520094621;
 
 }
 var F = {procname: "module main", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
@@ -12080,28 +12080,28 @@ var myDrafts_520093740 = [[]];
 F.line = 45;
 var opponentDrafts_520093741 = [[]];
 F.line = 46;
-var draftOptions_520093746 = [[]];
+var draftOptions_520093742 = [[]];
 F.line = 47;
-var draftChoices_520093747 = [3];
+var draftChoices_520093743 = [3];
 F.line = 48;
-var drafts_520093748 = [3];
+var drafts_520093744 = [3];
 F.line = 50;
-var theBoard_520093749 = [startingBoard_1224737029()];
+var theBoard_520093745 = [startingBoard_1224737029()];
 F.line = 51;
-var selectedTile_520093752 = [nimCopy(null, {Field0: (-1), Field1: (-1)}, NTI1207959555)];
+var selectedTile_520093748 = [nimCopy(null, {Field0: (-1), Field1: (-1)}, NTI1207959555)];
 F.line = 52;
-var possibleMoves_520093757 = [[]];
+var possibleMoves_520093753 = [[]];
 F.line = 53;
-var possibleTakes_520093762 = [[]];
+var possibleTakes_520093758 = [[]];
 F.line = 54;
-var currentScreen_520093763 = [0];
+var currentScreen_520093759 = [0];
 F.line = 55;
-var gameMode_520093764 = [0];
+var gameMode_520093760 = [0];
 F.line = 58;
-executeOn_1426064029(myDrafts_520093740[0], 1, side_520093738[0], theBoard_520093749[0]);
+executeOn_1426064029(myDrafts_520093740[0], 1, side_520093738[0], theBoard_520093745[0]);
 F.line = 59;
-executeOn_1426064029(opponentDrafts_520093741[0], 0, side_520093738[0], theBoard_520093749[0]);
-setRenderer_687867621(main_520094624, "ROOT", null);
+executeOn_1426064029(opponentDrafts_520093741[0], 0, side_520093738[0], theBoard_520093745[0]);
+setRenderer_687867621(main_520094620, "ROOT", null);
 framePtr = F.prev;
 var F = {procname: "module main", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
 framePtr = F;
