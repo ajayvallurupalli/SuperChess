@@ -454,6 +454,49 @@ const headStart: Power = Power(
                             b[i][j].moves &= whiteForwardTwiceMoves
 )
 
+const queenTrade: Power = Power(
+    name: "Patriarchy",
+    tier: Rare,
+    priority: 20,
+    description: "The patriarchy continues. Both queens mysteriously die.",
+    icon: "blackqueen.svg",
+    onStart:
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == queen:
+                        b[i][j] = Piece(item: none, tile: b[i][j].tile)
+)
+
+const superPawnPower: Power = Power(
+    name: "Super Pawn",
+    tier: UltraRare,
+    rarity: 0,
+    priority: 15,
+    description: "You have insane pawns. Please don't sacrifice them.",
+    icon: "blackpawn.svg",
+    onStart:
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            headStart.onStart(side, viewSide, b)
+            backStep.onStart(side, viewSide, b)
+            putInTheWork.onStart(side, viewSide, b)
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == pawn and b[i][j].isColor(side):
+                        if b[i][j].color == black:
+                            b[i][j].takes &= blackForwardTwiceTakes
+                        elif b[i][j].color == white:
+                            b[i][j].takes &= whiteForwardTwiceTakes
+)
+
+const superPawn: Synergy = (
+    power: superPawnPower,
+    rarity: 0,
+    requirements: @[backStep.name, headStart.name],
+    replacements: @[backStep.name, headStart.name],
+    index: -1    
+)
+
 registerPower(empress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
@@ -473,7 +516,9 @@ registerPower(sacrifice)
 registerPower(calvary)
 registerPower(backstep)
 registerPower(headStart)
+registerPower(queenTrade)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(masochistEmpress, true, true)
 registerSynergy(exodia, true, false)
+registerSynergy(superPawn, true)

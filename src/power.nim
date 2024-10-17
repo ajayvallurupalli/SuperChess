@@ -63,10 +63,10 @@ proc registerSynergy*(s: Synergy, secret: bool = false, secretSecret = false) =
     x.index = x.power.index
 
     if secret and not secretSecret:
-        let str = s.replacements.foldr(a & " + " & b)
+        let str = s.requirements.foldr(a & " + " & b)
         x.power.description = "Secret synergy! (" & str & ") -- "  & x.power.description
     elif not secret:
-        let str = s.replacements.foldr(a & " + " & b)
+        let str = s.requirements.foldr(a & " + " & b)
         x.power.description = "Synergy! (" & str & ") "  & x.power.description   
 
     powers.add(x.power)
