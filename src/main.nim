@@ -7,22 +7,24 @@ from sequtils import foldr, mapIt
 Check if a handshake is needed when drafting, or if no data would be lost
 ---add priotirty sustem to powers to fix conflicting issues
 make castling a move instead so that the highlighted tile is green not yellow
-add invisible borders to prevent odd resizing when clicking
+---add invisible borders to prevent odd resizing when clicking
 lots of playtesting
-maybe rework promotion to an onpromotion: onAction type thing
+---maybe rework promotion to an onpromotion: onAction type thing
     it would be more work, but it could allow for cool sunergies
     instead of restricting extra pieces
     but it would also require a canPromote function
     maybe it would be best to just use synergies 
     as long as it is decently robust by replacing requirements (see below)
-also make synergies cancel their replacements in executeOn
+---also make synergies cancel their replacements in executeOn
 also make whentake return a flag for if the take succeeded
     so that base function knows to increment piecestaken and do stuff
     also rename it to whenTaken, not sure why that hasn't happened yet
 maybe change pieceMove and pieceSwap to have board be the first argument
-change power.icon to only require file name and default include path to icons
+---change power.icon to only require file name and default include path to icons
 and give options for white and black
 and make black options for shogi pieces
+---increase max height for drafts 
+stop queen from taking itself with step on me
 
 ]#
 

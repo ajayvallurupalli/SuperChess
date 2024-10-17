@@ -3980,7 +3980,7 @@ function registerSynergy_1426063425(s_1426063426, secret_1426063427, secretSecre
     var str_1426063481 = nimCopy(null, resultHEX60gensym4_1426063472, NTI33554449);
     F.line = 68;
     F.filename = "power.nim";
-    x_1426063429.Field0.description = nimCopy(null, ([83,110,101,114,103,121,33,32,40] || []).concat(str_1426063481 || [],[41,32] || [],x_1426063429.Field0.description || []), NTI33554449);
+    x_1426063429.Field0.description = nimCopy(null, ([83,121,110,101,114,103,121,33,32,40] || []).concat(str_1426063481 || [],[41,32] || [],x_1426063429.Field0.description || []), NTI33554449);
     }
     }
     F.line = 70;
@@ -9210,7 +9210,7 @@ function draft_520093879(allDrafts_520093884, drafter_520093889) {
   var F = {procname: "main.draft", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
     if ((gameMode_520093764[0] == 2)) {
-    F.line = 85;
+    F.line = 87;
     F.filename = "main.nim";
     draftOptions_520093746[0] = nimCopy(null, draftRandomPower_1426064000(allDrafts_520093884, drafter_520093889, draftChoices_520093747[0], {Field0: 60, Field1: 30, Field2: 9, Field3: 1}), NTI1426063795);
     }
@@ -9560,7 +9560,7 @@ function pieceOf_520093767(tile_520093768) {
 
   var F = {procname: "main.pieceOf", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 62;
+    F.line = 64;
     F.filename = "main.nim";
     result_520093769 = nimCopy(result_520093769, theBoard_520093749[0][chckIndx(tile_520093768.Field1, 0, (theBoard_520093749[0]).length - 1)][chckIndx(tile_520093768.Field0, 0, (theBoard_520093749[0][chckIndx(tile_520093768.Field1, 0, (theBoard_520093749[0]).length - 1)]).length - 1)], NTI1207959567);
   framePtr = F.prev;
@@ -9572,26 +9572,26 @@ function pieceOf_520093767(tile_520093768) {
 function otherMove_520093774(d_520093775) {
   var F = {procname: "main.otherMove", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 68;
+    F.line = 70;
     F.filename = "main.nim";
     var data_520093776 = nsuSplitString(d_520093775, [44], (-1));
-    F.line = 69;
-    var mover_520093777 = nimCopy(null, {Field0: nsuParseInt(data_520093776[chckIndx(2, 0, (data_520093776).length - 1)]), Field1: nsuParseInt(data_520093776[chckIndx(1, 0, (data_520093776).length - 1)])}, NTI1207959555);
-    F.line = 70;
-    var moveTo_520093778 = nimCopy(null, {Field0: nsuParseInt(data_520093776[chckIndx(4, 0, (data_520093776).length - 1)]), Field1: nsuParseInt(data_520093776[chckIndx(3, 0, (data_520093776).length - 1)])}, NTI1207959555);
     F.line = 71;
+    var mover_520093777 = nimCopy(null, {Field0: nsuParseInt(data_520093776[chckIndx(2, 0, (data_520093776).length - 1)]), Field1: nsuParseInt(data_520093776[chckIndx(1, 0, (data_520093776).length - 1)])}, NTI1207959555);
+    F.line = 72;
+    var moveTo_520093778 = nimCopy(null, {Field0: nsuParseInt(data_520093776[chckIndx(4, 0, (data_520093776).length - 1)]), Field1: nsuParseInt(data_520093776[chckIndx(3, 0, (data_520093776).length - 1)])}, NTI1207959555);
+    F.line = 73;
     rawEcho(HEX24_520093821(mover_520093777), HEX24_520093821(moveTo_520093778));
     if (eqStrings(data_520093776[chckIndx(0, 0, (data_520093776).length - 1)], [32,109,111,118,101])) {
-    F.line = 73;
+    F.line = 75;
     pieceOf_520093767(mover_520093777).onMove(mover_520093777, moveTo_520093778, theBoard_520093749[0]);
     }
     else {
     if (eqStrings(data_520093776[chckIndx(0, 0, (data_520093776).length - 1)], [32,116,97,107,101])) {
-    F.line = 75;
+    F.line = 77;
     pieceOf_520093767(mover_520093777).onTake(mover_520093777, moveTo_520093778, theBoard_520093749[0]);
     }
     }
-    F.line = 76;
+    F.line = 78;
     turn_520093739[0] = !(turn_520093739[0]);
   framePtr = F.prev;
 
@@ -9601,52 +9601,52 @@ function otherMove_520093774(d_520093775) {
 function hostLogic_520093895(d_520093896, m_520093897) {
   var F = {procname: "main.hostLogic", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 88;
+    F.line = 90;
     F.filename = "main.nim";
     rawEcho(reprEnum(m_520093897, NTI1308622853), [32,111,102,32], d_520093896, [10]);
-    F.line = 89;
+    F.line = 91;
     switch (m_520093897) {
     case 0:
-      F.line = 91;
+      F.line = 93;
       var colontmp__520094877 = true;
-      F.line = 91;
+      F.line = 93;
       var colontmp__520094878 = toJSStr(d_520093896);
-      F.line = 91;
+      F.line = 93;
       roomId_520093731[0] = nimCopy(roomId_520093731[0], {Field0: colontmp__520094877, Field1: colontmp__520094878}, NTI520093703);
-      F.line = 92;
+      F.line = 94;
       side_520093738[0] = 1;
       break;
     case 1:
-      F.line = 94;
+      F.line = 96;
       peer_520093737[0].Field0("options:deciding");
-      F.line = 95;
+      F.line = 97;
       currentScreen_520093763[0] = 4;
       break;
     case 4:
-      F.line = 97;
+      F.line = 99;
       var x_520093901 = nsuSplitString(d_520093896, [44], (-1));
       if (eqStrings(x_520093901[chckIndx(0, 0, (x_520093901).length - 1)], [109,121])) {
-      F.line = 99;
+      F.line = 101;
       turn_520093739[0] = true;
-      F.line = 100;
+      F.line = 102;
       var Temporary1 = nimCopy(null, powers_1426063418[0][chckIndx(nsuParseInt(x_520093901[chckIndx(1, 0, (x_520093901).length - 1)]), 0, (powers_1426063418[0]).length - 1)], NTI1426063365);
       opponentDrafts_520093741[0].push(Temporary1);;
       if ((1 <= drafts_520093748[0])) {
-      F.line = 102;
+      F.line = 104;
       drafts_520093748[0] = subInt(drafts_520093748[0], 1);
-      F.line = 103;
+      F.line = 105;
       draft_520093879(HEX26_1426063962(myDrafts_520093740[0], opponentDrafts_520093741[0]), myDrafts_520093740[0]);
       }
       else {
-        F.line = 105;
-        executeOn_1426064019(myDrafts_520093740[0], 1, side_520093738[0], theBoard_520093749[0]);
-        F.line = 106;
-        executeOn_1426064019(opponentDrafts_520093741[0], 0, side_520093738[0], theBoard_520093749[0]);
         F.line = 107;
-        peer_520093737[0].Field0("handshake:gamestart");
+        executeOn_1426064019(myDrafts_520093740[0], 1, side_520093738[0], theBoard_520093749[0]);
         F.line = 108;
-        currentScreen_520093763[0] = 3;
+        executeOn_1426064019(opponentDrafts_520093741[0], 0, side_520093738[0], theBoard_520093749[0]);
         F.line = 109;
+        peer_520093737[0].Field0("handshake:gamestart");
+        F.line = 110;
+        currentScreen_520093763[0] = 3;
+        F.line = 111;
         Label2: {
           F.line = 1024;
           F.filename = "sequtils.nim";
@@ -9668,7 +9668,7 @@ function hostLogic_520093895(d_520093896, m_520093897) {
                   F.line = 1026;
                   F.filename = "sequtils.nim";
                   it_520093946 = myDrafts_520093740[0][chckIndx(i_520094881, 0, (myDrafts_520093740[0]).length - 1)];
-                  F.line = 109;
+                  F.line = 111;
                   F.filename = "main.nim";
                   resultHEX60gensym15_520093942[chckIndx(iHEX60gensym15_520093935, 0, (resultHEX60gensym15_520093942).length - 1)] = nimCopy(null, it_520093946.name, NTI33554449);
                   F.line = 1028;
@@ -9707,7 +9707,7 @@ function hostLogic_520093895(d_520093896, m_520093897) {
                   F.line = 1026;
                   F.filename = "sequtils.nim";
                   it_520094066 = opponentDrafts_520093741[0][chckIndx(i_520094886, 0, (opponentDrafts_520093741[0]).length - 1)];
-                  F.line = 109;
+                  F.line = 111;
                   F.filename = "main.nim";
                   resultHEX60gensym22_520094062[chckIndx(iHEX60gensym22_520094055, 0, (resultHEX60gensym22_520094062).length - 1)] = nimCopy(null, it_520094066.name, NTI33554449);
                   F.line = 1028;
@@ -9732,16 +9732,16 @@ function hostLogic_520093895(d_520093896, m_520093897) {
       
       break;
     case 2:
-      F.line = 112;
+      F.line = 114;
       F.filename = "main.nim";
       otherMove_520093774(d_520093896);
       break;
     default: 
-      F.line = 113;
+      F.line = 115;
       rawEcho([117,110,105,109,112,108,101,109,101,110,116,101,100]);
       break;
     }
-    F.line = 114;
+    F.line = 116;
     redraw_687867377(kxi__);
   framePtr = F.prev;
 
@@ -9808,7 +9808,7 @@ function createLobby_520094353() {
 function HEX3Aanonymous_520094360(__520094361, __520094362) {
       var F = {procname: "createLobby.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
-        F.line = 212;
+        F.line = 214;
         F.filename = "main.nim";
         currentScreen_520093763[0] = 2;
       framePtr = F.prev;
@@ -9820,14 +9820,14 @@ function HEX3Aanonymous_520094363(__520094364, __520094365) {
       var F = {procname: "createLobby.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
         if (!((peer_520093737[0].Field1 == null))) {
-        F.line = 216;
+        F.line = 218;
         F.filename = "main.nim";
         peer_520093737[0].Field1();
         }
         
-        F.line = 217;
-        peer_520093737[0] = nimCopy(peer_520093737[0], newHost_1308622891(hostLogic_520093895), NTI520093705);
         F.line = 219;
+        peer_520093737[0] = nimCopy(peer_520093737[0], newHost_1308622891(hostLogic_520093895), NTI520093705);
+        F.line = 221;
         currentScreen_520093763[0] = 1;
       framePtr = F.prev;
 
@@ -9838,45 +9838,45 @@ function HEX3Aanonymous_520094363(__520094364, __520094365) {
 
   var F = {procname: "main.createLobby", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 207;
-    F.filename = "main.nim";
-    F.line = 207;
-    var tmp_520094355 = tree_721421184(44, []);
-    F.line = 207;
-    tmp_520094355.class = "column";
-    F.line = 208;
-    var tmp_520094356 = tree_721421184(44, []);
-    F.line = 208;
-    tmp_520094356.class = "main";
     F.line = 209;
-    var tmp_520094357 = tree_721421184(195, []);
+    F.filename = "main.nim";
+    F.line = 209;
+    var tmp_520094355 = tree_721421184(44, []);
+    F.line = 209;
+    tmp_520094355.class = "column";
     F.line = 210;
-    add_721421120(tmp_520094357, text_721421252([74,111,105,110,32,97,32,82,111,111,109]));
+    var tmp_520094356 = tree_721421184(44, []);
+    F.line = 210;
+    tmp_520094356.class = "main";
     F.line = 211;
-    addEventHandler_687867670(tmp_520094357, 0, HEX3Aanonymous_520094360, kxi__);
-    F.line = 207;
-    add_721421120(tmp_520094356, tmp_520094357);
+    var tmp_520094357 = tree_721421184(195, []);
+    F.line = 212;
+    add_721421120(tmp_520094357, text_721421252([74,111,105,110,32,97,32,82,111,111,109]));
     F.line = 213;
+    addEventHandler_687867670(tmp_520094357, 0, HEX3Aanonymous_520094360, kxi__);
+    F.line = 209;
+    add_721421120(tmp_520094356, tmp_520094357);
+    F.line = 215;
     var tmp_520094358 = tree_721421184(195, []);
-    F.line = 214;
+    F.line = 216;
     addEventHandler_687867670(tmp_520094358, 0, HEX3Aanonymous_520094363, kxi__);
-    F.line = 220;
+    F.line = 222;
     add_721421120(tmp_520094358, text_721421252([67,114,101,97,116,101,32,97,32,82,111,111,109]));
-    F.line = 220;
+    F.line = 222;
     add_721421120(tmp_520094356, tmp_520094358);
-    F.line = 220;
+    F.line = 222;
     add_721421120(tmp_520094355, tmp_520094356);
-    F.line = 221;
+    F.line = 223;
     var tmp_520094359 = tree_721421184(45, []);
-    F.line = 221;
+    F.line = 223;
     setAttr_721421035(tmp_520094359, "href", "https://docs.google.com/forms/d/e/1FAIpQLScSidB_dbpKlsWopscLZZn4ZJP_5U9gqb0WyMJ4-bN_yAruSg/viewform?usp=sf_link");
-    F.line = 221;
+    F.line = 223;
     setAttr_721421035(tmp_520094359, "target", "_blank");
-    F.line = 221;
+    F.line = 223;
     setAttr_721421035(tmp_520094359, "rel", "noopener noreferrer");
-    F.line = 222;
+    F.line = 224;
     add_721421120(tmp_520094359, text_721421252([70,101,101,100,98,97,99,107,32,102,111,114,109,33,32,80,108,101,97,115,101,32,102,105,108,108,32,111,117,116,33]));
-    F.line = 222;
+    F.line = 224;
     add_721421120(tmp_520094355, tmp_520094359);
     result_520094354 = tmp_520094355;
   framePtr = F.prev;
@@ -9904,28 +9904,28 @@ function createRoomMenu_520094433() {
 
   var F = {procname: "main.createRoomMenu", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 225;
+    F.line = 227;
     F.filename = "main.nim";
-    F.line = 225;
+    F.line = 227;
     var tmp_520094435 = tree_721421184(44, []);
-    F.line = 225;
+    F.line = 227;
     tmp_520094435.class = "main";
     if (!(roomId_520093731[0].Field0)) {
-    F.line = 227;
+    F.line = 229;
     add_721421120(tmp_520094435, text_721421252([67,114,101,97,116,105,110,103,32,114,111,111,109,32,107,101,121]));
     }
     else {
-      F.line = 229;
+      F.line = 231;
       var tmp_520094436 = tree_721421184(22, []);
-      F.line = 230;
-      add_721421120(tmp_520094436, text_721421252([82,111,111,109,32,75,101,121,58,32]));
-      F.line = 230;
-      add_721421120(tmp_520094435, tmp_520094436);
-      F.line = 231;
-      var tmp_520094437 = tree_721421184(72, []);
-      F.line = 231;
-      add_721421120(tmp_520094435, tmp_520094437);
       F.line = 232;
+      add_721421120(tmp_520094436, text_721421252([82,111,111,109,32,75,101,121,58,32]));
+      F.line = 232;
+      add_721421120(tmp_520094435, tmp_520094436);
+      F.line = 233;
+      var tmp_520094437 = tree_721421184(72, []);
+      F.line = 233;
+      add_721421120(tmp_520094435, tmp_520094437);
+      F.line = 234;
       add_721421120(tmp_520094435, text_721421255(roomId_520093731[0].Field1));
     }
     
@@ -10052,15 +10052,15 @@ function validateNotEmpty_520094201(field_520094202) {
 function HEX3Aanonymous_520094205() {
       var F = {procname: "validateNotEmpty.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
-        F.line = 145;
+        F.line = 147;
         F.filename = "main.nim";
         var x_520094206 = getInputText_687867761(getVNodeById_687866162(field_520094202, kxi__));
         if (((x_520094206 == null) || (x_520094206 == ""))) {
-        F.line = 147;
+        F.line = 149;
         setError_1476395050(field_520094202, (field_520094202 + " must not be empty"));
         }
         else {
-          F.line = 149;
+          F.line = 151;
         setError_1476395050(field_520094202, "");
         }
         
@@ -10073,7 +10073,7 @@ function HEX3Aanonymous_520094205() {
 
   var F = {procname: "main.validateNotEmpty", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 144;
+    F.line = 146;
     F.filename = "main.nim";
     result_520094204 = HEX3Aanonymous_520094205;
   framePtr = F.prev;
@@ -10211,51 +10211,51 @@ function HEX5BHEX5D_520094154(s_520094158, x_520094159) {
 function joinLogic_520094130(d_520094131, m_520094132) {
   var F = {procname: "main.joinLogic", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 117;
+    F.line = 119;
     F.filename = "main.nim";
     rawEcho(reprEnum(m_520094132, NTI1308622853), [32,111,102,32], d_520094131, [10]);
-    F.line = 118;
+    F.line = 120;
     switch (m_520094132) {
     case 3:
-      F.line = 120;
-      currentScreen_520093763[0] = 4;
-      F.line = 121;
-      side_520093738[0] = 0;
       F.line = 122;
+      currentScreen_520093763[0] = 4;
+      F.line = 123;
+      side_520093738[0] = 0;
+      F.line = 124;
       turn_520093739[0] = false;
       break;
     case 1:
-      F.line = 124;
-      executeOn_1426064019(myDrafts_520093740[0], 0, side_520093738[0], theBoard_520093749[0]);
-      F.line = 125;
-      executeOn_1426064019(opponentDrafts_520093741[0], 1, side_520093738[0], theBoard_520093749[0]);
       F.line = 126;
+      executeOn_1426064019(myDrafts_520093740[0], 0, side_520093738[0], theBoard_520093749[0]);
+      F.line = 127;
+      executeOn_1426064019(opponentDrafts_520093741[0], 1, side_520093738[0], theBoard_520093749[0]);
+      F.line = 128;
       currentScreen_520093763[0] = 3;
       break;
     case 4:
-      F.line = 128;
+      F.line = 130;
       var x_520094136 = nsuSplitString(d_520094131, [44], (-1));
       if (eqStrings(d_520094131, [115,116,97,114,116])) {
-      F.line = 130;
+      F.line = 132;
       currentScreen_520093763[0] = 5;
       }
       else {
       if (eqStrings(x_520094136[chckIndx(0, 0, (x_520094136).length - 1)], [109,121])) {
-      F.line = 132;
+      F.line = 134;
       var Temporary1 = nimCopy(null, powers_1426063418[0][chckIndx(nsuParseInt(x_520094136[chckIndx(1, 0, (x_520094136).length - 1)]), 0, (powers_1426063418[0]).length - 1)], NTI1426063365);
       opponentDrafts_520093741[0].push(Temporary1);;
       }
       else {
       if (eqStrings(x_520094136[chckIndx(0, 0, (x_520094136).length - 1)], [103,111])) {
-      F.line = 134;
+      F.line = 136;
       draftOptions_520093746[0] = nimCopy(null, [], NTI1426063625);
       Label2: {
-        F.line = 135;
+        F.line = 137;
         var i_520094180 = [];
         F.line = 247;
         F.filename = "iterators.nim";
         var colontmp__520094950 = [];
-        F.line = 135;
+        F.line = 137;
         F.filename = "main.nim";
         colontmp__520094950 = HEX5BHEX5D_520094154(x_520094136, HEX2EHEX2E_1006633065(1, 1));
         F.line = 249;
@@ -10267,10 +10267,10 @@ function joinLogic_520094130(d_520094131, m_520094132) {
           F.line = 251;
             Label4: while (true) {
             if (!(i_520094951 < L_520094952)) break Label4;
-              F.line = 135;
+              F.line = 137;
               F.filename = "main.nim";
               i_520094180 = colontmp__520094950[chckIndx(i_520094951, 0, (colontmp__520094950).length - 1)];
-              F.line = 136;
+              F.line = 138;
               var Temporary5 = nimCopy(null, powers_1426063418[0][chckIndx(nsuParseInt(i_520094180), 0, (powers_1426063418[0]).length - 1)], NTI1426063365);
               draftOptions_520093746[0].push(Temporary5);;
               F.line = 13;
@@ -10284,22 +10284,22 @@ function joinLogic_520094130(d_520094131, m_520094132) {
             }
         };
       };
-      F.line = 138;
+      F.line = 140;
       F.filename = "main.nim";
       turn_520093739[0] = true;
       }
       }}
       break;
     case 2:
-      F.line = 139;
+      F.line = 141;
       otherMove_520093774(d_520094131);
       break;
     default: 
-      F.line = 140;
+      F.line = 142;
       rawEcho([117,110,105,109,112,108,101,109,101,110,116,101,100]);
       break;
     }
-    F.line = 141;
+    F.line = 143;
     redraw_687867377(kxi__);
   framePtr = F.prev;
 
@@ -10311,15 +10311,15 @@ function createJoinMenu_520094438() {
 function HEX3Aanonymous_520094444(__520094445, __520094446) {
       var F = {procname: "createJoinMenu.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
-        F.line = 241;
+        F.line = 243;
         F.filename = "main.nim";
         var id_520094447 = getInputText_687867761(getVNodeById_687866162("joincode", kxi__));
         if (!((peer_520093737[0].Field1 == null))) {
-        F.line = 243;
+        F.line = 245;
         peer_520093737[0].Field1();
         }
         
-        F.line = 244;
+        F.line = 246;
         peer_520093737[0] = nimCopy(peer_520093737[0], newJoin_1308623058(id_520094447, joinLogic_520094130), NTI520093705);
       framePtr = F.prev;
 
@@ -10330,35 +10330,35 @@ function HEX3Aanonymous_520094444(__520094445, __520094446) {
 
   var F = {procname: "main.createJoinMenu", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 235;
+    F.line = 237;
     F.filename = "main.nim";
-    F.line = 235;
+    F.line = 237;
     var tmp_520094440 = tree_721421184(44, []);
-    F.line = 235;
+    F.line = 237;
     tmp_520094440.class = "main";
-    F.line = 236;
+    F.line = 238;
     var tmp_520094441 = tree_721421184(193, []);
-    F.line = 236;
+    F.line = 238;
     setAttr_721421035(tmp_520094441, "for", "joincode");
-    F.line = 237;
-    add_721421120(tmp_520094441, text_721421252([74,111,105,110,32,67,111,100,101,58]));
-    F.line = 237;
-    add_721421120(tmp_520094440, tmp_520094441);
-    F.line = 238;
-    var tmp_520094442 = tree_721421184(194, []);
-    F.line = 238;
-    tmp_520094442.id = "joincode";
-    F.line = 238;
-    addEventHandler_687867678(tmp_520094442, 8, validateNotEmpty_520094201("joincode"), kxi__);
-    F.line = 238;
-    add_721421120(tmp_520094440, tmp_520094442);
     F.line = 239;
-    var tmp_520094443 = tree_721421184(195, []);
+    add_721421120(tmp_520094441, text_721421252([74,111,105,110,32,67,111,100,101,58]));
+    F.line = 239;
+    add_721421120(tmp_520094440, tmp_520094441);
     F.line = 240;
+    var tmp_520094442 = tree_721421184(194, []);
+    F.line = 240;
+    tmp_520094442.id = "joincode";
+    F.line = 240;
+    addEventHandler_687867678(tmp_520094442, 8, validateNotEmpty_520094201("joincode"), kxi__);
+    F.line = 240;
+    add_721421120(tmp_520094440, tmp_520094442);
+    F.line = 241;
+    var tmp_520094443 = tree_721421184(195, []);
+    F.line = 242;
     addEventHandler_687867670(tmp_520094443, 0, HEX3Aanonymous_520094444, kxi__);
-    F.line = 246;
+    F.line = 248;
     add_721421120(tmp_520094443, text_721421252([69,110,116,101,114]));
-    F.line = 246;
+    F.line = 248;
     add_721421120(tmp_520094440, tmp_520094443);
     result_520094439 = tmp_520094440;
   framePtr = F.prev;
@@ -10372,12 +10372,12 @@ function createOptionsMenu_520094453() {
 function HEX3Aanonymous_520094466(__520094467, __520094468) {
         var F = {procname: "createOptionsMenu.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
         framePtr = F;
-          F.line = 256;
+          F.line = 258;
           F.filename = "main.nim";
           peer_520093737[0].Field0("handshake:gamestart");
-          F.line = 257;
+          F.line = 259;
           turn_520093739[0] = true;
-          F.line = 258;
+          F.line = 260;
           currentScreen_520093763[0] = 3;
         framePtr = F.prev;
 
@@ -10387,7 +10387,7 @@ function HEX3Aanonymous_520094466(__520094467, __520094468) {
 function HEX3Aanonymous_520094471(__520094472, __520094473) {
         var F = {procname: "createOptionsMenu.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
         framePtr = F;
-          F.line = 267;
+          F.line = 269;
           F.filename = "main.nim";
           alert("This mode hasn't been made yet. Play random mode if you want to play with powers, or normal if you just want normal chess.");
         framePtr = F.prev;
@@ -10398,16 +10398,16 @@ function HEX3Aanonymous_520094471(__520094472, __520094473) {
 function HEX3Aanonymous_520094474(__520094475, __520094476) {
         var F = {procname: "createOptionsMenu.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
         framePtr = F;
-          F.line = 276;
+          F.line = 278;
           F.filename = "main.nim";
           peer_520093737[0].Field0("draft:start");
-          F.line = 277;
-          currentScreen_520093763[0] = 5;
-          F.line = 278;
-          gameMode_520093764[0] = 2;
           F.line = 279;
-          turn_520093739[0] = true;
+          currentScreen_520093763[0] = 5;
           F.line = 280;
+          gameMode_520093764[0] = 2;
+          F.line = 281;
+          turn_520093739[0] = true;
+          F.line = 282;
           draft_520093879([], []);
         framePtr = F.prev;
 
@@ -10418,64 +10418,64 @@ function HEX3Aanonymous_520094474(__520094475, __520094476) {
 
   var F = {procname: "main.createOptionsMenu", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 249;
+    F.line = 251;
     F.filename = "main.nim";
-    F.line = 249;
+    F.line = 251;
     var tmp_520094455 = tree_721421184(44, []);
-    F.line = 249;
+    F.line = 251;
     tmp_520094455.class = "main";
     if ((side_520093738[0] == 0)) {
-    F.line = 251;
+    F.line = 253;
     add_721421120(tmp_520094455, text_721421252([87,97,105,116,105,110,103,32,102,111,114,32,104,111,115,116,32,116,111,32,100,101,99,105,100,101,32,114,117,108,101,115,101,116,46,46,46]));
     }
     else {
-      F.line = 253;
-      var tmp_520094456 = tree_721421184(44, []);
-      F.line = 253;
-      tmp_520094456.class = "column";
-      F.line = 254;
-      var tmp_520094457 = tree_721421184(195, []);
       F.line = 255;
+      var tmp_520094456 = tree_721421184(44, []);
+      F.line = 255;
+      tmp_520094456.class = "column";
+      F.line = 256;
+      var tmp_520094457 = tree_721421184(195, []);
+      F.line = 257;
       addEventHandler_687867670(tmp_520094457, 0, HEX3Aanonymous_520094466, kxi__);
-      F.line = 260;
+      F.line = 262;
       add_721421120(tmp_520094457, text_721421252([78,111,114,109,97,108,32,67,104,101,115,115]));
-      F.line = 260;
+      F.line = 262;
       add_721421120(tmp_520094456, tmp_520094457);
-      F.line = 262;
+      F.line = 264;
       add_721421120(tmp_520094456, text_721421252([67,108,97,115,115,105,99,32,67,104,101,115,115,44,32,119,105,116,104,32,110,111,32,115,112,101,99,105,97,108,32,114,117,108,101,115,32,111,114,32,97,98,105,108,105,116,101,115,46]));
-      F.line = 262;
+      F.line = 264;
       add_721421120(tmp_520094455, tmp_520094456);
-      F.line = 264;
-      var tmp_520094458 = tree_721421184(44, []);
-      F.line = 264;
-      tmp_520094458.class = "column";
-      F.line = 265;
-      var tmp_520094459 = tree_721421184(195, []);
       F.line = 266;
+      var tmp_520094458 = tree_721421184(44, []);
+      F.line = 266;
+      tmp_520094458.class = "column";
+      F.line = 267;
+      var tmp_520094459 = tree_721421184(195, []);
+      F.line = 268;
       addEventHandler_687867670(tmp_520094459, 0, HEX3Aanonymous_520094471, kxi__);
-      F.line = 269;
+      F.line = 271;
       add_721421120(tmp_520094459, text_721421252([68,114,97,102,116,32,109,111,100,101]));
-      F.line = 269;
+      F.line = 271;
       add_721421120(tmp_520094458, tmp_520094459);
-      F.line = 270;
+      F.line = 272;
       add_721421120(tmp_520094458, text_721421252(makeNimstrLit("Take turns drafting power ups for your pieces, then play. \x0A                        Each side is guaranteed to get power ups of the same tier.")));
-      F.line = 270;
+      F.line = 272;
       add_721421120(tmp_520094455, tmp_520094458);
-      F.line = 273;
-      var tmp_520094460 = tree_721421184(44, []);
-      F.line = 273;
-      tmp_520094460.class = "column";
-      F.line = 274;
-      var tmp_520094461 = tree_721421184(195, []);
       F.line = 275;
+      var tmp_520094460 = tree_721421184(44, []);
+      F.line = 275;
+      tmp_520094460.class = "column";
+      F.line = 276;
+      var tmp_520094461 = tree_721421184(195, []);
+      F.line = 277;
       addEventHandler_687867670(tmp_520094461, 0, HEX3Aanonymous_520094474, kxi__);
-      F.line = 283;
+      F.line = 285;
       add_721421120(tmp_520094461, text_721421252([82,97,110,100,111,109,32,109,111,100,101]));
-      F.line = 283;
+      F.line = 285;
       add_721421120(tmp_520094460, tmp_520094461);
-      F.line = 285;
+      F.line = 287;
       add_721421120(tmp_520094460, text_721421252(makeNimstrLit("Draft powerups of random strength and quality, then play. \x0A                        Completely luck based.")));
-      F.line = 285;
+      F.line = 287;
       add_721421120(tmp_520094455, tmp_520094460);
     }
     
@@ -10492,18 +10492,18 @@ function createPowerMenu_520094495(p_520094496) {
 function HEX3Aanonymous_520094507(__520094508, __520094509) {
       var F = {procname: "createPowerMenu.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
-        F.line = 302;
+        F.line = 304;
         F.filename = "main.nim";
         peer_520093737[0].Field0(toJSStr(([100,114,97,102,116,58,109,121,44] || []).concat(HEX24_369098760(p_520094496.index) || [])));
-        F.line = 303;
+        F.line = 305;
         var Temporary1 = nimCopy(null, p_520094496, NTI1426063365);
         myDrafts_520093740[0].push(Temporary1);;
-        F.line = 304;
+        F.line = 306;
         turn_520093739[0] = false;
         if ((side_520093738[0] == 1)) {
-        F.line = 306;
+        F.line = 308;
         draft_520093879(HEX26_1426063962(myDrafts_520093740[0], opponentDrafts_520093741[0]), opponentDrafts_520093741[0]);
-        F.line = 307;
+        F.line = 309;
         F.line = 975;
         F.filename = "sequtils.nim";
         Label2: {
@@ -10526,7 +10526,7 @@ function HEX3Aanonymous_520094507(__520094508, __520094509) {
                   F.line = 1026;
                   F.filename = "sequtils.nim";
                   it_520094553 = draftOptions_520093746[0][chckIndx(i_520094972, 0, (draftOptions_520093746[0]).length - 1)];
-                  F.line = 307;
+                  F.line = 309;
                   F.filename = "main.nim";
                   resultHEX60gensym28_520094549[chckIndx(iHEX60gensym28_520094542, 0, (resultHEX60gensym28_520094549).length - 1)] = nimCopy(null, ([44] || []).concat(HEX24_369098760(it_520094553.index) || []), NTI33554449);
                   F.line = 1028;
@@ -10578,7 +10578,7 @@ function HEX3Aanonymous_520094507(__520094508, __520094509) {
                 var a_520094582 = nimCopy(null, sHEX60gensym31_520094565[chckIndx(iHEX60gensym31_520094581, 0, (sHEX60gensym31_520094565).length - 1)], NTI33554449);
                 F.line = 982;
                 var b_520094583 = nimCopy(null, resultHEX60gensym31_520094575, NTI33554449);
-                F.line = 307;
+                F.line = 309;
                 F.filename = "main.nim";
                 resultHEX60gensym31_520094575 = nimCopy(null, (a_520094582 || []).concat(b_520094583 || []), NTI33554449);
                 F.line = 39;
@@ -10599,48 +10599,48 @@ function HEX3Aanonymous_520094507(__520094508, __520094509) {
 
   var F = {procname: "main.createPowerMenu", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 289;
+    F.line = 291;
     F.filename = "main.nim";
-    F.line = 289;
+    F.line = 291;
     var tmp_520094498 = tree_721421184(44, []);
-    F.line = 289;
+    F.line = 291;
     tmp_520094498.class = "power";
-    F.line = 290;
+    F.line = 292;
     var tmp_520094499 = tree_721421184(21, []);
-    F.line = 291;
+    F.line = 293;
     add_721421120(tmp_520094499, text_721421252(p_520094496.name));
-    F.line = 291;
+    F.line = 293;
     add_721421120(tmp_520094498, tmp_520094499);
     if (!(eqStrings(p_520094496.icon, []))) {
-    F.line = 293;
+    F.line = 295;
     var tmp_520094500 = tree_721421184(76, []);
-    F.line = 293;
+    F.line = 295;
     setAttr_721421035(tmp_520094500, "src", toJSStr(([46,47,105,99,111,110,115,47] || []).concat(p_520094496.icon || [])));
-    F.line = 293;
+    F.line = 295;
     add_721421120(tmp_520094498, tmp_520094500);
     }
     else {
-      F.line = 295;
+      F.line = 297;
       var tmp_520094501 = tree_721421184(76, []);
-      F.line = 295;
+      F.line = 297;
       setAttr_721421035(tmp_520094501, "src", "./icons/blackbishop.svg");
-      F.line = 295;
+      F.line = 297;
       add_721421120(tmp_520094498, tmp_520094501);
     }
     
-    F.line = 296;
-    var tmp_520094502 = tree_721421184(22, []);
-    F.line = 297;
-    add_721421120(tmp_520094502, text_721421252(reprEnum(p_520094496.tier, NTI1426063363)));
-    F.line = 297;
-    add_721421120(tmp_520094498, tmp_520094502);
     F.line = 298;
+    var tmp_520094502 = tree_721421184(22, []);
+    F.line = 299;
+    add_721421120(tmp_520094502, text_721421252(reprEnum(p_520094496.tier, NTI1426063363)));
+    F.line = 299;
+    add_721421120(tmp_520094498, tmp_520094502);
+    F.line = 300;
     var tmp_520094503 = tree_721421184(32, []);
-    F.line = 299;
-    add_721421120(tmp_520094503, text_721421252(p_520094496.description));
-    F.line = 299;
-    add_721421120(tmp_520094498, tmp_520094503);
     F.line = 301;
+    add_721421120(tmp_520094503, text_721421252(p_520094496.description));
+    F.line = 301;
+    add_721421120(tmp_520094498, tmp_520094503);
+    F.line = 303;
     addEventHandler_687867670(tmp_520094498, 0, HEX3Aanonymous_520094507, kxi__);
     result_520094497 = tmp_520094498;
   framePtr = F.prev;
@@ -10654,15 +10654,15 @@ function createDraftMenu_520094588() {
 
   var F = {procname: "main.createDraftMenu", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 310;
+    F.line = 312;
     F.filename = "main.nim";
-    F.line = 310;
+    F.line = 312;
     var tmp_520094590 = tree_721421184(44, []);
-    F.line = 310;
+    F.line = 312;
     tmp_520094590.class = "main power-menu";
     if (turn_520093739[0]) {
     Label1: {
-      F.line = 312;
+      F.line = 314;
       var p_520094594 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
       F.line = 249;
       F.filename = "iterators.nim";
@@ -10673,10 +10673,10 @@ function createDraftMenu_520094588() {
         F.line = 251;
           Label3: while (true) {
           if (!(i_520094958 < L_520094959)) break Label3;
-            F.line = 312;
+            F.line = 314;
             F.filename = "main.nim";
             p_520094594 = draftOptions_520093746[0][chckIndx(i_520094958, 0, (draftOptions_520093746[0]).length - 1)];
-            F.line = 313;
+            F.line = 315;
             add_721421120(tmp_520094590, createPowerMenu_520094495(p_520094594));
             F.line = 13;
             F.filename = "iterators.nim";
@@ -10691,7 +10691,7 @@ function createDraftMenu_520094588() {
     };
     }
     else {
-      F.line = 315;
+      F.line = 317;
       F.filename = "main.nim";
     add_721421120(tmp_520094590, text_721421252([79,112,112,111,110,101,110,116,32,105,115,32,100,114,97,102,116,105,110,103,46,46,46]));
     }
@@ -10708,46 +10708,46 @@ function createPowerSummary_520094595(p_520094596) {
 
   var F = {procname: "main.createPowerSummary", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 318;
+    F.line = 320;
     F.filename = "main.nim";
-    F.line = 318;
+    F.line = 320;
     var tmp_520094598 = tree_721421184(44, []);
-    F.line = 318;
+    F.line = 320;
     tmp_520094598.class = "power-grid";
-    F.line = 319;
+    F.line = 321;
     var tmp_520094599 = tree_721421184(24, []);
-    F.line = 319;
+    F.line = 321;
     tmp_520094599.class = "title";
-    F.line = 320;
+    F.line = 322;
     add_721421120(tmp_520094599, text_721421252(p_520094596.name));
-    F.line = 320;
+    F.line = 322;
     add_721421120(tmp_520094598, tmp_520094599);
-    F.line = 321;
+    F.line = 323;
     var tmp_520094600 = tree_721421184(32, []);
-    F.line = 321;
+    F.line = 323;
     tmp_520094600.class = "small-text desc";
-    F.line = 322;
+    F.line = 324;
     add_721421120(tmp_520094600, text_721421252(p_520094596.description));
-    F.line = 322;
+    F.line = 324;
     add_721421120(tmp_520094598, tmp_520094600);
     if (!(eqStrings(p_520094596.icon, []))) {
-    F.line = 324;
+    F.line = 326;
     var tmp_520094601 = tree_721421184(76, []);
-    F.line = 324;
+    F.line = 326;
     tmp_520094601.class = "image";
-    F.line = 324;
+    F.line = 326;
     setAttr_721421035(tmp_520094601, "src", toJSStr(([46,47,105,99,111,110,115,47] || []).concat(p_520094596.icon || [])));
-    F.line = 324;
+    F.line = 326;
     add_721421120(tmp_520094598, tmp_520094601);
     }
     else {
-      F.line = 326;
+      F.line = 328;
       var tmp_520094602 = tree_721421184(76, []);
-      F.line = 326;
+      F.line = 328;
       tmp_520094602.class = "image";
-      F.line = 326;
+      F.line = 328;
       setAttr_721421035(tmp_520094602, "src", "./icons/blackbishop.svg");
-      F.line = 326;
+      F.line = 328;
       add_721421120(tmp_520094598, tmp_520094602);
     }
     
@@ -10764,7 +10764,7 @@ function isSelected_520093770(n_520093771, m_520093772) {
   var F = {procname: "main.isSelected", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
   BeforeRet: {
-    F.line = 65;
+    F.line = 67;
     F.filename = "main.nim";
     result_520093773 = ((selectedTile_520093752[0].Field1 == n_520093771) && (selectedTile_520093752[0].Field0 == m_520093772));
     break BeforeRet;
@@ -10778,10 +10778,10 @@ function isSelected_520093770(n_520093771, m_520093772) {
 function sendMove_520093873(mode_520093874, start_520093875, to_520093876) {
   var F = {procname: "main.sendMove", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 79;
+    F.line = 81;
     F.filename = "main.nim";
     peer_520093737[0].Field0(toJSStr(([109,111,118,101,58,32] || []).concat(mode_520093874 || [],[44] || [],HEX24_369098760(start_520093875.Field1) || [],[44] || [],HEX24_369098760(start_520093875.Field0) || [],[44] || [],HEX24_369098760(to_520093876.Field1) || [],[44] || [],HEX24_369098760(to_520093876.Field0) || [])));
-    F.line = 80;
+    F.line = 82;
     turn_520093739[0] = !(turn_520093739[0]);
   framePtr = F.prev;
 
@@ -10821,62 +10821,62 @@ function HEX3Aanonymous_520094262(__520094263, __520094264) {
       var F = {procname: "createTile.:anonymous", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
       framePtr = F;
         if (((contains_1207959849(possibleMoves_520093757[0], p_520094208.tile) && turn_520093739[0]) && isColor_1207960097(pieceOf_520093767(selectedTile_520093752[0]), side_520093738[0]))) {
-        F.line = 166;
+        F.line = 168;
         F.filename = "main.nim";
         sendMove_520093873([109,111,118,101], selectedTile_520093752[0], p_520094208.tile);
-        F.line = 167;
+        F.line = 169;
         pieceOf_520093767(selectedTile_520093752[0]).onMove(selectedTile_520093752[0], p_520094208.tile, theBoard_520093749[0]);
-        F.line = 168;
-        possibleMoves_520093757[0] = nimCopy(null, [], NTI1241514189);
-        F.line = 169;
-        var colontmp__520094993 = (-1);
-        F.line = 169;
-        var colontmp__520094994 = (-1);
-        F.line = 169;
-        selectedTile_520093752[0] = nimCopy(selectedTile_520093752[0], {Field0: colontmp__520094993, Field1: colontmp__520094994}, NTI1207959555);
         F.line = 170;
+        possibleMoves_520093757[0] = nimCopy(null, [], NTI1241514189);
+        F.line = 171;
+        var colontmp__520094993 = (-1);
+        F.line = 171;
+        var colontmp__520094994 = (-1);
+        F.line = 171;
+        selectedTile_520093752[0] = nimCopy(selectedTile_520093752[0], {Field0: colontmp__520094993, Field1: colontmp__520094994}, NTI1207959555);
+        F.line = 172;
         possibleTakes_520093762[0] = nimCopy(null, [], NTI1241514189);
         }
         else {
         if (((contains_1207959849(possibleTakes_520093762[0], p_520094208.tile) && turn_520093739[0]) && isColor_1207960097(pieceOf_520093767(selectedTile_520093752[0]), side_520093738[0]))) {
-        F.line = 172;
-        sendMove_520093873([116,97,107,101], selectedTile_520093752[0], p_520094208.tile);
-        F.line = 173;
-        pieceOf_520093767(selectedTile_520093752[0]).onTake(selectedTile_520093752[0], p_520094208.tile, theBoard_520093749[0]);
         F.line = 174;
-        possibleTakes_520093762[0] = nimCopy(null, [], NTI1241514189);
+        sendMove_520093873([116,97,107,101], selectedTile_520093752[0], p_520094208.tile);
         F.line = 175;
-        var colontmp__520094995 = (-1);
-        F.line = 175;
-        var colontmp__520094996 = (-1);
-        F.line = 175;
-        selectedTile_520093752[0] = nimCopy(selectedTile_520093752[0], {Field0: colontmp__520094995, Field1: colontmp__520094996}, NTI1207959555);
+        pieceOf_520093767(selectedTile_520093752[0]).onTake(selectedTile_520093752[0], p_520094208.tile, theBoard_520093749[0]);
         F.line = 176;
+        possibleTakes_520093762[0] = nimCopy(null, [], NTI1241514189);
+        F.line = 177;
+        var colontmp__520094995 = (-1);
+        F.line = 177;
+        var colontmp__520094996 = (-1);
+        F.line = 177;
+        selectedTile_520093752[0] = nimCopy(selectedTile_520093752[0], {Field0: colontmp__520094995, Field1: colontmp__520094996}, NTI1207959555);
+        F.line = 178;
         possibleMoves_520093757[0] = nimCopy(null, [], NTI1241514189);
         }
         else {
         if (!(isSelected_520093770(m_520094209, n_520094210))) {
-        F.line = 178;
-        var colontmp__520094997 = n_520094210;
-        F.line = 178;
-        var colontmp__520094998 = m_520094209;
-        F.line = 178;
-        selectedTile_520093752[0] = nimCopy(selectedTile_520093752[0], {Field0: colontmp__520094997, Field1: colontmp__520094998}, NTI1207959555);
-        F.line = 179;
-        possibleMoves_520093757[0] = nimCopy(null, getMovesOn_1207959624(p_520094208, theBoard_520093749[0]), NTI1207959562);
         F.line = 180;
+        var colontmp__520094997 = n_520094210;
+        F.line = 180;
+        var colontmp__520094998 = m_520094209;
+        F.line = 180;
+        selectedTile_520093752[0] = nimCopy(selectedTile_520093752[0], {Field0: colontmp__520094997, Field1: colontmp__520094998}, NTI1207959555);
+        F.line = 181;
+        possibleMoves_520093757[0] = nimCopy(null, getMovesOn_1207959624(p_520094208, theBoard_520093749[0]), NTI1207959562);
+        F.line = 182;
         possibleTakes_520093762[0] = nimCopy(null, getTakesOn_1207959739(p_520094208, theBoard_520093749[0]), NTI1207959562);
         }
         else {
-          F.line = 182;
-          var colontmp__520094999 = (-1);
-          F.line = 182;
-          var colontmp__520095000 = (-1);
-          F.line = 182;
-          selectedTile_520093752[0] = nimCopy(selectedTile_520093752[0], {Field0: colontmp__520094999, Field1: colontmp__520095000}, NTI1207959555);
-          F.line = 183;
-          possibleMoves_520093757[0] = nimCopy(null, [], NTI1241514189);
           F.line = 184;
+          var colontmp__520094999 = (-1);
+          F.line = 184;
+          var colontmp__520095000 = (-1);
+          F.line = 184;
+          selectedTile_520093752[0] = nimCopy(selectedTile_520093752[0], {Field0: colontmp__520094999, Field1: colontmp__520095000}, NTI1207959555);
+          F.line = 185;
+          possibleMoves_520093757[0] = nimCopy(null, [], NTI1241514189);
+          F.line = 186;
           possibleTakes_520093762[0] = nimCopy(null, [], NTI1241514189);
         }
         }}
@@ -10890,7 +10890,7 @@ function HEX3Aanonymous_520094262(__520094263, __520094264) {
 
   var F = {procname: "main.createTile", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 152;
+    F.line = 154;
     F.filename = "main.nim";
     if ((modInt(addInt(mulInt(m_520094209, 7), n_520094210), 2) == 0)) {
     Temporary1 = [119,104,105,116,101,84,105,108,101];
@@ -10901,37 +10901,37 @@ function HEX3Aanonymous_520094262(__520094263, __520094264) {
     
     var class_520094212 = nimCopy(null, Temporary1, NTI33554449);
     if (isSelected_520093770(m_520094209, n_520094210)) {
-    F.line = 154;
+    F.line = 156;
     class_520094212.push.apply(class_520094212, [32,115,101,108,101,99,116,101,100]);;
     }
     else {
     if (contains_1207959849(possibleMoves_520093757[0], p_520094208.tile)) {
-    F.line = 156;
+    F.line = 158;
     class_520094212.push.apply(class_520094212, [32,99,97,110,45,109,111,118,101]);;
     }
     else {
     if (contains_1207959849(possibleTakes_520093762[0], p_520094208.tile)) {
-    F.line = 158;
+    F.line = 160;
     class_520094212.push.apply(class_520094212, [32,99,97,110,45,116,97,107,101]);;
     }
     else {
-      F.line = 160;
+      F.line = 162;
     class_520094212.push.apply(class_520094212, [32,117,110,115,101,108,101,99,116,101,100]);;
     }
     }}
-    F.line = 162;
-    F.line = 163;
-    var tmp_520094251 = tree_721421184(188, []);
-    F.line = 163;
-    tmp_520094251.class = toJSStr(class_520094212);
     F.line = 164;
+    F.line = 165;
+    var tmp_520094251 = tree_721421184(188, []);
+    F.line = 165;
+    tmp_520094251.class = toJSStr(class_520094212);
+    F.line = 166;
     addEventHandler_687867670(tmp_520094251, 0, HEX3Aanonymous_520094262, kxi__);
     if (eqStrings(p_520094208.filePath, [])) {
-    F.line = 187;
+    F.line = 189;
     add_721421120(tmp_520094251, text_721421252(HEX24_1207960105(p_520094208)));
     }
     else {
-      F.line = 189;
+      F.line = 191;
       if (p_520094208.rotate) {
       Temporary2 = [114,111,116,97,116,101];
       }
@@ -10940,13 +10940,13 @@ function HEX3Aanonymous_520094262(__520094263, __520094264) {
       }
       
       var class_520094301 = nimCopy(null, Temporary2, NTI33554449);
-      F.line = 190;
+      F.line = 192;
       var tmp_520094261 = tree_721421184(76, []);
-      F.line = 190;
+      F.line = 192;
       setAttr_721421035(tmp_520094261, "src", toJSStr(([46,47,105,99,111,110,115,47] || []).concat(p_520094208.filePath || [])));
-      F.line = 190;
+      F.line = 192;
       tmp_520094261.class = toJSStr(class_520094301);
-      F.line = 190;
+      F.line = 192;
       add_721421120(tmp_520094251, tmp_520094261);
     }
     
@@ -10962,14 +10962,14 @@ function createBoard_520094317() {
 
   var F = {procname: "main.createBoard", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 193;
+    F.line = 195;
     F.filename = "main.nim";
-    F.line = 193;
+    F.line = 195;
     var tmp_520094319 = tree_721421184(180, []);
     Label1: {
-      F.line = 194;
+      F.line = 196;
       var i_520094327 = 0;
-      F.line = 194;
+      F.line = 196;
       var r_520094328 = [({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false}), ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false})];
       F.line = 164;
       F.filename = "iterators.nim";
@@ -10978,17 +10978,17 @@ function createBoard_520094317() {
         F.line = 165;
           Label3: while (true) {
           if (!true) break Label3;
-            F.line = 194;
+            F.line = 196;
             F.filename = "main.nim";
             i_520094327 = i_520094991;
-            F.line = 194;
+            F.line = 196;
             r_520094328 = nimCopy(r_520094328, theBoard_520093749[0][chckIndx(i_520094991, 0, (theBoard_520093749[0]).length - 1)], NTI1207959558);
-            F.line = 195;
+            F.line = 197;
             var tmp_520094320 = tree_721421184(187, []);
             Label4: {
-              F.line = 196;
+              F.line = 198;
               var j_520094335 = 0;
-              F.line = 196;
+              F.line = 198;
               var p_520094336 = ({item: 0, color: 0, timesMoved: 0, piecesTaken: 0, tile: {Field0: 0, Field1: 0}, moves: [], takes: [], onMove: null, onTake: null, whenTake: null, onEndTurn: [], onPromote: [], promoted: false, filePath: [], rotate: false});
               F.line = 164;
               F.filename = "iterators.nim";
@@ -10997,12 +10997,12 @@ function createBoard_520094317() {
                 F.line = 165;
                   Label6: while (true) {
                   if (!true) break Label6;
-                    F.line = 196;
+                    F.line = 198;
                     F.filename = "main.nim";
                     j_520094335 = i_520094989;
-                    F.line = 196;
+                    F.line = 198;
                     p_520094336 = nimCopy(p_520094336, r_520094328[chckIndx(i_520094989, 0, (r_520094328).length - 1)], NTI1207959567);
-                    F.line = 197;
+                    F.line = 199;
                     add_721421120(tmp_520094320, createTile_520094207(p_520094336, i_520094327, j_520094335));
                     if ((7 <= i_520094989)) {
                     F.line = 167;
@@ -11015,7 +11015,7 @@ function createBoard_520094317() {
                   }
               };
             };
-            F.line = 197;
+            F.line = 199;
             F.filename = "main.nim";
             add_721421120(tmp_520094319, tmp_520094320);
             if ((7 <= i_520094991)) {
@@ -11041,12 +11041,12 @@ function reverseBoard_520094337() {
 
   var F = {procname: "main.reverseBoard", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 200;
+    F.line = 202;
     F.filename = "main.nim";
-    F.line = 200;
+    F.line = 202;
     var tmp_520094339 = tree_721421184(44, []);
     Label1: {
-      F.line = 201;
+      F.line = 203;
       var i_520094346 = 0;
       F.line = 33;
       F.filename = "iterators_1.nim";
@@ -11055,13 +11055,13 @@ function reverseBoard_520094337() {
         F.line = 34;
           Label3: while (true) {
           if (!(0 <= res_520095005)) break Label3;
-            F.line = 201;
+            F.line = 203;
             F.filename = "main.nim";
             i_520094346 = res_520095005;
-            F.line = 202;
+            F.line = 204;
             var tmp_520094340 = tree_721421184(187, []);
             Label4: {
-              F.line = 203;
+              F.line = 205;
               var j_520094352 = 0;
               F.line = 33;
               F.filename = "iterators_1.nim";
@@ -11070,10 +11070,10 @@ function reverseBoard_520094337() {
                 F.line = 34;
                   Label6: while (true) {
                   if (!(0 <= res_520095003)) break Label6;
-                    F.line = 203;
+                    F.line = 205;
                     F.filename = "main.nim";
                     j_520094352 = res_520095003;
-                    F.line = 204;
+                    F.line = 206;
                     add_721421120(tmp_520094340, createTile_520094207(theBoard_520093749[0][chckIndx(i_520094346, 0, (theBoard_520093749[0]).length - 1)][chckIndx(j_520094352, 0, (theBoard_520093749[0][chckIndx(i_520094346, 0, (theBoard_520093749[0]).length - 1)]).length - 1)], i_520094346, j_520094352));
                     F.line = 39;
                     F.filename = "iterators_1.nim";
@@ -11081,7 +11081,7 @@ function reverseBoard_520094337() {
                   }
               };
             };
-            F.line = 204;
+            F.line = 206;
             F.filename = "main.nim";
             add_721421120(tmp_520094339, tmp_520094340);
             F.line = 39;
@@ -11102,18 +11102,18 @@ function createGame_520094603() {
 
   var F = {procname: "main.createGame", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 329;
+    F.line = 331;
     F.filename = "main.nim";
-    F.line = 329;
+    F.line = 331;
     var tmp_520094605 = tree_721421184(44, []);
-    F.line = 329;
+    F.line = 331;
     tmp_520094605.class = "main";
-    F.line = 330;
+    F.line = 332;
     var tmp_520094606 = tree_721421184(44, []);
-    F.line = 330;
+    F.line = 332;
     tmp_520094606.class = "column-scroll";
     Label1: {
-      F.line = 331;
+      F.line = 333;
       var p_520094611 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
       F.line = 249;
       F.filename = "iterators.nim";
@@ -11124,10 +11124,10 @@ function createGame_520094603() {
         F.line = 251;
           Label3: while (true) {
           if (!(i_520094980 < L_520094981)) break Label3;
-            F.line = 331;
+            F.line = 333;
             F.filename = "main.nim";
             p_520094611 = myDrafts_520093740[0][chckIndx(i_520094980, 0, (myDrafts_520093740[0]).length - 1)];
-            F.line = 332;
+            F.line = 334;
             add_721421120(tmp_520094606, createPowerSummary_520094595(p_520094611));
             F.line = 13;
             F.filename = "iterators.nim";
@@ -11140,24 +11140,24 @@ function createGame_520094603() {
           }
       };
     };
-    F.line = 332;
+    F.line = 334;
     F.filename = "main.nim";
     add_721421120(tmp_520094605, tmp_520094606);
     if ((side_520093738[0] == 1)) {
-    F.line = 333;
+    F.line = 335;
     add_721421120(tmp_520094605, createBoard_520094317());
     }
     else {
-      F.line = 333;
+      F.line = 335;
     add_721421120(tmp_520094605, reverseBoard_520094337());
     }
     
-    F.line = 334;
+    F.line = 336;
     var tmp_520094607 = tree_721421184(44, []);
-    F.line = 334;
+    F.line = 336;
     tmp_520094607.class = "column-scroll";
     Label4: {
-      F.line = 335;
+      F.line = 337;
       var p_520094619 = ({name: [], synergy: false, tier: 0, rarity: 0, description: [], icon: [], onStart: null, index: 0, priority: 0});
       F.line = 249;
       F.filename = "iterators.nim";
@@ -11168,10 +11168,10 @@ function createGame_520094603() {
         F.line = 251;
           Label6: while (true) {
           if (!(i_520094984 < L_520094985)) break Label6;
-            F.line = 335;
+            F.line = 337;
             F.filename = "main.nim";
             p_520094619 = opponentDrafts_520093741[0][chckIndx(i_520094984, 0, (opponentDrafts_520093741[0]).length - 1)];
-            F.line = 336;
+            F.line = 338;
             add_721421120(tmp_520094607, createPowerSummary_520094595(p_520094619));
             F.line = 13;
             F.filename = "iterators.nim";
@@ -11184,7 +11184,7 @@ function createGame_520094603() {
           }
       };
     };
-    F.line = 336;
+    F.line = 338;
     F.filename = "main.nim";
     add_721421120(tmp_520094605, tmp_520094607);
     result_520094604 = tmp_520094605;
@@ -11199,36 +11199,36 @@ function main_520094620() {
 
   var F = {procname: "main.main", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
   framePtr = F;
-    F.line = 339;
+    F.line = 341;
     F.filename = "main.nim";
-    F.line = 339;
+    F.line = 341;
     var tmp_520094622 = tree_721421184(44, []);
-    F.line = 339;
+    F.line = 341;
     tmp_520094622.class = "main";
-    F.line = 340;
+    F.line = 342;
     switch (currentScreen_520093763[0]) {
     case 0:
-      F.line = 341;
+      F.line = 343;
       add_721421120(tmp_520094622, createLobby_520094353());
       break;
     case 1:
-      F.line = 342;
+      F.line = 344;
       add_721421120(tmp_520094622, createRoomMenu_520094433());
       break;
     case 2:
-      F.line = 343;
+      F.line = 345;
       add_721421120(tmp_520094622, createJoinMenu_520094438());
       break;
     case 4:
-      F.line = 344;
+      F.line = 346;
       add_721421120(tmp_520094622, createOptionsMenu_520094453());
       break;
     case 5:
-      F.line = 345;
+      F.line = 347;
       add_721421120(tmp_520094622, createDraftMenu_520094588());
       break;
     case 3:
-      F.line = 346;
+      F.line = 348;
       add_721421120(tmp_520094622, createGame_520094603());
       break;
     }
@@ -11240,40 +11240,40 @@ function main_520094620() {
 }
 var F = {procname: "module main", prev: framePtr, filename: "/Users/ajayvallurupalli/website/the-playground/src/chess/src/main.nim", line: 0};
 framePtr = F;
-F.line = 37;
+F.line = 39;
 F.filename = "main.nim";
 var roomId_520093731 = [nimCopy(null, {Field0: false, Field1: "Waiting..."}, NTI520093703)];
-F.line = 38;
-var peer_520093737 = [{Field0: null, Field1: null}];
-F.line = 39;
-var side_520093738 = [0];
 F.line = 40;
-var turn_520093739 = [false];
+var peer_520093737 = [{Field0: null, Field1: null}];
+F.line = 41;
+var side_520093738 = [0];
 F.line = 42;
-var myDrafts_520093740 = [[]];
-F.line = 43;
-var opponentDrafts_520093741 = [[]];
+var turn_520093739 = [false];
 F.line = 44;
-var draftOptions_520093746 = [[]];
+var myDrafts_520093740 = [[]];
 F.line = 45;
-var draftChoices_520093747 = [3];
+var opponentDrafts_520093741 = [[]];
 F.line = 46;
-var drafts_520093748 = [2];
+var draftOptions_520093746 = [[]];
+F.line = 47;
+var draftChoices_520093747 = [3];
 F.line = 48;
-var theBoard_520093749 = [startingBoard_1224737029()];
-F.line = 49;
-var selectedTile_520093752 = [nimCopy(null, {Field0: (-1), Field1: (-1)}, NTI1207959555)];
+var drafts_520093748 = [2];
 F.line = 50;
-var possibleMoves_520093757 = [[]];
+var theBoard_520093749 = [startingBoard_1224737029()];
 F.line = 51;
-var possibleTakes_520093762 = [[]];
+var selectedTile_520093752 = [nimCopy(null, {Field0: (-1), Field1: (-1)}, NTI1207959555)];
 F.line = 52;
-var currentScreen_520093763 = [0];
+var possibleMoves_520093757 = [[]];
 F.line = 53;
+var possibleTakes_520093762 = [[]];
+F.line = 54;
+var currentScreen_520093763 = [0];
+F.line = 55;
 var gameMode_520093764 = [0];
-F.line = 56;
+F.line = 58;
 executeOn_1426064019(myDrafts_520093740[0], 1, side_520093738[0], theBoard_520093749[0]);
-F.line = 57;
+F.line = 59;
 executeOn_1426064019(opponentDrafts_520093741[0], 0, side_520093738[0], theBoard_520093749[0]);
 setRenderer_687867621(main_520094620, "ROOT", null);
 framePtr = F.prev;
