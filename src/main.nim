@@ -45,7 +45,7 @@ var myDrafts: seq[Power]# = @[empress, putInTheWork, anime, illegalFormationBL, 
 var opponentDrafts: seq[Power]# = @[wanderingRoninLeft, anime, putInTheWork, empress]
 var draftOptions: seq[Power] = @[]
 var draftChoices: int = 3
-var drafts: int = 2
+var drafts: int = 3
 
 var theBoard: ChessBoard = startingBoard()
 var selectedTile: Tile = (file: -1, rank: -1)
