@@ -40,8 +40,8 @@ var roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
 var peer: tuple[send: proc(data: cstring), destroy: proc()]
 var side: Color# = white # = white only for testing, delete
 var turn: bool# = true# = true#only for testing
-var myDrafts: seq[Power]# = @[knightChargePower, calvary]
-var opponentDrafts: seq[Power]# = @[knightChargePower, developed]
+var myDrafts: seq[Power] = @[knightChargePower, calvary]
+var opponentDrafts: seq[Power] = @[knightChargePower, developed]
 
 var draftOptions: seq[Power]
 var draftChoices: int = 3
