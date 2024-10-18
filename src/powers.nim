@@ -174,7 +174,7 @@ const putInTheWork*: Power = Power(
     tier: Common,
     priority: 10, 
     description:
-        """Get to work son. If any of your pawns takes 3 pieces, it automatically promotes""",
+        """Get to work son. If any of your pawns take 3 pieces, they automatically promote.""",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
