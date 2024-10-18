@@ -78,12 +78,12 @@ const
 
 proc startingBoard*(): ChessBoard = 
     result = [[blackRook, blackKnight, blackBishop, blackQueen, blackKing, blackBishop, blackKnight, blackRook],
-              [blackPawn, blackPawn,   blackPawn,   blackPawn,  air, blackPawn,   blackPawn,   blackPawn],
+              [blackPawn, blackPawn,   blackPawn,   blackPawn,  blackPawn, blackPawn,   blackPawn,   blackPawn],
               [air,       air,         air,         air,        air,       air,         air,         air],
               [air,       air,         air,         air,        air,       air,         air,         air],
               [air,       air,         air,         air,        air,       air,         air,         air],
               [air,       air,         air,         air,        air,       air,         air,         air],
-              [whitePawn, whitePawn,   whitePawn,   whitePawn,  whiteQueen, whitePawn,   whitePawn,   whitePawn],
+              [whitePawn, whitePawn,   whitePawn,   whitePawn,  whitePawn, whitePawn,   whitePawn,   whitePawn],
               [whiteRook, whiteKnight, whiteBishop, whiteQueen, whiteKing, whiteBishop, whiteKnight, whiteRook]]
 
     for j, r in result:
