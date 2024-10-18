@@ -6,7 +6,9 @@ type
     Peer = JsObject
     Connection = JsObject
     MessageType* = enum
-        Id, Handshake, Move, Options, Draft
+        Id, Handshake, Move, Options, Draft, End, Rematch
+
+var document* {.importc, nodecl.}: JsObject
 
 const baseId: cstring = "9e4ada91-c493-4fd4-881d-3e05db99e100"
 
@@ -45,6 +47,10 @@ func messageType(data: cstring): MessageType =
         return Options
     elif "draft:" in str:
         return Draft
+    elif "rematch:" in str:
+        return Rematch
+    elif "end:" in str:
+        return End
 
 func cutMessage(data: cstring): string = 
     return split($data, ':')[1]
@@ -58,7 +64,8 @@ proc newHost*(cb: proc(data: string, messageType: MessageType)): tuple[send: pro
     peer.on("open", ((id: cstring) => cb($roomId, Id)))
     peer.on("connection", proc (c: Connection) =
         conn = c
-        conn.on("data", (data: cstring) => cb(cutMessage(data), messageType(data))))
+        conn.on("data", (data: cstring) => cb(cutMessage(data), messageType(data)))
+        conn.on("disconnect", () => cb("disconn", End)))
 
     result.destroy =  proc() = 
         peer.destroy()
@@ -73,7 +80,8 @@ proc newJoin*(id: cstring, cb: proc(data: string, messageType: MessageType)): tu
     peer.on("open", proc () = 
         conn = peer.connect(baseId & id)
         conn.on("open", () => conn.send("handshake:hello"))
-        conn.on("data", (data: cstring) => cb(cutMessage(data), messageType(data))))
+        conn.on("data", (data: cstring) => cb(cutMessage(data), messageType(data)))
+        conn.on("disconnect", () => cb("disconn", End)))
     
     result.destroy = proc () = 
         peer.destroy()

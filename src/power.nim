@@ -106,7 +106,7 @@ proc registerPower*(p: Power) =
     seqOf(x.tier).add(x)
 
 proc randomPower(t: Tier, currentPowers: seq[Power], alreadySelected: seq[Power] = @[]): Power = 
-    let search = seqOf(t).filterIt(it.name notin alreadySelected.mapIt(it.name)).synergize(currentPowers, t)
+    let search = seqOf(t).synergize(currentPowers, t).filterIt(it.name notin alreadySelected.mapIt(it.name))
     if search.len == 0: return emptyPower
 
     let sum = foldr(search.mapIt(it.rarity), a + b)

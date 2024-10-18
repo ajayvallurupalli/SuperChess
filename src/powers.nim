@@ -269,12 +269,12 @@ const archBishops: Power = Power(
                         b[i][j].takes &= knightTakes        
 )
 
-const giraffe: Power = Power(
+const giraffe*: Power = Power(
     name: "Giraffe",
     tier: Uncommon,
     priority: 5, 
     description:
-        """Your knights try riding giraffes. It works surprisingly well. Their leap is improved, moving 4 across instead of 2 across.""",
+        """Your knights try riding giraffes. It works surprisingly well. Their leap is improved, moving 3 across instead of 2 across.""",
     icon: "blackgiraffe.svg",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
@@ -286,7 +286,7 @@ const giraffe: Power = Power(
                         b[i][j].filePath = if side == black: "blackgiraffe.svg" else: "whitegiraffe.svg"
 )
 
-const calvary: Power = Power(
+const calvary*: Power = Power(
     name: "Calvary",
     tier: Common,
     priority: 15,
@@ -455,7 +455,7 @@ const headStart: Power = Power(
 )
 
 const queenTrade*: Power = Power(
-    name: "Patriarchy",
+    name: "Queen Trade",
     tier: Rare,
     priority: 20,
     description: "The patriarchy continues. Both queens mysteriously die.",
@@ -508,7 +508,7 @@ const lesbianPride*: Power = Power(
             for i in 0 ..< b.len:
                 for j in 0 ..< b[0].len:
                     if b[i][j].item == king and b[i][j].isColor(side):
-                        b[i][j] = whiteQueen.pieceCopy(color =  b[i][j].color, item = king, tile = b[i][j].tile) 
+                        b[i][j] = whiteQueen.pieceCopy(color =  b[i][j].color, item = king, tile = b[i][j].tile, rotate = true) 
                     elif b[i][j].item == bishop and b[i][j].isColor(side):
                         b[i][j] = Piece(item: none, tile: b[i][j].tile)
                         #`Piece.item` is still king so win/loss works
@@ -582,6 +582,57 @@ const queensWrathSuper: Synergy = (
     index: -1
 )
 
+const knightChargePower*: Power = Power(
+    name: "Knight's Charge",
+    tier: Rare,
+    rarity: 4,
+    priority: 20,
+    description: "CHARGE! Your knights start 3 tiles ahead.",
+    icon: "blackknight.svg",
+    onStart:
+        proc (side: Color, viewSide: Color, b: var ChessBoard) =   
+            let offset = if side == white: -3 else: 3
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == knight and b[i][j].isColor(side) and b[i][j].timesMoved == 0:
+                        b[i][j].timesMoved += 1
+                        b[i][j].pieceMove(i + offset, j, b)
+)
+
+const calvaryCharge: Synergy = (
+    power: knightChargePower,
+    rarity: 16,
+    requirements: @[calvary.name],
+    replacements: @[],
+    index: -1    
+)
+
+const battleFormationPower: Power = Power(
+    name: "Battle Formation!",
+    tier: UltraRare,
+    rarity: 0,
+    priority: 20,
+    description: "Real Estate is going crazy with how developed the board is.",
+    icon: "blsckknight.svg",
+    onStart:
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            knightChargePower.onStart(side, viewSide, b)
+            if side == black:
+                b[1][3].pieceMove(3, 3, b)
+                b[1][4].pieceMove(3, 4, b)
+            else:
+                b[6][3].pieceMove(4, 3, b)
+                b[6][4].pieceMove(4, 4, b)      
+)
+
+const battleFormation: Synergy = (
+    power: battleFormationPower,
+    rarity: 0,
+    requirements: @[knightChargePower.name, developed.name],
+    replacements: @[knightChargePower.name, developed.name],
+    index: -1
+)
+
 registerPower(empress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
@@ -603,11 +654,14 @@ registerPower(backstep)
 registerPower(headStart)
 registerPower(queenTrade)
 registerPower(lesbianPride)
+registerPower(knightChargePower)
 
 registerSynergy(samuraiSynergy)
+registerSynergy(calvaryCharge)
 registerSynergy(masochistEmpress, true, true)
 registerSynergy(exodia, true)
 registerSynergy(superPawn, true)
 registerSynergy(queensWrath, true)
 registerSynergy(queensWrath2, true)
+registerSynergy(battleFormation, true)
 registerSynergy(queensWrathSuper, true)

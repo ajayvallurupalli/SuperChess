@@ -5,8 +5,7 @@ from sequtils import foldr, mapIt
 
 #[TO DO
 Check if a handshake is needed when drafting, or if no data would be lost
----add priotirty sustem to powers to fix conflicting issues
-make castling a move instead so that the highlighted tile is green not yellow
+---add priotirty sustem to powers to fix conflicting issues2
 ---add invisible borders to prevent odd resizing when clicking
 lots of playtesting
 ---maybe rework promotion to an onpromotion: onAction type thing
@@ -16,23 +15,24 @@ lots of playtesting
     maybe it would be best to just use synergies 
     as long as it is decently robust by replacing requirements (see below)
 ---also make synergies cancel their replacements in executeOn
-also make whentake return a flag for if the take succeeded
+---also make whentake return a flag for if the take succeeded
     so that base function knows to increment piecestaken and do stuff
     also rename it to whenTaken, not sure why that hasn't happened yet
 maybe change pieceMove and pieceSwap to have board be the first argument
 ---change power.icon to only require file name and default include path to icons
 and give options for white and black
-and make black options for shogi pieces
+---and make black options for shogi pieces (fixed with rotate property)
 ---increase max height for drafts 
-stop queen from taking itself with step on me
+---stop queen from taking itself with step on me
 click enter to enter join code
+why doesn't rematching work?????
 ]#
 
 const iconsPath: string  = "./icons/"
 
 type 
     Screen {.pure.} = enum 
-        Lobby, CreateRoom, JoinRoom, Game, Options, Draft
+        Lobby, CreateRoom, JoinRoom, Game, Options, Draft, Results, Rematch, Disconnect
     Gamemode = enum 
         Normal, Random, TrueRandom
 
@@ -40,17 +40,19 @@ var roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
 var peer: tuple[send: proc(data: cstring), destroy: proc()]
 var side: Color# = white # = white only for testing, delete
 var turn: bool# = true# = true#only for testing
+var myDrafts: seq[Power]# = @[knightChargePower, calvary]
+var opponentDrafts: seq[Power]# = @[knightChargePower, developed]
 
-var myDrafts: seq[Power]# = @[lesbianPride]
-var opponentDrafts: seq[Power]# = @[queenTrade, sacrifice]
 var draftOptions: seq[Power]
 var draftChoices: int = 3
-var drafts: int = 3
+var drafts: int = 2 #ignore how this is one less than actual draft, i will fix eventually
+var rematch = false
 
 var theBoard: ChessBoard = startingBoard()
 var selectedTile: Tile = (file: -1, rank: -1)
 var possibleMoves: Moves = @[]
 var possibleTakes: Moves = @[]
+
 var currentScreen: Screen = Lobby # = Draft
 var gameMode: Gamemode# = TrueRandom #deubg
 
@@ -85,7 +87,11 @@ proc sendMove(mode: string, start: Tile, to: Tile) =
 proc draft(allDrafts: seq[Power] = @[], drafter: seq[Power] = @[]) = 
     if gameMode == TrueRandom:
         draftOptions = draftRandomPower(allDrafts, drafter, draftChoices)
-    
+
+proc endRound() = 
+    if gameIsOver(theBoard):
+        currentScreen = Results
+
 proc hostLogic(d: string, m: MessageType) = 
     echo $m, " of ", d, "\n"
     case m
@@ -95,6 +101,10 @@ proc hostLogic(d: string, m: MessageType) =
     of HandShake: 
         peer.send("options:deciding")
         currentScreen = Options
+        theBoard = startingBoard()
+        myDrafts = @[]
+        opponentDrafts = @[]
+        drafts = 2
     of Draft:
         var x = d.split(",")
         if x[0] == "my":
@@ -112,6 +122,13 @@ proc hostLogic(d: string, m: MessageType) =
 
 
     of Move: otherMove(d)
+    of End:
+        if d == "disconn" or d == "exit":
+            currentScreen = Disconnect
+        else:
+            peer.send("end:exit")
+        peer.destroy()
+        roomId.loaded = false
     else: echo "unimplemented"
     redraw()
 
@@ -121,11 +138,20 @@ proc joinLogic(d: string, m: MessageType) =
     of Options:
         currentScreen = Options
         side = black
-        turn = false
+        turn = false        
+        theBoard = startingBoard()
+        myDrafts = @[]
+        opponentDrafts = @[]
     of Handshake:
         myDrafts.executeOn(black, side, theBoard)
         opponentDrafts.executeOn(white, side, theBoard)
-        currentScreen = Game
+        currentScreen = Game    
+    of Rematch:
+        if rematch:
+            rematch = false
+            peer.send("handshake:newgame")
+        else: 
+            rematch = true
     of Draft: 
         var x = d.split(",")
         if d == "start":
@@ -138,7 +164,15 @@ proc joinLogic(d: string, m: MessageType) =
                 draftOptions.add(powers[parseInt(i)])
             
             turn = true
-    of Move: otherMove(d)
+    of Move: 
+        otherMove(d) 
+        endRound()   
+    of End:
+        if d == "disconn" or d == "exit":
+            currentScreen = Disconnect
+        else:
+            peer.send("end:exit")
+        peer.destroy()
     else: echo "unimplemented"
     redraw()
 
@@ -172,12 +206,14 @@ proc createTile(p: Piece, m: int, n: int): VNode =
                     possibleMoves = @[]
                     selectedTile = (-1,-1)
                     possibleTakes = @[]
+                    endRound()
                 elif possibleTakes.contains(p.tile) and turn and pieceOf(selectedTile).isColor(side):
                     sendMove("take", selectedTile, p.tile)
                     pieceOf(selectedTile).onTake(selectedTile, p.tile, theBoard)
                     possibleTakes = @[]
                     selectedTile = (-1, -1)
                     possibleMoves = @[]
+                    endRound()
                 elif not isSelected(m, n):
                     selectedTile = (n, m)
                     possibleMoves = p.getMovesOn(theBoard)        
@@ -208,13 +244,7 @@ proc reverseBoard(): VNode =
                     createTile(theBoard[i][j], i, j)
 
 proc createLobby(): VNode = 
-    result = buildHtml(tdiv(class="column")):
-        let join = proc() = 
-                if not peer.destroy.isNil():
-                    peer.destroy()
-                peer = newHost(hostLogic)
-                
-                currentScreen = CreateRoom
+    result = buildHtml(tdiv(class="column")):                
         tdiv(class="main"):
             button: 
                 text "Join a Room"
@@ -222,13 +252,13 @@ proc createLobby(): VNode =
                     currentScreen = JoinRoom
             button:
                 proc onclick(ev: Event; _: VNode) = 
-                    join()
-
-                proc onkeypressed(ev: Event; _: VNode) =
-                    echo ev.`type`
-
-                
+                    if not peer.destroy.isNil():
+                        peer.destroy()
+                    peer = newHost(hostLogic)
+                    
+                    currentScreen = CreateRoom
                 text "Create a Room"
+
         a(href = "https://docs.google.com/forms/d/e/1FAIpQLScSidB_dbpKlsWopscLZZn4ZJP_5U9gqb0WyMJ4-bN_yAruSg/viewform?usp=sf_link", target="_blank", rel="noopener noreferrer"):
             text "Feedback form! Please fill out!"
 
@@ -243,17 +273,17 @@ proc createRoomMenu(): VNode =
             text roomId.value
 
 proc createJoinMenu(): VNode = 
-    result = buildHtml(tdiv(class="main")):
+    result = buildHtml(tdiv(class="main", id = "join")):
         label(`for` = "joincode"):
             text "Join Code:"
         input(id = "joincode", onchange = validateNotEmpty("joincode"))
         button:
-            proc onclick(_: Event; _: VNode) = 
+            proc onclick(ev: Event; v: VNode) = 
                 let id = getVNodeById("joincode").getInputText
+                echo getVNodeById("joincode")
                 if not peer.destroy.isNil():
                     peer.destroy()
                 peer = newJoin(id, joinLogic)
-                
             text "Enter"
 
 proc createOptionsMenu(): VNode = 
@@ -346,6 +376,52 @@ proc createGame(): VNode =
             for p in opponentDrafts.replaceAnySynergies():
                 createPowerSummary(p)
 
+proc createResults(): VNode = 
+    result = buildHtml(tdiv(class="column")):
+        if side.alive(theBoard):
+            h1:
+                text "You won!"
+        else:
+            h1: 
+                text "You lost..."
+        
+        button:
+            proc onclick(_: Event, _: VNode) = 
+                if side == black:
+                    joinLogic("", Rematch)
+                else:
+                    peer.send("rematch:please")
+                currentScreen = Rematch
+            text "Rematch"
+
+        button: 
+            proc onclick(_: Event, _: VNode) = 
+                if side == white:
+                    hostLogic("", End)
+                elif side == black:
+                    joinLogic("", End)
+                currentScreen = Lobby
+
+            text "Back to Lobby"
+
+proc createRematch(): VNode = 
+    result = buildHtml(tdiv(class="main")):
+        text "Waiting for opponent to accept..."
+        button:
+            proc onclick(_: Event, _: VNode) = 
+                currentScreen = Lobby
+                peer.send("end:exit")
+            text "Back to Lobby"
+
+
+proc createDisconnect(): VNode = 
+    result = buildHtml(tdiv(class="column")):
+        text "Your opponent disconnected"
+        button:
+            proc onclick(_: Event, _: VNode) = 
+                currentScreen = Lobby
+            text "Back to Lobby"
+
 proc main(): VNode = 
     result = buildHtml(tdiv(class="main")):
         case currentScreen
@@ -355,6 +431,9 @@ proc main(): VNode =
         of Options: createOptionsMenu()
         of Draft: createDraftMenu()
         of Game: createGame()
+        of Results: createResults()
+        of Rematch: createRematch()
+        of Disconnect: createDisconnect()
 
 
 setRenderer main

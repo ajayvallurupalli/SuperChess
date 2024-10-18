@@ -92,7 +92,7 @@ func pieceCopy*(initial: Piece,
                 rotate: bool = initial.rotate): Piece = 
     return Piece(item: item, color: color, timesMoved: timesMoved, piecesTaken: piecesTaken,
                 tile: tile, moves: moves, takes: takes, onMove: onMove, onTake: onTake,
-                whenTake: whenTake, onEndTurn: onEndTurn, onPromote: onPromote,promoted: promoted, filePath: filePath)
+                whenTake: whenTake, onEndTurn: onEndTurn, onPromote: onPromote,promoted: promoted, filePath: filePath, rotate: rotate)
             
 proc pieceMove*(p: Piece, rank: int, file: int, board: var ChessBoard) = 
     board[rank][file] = board[p.tile.rank][p.tile.file]
@@ -126,3 +126,18 @@ func `$`*(p: Piece): string =
     else: 
         return $p.color & $p.item
 
+func alive*(c: Color, b: ChessBoard): bool = 
+    for row in b:
+        for p in row:
+            if p.item == king and p.isColor(c):
+                return true
+
+    return false
+
+func gameIsOver*(b: ChessBoard): bool = 
+    var kings: int = 0
+    for row in b:
+        for p in row:
+            if p.item == king: inc kings
+
+    return kings != 2

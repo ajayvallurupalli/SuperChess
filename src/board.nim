@@ -57,6 +57,7 @@ func pieceLeft*(b: ChessBoard, t: Tile): Option[Piece] =
 func pieceRight*(b: ChessBoard, t: Tile): Option[Piece] = 
     return b.boardRef(t.tileRight())
 
+
 #TESTS
 when isMainModule:
     var testBoard: ChessBoard = emptyBoard()
