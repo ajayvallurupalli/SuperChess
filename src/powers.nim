@@ -613,7 +613,7 @@ const battleFormationPower: Power = Power(
     rarity: 0,
     priority: 20,
     description: "Real Estate is going crazy with how developed the board is.",
-    icon: "blsckknight.svg",
+    icon: "blackknight.svg",
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             knightChargePower.onStart(side, viewSide, b)

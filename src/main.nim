@@ -18,14 +18,14 @@ lots of playtesting
 ---also make whentake return a flag for if the take succeeded
     so that base function knows to increment piecestaken and do stuff
     also rename it to whenTaken, not sure why that hasn't happened yet
-maybe change pieceMove and pieceSwap to have board be the first argument
+---maybe change pieceMove and pieceSwap to have board be the first argument
 ---change power.icon to only require file name and default include path to icons
-and give options for white and black
+---and give options for white and black
 ---and make black options for shogi pieces (fixed with rotate property)
 ---increase max height for drafts 
 ---stop queen from taking itself with step on me
 click enter to enter join code
-why doesn't rematching work?????
+--why doesn't rematching work?????
 ]#
 
 const iconsPath: string  = "./icons/"
@@ -40,8 +40,8 @@ var roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
 var peer: tuple[send: proc(data: cstring), destroy: proc()]
 var side: Color# = white # = white only for testing, delete
 var turn: bool# = true# = true#only for testing
-var myDrafts: seq[Power] = @[knightChargePower, calvary]
-var opponentDrafts: seq[Power] = @[knightChargePower, developed]
+var myDrafts: seq[Power]# = @[knightChargePower, calvary]
+var opponentDrafts: seq[Power]# = @[knightChargePower, developed]
 
 var draftOptions: seq[Power]
 var draftChoices: int = 3

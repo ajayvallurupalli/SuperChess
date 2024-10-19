@@ -24,5 +24,8 @@ task html, "compiles html in main.nim":
 task jsc, "compiles just the js, instead of doing all that rewriting":
     exec "nim js --out:app.js src/main.nim"
 
+task jscr, "compiles for release":
+    exec "nim js --out:app.js -d:release src/main.nim"
+
 task host, "hosts app.html, build from main.nim with task html":
     exec "npx parcel app/app.html"
