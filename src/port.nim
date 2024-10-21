@@ -34,7 +34,7 @@ new Peer(#, {config: {
                             }
                         ]
                     }
-                }
+                })
 """.}
 
 func messageType(data: cstring): MessageType =  
