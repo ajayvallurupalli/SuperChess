@@ -3,6 +3,10 @@ import piece, basePieces, port, power, powers, karax/errors
 from strutils import split, parseInt
 from sequtils import foldr, mapIt
 
+
+{.warning[CStringConv]: off.} 
+#fixing the issue makes the code look bad, so I'm turning it off. Genius, I know
+
 #[TO DO
 Check if a handshake is needed when drafting, or if no data would be lost
 ---add priotirty sustem to powers to fix conflicting issues2
@@ -40,8 +44,8 @@ var roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
 var peer: tuple[send: proc(data: cstring), destroy: proc()]
 var side: Color# = white # = white only for testing, delete
 var turn: bool# = true# = true#only for testing
-var myDrafts: seq[Power]# = @[knightChargePower, calvary]
-var opponentDrafts: seq[Power]# = @[knightChargePower, developed]
+var myDrafts: seq[Power] = @[knightChargePower, calvary, mysteriousSwordsmanLeft]
+var opponentDrafts: seq[Power] = @[knightChargePower, developed, lesbianPride, mysteriousSwordsmanLeft]
 
 var draftOptions: seq[Power]
 var draftChoices: int = 3
@@ -337,7 +341,9 @@ proc createPowerMenu(p: Power): VNode =
         h1:
             text p.name
         if p.icon != "":
-            img(src=iconsPath & p.icon)
+            var src = iconsPath
+            if not p.noColor: src &= $side
+            img(src=src & p.icon)
         else:
             img(src="./icons/blackbishop.svg") #placeholder, delete when images are found
         h2:
@@ -361,26 +367,33 @@ proc createDraftMenu(): VNode =
         else:
             text "Opponent is drafting..."
 
-proc createPowerSummary(p: Power): VNode = 
+proc createPowerSummary(p: Power, ofSide: Color): VNode = 
     result = buildHtml(tdiv(class="power-grid")):
         h4(class = "title"):
             text p.name
         p(class="small-text desc"):
             text p.description
+
+        var class = "image "
+        if side != ofSide and p.rotatable:
+            class &= " rotate "
+        
+        var src = iconsPath
+        if not p.noColor: src &= $ofSide
         if p.icon != "":
-            img(class = "image", src = iconsPath & p.icon)
+            img(class = class, src = src & p.icon)
         else:
-            img(class = "image", src = iconsPath & "blackbishop.svg")
+            img(class = class, src = iconsPath & "blackbishop.svg")
 
 proc createGame(): VNode = 
     result = buildHtml(tdiv(class="main")):
         tdiv(class="column-scroll"):
             for p in myDrafts.replaceAnySynergies():
-                createPowerSummary(p)
+                createPowerSummary(p, side)
         if side == white: createBoard() else: reverseBoard()
         tdiv(class="column-scroll"):
             for p in opponentDrafts.replaceAnySynergies():
-                createPowerSummary(p)
+                createPowerSummary(p, otherSide(side))
 
 proc createResults(): VNode = 
     result = buildHtml(tdiv(class="column")):

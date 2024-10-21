@@ -1,4 +1,4 @@
-import piece, basePieces, moves, board
+import piece, moves, board
 
 const diagnalMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
     discard result.addIfFree(board, p.tile, shooterFactory(1,1))

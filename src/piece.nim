@@ -121,6 +121,9 @@ func sameColor*(a: Piece, b: Piece): bool =
 func isColor*(a: Piece, b: Color): bool = 
     return a.color == b
 
+func otherSide*(a: Color): Color = 
+    return if a == white: black else: white
+
 func `$`*(p: Piece): string = 
     if p.item == none:
         return ""

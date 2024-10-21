@@ -13,7 +13,7 @@ const empress*: Power = Power(
     tier: Uncommon,
     priority: 15,
     description: "Your queen ascends, gaining the movement of a standard knight. ",
-    icon: "blackqueen.svg",
+    icon: "queen.svg",
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
@@ -39,6 +39,8 @@ const mysteriousSwordsmanLeft*: Power = Power(
         """A mysterious swordsman joins your rank. 
         Your second pawn from the left is replaced with a silver general from Shogi.""",
     icon: "silvergeneral.svg",
+    rotatable: true,
+    noColor: true,
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             let rank = if side == black: 1 else: 6
@@ -62,6 +64,8 @@ const mysteriousSwordsmanRight*: Power = Power(
         """A mysterious swordsman joins your rank. 
         Your second pawn from the right is replaced with a silver general from Shogi.""",
     icon: "silvergeneral.svg",
+    rotatable: true,
+    noColor: true,
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             let rank = if side == black: 1 else: 6
@@ -84,6 +88,7 @@ const developed*: Power = Power(
     description: 
         """Your board arrives a little developed. Your 2 center pawns start one tile forward. 
         They can still move up 2 for their first move.""",
+    icon: "pawn.svg",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             if side == black:
@@ -100,6 +105,7 @@ const stepOnMe*: Power = Power(
     priority: 15, 
     description:
         """Your Queen can take your own pieces. It's literally useless, but if that's your thing...""",
+    icon: "queen.svg",
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
@@ -115,6 +121,7 @@ const illegalFormationRL: Power = Power(
     priority: 20,
     description: 
         """ILLEGAL FORMATION: YOUR PAWN ABOVE YOUR LEFT ROOK SWAPS PLACES WITH YOUR LEFT ROOK""",
+    icon: "rook.svg",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             let rank = if side == black: 0 else: 6
@@ -128,6 +135,7 @@ const illegalFormationRR: Power = Power(
     priority: 20,
     description: 
         """ILLEGAL FORMATION: YOUR PAWN ABOVE YOUR RIGHT ROOK SWAPS PLACES WITH YOUR RIGHT ROOK""",
+    icon: "rook.svg",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             let rank = if side == black: 0 else: 6
@@ -141,6 +149,7 @@ const illegalFormationBL*: Power = Power(
     priority: 20,
     description: 
         """ILLEGAL FORMATION: YOUR PAWN ABOVE YOUR LEFT BISHOP SWAPS PLACES WITH YOUR LEFT BISHOP""",
+    icon: "bishop.svg",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             let rank = if side == black: 0 else: 6
@@ -154,6 +163,7 @@ const illegalFormationBR: Power = Power(
     priority: 20,
     description: 
         """ILLEGAL FORMATION: YOUR PAWN ABOVE YOUR RIGHT BISHOP SWAPS PLACES WITH YOUR RIGHT BISHOP""",
+    icon: "bishop.svg",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             let rank = if side == black: 0 else: 6
@@ -175,6 +185,7 @@ const putInTheWork*: Power = Power(
     priority: 10, 
     description:
         """Get to work son. If any of your pawns take 3 pieces, they automatically promote.""",
+    icon: "pawn.svg",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
@@ -193,6 +204,8 @@ const wanderingRoninLeft*: Power = Power(
         """A wandering Ronin joins your rank. 
         Your third pawn from the left is replaced with a gold general from Shogi.""",
     icon: "goldgeneral.svg",
+    rotatable: true,
+    noColor: true,
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) =
             let rank = if side == black: 1 else: 6
@@ -217,6 +230,8 @@ const wanderingRoninRight*: Power = Power(
         """A wandering Ronin joins your rank. 
         Your third pawn from the right is replaced with a gold general from Shogi.""",
     icon: "goldgeneral.svg",
+    rotatable: true,
+    noColor: true,
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             let rank = if side == black: 1 else: 6
@@ -245,6 +260,7 @@ const warewolves*: Power = Power(
     priority: 5, 
     description: 
         """Your leftmost and rightmost pawns are secretly werewolves! When they take a piece, they eat it and gain the ability to jump like a knight. They do not promote.""",
+    icon: "pawn.svg",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             let rank = if side == black: 1 else: 6
@@ -260,6 +276,7 @@ const archBishops: Power = Power(
     priority: 15, 
     description:
         """Your bishops ascend to archbishops, gaining the movement of a knight.""",
+    icon: "bishop.svg",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
@@ -275,7 +292,7 @@ const giraffe*: Power = Power(
     priority: 5, 
     description:
         """Your knights try riding giraffes. It works surprisingly well. Their leap is improved, moving 3 across instead of 2 across.""",
-    icon: "blackgiraffe.svg",
+    icon: "giraffe.svg",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
@@ -293,7 +310,7 @@ const calvary*: Power = Power(
     description: 
         """Your knights learn to ride forward. They aren't very good at it, but they're trying their best. 
             They can charge forward 2 tiles, but they cannot jump for this move.""",
-    icon: "blackknight.svg",
+    icon: "knight.svg",
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
@@ -314,6 +331,9 @@ const anime*: Power = Power(
     rarity: 0,
     description:
         """Your board is imbued with the power of anime. You feel a odd sense of regret. Or is it guilt?""",
+    icon: "goldgeneral.svg",
+    rotatable: true,
+    noColor: true,
     onStart:
         proc (side: Color, viewerSide: Color, b: var ChessBoard) = 
             mysteriousSwordsmanLeft.onStart(side, viewerSide, b)
@@ -372,7 +392,7 @@ const sacrifice*: Power = Power(
     tier: UltraRare,
     priority: 15,
     description: """SACRIFICE THY MAIDENS TO THE BLOOD GOD""",
-    icon: "blackqueen.svg",
+    icon: "queen.svg",
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) =
             for i in 0 ..< b.len:
@@ -403,6 +423,7 @@ const exodiaPower: Power = Power(
     tier: UltraRare,
     priority: 15,
     description: "You had your fun, but the game is over. Too bad right?",
+    icon: "queen.svg",
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
@@ -425,7 +446,7 @@ const backStep: Power = Power(
     tier: Rare,
     priority: 15,
     description: "Your pawns receive some training. They can move one tile back. They cannot take this way.",
-    icon: "blackpawn.svg",
+    icon: "pawn.svg",
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
@@ -442,7 +463,7 @@ const headStart: Power = Power(
     tier: Uncommon,
     priority: 15,
     description: "Your pawns can always move 2 forward. They still take like normal. It's kind of boring, don't you think?",
-    icon: "blackpawn.svg",
+    icon: "pawn.svg",
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
@@ -459,7 +480,7 @@ const queenTrade*: Power = Power(
     tier: Rare,
     priority: 20,
     description: "The patriarchy continues. Both queens mysteriously die.",
-    icon: "blackqueen.svg",
+    icon: "queen.svg",
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
@@ -474,7 +495,7 @@ const superPawnPower: Power = Power(
     rarity: 0,
     priority: 15,
     description: "You have insane pawns. Please don't sacrifice them.",
-    icon: "blackpawn.svg",
+    icon: "pawn.svg",
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             headStart.onStart(side, viewSide, b)
@@ -503,12 +524,13 @@ const lesbianPride*: Power = Power(
     priority: 1,
     description: "🧡🤍🩷",
     icon: "lesbianprideflag.svg",
+    noColor: true,
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
                 for j in 0 ..< b[0].len:
                     if b[i][j].item == king and b[i][j].isColor(side):
-                        b[i][j] = whiteQueen.pieceCopy(color =  b[i][j].color, item = king, tile = b[i][j].tile, rotate = true) 
+                        b[i][j] = whiteQueen.pieceCopy(color = b[i][j].color, item = king, tile = b[i][j].tile, rotate = true) 
                     elif b[i][j].item == bishop and b[i][j].isColor(side):
                         b[i][j] = Piece(item: none, tile: b[i][j].tile)
                         #`Piece.item` is still king so win/loss works
@@ -520,7 +542,7 @@ const queensWrathPower: Power = Power(
     rarity: 0,
     priority: 1,
     description: "Why must she die?",
-    icon: "blackqueen.svg",
+    icon: "queen.svg",
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
@@ -543,7 +565,7 @@ const queensWrathSuperPower: Power = Power(
                     They will suffer. They will suffer. They will suffer. They will suffer. 
                     They will suffer. They will suffer. They will suffer. They will suffer.
                     They will suffer. They will suffer. They will suffer. They will suffer.""",
-    icon: "blackqueen.svg",
+    icon: "queen.svg",
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
@@ -588,7 +610,7 @@ const knightChargePower*: Power = Power(
     rarity: 4,
     priority: 20,
     description: "CHARGE! Your knights start 3 tiles ahead.",
-    icon: "blackknight.svg",
+    icon: "knight.svg",
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) =   
             let offset = if side == white: -3 else: 3
@@ -613,7 +635,7 @@ const battleFormationPower: Power = Power(
     rarity: 0,
     priority: 20,
     description: "Real Estate is going crazy with how developed the board is.",
-    icon: "blackknight.svg",
+    icon: "knight.svg",
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             knightChargePower.onStart(side, viewSide, b)
@@ -661,6 +683,7 @@ const lineBackersPower: Power = Power(
     rarity: 0,
     priority: 15,
     description: "Your pawns learn to fight like men. They can two spaces ahead too.",
+    icon: "pawn.svg",
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             for i in 0 ..< b.len:
@@ -675,7 +698,7 @@ const lineBackersPower: Power = Power(
 
 const linebackers: Synergy = (
     power: lineBackersPower,
-    rarity: 6,
+    rarity: 0,
     requirements: @[putInTheWork.name, headStart.name],
     replacements: @[],
     index: -1
