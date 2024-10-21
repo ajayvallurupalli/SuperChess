@@ -633,6 +633,28 @@ const battleFormation: Synergy = (
     index: -1
 )
 
+const differentGamePower: Power = Power(
+    name: "Criminal Formation",
+    tier: Uncommon,
+    rarity: 0,
+    priority: 20,
+    description: "I guess the rules didn't get to you. Your pawns above both knights and both rooks swap places with those pieces.",
+    onStart:
+        proc (side: Color, viewSide: Color, b: var ChessBoard) =
+            illegalFormationBL.onStart(side, viewSide, b)
+            illegalFormationBR.onStart(side, viewSide, b)
+            illegalFormationRL.onStart(side, viewSide, b)
+            illegalFormationRR.onStart(side, viewSide, b)
+)
+
+const differentGame: Synergy = (
+    power: differentGamePower,
+    rarity: 12,
+    requirements: @[illegalFormationBR.name],
+    replacements: @[illegalFormationBR.name],
+    index: -1
+)
+
 registerPower(empress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
@@ -658,6 +680,7 @@ registerPower(knightChargePower)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)
+registerSynergy(differentGame)
 registerSynergy(masochistEmpress, true, true)
 registerSynergy(exodia, true)
 registerSynergy(superPawn, true)
