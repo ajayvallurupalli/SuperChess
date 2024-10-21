@@ -15,8 +15,8 @@ type
         rarity*: int = 8
         description*: string = "NONE"
         icon*: FilePath = ""
-        rotatable* = false
-        noColor* = false
+        rotatable*: bool = false
+        noColor*: bool = false
         onStart*: proc (drafterSide: Color, viewerSide: Color, b: var ChessBoard)
         index*: int = -1
         priority*: int = 10

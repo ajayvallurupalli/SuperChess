@@ -107,3 +107,23 @@ const giraffeMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
 
 const takeSelf*: MoveProc = func(board: ChessBoard, p: Piece): Moves = 
     result.add(p.tile)
+
+const nightriderTakes*: MoveProc = func(board: ChessBoard, p: Piece): Moves = 
+    result.add(lineTakes(board, p, shooterFactory(1, 2), cannibalismFlag = true))
+    result.add(lineTakes(board, p, shooterFactory(-1, 2), cannibalismFlag = true))
+    result.add(lineTakes(board, p, shooterFactory(2, 1), cannibalismFlag = true))
+    result.add(lineTakes(board, p, shooterFactory(2, -1), cannibalismFlag = true))
+    result.add(lineTakes(board, p, shooterFactory(1, -2), cannibalismFlag = true))
+    result.add(lineTakes(board, p, shooterFactory(-1, -2), cannibalismFlag = true))
+    result.add(lineTakes(board, p, shooterFactory(-2, 1), cannibalismFlag = true))
+    result.add(lineTakes(board, p, shooterFactory(-2, -1), cannibalismFlag = true))
+
+const nightriderMoves*: MoveProc = func(board: ChessBoard, p: Piece): Moves = 
+    result.add(lineMoves(board, p, shooterFactory(1, 2)))
+    result.add(lineMoves(board, p, shooterFactory(-1, 2)))
+    result.add(lineMoves(board, p, shooterFactory(2, 1)))
+    result.add(lineMoves(board, p, shooterFactory(2, -1)))
+    result.add(lineMoves(board, p, shooterFactory(1, -2)))
+    result.add(lineMoves(board, p, shooterFactory(-1, -2)))
+    result.add(lineMoves(board, p, shooterFactory(-2, 1)))
+    result.add(lineMoves(board, p, shooterFactory(-2, -1)))

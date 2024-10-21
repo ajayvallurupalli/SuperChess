@@ -704,6 +704,21 @@ const linebackers: Synergy = (
     index: -1
 )
 
+const nightRider: Power = Power(
+    name: "Nightrider",
+    tier: UltraRare,
+    priority: 5,
+    description: "Nightrider.",
+    icon: "nightrider.svg",
+    onStart: 
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == knight and b[i][j].isColor(side):
+                        b[i][j].moves &= nightriderMoves
+                        b[i][j].takes &= nightriderTakes
+)
+
 registerPower(empress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
@@ -726,12 +741,13 @@ registerPower(headStart)
 registerPower(queenTrade)
 registerPower(lesbianPride)
 registerPower(knightChargePower)
+registerPower(nightRider)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)
 registerSynergy(differentGame)
+registerSynergy(linebackers)
 registerSynergy(masochistEmpress, true, true)
-registerSynergy(linebackers, true)
 registerSynergy(exodia, true)
 registerSynergy(superPawn, true)
 registerSynergy(queensWrath, true)
