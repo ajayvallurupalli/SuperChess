@@ -635,7 +635,7 @@ const battleFormation: Synergy = (
 
 const differentGamePower: Power = Power(
     name: "Criminal Formation",
-    tier: Uncommon,
+    tier: Common,
     rarity: 0,
     priority: 20,
     description: "I guess the rules didn't get to you. Your pawns above both knights and both rooks swap places with those pieces.",
@@ -652,6 +652,32 @@ const differentGame: Synergy = (
     rarity: 12,
     requirements: @[illegalFormationBR.name],
     replacements: @[illegalFormationBR.name],
+    index: -1
+)
+
+const lineBackersPower: Power = Power(
+    name: "Linebackers",
+    tier: Rare,
+    rarity: 0,
+    priority: 15,
+    description: "Your pawns learn to fight like men. They can two spaces ahead too.",
+    onStart:
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == pawn and b[i][j].isColor(side):
+                        if b[i][j].color == black:
+                            b[i][j].takes &= blackForwardTwiceTakes
+                        elif b[i][j].color == white:
+                            b[i][j].takes &= whiteForwardTwiceTakes
+
+)
+
+const linebackers: Synergy = (
+    power: lineBackersPower,
+    rarity: 6,
+    requirements: @[putInTheWork.name, headStart.name],
+    replacements: @[],
     index: -1
 )
 
@@ -682,6 +708,7 @@ registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)
 registerSynergy(differentGame)
 registerSynergy(masochistEmpress, true, true)
+registerSynergy(linebackers, true)
 registerSynergy(exodia, true)
 registerSynergy(superPawn, true)
 registerSynergy(queensWrath, true)
