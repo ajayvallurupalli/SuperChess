@@ -6578,28 +6578,21 @@ function HEX3Aanonymous_1577058445(data_1577058446) {
 
           
         }
-        
-function HEX3Aanonymous_1577058466() {
-            cb_1577058354([100,105,115,99,111,110,110], 5);
-
-          
-        }
 
         conn_1577058395 = c_1577058444;
         conn_1577058395.on(("data"), (HEX3Aanonymous_1577058445));
-        conn_1577058395.on(("disconnect"), (HEX3Aanonymous_1577058466));
 
       
     }
     
-function HEX3Aanonymous_1577058504() {
+function HEX3Aanonymous_1577058484() {
         peer_1577058394.destroy();
 
       
     }
     
-function HEX3Aanonymous_1577058509(data_1577058510) {
-        conn_1577058395.send((data_1577058510));
+function HEX3Aanonymous_1577058489(data_1577058490) {
+        conn_1577058395.send((data_1577058490));
 
       
     }
@@ -6621,8 +6614,8 @@ function HEX3Aanonymous_1577058509(data_1577058510) {
     var conn_1577058395 = null;
     peer_1577058394.on(("open"), (HEX3Aanonymous_1577058414));
     peer_1577058394.on(("connection"), (HEX3Aanonymous_1577058443));
-    result_1577058360.Field1 = HEX3Aanonymous_1577058504;
-    result_1577058360.Field0 = HEX3Aanonymous_1577058509;
+    result_1577058360.Field1 = HEX3Aanonymous_1577058484;
+    result_1577058360.Field0 = HEX3Aanonymous_1577058489;
 
   return result_1577058360;
 
@@ -7880,54 +7873,47 @@ function HEX24_754975843(n_754975844) {
 
 }
 
-function newJoin_1577058537(id_1577058538, cb_1577058542) {
+function newJoin_1577058517(id_1577058518, cb_1577058522) {
     
-function HEX3Aanonymous_1577058551() {
+function HEX3Aanonymous_1577058531() {
         
-function HEX3Aanonymous_1577058563() {
-          var result_1577058564 = null;
+function HEX3Aanonymous_1577058543() {
+          var result_1577058544 = null;
 
-            result_1577058564 = conn_1577058550.send(("handshake:hello"));
+            result_1577058544 = conn_1577058530.send(("handshake:hello"));
 
-          return result_1577058564;
+          return result_1577058544;
 
         }
         
-function HEX3Aanonymous_1577058594(data_1577058595) {
-            cb_1577058542(cutMessage_1577058347(data_1577058595), messageType_1577058327(data_1577058595));
-
-          
-        }
-        
-function HEX3Aanonymous_1577058615() {
-            cb_1577058542([100,105,115,99,111,110,110], 5);
+function HEX3Aanonymous_1577058574(data_1577058575) {
+            cb_1577058522(cutMessage_1577058347(data_1577058575), messageType_1577058327(data_1577058575));
 
           
         }
 
-        conn_1577058550 = peer_1577058549.connect((("9e4ada91-c493-4fd4-881d-3e05db99e100" + id_1577058538)));
-        conn_1577058550.on(("open"), (HEX3Aanonymous_1577058563));
-        conn_1577058550.on(("data"), (HEX3Aanonymous_1577058594));
-        conn_1577058550.on(("disconnect"), (HEX3Aanonymous_1577058615));
+        conn_1577058530 = peer_1577058529.connect((("9e4ada91-c493-4fd4-881d-3e05db99e100" + id_1577058518)));
+        conn_1577058530.on(("open"), (HEX3Aanonymous_1577058543));
+        conn_1577058530.on(("data"), (HEX3Aanonymous_1577058574));
 
       
     }
     
-function HEX3Aanonymous_1577058653() {
-        peer_1577058549.destroy();
+function HEX3Aanonymous_1577058613() {
+        peer_1577058529.destroy();
 
       
     }
     
-function HEX3Aanonymous_1577058658(data_1577058659) {
-        conn_1577058550.send((data_1577058659));
+function HEX3Aanonymous_1577058618(data_1577058619) {
+        conn_1577058530.send((data_1577058619));
 
       
     }
 
-  var result_1577058548 = {Field0: null, Field1: null};
+  var result_1577058528 = {Field0: null, Field1: null};
 
-    var peer_1577058549 = new Peer(null, {config: {
+    var peer_1577058529 = new Peer(null, {config: {
                         iceServers: [
                             {
                                 urls: "turn:standard.relay.metered.ca:80",
@@ -7937,12 +7923,12 @@ function HEX3Aanonymous_1577058658(data_1577058659) {
                         ]
                     }
                 });
-    var conn_1577058550 = null;
-    peer_1577058549.on(("open"), (HEX3Aanonymous_1577058551));
-    result_1577058548.Field1 = HEX3Aanonymous_1577058653;
-    result_1577058548.Field0 = HEX3Aanonymous_1577058658;
+    var conn_1577058530 = null;
+    peer_1577058529.on(("open"), (HEX3Aanonymous_1577058531));
+    result_1577058528.Field1 = HEX3Aanonymous_1577058613;
+    result_1577058528.Field0 = HEX3Aanonymous_1577058618;
 
-  return result_1577058548;
+  return result_1577058528;
 
 }
 
@@ -8119,7 +8105,7 @@ function HEX3Aanonymous_553648907(ev_553648908, v_553648909) {
         peer_553648172[0].Field1();
         }
         
-        peer_553648172[0] = nimCopy(peer_553648172[0], newJoin_1577058537(id_553648910, joinLogic_553648591), NTI553648137);
+        peer_553648172[0] = nimCopy(peer_553648172[0], newJoin_1577058517(id_553648910, joinLogic_553648591), NTI553648137);
 
       
     }

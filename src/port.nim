@@ -64,8 +64,7 @@ proc newHost*(cb: proc(data: string, messageType: MessageType)): tuple[send: pro
     peer.on("open", ((id: cstring) => cb($roomId, Id)))
     peer.on("connection", proc (c: Connection) =
         conn = c
-        conn.on("data", (data: cstring) => cb(cutMessage(data), messageType(data)))
-        conn.on("disconnect", () => cb("disconn", End)))
+        conn.on("data", (data: cstring) => cb(cutMessage(data), messageType(data))))
 
     result.destroy =  proc() = 
         peer.destroy()
@@ -80,8 +79,7 @@ proc newJoin*(id: cstring, cb: proc(data: string, messageType: MessageType)): tu
     peer.on("open", proc () = 
         conn = peer.connect(baseId & id)
         conn.on("open", () => conn.send("handshake:hello"))
-        conn.on("data", (data: cstring) => cb(cutMessage(data), messageType(data)))
-        conn.on("disconnect", () => cb("disconn", End)))
+        conn.on("data", (data: cstring) => cb(cutMessage(data), messageType(data))))
     
     result.destroy = proc () = 
         peer.destroy()
