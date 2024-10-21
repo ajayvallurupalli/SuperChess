@@ -56,7 +56,7 @@ const
 
 const onPawnPromote*: OnAction = proc (taker: Tile, taken: Tile, board: var ChessBoard) = 
     let pawn = board[taken.rank][taken.file]
-    board[taken.rank][taken.file] = blackQueen.pieceCopy(piecesTaken=pawn.piecesTaken, tile=pawn.tile, promoted = true, color = pawn.color)
+    board[taken.rank][taken.file] = blackQueen.pieceCopy(piecesTaken=pawn.piecesTaken, tile=pawn.tile, promoted = true, color = pawn.color, filePath = $pawn.color & "queen.svg")
 
 const onPawnEnd*: OnAction = proc (taker: Tile, taken: Tile, board: var ChessBoard) = 
     let pawn = board[taken.rank][taken.file]

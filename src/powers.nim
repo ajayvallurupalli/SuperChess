@@ -530,10 +530,10 @@ const lesbianPride*: Power = Power(
             for i in 0 ..< b.len:
                 for j in 0 ..< b[0].len:
                     if b[i][j].item == king and b[i][j].isColor(side):
-                        b[i][j] = whiteQueen.pieceCopy(color = b[i][j].color, item = king, tile = b[i][j].tile, rotate = true) 
+                        b[i][j] = whiteQueen.pieceCopy(color = b[i][j].color, item = king, tile = b[i][j].tile, rotate = true, filePath = $side & "queen.svg") 
+                        #`Piece.item` is still king so win/loss works. `Piece.rotate` = true should hopefully suggest this
                     elif b[i][j].item == bishop and b[i][j].isColor(side):
                         b[i][j] = Piece(item: none, tile: b[i][j].tile)
-                        #`Piece.item` is still king so win/loss works
 )
 
 const queensWrathPower: Power = Power(
