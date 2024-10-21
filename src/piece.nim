@@ -110,6 +110,7 @@ proc pieceSwap*(p1: Piece, p2: Piece, board: var ChessBoard) =
 proc piecePromote*(t: Tile, b: var ChessBoard) = 
     for f in b[t.rank][t.file].onPromote:
         f(t, t, b)
+    b[t.rank][t.file].promoted = true
 
 func isAir*(p: Piece): bool = 
     return p.item == none

@@ -73,6 +73,7 @@ proc otherMove(d: string) =
     let data = split(d, ",")
     let mover: Tile = (parseInt(data[2]), parseInt(data[1]))
     let moveTo: Tile = (parseInt(data[4]), parseInt(data[3]))
+    assert lastMove != @[mover, moveTo]
     lastMove = @[mover, moveTo]
 
     echo data[0],mover, moveTo
