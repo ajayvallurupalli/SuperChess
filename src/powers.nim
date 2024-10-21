@@ -719,6 +719,21 @@ const nightRider: Power = Power(
                         b[i][j].takes &= nightriderTakes
 )
 
+const desegregation: Power = Power(
+    name: "Desgregation and Integration",
+    tier: Uncommon,
+    priority: 15,
+    description: "Your bishops learn to accept their differences. They can move left and right.",
+    icon: "bishop.svg",
+    onStart: 
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == bishop and b[i][j].isColor(side):
+                        b[i][j].moves &= leftRightMoves
+                        b[i][j].takes &= leftRightTakes
+)
+
 registerPower(empress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
@@ -742,6 +757,7 @@ registerPower(queenTrade)
 registerPower(lesbianPride)
 registerPower(knightChargePower)
 registerPower(nightRider)
+registerPower(desegregation)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)
