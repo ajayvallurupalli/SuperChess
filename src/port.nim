@@ -12,8 +12,8 @@ var document* {.importc, nodecl.}: JsObject
 
 const baseId: cstring = "9e4ada91-c493-4fd4-881d-3e05db99e100"
 
-proc newPeer*(): Peer {.importjs:
- """new Peer(null, {config: {
+proc newPeer*(): Peer {.importjs:"""
+new Peer(null, {config: {
                         iceServers: [
                             {
                                 urls: "turn:standard.relay.metered.ca:80",
@@ -22,9 +22,10 @@ proc newPeer*(): Peer {.importjs:
                             }
                         ]
                     }
-                })""".}
-proc newPeer*(data: cstring): Peer {.importjs: 
-"""new Peer(#, {config: {
+                })
+""".}
+proc newPeer*(data: cstring): Peer {.importjs: """
+new Peer(#, {config: {
                         iceServers: [
                             {
                                 urls: "turn:standard.relay.metered.ca:80",
@@ -33,7 +34,8 @@ proc newPeer*(data: cstring): Peer {.importjs:
                             }
                         ]
                     }
-                })""".}
+                }
+""".}
 
 func messageType(data: cstring): MessageType =  
     var str = $data
@@ -65,6 +67,10 @@ proc newHost*(cb: proc(data: string, messageType: MessageType)): tuple[send: pro
     peer.on("connection", proc (c: Connection) =
         conn = c
         conn.on("data", (data: cstring) => cb(cutMessage(data), messageType(data))))
+    peer.on("disconnect", proc () =
+        echo "DISCONNECT DISCONNECT DISCONNECT"
+        peer.id = baseId & cstring($roomId)
+        peer.reconnect())
 
     result.destroy =  proc() = 
         peer.destroy()
@@ -80,6 +86,10 @@ proc newJoin*(id: cstring, cb: proc(data: string, messageType: MessageType)): tu
         conn = peer.connect(baseId & id)
         conn.on("open", () => conn.send("handshake:hello"))
         conn.on("data", (data: cstring) => cb(cutMessage(data), messageType(data))))
+    peer.on("disconnect", proc () =
+        echo "DISCONNECT DISCONNECT DISCONNECT"
+        peer.id = baseId & id
+        peer.reconnect())
     
     result.destroy = proc () = 
         peer.destroy()
