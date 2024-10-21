@@ -184,22 +184,27 @@ img {
 
 .selected {
     border-width: var(--border-width);
-    border-color: blue;
+    border-color: blue !important;
     border-style: solid;
 }
 
 .can-move {
     border-width: var(--border-width);
-    border-color: green;
+    border-color: green !important;
     border-style: solid;
 }
 
 .can-take {
     border-width: var(--border-width);
-    border-color: yellow;
+    border-color: yellow !important;
     border-style: solid;
 }
 
+.last-move {
+    border-width: var(--border-width);
+    border-color: purple;
+    border-style: solid;    
+}
 
 .blackTile{
     background-color: darkgrey;

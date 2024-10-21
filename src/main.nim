@@ -52,6 +52,7 @@ var theBoard: ChessBoard = startingBoard()
 var selectedTile: Tile = (file: -1, rank: -1)
 var possibleMoves: Moves = @[]
 var possibleTakes: Moves = @[]
+var lastMove: Moves = @[]
 
 var currentScreen: Screen = Lobby # = Draft
 var gameMode: Gamemode# = TrueRandom #deubg
@@ -72,7 +73,9 @@ proc otherMove(d: string) =
     let data = split(d, ",")
     let mover: Tile = (parseInt(data[2]), parseInt(data[1]))
     let moveTo: Tile = (parseInt(data[4]), parseInt(data[3]))
-    echo mover, moveTo
+    lastMove = @[mover, moveTo]
+
+    echo data[0],mover, moveTo
     if data[0] == " move":
         pieceOf(mover).onMove(mover, moveTo, theBoard)
     elif data[0] == " take":
@@ -194,6 +197,8 @@ proc createTile(p: Piece, m: int, n: int): VNode =
         class &= " can-move"
     elif possibleTakes.contains(p.tile):
         class &= " can-take"
+    elif lastMove.contains(p.tile):
+        class &= " last-move"
     else:
         class &= " unselected"
 
