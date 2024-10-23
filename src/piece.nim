@@ -46,7 +46,7 @@ const defaultOnEndTurn*: OnAction = proc (taker: Tile, taken: Tile, board: var C
         discard nil
 
 proc defaultWhenTake*(taker: Tile, taken: Tile, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
-    if (taker.file == taken.file) and (taker.rank == taken.file): return (taken, false) #stops pieces from taking themselves, though this can be overridden
+    if (taker.file == taken.file) and (taker.rank == taken.rank): return (taken, false) #stops pieces from taking themselves, though this can be overridden
     board[taker.rank][taker.file].tile = taken
     board[taken.rank][taken.file] = board[taker.rank][taker.file]
     board[taker.rank][taker.file] = Piece(item: none, tile: taker)

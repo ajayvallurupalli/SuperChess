@@ -3518,7 +3518,7 @@ function defaultWhenTake_1459617996(taker_1459617997, taken_1459617998, board_14
   var result_1459618002 = {Field0: {Field0: 0, Field1: 0}, Field1: false};
 
   BeforeRet: {
-    if (((taker_1459617997.Field0 == taken_1459617998.Field0) && (taker_1459617997.Field1 == taken_1459617998.Field0))) {
+    if (((taker_1459617997.Field0 == taken_1459617998.Field0) && (taker_1459617997.Field1 == taken_1459617998.Field1))) {
     var colontmp__1795163791 = nimCopy(null, taken_1459617998, NTI1459617795);
     var colontmp__1795163792 = false;
     result_1459618002 = nimCopy(result_1459618002, {Field0: nimCopy(null, colontmp__1795163791, NTI1459617795), Field1: colontmp__1795163792}, NTI1459617932);
