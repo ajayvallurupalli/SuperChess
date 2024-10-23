@@ -111,7 +111,7 @@ const stepOnMe*: Power = Power(
             for i in 0 ..< b.len:
                 for j in 0 ..< b[0].len:
                     if b[i][j].item == queen and b[i][j].isColor(side):
-                        b[i][j].moves &= @[cannibalBishopTakes, cannibalKingTakes, cannibalRookTakes]
+                        b[i][j].takes &= @[cannibalBishopTakes, cannibalKingTakes, cannibalRookTakes]
 )
 
 const illegalFormationRL: Power = Power(

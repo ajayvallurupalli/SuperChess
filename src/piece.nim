@@ -46,6 +46,7 @@ const defaultOnEndTurn*: OnAction = proc (taker: Tile, taken: Tile, board: var C
         discard nil
 
 proc defaultWhenTake*(taker: Tile, taken: Tile, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
+    echo "taker: ", taker, "taken: ", taken
     if taken == taker: 
         return (taken, false) #stops pieces from taking themselves, though this can be overridden
     else:
