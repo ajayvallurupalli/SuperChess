@@ -127,3 +127,19 @@ const nightriderMoves*: MoveProc = func(board: ChessBoard, p: Piece): Moves =
     result.add(lineMoves(board, p, shooterFactory(-1, -2)))
     result.add(lineMoves(board, p, shooterFactory(-2, 1)))
     result.add(lineMoves(board, p, shooterFactory(-2, -1)))
+
+const blackForwardTwiceJumpMove*: MoveProc = func(board: ChessBoard, p: Piece): Moves = 
+    discard result.addIfFree(board, p.tile, shooterFactory(0, 1))
+    discard result.addIfFree(board, p.tile, shooterFactory(0, 2))
+
+const blackForwardTwiceJumpTake*: MoveProc = func(board: ChessBoard, p: Piece): Moves = 
+    discard result.addIfTake(board, p, p.tile, shooterFactory(0, 1))
+    discard result.addIfTake(board, p, p.tile, shooterFactory(0, 2))
+
+const whiteForwardTwiceJumpMove*: MoveProc = func(board: ChessBoard, p: Piece): Moves = 
+    discard result.addIfFree(board, p.tile, shooterFactory(0, -1))
+    discard result.addIfFree(board, p.tile, shooterFactory(0, -2))
+
+const whiteForwardTwiceJumpTake*: MoveProc = func(board: ChessBoard, p: Piece): Moves = 
+    discard result.addIfTake(board, p, p.tile, shooterFactory(0, -1))
+    discard result.addIfTake(board, p, p.tile, shooterFactory(0, -2))

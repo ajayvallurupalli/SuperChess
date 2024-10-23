@@ -35,6 +35,7 @@ type
         ultraRare: int
 
 const defaultWeight: TierWeights = (60, 30, 9, 1)
+const defaultBuffedWeights: TierWeights = (50, 34, 14, 2)
 
 #needed to ensure a power is always given with randomPower
 const emptyPower: Power = Power(
@@ -43,6 +44,19 @@ const emptyPower: Power = Power(
     description: "This does nothing. Unlucky!",
     index: 0,
     onStart:
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            discard nil
+)
+
+const holy*: Power = Power(
+    name: "Holy",
+    tier: Common,
+    priority: 20,
+    rarity: 12,
+    description: "You are favored slightly more by god. Your next powers are more likely to be uncommon, rare, and ultra rare",
+    icon: "cross.svg",
+    noColor: true,
+    onStart: 
         proc (side: Color, _: Color, b: var ChessBoard) = 
             discard nil
 )
@@ -135,7 +149,8 @@ proc draftPowerTier*(t: Tier, allSelected: seq[Power], drafterSelected: seq[Powe
     for x in 0..options - 1:
         result.add(randomPower(t, drafterSelected, allSelected & result))
 
-proc draftRandomPower*(allSelected: seq[Power], drafterSelected: seq[Power], options: int = 1, weights: TierWeights = defaultWeight): seq[Power] = 
+proc draftRandomPower*(allSelected: seq[Power], drafterSelected: seq[Power], options: int = 1, normalWeights: TierWeights = defaultWeight, buffedWeights = defaultBuffedWeights): seq[Power] = 
+    let weights = if holy in drafterSelected: buffedWeights else: normalWeights
     for x in 0..options - 1:
         result.add(randomPower(randomTier(weights), drafterSelected, allSelected & result))
 
@@ -145,3 +160,5 @@ proc executeOn*(drafts: seq[Power], draftSide: Color, mySide: Color, board: var 
 
 proc replaceAnySynergies*(powers: seq[Power]): seq[Power] = 
     return powers.secretSynergize(secretSynergies)
+
+registerPower(holy)

@@ -44,7 +44,7 @@ var roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
 var peer: tuple[send: proc(data: cstring), destroy: proc()]
 var side: Color# = white # = white only for testing, delete
 var turn: bool# = true# = true#only for testing
-var myDrafts: seq[Power]# = @[knightChargePower, calvary, mysteriousSwordsmanLeft]
+var myDrafts: seq[Power]# = @[holyBishopPower]
 var opponentDrafts: seq[Power]# = @[knightChargePower, developed, lesbianPride, mysteriousSwordsmanLeft]
 
 var draftOptions: seq[Power]
@@ -97,7 +97,7 @@ proc otherMove(d: string) =
     endRound()
 
 proc sendMove(mode: string, start: Tile, to: Tile) = 
-    peer.send("move:" & mode & "," & $start.rank & "," & $start.file & "," & $to.rank & "," & $to.file)
+    #peer.send("move:" & mode & "," & $start.rank & "," & $start.file & "," & $to.rank & "," & $to.file)
     turn = not turn
     inc turnNumber
 

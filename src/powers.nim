@@ -734,6 +734,31 @@ const desegregation: Power = Power(
                         b[i][j].takes &= leftRightTakes
 )
 
+const holyBishopPower*: Power = Power(
+    name: "Holy Bishops",
+    tier: Rare,
+    priority: 15,
+    description: "God has blessed your bishops. ",
+    icon: "cross.svg",
+    noColor: true,
+    onStart: 
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == bishop and b[i][j].isColor(side):
+                        b[i][j].moves &= @[knightMoves, blackForwardTwiceJumpMove, whiteForwardTwiceJumpMove]  
+                        b[i][j].takes &= @[knightTakes, blackForwardTwiceJumpTake, whiteForwardTwiceJumpTake]    
+
+)
+
+const holyBishop: Synergy = (
+    power: holyBishopPower,
+    rarity: 8,
+    requirements: @[archBishops.name, holy.name],
+    replacements: @[archBishops.name],
+    index: -1
+)
+
 registerPower(empress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
@@ -763,6 +788,7 @@ registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)
 registerSynergy(differentGame)
 registerSynergy(linebackers)
+registerSynergy(holyBishop)
 registerSynergy(masochistEmpress, true, true)
 registerSynergy(exodia, true)
 registerSynergy(superPawn, true)
