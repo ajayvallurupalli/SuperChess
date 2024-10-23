@@ -57,6 +57,7 @@ var selectedTile: Tile = (file: -1, rank: -1)
 var possibleMoves: Moves = @[]
 var possibleTakes: Moves = @[]
 var lastMove: Moves = @[]
+var turnNumber: int = 0
 
 var currentScreen: Screen = Lobby # = Draft
 var gameMode: Gamemode# = TrueRandom #deubg
@@ -77,10 +78,12 @@ proc otherMove(d: string) =
     let data = split(d, ",")
     let mover: Tile = (parseInt(data[2]), parseInt(data[1]))
     let moveTo: Tile = (parseInt(data[4]), parseInt(data[3]))
+    
     assert lastMove != @[mover, moveTo]
     lastMove = @[mover, moveTo]
+    inc turnNumber
 
-    echo data[0],mover, moveTo
+    echo d, data[0], mover, moveTo
     if data[0] == " move":
         pieceOf(mover).onMove(mover, moveTo, theBoard)
     elif data[0] == " take":
@@ -88,9 +91,9 @@ proc otherMove(d: string) =
     turn = not turn
 
 proc sendMove(mode: string, start: Tile, to: Tile) = 
-    peer.send("move: " & mode & "," & $start.rank & "," & $start.file & "," & $to.rank & "," & $to.file)
+    peer.send("move:" & mode & "," & $start.rank & "," & $start.file & "," & $to.rank & "," & $to.file)
     turn = not turn
-    discard nil
+    inc turnNumber
 
 proc draft(allDrafts: seq[Power] = @[], drafter: seq[Power] = @[]) = 
     if gameMode == TrueRandom:
@@ -112,7 +115,9 @@ proc hostLogic(d: string, m: MessageType) =
         theBoard = startingBoard()
         myDrafts = @[]
         opponentDrafts = @[]
+        lastMove = @[]
         drafts = 2
+        turnNumber = 0
     of Draft:
         var x = d.split(",")
         if x[0] == "my":
@@ -150,6 +155,8 @@ proc joinLogic(d: string, m: MessageType) =
         theBoard = startingBoard()
         myDrafts = @[]
         opponentDrafts = @[]
+        lastMove = @[]
+        turnNumber = 0
     of Handshake:
         myDrafts.executeOn(black, side, theBoard)
         opponentDrafts.executeOn(white, side, theBoard)
