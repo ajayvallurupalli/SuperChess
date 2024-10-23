@@ -7634,11 +7634,11 @@ function otherMove_553648220(d_553648221) {
     lastMove_553648207[0] = nimCopy(null, [nimCopy(null, mover_553648223, NTI1459617795), nimCopy(null, moveTo_553648224, NTI1459617795)], NTI553648203);
     turnNumber_553648208[0] = addInt(turnNumber_553648208[0], 1);
     rawEcho(d_553648221, data_553648222[chckIndx(0, 0, (data_553648222).length - 1)], HEX24_553648315(mover_553648223), HEX24_553648315(moveTo_553648224));
-    if (eqStrings(data_553648222[chckIndx(0, 0, (data_553648222).length - 1)], [32,109,111,118,101])) {
+    if (eqStrings(data_553648222[chckIndx(0, 0, (data_553648222).length - 1)], [109,111,118,101])) {
     pieceOf_553648213(mover_553648223).onMove(mover_553648223, moveTo_553648224, theBoard_553648189[0]);
     }
     else {
-    if (eqStrings(data_553648222[chckIndx(0, 0, (data_553648222).length - 1)], [32,116,97,107,101])) {
+    if (eqStrings(data_553648222[chckIndx(0, 0, (data_553648222).length - 1)], [116,97,107,101])) {
     pieceOf_553648213(mover_553648223).onTake(mover_553648223, moveTo_553648224, theBoard_553648189[0]);
     }
     }

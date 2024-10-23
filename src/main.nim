@@ -78,15 +78,15 @@ proc otherMove(d: string) =
     let data = split(d, ",")
     let mover: Tile = (parseInt(data[2]), parseInt(data[1]))
     let moveTo: Tile = (parseInt(data[4]), parseInt(data[3]))
-    
+
     assert lastMove != @[mover, moveTo]
     lastMove = @[mover, moveTo]
     inc turnNumber
 
     echo d, data[0], mover, moveTo
-    if data[0] == " move":
+    if data[0] == "move":
         pieceOf(mover).onMove(mover, moveTo, theBoard)
-    elif data[0] == " take":
+    elif data[0] == "take":
         pieceOf(mover).onTake(mover, moveTo, theBoard)
     turn = not turn
 
