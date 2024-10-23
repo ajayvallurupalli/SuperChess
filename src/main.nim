@@ -38,7 +38,7 @@ type
     Screen {.pure.} = enum 
         Lobby, CreateRoom, JoinRoom, Game, Options, Draft, Results, Rematch, Disconnect
     Gamemode = enum 
-        Normal, Random, TrueRandom
+        Normal, RandomTier, TrueRandom
 
 var roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
 var peer: tuple[send: proc(data: cstring), destroy: proc()]
@@ -97,13 +97,15 @@ proc otherMove(d: string) =
     endRound()
 
 proc sendMove(mode: string, start: Tile, to: Tile) = 
-    #peer.send("move:" & mode & "," & $start.rank & "," & $start.file & "," & $to.rank & "," & $to.file)
+    peer.send("move:" & mode & "," & $start.rank & "," & $start.file & "," & $to.rank & "," & $to.file)
     turn = not turn
     inc turnNumber
 
 proc draft(allDrafts: seq[Power] = @[], drafter: seq[Power] = @[]) = 
     if gameMode == TrueRandom:
         draftOptions = draftRandomPower(allDrafts, drafter, draftChoices)
+    elif gameMode == RandomTier:
+        draftOptions = draftRandomPowerTier(allDrafts, drafter, draftChoices)
 
 proc hostLogic(d: string, m: MessageType) = 
     echo $m, " of ", d, "\n"
@@ -325,7 +327,11 @@ proc createOptionsMenu(): VNode =
             tdiv(class="column"):
                 button:
                     proc onclick(_: Event, _: VNode) = 
-                        alert("This mode hasn't been made yet. Play random mode if you want to play with powers, or normal if you just want normal chess.")
+                        peer.send("draft:start")
+                        currentScreen = Draft
+                        gameMode = RandomTier
+                        turn = true
+                        draft()
 
                     text "Draft mode"
                 text """Take turns drafting power ups for your pieces, then play. 

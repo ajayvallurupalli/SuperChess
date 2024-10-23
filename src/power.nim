@@ -145,7 +145,10 @@ proc randomTier(w: TierWeights = defaultWeight): Tier =
     else:
         return UltraRare
 
-proc draftPowerTier*(t: Tier, allSelected: seq[Power], drafterSelected: seq[Power], options: int = 1): seq[Power] = 
+proc draftRandomPowerTier*(allSelected: seq[Power], drafterSelected: seq[Power], options: int = 1, normalWeights: TierWeights = defaultWeight, buffedWeights = defaultBuffedWeights): seq[Power] = 
+    let weights = if holy in drafterSelected: buffedWeights else: normalWeights
+    let t = randomTier(weights)
+
     for x in 0..options - 1:
         result.add(randomPower(t, drafterSelected, allSelected & result))
 

@@ -759,6 +759,39 @@ const holyBishop: Synergy = (
     index: -1
 )
 
+proc concubineWhenTake(taker: Tile, taken: Tile, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] =
+    echo board[taker.rank][taker.file].item, board[taken.rank][taken.file].item
+    if board[taker.rank][taker.file].item == king and 
+        board[taken.rank][taken.file].item == rook and
+        board[taker.rank][taker.file].timesMoved == 0 and
+        board[taken.rank][taken.file].timesMoved == 0: 
+            taken.piecePromote(board)
+            if taken.file == 0:
+                board[taker.rank][taker.file].pieceMove(taker.rank, taker.file - 2, board)
+                board[taken.rank][taken.file].pieceMove(taker.rank, taker.file - 1, board)
+                return ((taker.file - 1, taker.rank), false)
+            else:
+                board[taker.rank][taker.file].pieceMove(taker.rank, taker.file + 2, board)
+                board[taken.rank][taken.file].pieceMove(taker.rank, taker.file + 1, board)
+                return ((taker.file + 1, taker.rank), false)
+    else:
+        return defaultWhenTake(taker, taken, board)
+
+const concubine*: Power = Power(
+    name: "Concubine",
+    tier: Rare,
+    priority: 15,
+    description: "Your rook becomes a base queen when it castles.... You're sick.",
+    icon: "rook.svg",
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == rook and b[i][j].isColor(side):
+                        b[i][j].onPromote &= @[onPawnPromote]  
+                        b[i][j].whenTake = concubineWhenTake
+)
+
 registerPower(empress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
@@ -783,6 +816,7 @@ registerPower(lesbianPride)
 registerPower(knightChargePower)
 registerPower(nightRider)
 registerPower(desegregation)
+registerPower(concubine)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)
