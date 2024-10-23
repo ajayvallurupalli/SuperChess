@@ -46,12 +46,14 @@ const defaultOnEndTurn*: OnAction = proc (taker: Tile, taken: Tile, board: var C
         discard nil
 
 proc defaultWhenTake*(taker: Tile, taken: Tile, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
-    if (taker.file == taken.file) and (taker.rank == taken.rank): return (taken, false) #stops pieces from taking themselves, though this can be overridden
-    board[taker.rank][taker.file].tile = taken
-    board[taken.rank][taken.file] = board[taker.rank][taker.file]
-    board[taker.rank][taker.file] = Piece(item: none, tile: taker)
-    board[taker.rank][taker.file].piecesTaken += 1
-    return ((taken.file, taken.rank), true)
+    if taken == taker: 
+        return (taken, false) #stops pieces from taking themselves, though this can be overridden
+    else:
+        board[taker.rank][taker.file].tile = taken
+        board[taken.rank][taken.file] = board[taker.rank][taker.file]
+        board[taker.rank][taker.file] = Piece(item: none, tile: taker)
+        board[taker.rank][taker.file].piecesTaken += 1
+        return ((taken.file, taken.rank), true)
 
 proc defaultOnMove*(taker: Tile, taken: Tile, board: var ChessBoard) = 
     assert board[taker.rank][taker.file].getMovesOn(board).contains(taken)
