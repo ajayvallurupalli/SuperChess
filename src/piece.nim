@@ -69,6 +69,8 @@ proc defaultOnTake*(taker: Tile, taken: Tile, board: var ChessBoard) =
     board[newTile.endTile.rank][newTile.endTile.file].timesMoved += 1
     if newTile.takeSuccess:
         board[newTile.endTile.rank][newTile.endTile.file].piecesTaken += 1
+    else: 
+        echo "take of " & $board[taken.rank][taken.file].item &  " by " & $board[taker.rank][taker.file].item & " failed"
 
     for f in board[newTile.endTile.rank][newTile.endTile.file].onEndTurn:
         f(newTile.endTile, taken, board)

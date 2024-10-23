@@ -74,6 +74,11 @@ proc pieceOf(tile: Tile): Piece =
 proc isSelected(n: int, m: int): bool = 
     return selectedTile.rank == n and selectedTile.file == m
 
+
+proc endRound() = 
+    if gameIsOver(theBoard):
+        currentScreen = Results
+
 proc otherMove(d: string) = 
     let data = split(d, ",")
     let mover: Tile = (parseInt(data[2]), parseInt(data[1]))
@@ -89,6 +94,7 @@ proc otherMove(d: string) =
     elif data[0] == "take":
         pieceOf(mover).onTake(mover, moveTo, theBoard)
     turn = not turn
+    endRound()
 
 proc sendMove(mode: string, start: Tile, to: Tile) = 
     peer.send("move:" & mode & "," & $start.rank & "," & $start.file & "," & $to.rank & "," & $to.file)
@@ -98,10 +104,6 @@ proc sendMove(mode: string, start: Tile, to: Tile) =
 proc draft(allDrafts: seq[Power] = @[], drafter: seq[Power] = @[]) = 
     if gameMode == TrueRandom:
         draftOptions = draftRandomPower(allDrafts, drafter, draftChoices)
-
-proc endRound() = 
-    if gameIsOver(theBoard):
-        currentScreen = Results
 
 proc hostLogic(d: string, m: MessageType) = 
     echo $m, " of ", d, "\n"
@@ -226,6 +228,7 @@ proc createTile(p: Piece, m: int, n: int): VNode =
                     endRound()
                 elif possibleTakes.contains(p.tile) and turn and pieceOf(selectedTile).isColor(side):
                     sendMove("take", selectedTile, p.tile)
+                    echo "turnnumber: ", $turnNumber, pieceOf(selectedTile).item, $pieceOf(selectedTile).getTakesOn(theBoard)
                     pieceOf(selectedTile).onTake(selectedTile, p.tile, theBoard)
                     possibleTakes = @[]
                     selectedTile = (-1, -1)
