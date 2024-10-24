@@ -309,7 +309,7 @@ const calvary*: Power = Power(
     priority: 15,
     description: 
         """Your knights learn to ride forward. They aren't very good at it, but they're trying their best. 
-            They can charge forward 2 tiles, but they cannot jump for this move.""",
+            They can charge forward 2 tiles, but only to take a piece.They cannot jump for this move.""",
     icon: "knight.svg",
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard) = 
@@ -317,10 +317,8 @@ const calvary*: Power = Power(
                 for j in 0 ..< b[0].len:
                     if b[i][j].item == knight and b[i][j].isColor(side):
                         if side == black:                            
-                            b[i][j].moves &= blackForwardTwiceMoves 
                             b[i][j].takes &= blackForwardTwiceTakes
                         else:
-                            b[i][j].moves &= whiteForwardTwiceMoves 
                             b[i][j].takes &= whiteForwardTwiceTakes                            
 )
 
@@ -679,7 +677,7 @@ const differentGame: Synergy = (
 
 const lineBackersPower: Power = Power(
     name: "Linebackers",
-    tier: Rare,
+    tier: UltraRare,
     rarity: 0,
     priority: 15,
     description: "Your pawns learn to fight like men. They can two spaces ahead too.",
