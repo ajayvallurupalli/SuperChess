@@ -877,6 +877,36 @@ const shotgunKing*: Power = Power(
                         b[i][j].takes &= @[blackForwardTwiceJumpTake, whiteForwardTwiceJumpTake]
 )
 
+const bountyHunterOnEndTurn*: OnAction = proc (taker: Tile, taken: Tile, b: var ChessBoard) = 
+        if b[taker.rank][taker.file].piecesTaken == 4:
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == king and not b[i][j].sameColor(b[taker.rank][taker.file]):
+                        b[i][j] = Piece(item: none, tile: b[i][j].tile)  
+
+const bountyHunterPower*: Power = Power(
+    name: "Bounty Hunter",
+    tier: Common,
+    rarity: 0,
+    priority: 15,
+    description: "It's hard to make a living these days. If your king takes 3 pieces, you automatically win.",
+    icon: "king.svg",
+    onStart: 
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == king and b[i][j].isColor(side):
+                        b[i][j].onEndTurn &= bountyHunterOnEndTurn
+)
+
+const bountyHunter: Synergy = (
+    power: bountyHunterPower,
+    rarity: 16,
+    requirements: @[shotgunKing.name],
+    replacements: @[],
+    index: -1
+)
+
 registerPower(empress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
@@ -910,6 +940,7 @@ registerSynergy(calvaryCharge)
 registerSynergy(differentGame)
 registerSynergy(linebackers)
 registerSynergy(holyBishop)
+registerSynergy(bountyHunter)
 registerSynergy(masochistEmpress, true, true)
 registerSynergy(exodia, true)
 registerSynergy(superPawn, true)
