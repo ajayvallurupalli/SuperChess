@@ -109,7 +109,8 @@ proc draft(allDrafts: seq[Power] = @[], drafter: seq[Power] = @[]) =
     if gameMode == TrueRandom:
         draftOptions = draftRandomPower(allDrafts, drafter, draftChoices)
     elif gameMode == RandomTier:
-        draftOptions = draftRandomPowerTier(draftTier, allDrafts, drafter, draftChoices)
+        #doesn't allow holy to be drafted in tierDraft because luck is consistent here
+        draftOptions = draftRandomPowerTier(draftTier, allDrafts & holy, drafter, draftChoices)
 
 proc hostLogic(d: string, m: MessageType) = 
     echo $m, " of ", d, "\n"
