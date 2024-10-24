@@ -150,3 +150,15 @@ func gameIsOver*(b: ChessBoard): bool =
             if p.item == king: inc kings
 
     return kings != 2
+
+func getPiecesChecking*(b: ChessBoard, c: Color): seq[Tile] = 
+    var kingTile: Tile = (-1, -1)
+    for row in b:
+        for p in row:
+            if p.item == king and p.isColor(c):
+                kingTile = p.tile
+
+    for row in b:
+        for p in row:
+            if not p.isColor(c) and kingTile in p.getTakesOn(b):
+                result.add(p.tile)

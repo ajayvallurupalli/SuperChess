@@ -61,6 +61,7 @@ var selectedTile: Tile = (file: -1, rank: -1)
 var possibleMoves: Moves = @[]
 var possibleTakes: Moves = @[]
 var lastMove: Moves = @[]
+var piecesChecking: Moves = @[]
 var turnNumber: int = 1
 
 var currentScreen: Screen = Lobby # = Draft
@@ -80,6 +81,7 @@ proc isSelected(n: int, m: int): bool =
 
 
 proc endRound() = 
+    piecesChecking = theBoard.getPiecesChecking(side)
     if gameIsOver(theBoard):
         currentScreen = Results
 
@@ -125,6 +127,7 @@ proc hostLogic(d: string, m: MessageType) =
         myDrafts = @[]
         opponentDrafts = @[]
         lastMove = @[]
+        piecesChecking = @[]
         turnNumber = 0
         draftTier = randomTier()
     of Draft:
@@ -166,6 +169,7 @@ proc joinLogic(d: string, m: MessageType) =
         myDrafts = @[]
         opponentDrafts = @[]
         lastMove = @[]
+        piecesChecking = @[]
         turnNumber = 0
     of Handshake:
         myDrafts.executeOn(black, side, theBoard)
@@ -219,10 +223,14 @@ proc createTile(p: Piece, m: int, n: int): VNode =
         class &= " can-move"
     elif possibleTakes.contains(p.tile):
         class &= " can-take"
-    elif lastMove.contains(p.tile):
-        class &= " last-move"
     else:
         class &= " unselected"
+
+    if piecesChecking.contains(p.tile):
+        class &= " checking"
+    elif lastMove.contains(p.tile):
+        class &= " last-move"
+    
 
     result = buildHtml():
         td(class=class):

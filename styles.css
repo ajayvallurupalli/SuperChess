@@ -217,6 +217,13 @@ img {
     border-style: solid;    
 }
 
+.checking {
+    border-width: var(--border-width);
+    border-color: red;
+    border-style: solid;    
+}
+
+
 .blackTile{
     background-color: darkgrey;
 }
