@@ -7853,11 +7853,11 @@ function draftRandomPowerTier_1728054088(allSelected_1728054089, drafterSelected
 
 function draft_553648328(allDrafts_553648333, drafter_553648338) {
     if ((gameMode_553648205[0] == 2)) {
-    draftOptions_553648180[0] = nimCopy(null, draftRandomPower_1728054223(allDrafts_553648333, drafter_553648338, draftChoices_553648181[0], {Field0: 60, Field1: 30, Field2: 9, Field3: 1}, {Field0: 45, Field1: 35, Field2: 17, Field3: 3}), NTI1728053903);
+    draftOptions_553648180[0] = nimCopy(null, draftRandomPower_1728054223(allDrafts_553648333, drafter_553648338, draftChoices_553648181[0], {Field0: 60, Field1: 30, Field2: 9, Field3: 1}, {Field0: 50, Field1: 35, Field2: 13, Field3: 2}), NTI1728053903);
     }
     else {
     if ((gameMode_553648205[0] == 1)) {
-    draftOptions_553648180[0] = nimCopy(null, draftRandomPowerTier_1728054088(allDrafts_553648333, drafter_553648338, draftChoices_553648181[0], {Field0: 60, Field1: 30, Field2: 9, Field3: 1}, {Field0: 45, Field1: 35, Field2: 17, Field3: 3}), NTI1728053822);
+    draftOptions_553648180[0] = nimCopy(null, draftRandomPowerTier_1728054088(allDrafts_553648333, drafter_553648338, draftChoices_553648181[0], {Field0: 60, Field1: 30, Field2: 9, Field3: 1}, {Field0: 50, Field1: 35, Field2: 13, Field3: 2}), NTI1728053822);
     }
     }
 
