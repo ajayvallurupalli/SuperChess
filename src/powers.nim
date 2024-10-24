@@ -907,6 +907,22 @@ const bountyHunter: Synergy = (
     index: -1
 )
 
+const coward: Power = Power(
+    name: "Coward",
+    tier: Common,
+    priority: 20,
+    description: "You coward. Your king swaps pieces with the king's side knight.",
+    icon: "king.svg",
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == king and b[i][j].isColor(side):
+                        if b[i][j].timesMoved != 0:
+                            inc b[i][j].timesMoved
+                            pieceSwap(b[i][j], b[i][j + 2], b)      
+)
+
 registerPower(empress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
@@ -934,6 +950,7 @@ registerPower(desegregation)
 registerPower(concubine)
 registerPower(reinforcements)
 registerPower(shotgunKing)
+registerPower(coward)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)
