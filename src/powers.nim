@@ -783,10 +783,22 @@ const concubine*: Power = Power(
     icon: "rook.svg",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
+            var dna: Piece = if side == white: whiteQueen.pieceCopy() else: blackQueen.pieceCopy()
+
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == queen and b[i][j].isColor(side):
+                        dna = b[i][j]
+                        break
+
+            let concubinePromote: OnAction = proc (taker: Tile, taken: Tile, board: var ChessBoard) = 
+                let rook = board[taken.rank][taken.file]
+                board[taken.rank][taken.file] = dna.pieceCopy(piecesTaken=rook.piecesTaken, tile=rook.tile, promoted = true)
+
             for i in 0 ..< b.len:
                 for j in 0 ..< b[0].len:
                     if b[i][j].item == rook and b[i][j].isColor(side):
-                        b[i][j].onPromote &= @[onPawnPromote]  
+                        b[i][j].onPromote &= @[concubinePromote]  
                         b[i][j].whenTake = concubineWhenTake
 )
 
@@ -798,16 +810,13 @@ const reinforcements*: Power = Power(
     icon: "rook.svg",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
-            var dna: Piece = Piece(item: none)
+            var dna: Piece = if side == white: whitePawn.pieceCopy() else: blackPawn.pieceCopy()
 
             for i in 0 ..< b.len:
                 for j in 0 ..< b[0].len:
                     if b[i][j].item == pawn and b[i][j].isColor(side):
                         dna = b[i][j]
                         break
-
-            if dna.item == none:
-                dna = if side == white: whitePawn.pieceCopy() else: blackPawn.pieceCopy()
 
             let reinforcementsOntake = proc(taker: Tile, taken: Tile, board: var ChessBoard) = 
                 assert board[taker.rank][taker.file].getTakesOn(board).contains(taken)
