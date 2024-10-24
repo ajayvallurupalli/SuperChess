@@ -1,4 +1,5 @@
 import piece, moves, board
+from sequtils import filterIt
 
 const diagnalMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
     discard result.addIfFree(board, p.tile, shooterFactory(1,1))
@@ -73,6 +74,7 @@ const cannibalKingTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
     for i in -1..1:
         for j in -1..1:
             discard result.addIfTake(board, p, p.tile, shooterFactory(i,j), cannibalismFlag = true)
+    result.filterIt(it != p.tile)
 
 const cannibalKnightTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
     discard result.addIfTake(board, p, p.tile, shooterFactory(1, 2), cannibalismFlag = true)
