@@ -918,7 +918,7 @@ const coward: Power = Power(
             for i in 0 ..< b.len:
                 for j in 0 ..< b[0].len:
                     if b[i][j].item == king and b[i][j].isColor(side):
-                        if b[i][j].timesMoved != 0:
+                        if b[i][j].timesMoved == 0:
                             inc b[i][j].timesMoved
                             pieceSwap(b[i][j], b[i][j + 2], b)      
 )
