@@ -132,7 +132,7 @@ proc randomPower(t: Tier, currentPowers: seq[Power], alreadySelected: seq[Power]
         x -= p.rarity
         if x <= 0: return p
 
-proc randomTier(w: TierWeights = defaultWeight): Tier = 
+proc randomTier*(w: TierWeights = defaultWeight): Tier = 
     assert w.common + w.uncommon + w.rare + w.ultraRare == 100
     let x: int = rand(100)
 
@@ -145,10 +145,7 @@ proc randomTier(w: TierWeights = defaultWeight): Tier =
     else:
         return UltraRare
 
-proc draftRandomPowerTier*(allSelected: seq[Power], drafterSelected: seq[Power], options: int = 1, normalWeights: TierWeights = defaultWeight, buffedWeights = defaultBuffedWeights): seq[Power] = 
-    let weights = if holy in drafterSelected: buffedWeights else: normalWeights
-    let t = randomTier(weights)
-
+proc draftRandomPowerTier*(t: Tier, allSelected: seq[Power], drafterSelected: seq[Power], options: int = 1, normalWeights: TierWeights = defaultWeight, buffedWeights = defaultBuffedWeights): seq[Power] = 
     for x in 0..options - 1:
         result.add(randomPower(t, drafterSelected, allSelected & result))
 

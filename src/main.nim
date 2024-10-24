@@ -53,8 +53,9 @@ var baseDrafts: int #default value
 var draftOptions: seq[Power]
 var draftChoices: int = 3
 var draftsLeft: int #ignore how this is one less than actual draft, i will fix eventually
-var rematch = false
+var draftTier: Tier
 
+var rematch = false
 var theBoard: ChessBoard = startingBoard()
 var selectedTile: Tile = (file: -1, rank: -1)
 var possibleMoves: Moves = @[]
@@ -108,7 +109,7 @@ proc draft(allDrafts: seq[Power] = @[], drafter: seq[Power] = @[]) =
     if gameMode == TrueRandom:
         draftOptions = draftRandomPower(allDrafts, drafter, draftChoices)
     elif gameMode == RandomTier:
-        draftOptions = draftRandomPowerTier(allDrafts, drafter, draftChoices)
+        draftOptions = draftRandomPowerTier(draftTier, allDrafts, drafter, draftChoices)
 
 proc hostLogic(d: string, m: MessageType) = 
     echo $m, " of ", d, "\n"
@@ -124,6 +125,7 @@ proc hostLogic(d: string, m: MessageType) =
         opponentDrafts = @[]
         lastMove = @[]
         turnNumber = 0
+        draftTier = randomTier()
     of Draft:
         var x = d.split(",")
         if x[0] == "my":
@@ -131,6 +133,7 @@ proc hostLogic(d: string, m: MessageType) =
             opponentDrafts.add(powers[parseInt(x[1])])
             if draftsLeft >= 1:
                 dec draftsLeft
+                draftTier = randomTier()
                 draft(myDrafts & opponentDrafts, myDrafts)
             else:
                 myDrafts.executeOn(white, side, theBoard)
