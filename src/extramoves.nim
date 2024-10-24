@@ -145,3 +145,13 @@ const whiteForwardTwiceJumpMove*: MoveProc = func(board: ChessBoard, p: Piece): 
 const whiteForwardTwiceJumpTake*: MoveProc = func(board: ChessBoard, p: Piece): Moves = 
     discard result.addIfTake(board, p, p.tile, shooterFactory(0, -1))
     discard result.addIfTake(board, p, p.tile, shooterFactory(0, -2))
+
+const whiteForwardThriceJumpTake*: MoveProc = func(board: ChessBoard, p: Piece): Moves = 
+    discard result.addIfTake(board, p, p.tile, shooterFactory(0, -1))
+    discard result.addIfTake(board, p, p.tile, shooterFactory(0, -2))
+    discard result.addIfTake(board, p, p.tile, shooterFactory(0, -3))
+
+const blackForwardThriceJumpTake*: MoveProc = func(board: ChessBoard, p: Piece): Moves = 
+    discard result.addIfTake(board, p, p.tile, shooterFactory(0, 1))
+    discard result.addIfTake(board, p, p.tile, shooterFactory(0, 2))
+    discard result.addIfTake(board, p, p.tile, shooterFactory(0, 3))

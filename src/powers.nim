@@ -677,7 +677,7 @@ const differentGame: Synergy = (
 
 const lineBackersPower: Power = Power(
     name: "Linebackers",
-    tier: UltraRare,
+    tier: Rare,
     rarity: 0,
     priority: 15,
     description: "Your pawns learn to fight like men. They can two spaces ahead too.",
@@ -705,7 +705,7 @@ const linebackers: Synergy = (
 const nightRider: Power = Power(
     name: "Nightrider",
     tier: UltraRare,
-    priority: 5,
+    priority: 3,
     description: "Nightrider.",
     icon: "nightrider.svg",
     onStart: 
@@ -715,6 +715,8 @@ const nightRider: Power = Power(
                     if b[i][j].item == knight and b[i][j].isColor(side):
                         b[i][j].moves &= nightriderMoves
                         b[i][j].takes &= nightriderTakes
+                        b[i][j].item = fairy
+                        b[i][j].filePath = $side & "nightrider.svg"
 )
 
 const desegregation: Power = Power(
@@ -841,6 +843,40 @@ const reinforcements*: Power = Power(
 
 )
 
+proc shotgunKingOnTake*(taker: Tile, taken: Tile, board: var ChessBoard) = 
+    assert board[taker.rank][taker.file].getTakesOn(board).contains(taken)
+    let newTile = board[taken.rank][taken.file].whenTake(taker, taken, board)
+    board[newTile.endTile.rank][newTile.endTile.file].timesMoved += 1
+    if newTile.takeSuccess:
+        board[newTile.endTile.rank][newTile.endTile.file].piecesTaken += 1
+
+        let king = board[newTile.endTile.rank][newTile.endTile.file]
+        if king.color == white and (taken.rank + 2 == taker.rank):
+            newTile.endTile.pieceMove(taker, board)
+        elif king.color == black and (taken.rank - 2 == taker.rank):
+            newTile.endTile.pieceMove(taker, board) #elif slightly reduced serverity of warcrime
+    else: 
+        echo "take of " & $board[taken.rank][taken.file].item &  " by " & $board[taker.rank][taker.file].item & " failed"
+
+    for f in board[newTile.endTile.rank][newTile.endTile.file].onEndTurn:
+        f(newTile.endTile, taken, board)
+
+const shotgunKing*: Power = Power(
+    name: "Shotgun King",
+    tier: Common,
+    priority: 5,
+    description: """Your king knows its 2nd ammendment rights. It can take pieces two ahead or two behind. 
+                    If it does this take, it does not move from its initial tile.""",
+    icon: "king.svg",
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == king and b[i][j].isColor(side):
+                        b[i][j].onTake = shotgunKingOnTake
+                        b[i][j].takes &= @[blackForwardTwiceJumpTake, whiteForwardTwiceJumpTake]
+)
+
 registerPower(empress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
@@ -867,6 +903,7 @@ registerPower(nightRider)
 registerPower(desegregation)
 registerPower(concubine)
 registerPower(reinforcements)
+registerPower(shotgunKing)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)

@@ -104,6 +104,12 @@ proc pieceMove*(p: Piece, rank: int, file: int, board: var ChessBoard) =
     board[p.tile.rank][p.tile.file] = Piece(item: none, tile: p.tile)
     board[rank][file].tile = (file: file, rank: rank)
 
+proc pieceMove*(p: Piece, t: Tile, board: var ChessBoard) = 
+    pieceMove(p, t.rank, t.file, board)
+
+proc pieceMove*(p: Tile, t: Tile, board: var ChessBoard) = 
+    pieceMove(board[p.rank][p.file], t.rank, t.file, board)
+
 proc pieceSwap*(p1: Piece, p2: Piece, board: var ChessBoard) = 
     let temp = p1
 
