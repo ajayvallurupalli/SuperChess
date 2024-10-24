@@ -361,9 +361,9 @@ proc createOptionsMenu(): VNode =
                         gameMode = TrueRandom
                         turn = true
 
-                        baseDrafts = parseInt(getVNodeById("draftTierNumber").getInputText)
+                        baseDrafts = parseInt(getVNodeById("draftRandNumber").getInputText)
                         draftsLeft = baseDrafts - 1
-                        draftChoices = parseInt(getVNodeById("draftChoiceTierNumber").getInputText)
+                        draftChoices = parseInt(getVNodeById("draftChoiceRandNumber").getInputText)
 
                         draft()
                         

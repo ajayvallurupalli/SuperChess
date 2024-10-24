@@ -47,6 +47,8 @@ func lineTakes*(board: ChessBoard, p: Piece, shoot: Shooter,
     while result.addIfTake(board, p, next, shoot, throughFlag = throughFlag, cannibalismFlag = cannibalismFlag):
         next = shoot(next)
 
+    result.filterIt(it != p.tile)
+
 
 #returns sequence of possible moves for a `PieceType.pawn` at `Tile` `t`. 
 #for a pawn of `Color.white`
