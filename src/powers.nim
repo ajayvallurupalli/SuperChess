@@ -305,7 +305,7 @@ const giraffe*: Power = Power(
 
 const calvary*: Power = Power(
     name: "Calvary",
-    tier: Common,
+    tier: Uncommon,
     priority: 15,
     description: 
         """Your knights learn to ride forward. They aren't very good at it, but they're trying their best. 
@@ -439,7 +439,7 @@ const exodia: Synergy = (
     index: -1
 )
 
-const backStep: Power = Power(
+const backStep*: Power = Power(
     name: "Backstep",
     tier: Rare,
     priority: 15,
@@ -456,7 +456,7 @@ const backStep: Power = Power(
                             b[i][j].moves &= whiteBackwardMove
 )
 
-const headStart: Power = Power(
+const headStart*: Power = Power(
     name: "Headstart",
     tier: Uncommon,
     priority: 15,
@@ -790,6 +790,48 @@ const concubine*: Power = Power(
                         b[i][j].whenTake = concubineWhenTake
 )
 
+const reinforcements*: Power = Power(
+    name: "Reinforcements",
+    tier: Uncommon,
+    priority: 25,
+    description: "Do you really need more than 8 pawns? Your rooks spawn a pawn for every 2 pieces they takes.",
+    icon: "rook.svg",
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            var dna: Piece = Piece(item: none)
+
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == pawn and b[i][j].isColor(side):
+                        dna = b[i][j]
+                        break
+
+            if dna.item == none:
+                dna = if side == white: whitePawn.pieceCopy() else: blackPawn.pieceCopy()
+
+            let reinforcementsOntake = proc(taker: Tile, taken: Tile, board: var ChessBoard) = 
+                assert board[taker.rank][taker.file].getTakesOn(board).contains(taken)
+                let newTile = board[taken.rank][taken.file].whenTake(taker, taken, board)
+                board[newTile.endTile.rank][newTile.endTile.file].timesMoved += 1
+
+                if newTile.takeSuccess:
+                    board[newTile.endTile.rank][newTile.endTile.file].piecesTaken += 1
+
+                    if board[newTile.endTile.rank][newTile.endTile.file].piecesTaken mod 2 == 0:
+                        board[taker.rank][taker.file] = dna.pieceCopy(tile = taker)
+                else: 
+                    echo "take of " & $board[taken.rank][taken.file].item &  " by " & $board[taker.rank][taker.file].item & " failed"
+
+                for f in board[newTile.endTile.rank][newTile.endTile.file].onEndTurn:
+                    f(newTile.endTile, taken, board)
+
+            for i in 0 ..< b.len:
+                for j in 0 ..< b[0].len:
+                    if b[i][j].item == rook and b[i][j].isColor(side):
+                        b[i][j].onTake = reinforcementsOntake
+
+)
+
 registerPower(empress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
@@ -815,6 +857,7 @@ registerPower(knightChargePower)
 registerPower(nightRider)
 registerPower(desegregation)
 registerPower(concubine)
+registerPower(reinforcements)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)

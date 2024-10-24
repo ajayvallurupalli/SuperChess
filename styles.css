@@ -39,6 +39,17 @@ img {
 
 .column {
     display: flex;
+    min-height: 30%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+    padding: 35px;
+}
+
+.start-column {
+    display: flex;
     min-height: 50%;
     flex-direction: column;
     justify-content: center;

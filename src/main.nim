@@ -33,6 +33,8 @@ click enter to enter join code
 ]#
 
 const iconsPath: string  = "./icons/"
+const defaultBaseDrafts: int = 3
+const defaultBaseDraftChoices: int = 3
 
 type 
     Screen {.pure.} = enum 
@@ -42,14 +44,15 @@ type
 
 var roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
 var peer: tuple[send: proc(data: cstring), destroy: proc()]
-var side: Color# = white # = white only for testing, delete
+var side: Color = white # = white only for testing, delete
 var turn: bool# = true# = true#only for testing
-var myDrafts: seq[Power]# = @[holyBishopPower]
+var myDrafts: seq[Power]# = @[reinforcements, backStep, headStart]
 var opponentDrafts: seq[Power]# = @[knightChargePower, developed, lesbianPride, mysteriousSwordsmanLeft]
+var baseDrafts: int #default value
 
 var draftOptions: seq[Power]
 var draftChoices: int = 3
-var drafts: int = 2 #ignore how this is one less than actual draft, i will fix eventually
+var draftsLeft: int #ignore how this is one less than actual draft, i will fix eventually
 var rematch = false
 
 var theBoard: ChessBoard = startingBoard()
@@ -57,7 +60,7 @@ var selectedTile: Tile = (file: -1, rank: -1)
 var possibleMoves: Moves = @[]
 var possibleTakes: Moves = @[]
 var lastMove: Moves = @[]
-var turnNumber: int = 0
+var turnNumber: int = 1
 
 var currentScreen: Screen = Lobby # = Draft
 var gameMode: Gamemode# = TrueRandom #deubg
@@ -120,15 +123,14 @@ proc hostLogic(d: string, m: MessageType) =
         myDrafts = @[]
         opponentDrafts = @[]
         lastMove = @[]
-        drafts = 2
         turnNumber = 0
     of Draft:
         var x = d.split(",")
         if x[0] == "my":
             turn = true
             opponentDrafts.add(powers[parseInt(x[1])])
-            if drafts >= 1:
-                dec drafts
+            if draftsLeft >= 1:
+                dec draftsLeft
                 draft(myDrafts & opponentDrafts, myDrafts)
             else:
                 myDrafts.executeOn(white, side, theBoard)
@@ -266,7 +268,7 @@ proc reverseBoard(): VNode =
                     createTile(theBoard[i][j], i, j)
 
 proc createLobby(): VNode = 
-    result = buildHtml(tdiv(class="column")):                
+    result = buildHtml(tdiv(class="start-column")):                
         tdiv(class="main"):
             button: 
                 text "Join a Room"
@@ -331,11 +333,25 @@ proc createOptionsMenu(): VNode =
                         currentScreen = Draft
                         gameMode = RandomTier
                         turn = true
+                        baseDrafts = parseInt(getVNodeById("draftTierNumber").getInputText)
+                        draftsLeft = baseDrafts - 1
+                        draftChoices = parseInt(getVNodeById("draftChoiceTierNumber").getInputText)
+
                         draft()
 
                     text "Draft mode"
                 text """Take turns drafting power ups for your pieces, then play. 
                         Each side is guaranteed to get power ups of the same tier."""
+                
+                label(`for` = "draftTierNumber"):
+                    text "Number of powers drafted"
+                input(id = "draftTierNumber", `type` = "number", onchange = validateNotEmpty("draftTierNumber"), 
+                        step = "1", min = "1", max = "10", value = $defaultBaseDrafts)
+
+                label(`for` = "draftChoiceTierNumber"): #i'm insane at naming things
+                    text "Number of choices each round"
+                input(id = "draftChoiceTierNumber", `type` = "number", onchange = validateNotEmpty("draftChoiceTierNumber"), 
+                        step = "1", min = "1", max = "5", value = $defaultBaseDraftChoices)
 
             tdiv(class="column"):
                 button:
@@ -344,6 +360,11 @@ proc createOptionsMenu(): VNode =
                         currentScreen = Draft
                         gameMode = TrueRandom
                         turn = true
+
+                        baseDrafts = parseInt(getVNodeById("draftTierNumber").getInputText)
+                        draftsLeft = baseDrafts - 1
+                        draftChoices = parseInt(getVNodeById("draftChoiceTierNumber").getInputText)
+
                         draft()
                         
 
@@ -352,6 +373,16 @@ proc createOptionsMenu(): VNode =
                 text """Draft powerups of random strength and quality, then play. 
                         Completely luck based."""
                         
+                label(`for` = "draftRandNumber"):
+                    text "Number of powers drafted"
+                input(id = "draftRandNumber", `type` = "number", onchange = validateNotEmpty("draftRandNumber"), 
+                        step = "1", min = "1", max = "10", value = $defaultBaseDrafts)
+
+                label(`for` = "draftChoiceRandNumber"): #i'm insane at naming things
+                    text "Number of choices each round"
+                input(id = "draftChoiceRandNumber", `type` = "number", onchange = validateNotEmpty("draftChoiceRandNumber"), 
+                        step = "1", min = "1", max = "5", value = $defaultBaseDraftChoices)
+
 proc createPowerMenu(p: Power): VNode = 
     result = buildHtml(tdiv(class="power")):
         h1:
@@ -412,7 +443,7 @@ proc createGame(): VNode =
                 createPowerSummary(p, otherSide(side))
 
 proc createResults(): VNode = 
-    result = buildHtml(tdiv(class="column")):
+    result = buildHtml(tdiv(class="start-column")):
         if side.alive(theBoard):
             h1:
                 text "You won!"
@@ -450,7 +481,7 @@ proc createRematch(): VNode =
 
 
 proc createDisconnect(): VNode = 
-    result = buildHtml(tdiv(class="column")):
+    result = buildHtml(tdiv(class="start-column")):
         text "Your opponent disconnected"
         button:
             proc onclick(_: Event, _: VNode) = 
