@@ -142,7 +142,6 @@ const bishopMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
     result.add(lineMoves(board, p, shooterFactory(1, -1)))
     result.add(lineMoves(board, p, shooterFactory(-1, -1)))
 
-
 const bishopTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
     result.add(lineTakes(board, p,  shooterFactory(1, 1)))
     result.add(lineTakes(board, p, shooterFactory(-1, 1)))

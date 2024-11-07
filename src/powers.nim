@@ -61,6 +61,7 @@ const mysteriousSwordsmanLeft*: Power = Power(
                 b[rank][1].takes = @[diagnalTakes, whiteForwardTakes]
             b[rank][1].onEndTurn = @[silverGeneralPromoteConditions]
             b[rank][1].onPromote = @[silverGeneralPromote]
+            b[rank][1].item = fairy
             b[rank][1].filePath = "silvergeneral.svg"
             if side != viewSide: b[rank][1].rotate = true
 )
@@ -87,6 +88,7 @@ const mysteriousSwordsmanRight*: Power = Power(
                 b[rank][6].takes = @[diagnalTakes, whiteForwardTakes]
             b[rank][6].onEndTurn = @[silverGeneralPromoteConditions]
             b[rank][6].onPromote = @[silverGeneralPromote]
+            b[rank][6].item = fairy
             b[rank][6].filePath = "silvergeneral.svg"
             if side != viewSide: b[rank][6].rotate = true
 )
@@ -915,6 +917,70 @@ const bombard: Power = Power(
                     b[i][j].filePath = if side == black: "blackbombard.svg" else: "whitebombard.svg"
 )
 
+const lancePromote*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
+    piece.moves = @[leftRightMoves, diagnalMoves, blackForwardMoves, whiteForwardMoves]
+    piece.takes = @[leftRightTakes, diagnalTakes, blackForwardTakes, whiteForwardTakes]
+    piece.promoted = true
+    piece.filePath = "promotedlance.svg"
+
+const lancePromoteConditions*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
+    if (piece.tile.rank == 0 or piece.tile.rank == 7) and not piece.promoted:  
+        piece.promote(board)
+
+const lanceLeft*: Power = Power(
+    name: "Kamikaze", 
+    tier: Uncommon,
+    priority: 5, 
+    rarity: 4, 
+    description: 
+        """The divine wind is behind you. 
+        Your left pawn is replaced with a lance from Shogi.""",
+    icon: "lance.svg",
+    rotatable: true,
+    noColor: true,
+    onStart: 
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            let rank = if side == black: 1 else: 6
+            if side == black:
+                b[rank][0].moves = @[blackLanceMoves]
+                b[rank][0].takes = @[blackLanceTakes]
+            else:
+                b[rank][0].moves = @[whiteLanceMoves]
+                b[rank][0].takes = @[whiteLanceTakes]
+            b[rank][0].onEndTurn = @[lancePromoteConditions]
+            b[rank][0].onPromote = @[lancePromote]
+            b[rank][0].item = fairy
+            b[rank][0].filePath = "lance.svg"
+            if side != viewSide: b[rank][0].rotate = true
+)
+
+const lanceRight*: Power = Power(
+    name: "Kamikaze", 
+    tier: Uncommon,
+    priority: 5, 
+    rarity: 4, 
+    description: 
+        """The divine wind is behind you. 
+        Your right pawn is replaced with a lance from Shogi.""",
+    icon: "lance.svg",
+    rotatable: true,
+    noColor: true,
+    onStart: 
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            let rank = if side == black: 1 else: 6
+            if side == black:
+                b[rank][7].moves = @[blackLanceMoves]
+                b[rank][7].takes = @[blackLanceTakes]
+            else:
+                b[rank][7].moves = @[whiteLanceMoves]
+                b[rank][7].takes = @[whiteLanceTakes]
+            b[rank][7].onEndTurn = @[lancePromoteConditions]
+            b[rank][7].onPromote = @[lancePromote]
+            b[rank][7].item = fairy
+            b[rank][7].filePath = "lance.svg"
+            if side != viewSide: b[rank][7].rotate = true
+)
+
 registerPower(empress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
@@ -944,6 +1010,8 @@ registerPower(reinforcements)
 registerPower(shotgunKing)
 registerPower(coward)
 registerPower(bombard)
+registerPower(lanceLeft)
+registerPower(lanceRight)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)

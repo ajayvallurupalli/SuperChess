@@ -56,8 +56,6 @@ const blackForwardTwiceMoves*: MoveProc = func (board: ChessBoard, p: Piece): Mo
     if next: 
         discard result.addIfFree(board, p.tile.tileBelow(), tileBelow)
 
-
-
 const cannibalRookTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
     result.add(lineTakes(board, p, tileAbove, cannibalismFlag = true))
     result.add(lineTakes(board, p, tileBelow, cannibalismFlag = true))
@@ -165,3 +163,15 @@ const rookBombard*: MoveProc = func(board: ChessBoard, p: Piece): Moves =
         discard result.addIfTake(board, p, p.tile, shooterFactory(2, -2))
     if result.addIfTake(board, p, p.tile, shooterFactory(-1, -1)):
         discard result.addIfTake(board, p, p.tile, shooterFactory(-2, -2))
+
+const whiteLanceMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
+    result.add(lineMoves(board, p, tileAbove))
+
+const blackLanceMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
+    result.add(lineMoves(board, p, tileAbove))
+
+const whiteLanceTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
+    result.add(lineTakes(board, p, tileAbove))
+
+const blackLanceTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
+    result.add(lineTakes(board, p, tileAbove))
