@@ -4407,7 +4407,7 @@ function HEX3Aanonymous_1795163477(side_1795163478, __1795163479, b_1795163480) 
 function HEX3Aanonymous_1811939634(board_1811939635, p_1811939636) {
   var result_1811939637 = [[]];
 
-    add_1459617954(result_1811939637, 0, lineMoves_1509949621(board_1811939635, p_1811939636, tileAbove_1526726794));
+    add_1459617954(result_1811939637, 0, lineMoves_1509949621(board_1811939635, p_1811939636, tileBelow_1526726797));
 
   return result_1811939637[0];
 
@@ -4416,7 +4416,7 @@ function HEX3Aanonymous_1811939634(board_1811939635, p_1811939636) {
 function HEX3Aanonymous_1811939652(board_1811939653, p_1811939654) {
   var result_1811939655 = [[]];
 
-    add_1459617954(result_1811939655, 0, lineTakes_1509949627(board_1811939653, p_1811939654, tileAbove_1526726794, false, false));
+    add_1459617954(result_1811939655, 0, lineTakes_1509949627(board_1811939653, p_1811939654, tileBelow_1526726797, false, false));
 
   return result_1811939655[0];
 

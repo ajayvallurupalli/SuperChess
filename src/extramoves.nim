@@ -168,10 +168,10 @@ const whiteLanceMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
     result.add(lineMoves(board, p, tileAbove))
 
 const blackLanceMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
-    result.add(lineMoves(board, p, tileAbove))
+    result.add(lineMoves(board, p, tileBelow))
 
 const whiteLanceTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
     result.add(lineTakes(board, p, tileAbove))
 
 const blackLanceTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
-    result.add(lineTakes(board, p, tileAbove))
+    result.add(lineTakes(board, p, tileBelow))
