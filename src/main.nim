@@ -8,28 +8,10 @@ from sequtils import foldr, mapIt
 #fixing the issue makes the code look bad, so I'm turning it off. Genius, I know
 
 #[TO DO
-Check if a handshake is needed when drafting, or if no data would be lost
----add priotirty sustem to powers to fix conflicting issues2
----add invisible borders to prevent odd resizing when clicking
-lots of playtesting
----maybe rework promotion to an onpromotion: onAction type thing
-    it would be more work, but it could allow for cool sunergies
-    instead of restricting extra pieces
-    but it would also require a canPromote function
-    maybe it would be best to just use synergies 
-    as long as it is decently robust by replacing requirements (see below)
----also make synergies cancel their replacements in executeOn
----also make whentake return a flag for if the take succeeded
-    so that base function knows to increment piecestaken and do stuff
-    also rename it to whenTaken, not sure why that hasn't happened yet
----maybe change pieceMove and pieceSwap to have board be the first argument
----change power.icon to only require file name and default include path to icons
----and give options for white and black
----and make black options for shogi pieces (fixed with rotate property)
----increase max height for drafts 
----stop queen from taking itself with step on me
+add consts for paths for piece svgs in powers.nim
+see if I completely failed the design and all of the OnActions should accept Pieces instead of this roundabout board indexijng
+    consider rewriting it. I don't think it will be too bad since its just default methods and a few powers
 click enter to enter join code
---why doesn't rematching work?????
 ]#
 
 const iconsPath: string  = "./icons/"
@@ -40,7 +22,7 @@ type
     Screen {.pure.} = enum 
         Lobby, CreateRoom, JoinRoom, Game, Options, Draft, Results, Rematch, Disconnect
     Gamemode = enum 
-        Normal, RandomTier, TrueRandom
+        Normal, RandomTier, TrueRandom, SuperRandom
 
 var roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
 var peer: tuple[send: proc(data: cstring), destroy: proc()]
@@ -73,15 +55,16 @@ opponentDrafts.executeOn(black, side,theBoard)
 
 proc alert(s: cstring) {.importjs: "alert(#)".}
 
-proc pieceOf(tile: Tile): Piece = 
+proc pieceOf(tile: Tile): var Piece = 
     theBoard[tile.rank][tile.file]
 
 proc isSelected(n: int, m: int): bool = 
     return selectedTile.rank == n and selectedTile.file == m
 
-
 proc endRound() = 
     piecesChecking = theBoard.getPiecesChecking(side)
+    for i, j in rankAndFile(theBoard):
+        theBoard[i][j].endTurn(theBoard)
     if gameIsOver(theBoard):
         currentScreen = Results
 
@@ -96,9 +79,9 @@ proc otherMove(d: string) =
 
     echo d, data[0], mover, moveTo
     if data[0] == "move":
-        pieceOf(mover).onMove(mover, moveTo, theBoard)
+        pieceOf(mover).move(moveTo, theBoard)
     elif data[0] == "take":
-        pieceOf(mover).onTake(mover, moveTo, theBoard)
+        pieceOf(mover).take(moveTo, theBoard)
     turn = not turn
     endRound()
 
@@ -113,6 +96,8 @@ proc draft(allDrafts: seq[Power] = @[], drafter: seq[Power] = @[]) =
     elif gameMode == RandomTier:
         #doesn't allow holy to be drafted in tierDraft because luck is consistent here
         draftOptions = draftRandomPowerTier(draftTier, allDrafts & holy, drafter, draftChoices)
+    elif gameMode == SuperRandom:
+        draftOptions = draftRandomPower(allDrafts & holy, drafter, draftChoices, defaultInsaneWeights)
 
 proc hostLogic(d: string, m: MessageType) = 
     echo $m, " of ", d, "\n"
@@ -129,7 +114,7 @@ proc hostLogic(d: string, m: MessageType) =
         lastMove = @[]
         piecesChecking = @[]
         turnNumber = 0
-        draftTier = randomTier()
+        draftTier = randomTier(defaultBuffedWeights)
     of Draft:
         var x = d.split(",")
         if x[0] == "my":
@@ -137,7 +122,7 @@ proc hostLogic(d: string, m: MessageType) =
             opponentDrafts.add(powers[parseInt(x[1])])
             if draftsLeft >= 1:
                 dec draftsLeft
-                draftTier = randomTier()
+                draftTier = randomTier(defaultBuffedWeights)
                 draft(myDrafts & opponentDrafts, myDrafts)
             else:
                 myDrafts.executeOn(white, side, theBoard)
@@ -237,15 +222,14 @@ proc createTile(p: Piece, m: int, n: int): VNode =
             proc onclick(_: Event; _: VNode) =           
                 if possibleMoves.contains(p.tile) and turn and pieceOf(selectedTile).isColor(side):
                     sendMove("move", selectedTile, p.tile)
-                    pieceOf(selectedTile).onMove(selectedTile, p.tile, theBoard)
+                    pieceOf(selectedTile).move(p.tile, theBoard)
                     possibleMoves = @[]
                     selectedTile = (-1,-1)
                     possibleTakes = @[]
                     endRound()
                 elif possibleTakes.contains(p.tile) and turn and pieceOf(selectedTile).isColor(side):
                     sendMove("take", selectedTile, p.tile)
-                    echo "turnnumber: ", $turnNumber, pieceOf(selectedTile).item, $pieceOf(selectedTile).getTakesOn(theBoard)
-                    pieceOf(selectedTile).onTake(selectedTile, p.tile, theBoard)
+                    pieceOf(selectedTile).take(p.tile, theBoard)
                     possibleTakes = @[]
                     selectedTile = (-1, -1)
                     possibleMoves = @[]
@@ -393,6 +377,37 @@ proc createOptionsMenu(): VNode =
                 label(`for` = "draftChoiceRandNumber"): #i'm insane at naming things
                     text "Number of choices each round"
                 input(id = "draftChoiceRandNumber", `type` = "number", onchange = validateNotEmpty("draftChoiceRandNumber"), 
+                        step = "1", min = "1", max = "5", value = $defaultBaseDraftChoices)
+
+            
+            tdiv(class="column"):
+                button:
+                    proc onclick(_: Event, _: VNode) = 
+                        peer.send("draft:start")
+                        currentScreen = Draft
+                        gameMode = SuperRandom
+                        turn = true
+
+                        baseDrafts = parseInt(getVNodeById("draftSuperRandNumber").getInputText)
+                        draftsLeft = baseDrafts - 1
+                        draftChoices = parseInt(getVNodeById("draftChoiceSuperRandNumber").getInputText)
+
+                        draft()
+                        
+
+                    text "Super Random mode"
+
+                text """Draft powerups of random strength and quality, then play. 
+                        Completely luck based, with higher chances for rare pieces."""
+                        
+                label(`for` = "draftSuperRandNumber"):
+                    text "Number of powers drafted"
+                input(id = "draftSuperRandNumber", `type` = "number", onchange = validateNotEmpty("draftSuperRandNumber"), 
+                        step = "1", min = "1", max = "10", value = $defaultBaseDrafts)
+
+                label(`for` = "draftChoiceSuperRandNumber"): #i'm insane at naming things
+                    text "Number of choices each round"
+                input(id = "draftChoiceSuperRandNumber", `type` = "number", onchange = validateNotEmpty("draftChoiceSuperRandNumber"), 
                         step = "1", min = "1", max = "5", value = $defaultBaseDraftChoices)
 
 proc createPowerMenu(p: Power): VNode = 

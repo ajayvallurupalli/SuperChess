@@ -155,3 +155,13 @@ const blackForwardThriceJumpTake*: MoveProc = func(board: ChessBoard, p: Piece):
     discard result.addIfTake(board, p, p.tile, shooterFactory(0, 1))
     discard result.addIfTake(board, p, p.tile, shooterFactory(0, 2))
     discard result.addIfTake(board, p, p.tile, shooterFactory(0, 3))
+
+const rookBombard*: MoveProc = func(board: ChessBoard, p: Piece): Moves = 
+    if result.addIfTake(board, p, p.tile, shooterFactory(1, 1)):
+        discard result.addIfTake(board, p, p.tile, shooterFactory(2, 2))
+    if result.addIfTake(board, p, p.tile, shooterFactory(-1, 1)):
+        discard result.addIfTake(board, p, p.tile, shooterFactory(-2, 2))
+    if result.addIfTake(board, p, p.tile, shooterFactory(1, -1)):
+        discard result.addIfTake(board, p, p.tile, shooterFactory(2, -2))
+    if result.addIfTake(board, p, p.tile, shooterFactory(-1, -1)):
+        discard result.addIfTake(board, p, p.tile, shooterFactory(-2, -2))

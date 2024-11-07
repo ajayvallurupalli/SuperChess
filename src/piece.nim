@@ -14,8 +14,9 @@ type
     Moves* = seq[Tile]
     MoveProc* = proc(board: ChessBoard, piece: Piece): Moves {.noSideEffect.}
     Shooter* = proc(tile: Tile): Tile {.noSideEffect.}
-    OnAction* = proc(taker: Tile, taken: Tile, board: var ChessBoard)
-    OnTakeAction = proc(taker: Tile, taken: Tile, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool]
+    OnAction* = proc(piece: var Piece, to: Tile, board: var ChessBoard)
+    WhenTaken* = proc(taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool]
+    OnPiece* = proc (piece: var Piece, board: var ChessBoard)
 
     Piece* = object
         item*: Piecetype
@@ -25,14 +26,39 @@ type
         tile*: Tile = (file: -1, rank: -1)
         moves*: seq[MoveProc]
         takes*: seq[MoveProc]
-        onMove*: OnAction 
+        onMove*: OnAction
         onTake*: OnAction
-        whenTake*: OnTakeAction 
-        onEndTurn*: seq[OnAction] 
-        onPromote*: seq[OnAction]
+        whenTaken*: WhenTaken 
+        onEndTurn*: seq[OnPiece] 
+        onPromote*: seq[OnPiece]
         promoted*: bool = false
         filePath*: string = ""
         rotate*: bool = false
+
+template move* (a: var Piece, b: Tile, c: var ChessBoard): untyped = 
+    a.onMove(a, b, c)
+
+template take* (a: var Piece, b: Tile, c: var ChessBoard): untyped = 
+    a.onTake(a, b, c)
+
+template promote* (a: Piece, c: var ChessBoard): untyped = 
+    for p in a.onPromote:
+        p(a, c)
+
+template endTurn* (a: var Piece, c: var ChessBoard): untyped = 
+    for p in a.onEndTurn:
+        p(a, c)
+
+template takenBy*(taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
+    taken.whenTaken(taken, taker, board)
+
+template takenBy*(taken: Tile, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
+    board[taken.rank][taken.file].whenTaken(board[taken.rank][taken.file], taker, board)
+
+iterator rankAndFile*(board: ChessBoard): tuple[rank: int, file: int] = 
+    for i in 0..<board.len:
+        for j in 0..<board[0].len:
+            yield (i, j)
 
 func getMovesOn*(p: Piece, board: ChessBoard): Moves = 
     for x in p.moves:
@@ -42,42 +68,47 @@ func getTakesOn*(p: Piece, board: ChessBoard): Moves =
     for x in p.takes:
         result.add(x(board, p))
 
-const defaultOnEndTurn*: OnAction = proc (taker: Tile, taken: Tile, board: var ChessBoard) = 
+proc pieceMove*(p: var Piece, rank: int, file: int, board: var ChessBoard) = 
+    board[rank][file] = board[p.tile.rank][p.tile.file]
+    board[p.tile.rank][p.tile.file] = Piece(item: none, tile: p.tile)
+    board[rank][file].tile = (file: file, rank: rank)
+
+proc pieceMove*(p: var Piece, t: Tile, board: var ChessBoard) = 
+    pieceMove(p, t.rank, t.file, board)
+
+proc pieceMove*(p: Tile, t: Tile, board: var ChessBoard) = 
+    pieceMove(board[p.rank][p.file], t.rank, t.file, board)
+
+proc pieceMove*(p: var Piece, t: Piece, board: var ChessBoard) = 
+    pieceMove(p, t.tile.rank, t.tile.file, board)
+
+proc pieceSwap*(p1: Piece, p2: Piece, board: var ChessBoard) = 
+    let temp = p1
+
+    board[p1.tile.rank][p1.tile.file] = p2
+    board[p2.tile.rank][p2.tile.file] = temp
+    board[p1.tile.rank][p1.tile.file].tile = (file: p1.tile.file, rank: p1.tile.rank)
+    board[temp.tile.rank][temp.tile.file].tile = (file: temp.tile.file, rank: temp.tile.rank)
+
+const defaultOnEndTurn*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
         discard nil
 
-proc defaultWhenTake*(taker: Tile, taken: Tile, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
-    echo "taker: ", taker, "taken: ", taken
-    if taken == taker: 
-        return (taken, false) #stops pieces from taking themselves, though this can be overridden
-    else:
-        board[taker.rank][taker.file].tile = taken
-        board[taken.rank][taken.file] = board[taker.rank][taker.file]
-        board[taker.rank][taker.file] = Piece(item: none, tile: taker)
-        board[taker.rank][taker.file].piecesTaken += 1
-        return ((taken.file, taken.rank), true)
+const defaultWhenTaken*: WhenTaken = proc(taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
+    inc taker.piecesTaken
+    taker.pieceMove(taken, board)
+    return (taken.tile, true)
 
-proc defaultOnMove*(taker: Tile, taken: Tile, board: var ChessBoard) = 
-    assert board[taker.rank][taker.file].getMovesOn(board).contains(taken)
-    board[taker.rank][taker.file].tile = taken
-    board[taker.rank][taker.file].timesMoved += 1
-    board[taken.rank][taken.file] = board[taker.rank][taker.file]
-    board[taker.rank][taker.file] = Piece(item: none, tile: taker)
+const defaultOnMove*: OnAction = proc (piece: var Piece, to: Tile, board: var ChessBoard) = 
+    assert piece.getMovesOn(board).contains(to)
+    inc piece.timesMoved
+    piece.pieceMove(to, board)
 
-    for f in board[taken.rank][taken.file].onEndTurn:
-        f(taker, taken, board)
-
-proc defaultOnTake*(taker: Tile, taken: Tile, board: var ChessBoard) = 
-    assert board[taker.rank][taker.file].getTakesOn(board).contains(taken)
-    let newTile = board[taken.rank][taken.file].whenTake(taker, taken, board)
-    board[newTile.endTile.rank][newTile.endTile.file].timesMoved += 1
-    if newTile.takeSuccess:
-        board[newTile.endTile.rank][newTile.endTile.file].piecesTaken += 1
-    else: 
-        echo "take of " & $board[taken.rank][taken.file].item &  " by " & $board[taker.rank][taker.file].item & " failed"
-
-    for f in board[newTile.endTile.rank][newTile.endTile.file].onEndTurn:
-        f(newTile.endTile, taken, board)
-
+const defaultOnTake*: OnAction = proc (piece: var Piece, taking: Tile, board: var ChessBoard) = 
+    assert piece.getTakesOn(board).contains(taking)
+    let takeResult = taking.takenBy(piece, board)
+    inc piece.timesMoved
+    if takeResult.takeSuccess:
+        board[takeResult.endTile.rank][takeResult.endTile.file].piecesTaken += 1
 
 func pieceCopy*(initial: Piece,
                 item: PieceType = initial.item, 
@@ -89,39 +120,15 @@ func pieceCopy*(initial: Piece,
                 takes: seq[MoveProc] = initial.takes,
                 onMove: OnAction = initial.onMove,
                 onTake: OnAction = initial.onTake,
-                whenTake: OnTakeAction = initial.whenTake,
-                onEndTurn: seq[OnAction] = initial.onEndTurn,
-                onPromote: seq[OnAction] = initial.onPromote,
+                whenTaken: WhenTaken = initial.whenTaken,
+                onEndTurn: seq[proc(piece: var Piece, board: var ChessBoard)] = initial.onEndTurn,
+                onPromote: seq[proc(piece: var Piece, board: var ChessBoard)] = initial.onPromote,
                 promoted: bool = initial.promoted,
                 filePath: string = initial.filePath,
                 rotate: bool = initial.rotate): Piece = 
     return Piece(item: item, color: color, timesMoved: timesMoved, piecesTaken: piecesTaken,
                 tile: tile, moves: moves, takes: takes, onMove: onMove, onTake: onTake,
-                whenTake: whenTake, onEndTurn: onEndTurn, onPromote: onPromote,promoted: promoted, filePath: filePath, rotate: rotate)
-            
-proc pieceMove*(p: Piece, rank: int, file: int, board: var ChessBoard) = 
-    board[rank][file] = board[p.tile.rank][p.tile.file]
-    board[p.tile.rank][p.tile.file] = Piece(item: none, tile: p.tile)
-    board[rank][file].tile = (file: file, rank: rank)
-
-proc pieceMove*(p: Piece, t: Tile, board: var ChessBoard) = 
-    pieceMove(p, t.rank, t.file, board)
-
-proc pieceMove*(p: Tile, t: Tile, board: var ChessBoard) = 
-    pieceMove(board[p.rank][p.file], t.rank, t.file, board)
-
-proc pieceSwap*(p1: Piece, p2: Piece, board: var ChessBoard) = 
-    let temp = p1
-
-    board[p1.tile.rank][p1.tile.file] = p2
-    board[p2.tile.rank][p2.tile.file] = temp
-    board[p1.tile.rank][p1.tile.file].tile = (file: p1.tile.file, rank: p1.tile.rank)
-    board[temp.tile.rank][temp.tile.file].tile = (file: temp.tile.file, rank: temp.tile.rank)
-
-proc piecePromote*(t: Tile, b: var ChessBoard) = 
-    for f in b[t.rank][t.file].onPromote:
-        f(t, t, b)
-    b[t.rank][t.file].promoted = true
+                whenTaken: whenTaken, onEndTurn: onEndTurn, onPromote: onPromote,promoted: promoted, filePath: filePath, rotate: rotate)
 
 func isAir*(p: Piece): bool = 
     return p.item == none
@@ -168,3 +175,4 @@ func getPiecesChecking*(b: ChessBoard, c: Color): seq[Tile] =
         for p in row:
             if not p.isColor(c) and kingTile in p.getTakesOn(b):
                 result.add(p.tile)
+

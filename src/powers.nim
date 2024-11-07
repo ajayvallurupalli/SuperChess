@@ -8,27 +8,36 @@ import power, moves, piece, basePieces, extraMoves
     20 - premoves. Any `Power.onStart` which moves `Piece`s around the `ChessBoard`
 ]#
 
+const kingIcon: string = "king.svg"
+const queenIcon: string = "queen.svg"
+const rookIcon: string = "rook.svg"
+const bishopIcon: string = "bishop.svg"
+const knightIcon: string = "knight.svg"
+const pawnIcon: string = "pawn.svg"
+
 const empress*: Power = Power(
     name: "Empress",
     tier: Uncommon,
     priority: 15,
     description: "Your queen ascends, gaining the movement of a standard knight. ",
-    icon: "queen.svg",
+    icon: queenIcon,
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == queen and b[i][j].isColor(side):
-                        b[i][j].takes.add(knightTakes)
-                        b[i][j].moves.add(knightMoves)
+            for i, j in b.rankAndFile:
+                if b[i][j].item == queen and b[i][j].isColor(side):
+                    b[i][j].takes.add(knightTakes)
+                    b[i][j].moves.add(knightMoves)
 )
 
-const silverGeneralPromote*: OnAction = proc(taker: Tile, taken: Tile, board: var ChessBoard) = 
-    if (taken.rank == 0 or taken.rank == 7) and not board[taken.rank][taken.file].promoted: 
-        board[taken.rank][taken.file].moves &= leftRightMoves
-        board[taken.rank][taken.file].moves &= leftRightTakes
-        board[taken.rank][taken.file].promoted = true
-        board[taken.rank][taken.file].filePath = "promotedsilvergeneral.svg"
+const silverGeneralPromote*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
+    piece.moves &= leftRightMoves
+    piece.takes &= leftRightTakes
+    piece.promoted = true
+    piece.filePath = "promotedsilvergeneral.svg"
+
+const silverGeneralPromoteConditions*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
+    if (piece.tile.rank == 0 or piece.tile.rank == 7) and not piece.promoted:  
+        piece.promote(board)
 
 const mysteriousSwordsmanLeft*: Power = Power(
     name: "Mysterious Swordsman", 
@@ -50,7 +59,8 @@ const mysteriousSwordsmanLeft*: Power = Power(
             else:
                 b[rank][1].moves = @[diagnalMoves, whiteForwardMoves]
                 b[rank][1].takes = @[diagnalTakes, whiteForwardTakes]
-            b[rank][1].onEndTurn = @[silverGeneralPromote]
+            b[rank][1].onEndTurn = @[silverGeneralPromoteConditions]
+            b[rank][1].onPromote = @[silverGeneralPromote]
             b[rank][1].filePath = "silvergeneral.svg"
             if side != viewSide: b[rank][1].rotate = true
 )
@@ -75,8 +85,8 @@ const mysteriousSwordsmanRight*: Power = Power(
             else:
                 b[rank][6].moves = @[diagnalMoves, whiteForwardMoves]
                 b[rank][6].takes = @[diagnalTakes, whiteForwardTakes]
-            b[rank][6].onEndTurn = @[silverGeneralPromote]
-            b[rank][6].item = fairy
+            b[rank][6].onEndTurn = @[silverGeneralPromoteConditions]
+            b[rank][6].onPromote = @[silverGeneralPromote]
             b[rank][6].filePath = "silvergeneral.svg"
             if side != viewSide: b[rank][6].rotate = true
 )
@@ -88,7 +98,7 @@ const developed*: Power = Power(
     description: 
         """Your board arrives a little developed. Your 2 center pawns start one tile forward. 
         They can still move up 2 for their first move.""",
-    icon: "pawn.svg",
+    icon: pawnIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             if side == black:
@@ -105,13 +115,12 @@ const stepOnMe*: Power = Power(
     priority: 15, 
     description:
         """Your Queen can take your own pieces. It's literally useless, but if that's your thing...""",
-    icon: "queen.svg",
+    icon: queenIcon,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == queen and b[i][j].isColor(side):
-                        b[i][j].takes &= @[cannibalBishopTakes, cannibalKingTakes, cannibalRookTakes]
+            for i, j in b.rankAndFile:
+                if b[i][j].item == queen and b[i][j].isColor(side):
+                    b[i][j].takes &= @[cannibalBishopTakes, cannibalKingTakes, cannibalRookTakes]
 )
 
 const illegalFormationRL: Power = Power(
@@ -121,7 +130,7 @@ const illegalFormationRL: Power = Power(
     priority: 20,
     description: 
         """ILLEGAL FORMATION: YOUR PAWN ABOVE YOUR LEFT ROOK SWAPS PLACES WITH YOUR LEFT ROOK""",
-    icon: "rook.svg",
+    icon: rookIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             let rank = if side == black: 0 else: 6
@@ -135,7 +144,7 @@ const illegalFormationRR: Power = Power(
     priority: 20,
     description: 
         """ILLEGAL FORMATION: YOUR PAWN ABOVE YOUR RIGHT ROOK SWAPS PLACES WITH YOUR RIGHT ROOK""",
-    icon: "rook.svg",
+    icon: rookIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             let rank = if side == black: 0 else: 6
@@ -149,7 +158,7 @@ const illegalFormationBL*: Power = Power(
     priority: 20,
     description: 
         """ILLEGAL FORMATION: YOUR PAWN ABOVE YOUR LEFT BISHOP SWAPS PLACES WITH YOUR LEFT BISHOP""",
-    icon: "bishop.svg",
+    icon: bishopIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             let rank = if side == black: 0 else: 6
@@ -163,19 +172,16 @@ const illegalFormationBR: Power = Power(
     priority: 20,
     description: 
         """ILLEGAL FORMATION: YOUR PAWN ABOVE YOUR RIGHT BISHOP SWAPS PLACES WITH YOUR RIGHT BISHOP""",
-    icon: "bishop.svg",
+    icon: bishopIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             let rank = if side == black: 0 else: 6
             pieceSwap(b[rank][5], b[rank + 1][5], b)
 )
 
-proc putInTheWorkPromotion(taker: Tile, taken: Tile, board: var ChessBoard) =
-    onPawnEnd(taker, taken, board)
-    let pawn = board[taken.rank][taken.file]
-    if pawn.piecesTaken == 3:
-        for f in pawn.onPromote:
-            f(taker, taken, board)
+const putInTheWorkCondition: OnPiece = proc(piece: var Piece, board: var ChessBoard) =
+    if piece.piecesTaken == 3:
+        piece.promote(board)
 
 #...
 #Just don't look at it and it's not that bad
@@ -185,13 +191,12 @@ const putInTheWork*: Power = Power(
     priority: 10, 
     description:
         """Get to work son. If any of your pawns take 3 pieces, they automatically promote.""",
-    icon: "pawn.svg",
+    icon: pawnIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == pawn and b[i][j].isColor(side):
-                        b[i][j].onEndTurn &= putInTheWorkPromotion
+            for i, j in b.rankAndFile:
+                if b[i][j].item == pawn and b[i][j].isColor(side):
+                    b[i][j].onEndTurn &= putInTheWorkCondition
 
 )
 
@@ -248,11 +253,14 @@ const wanderingRoninRight*: Power = Power(
 
 )
 
-const werewolfEndTurn: OnAction = proc (taker: Tile, taken: Tile, board: var ChessBoard) = 
-    if board[taken.rank][taken.file].piecesTaken == 1 and not board[taken.rank][taken.file].promoted:
-        board[taken.rank][taken.file].moves &= knightMoves
-        board[taken.rank][taken.file].takes &= knightTakes
-        board[taken.rank][taken.file].promoted = true
+const werewolfPromoteConditions: OnPiece = proc(piece: var Piece, board: var ChessBoard) =
+    if piece.piecesTaken == 1 and not piece.promoted:
+        piece.promote(board)
+
+const werewolfPromote: OnPiece = proc(piece: var Piece, board: var ChessBoard) =
+    piece.moves &= knightMoves
+    piece.takes &= knightTakes
+    piece.promoted = true
 
 const warewolves*: Power = Power(
     name: "Werewolves",
@@ -260,14 +268,15 @@ const warewolves*: Power = Power(
     priority: 5, 
     description: 
         """Your leftmost and rightmost pawns are secretly werewolves! When they take a piece, they eat it and gain the ability to jump like a knight. They do not promote.""",
-    icon: "pawn.svg",
+    icon: pawnIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             let rank = if side == black: 1 else: 6
-            b[rank][0].onEndTurn = @[werewolfEndTurn]
-            b[rank][0].item = fairy
-            b[rank][7].onEndTurn = @[werewolfEndTurn]
-            b[rank][7].item = fairy     
+            b[rank][0].onEndTurn = @[werewolfPromoteConditions]
+            b[rank][0].onPromote = @[werewolfPromote]
+
+            b[rank][7].onEndTurn = @[werewolfPromoteConditions]
+            b[rank][0].onPromote = @[werewolfPromote]
 )
 
 const archBishops: Power = Power(
@@ -276,14 +285,13 @@ const archBishops: Power = Power(
     priority: 15, 
     description:
         """Your bishops ascend to archbishops, gaining the movement of a knight.""",
-    icon: "bishop.svg",
+    icon: bishopIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == bishop and b[i][j].isColor(side):
-                        b[i][j].moves &= knightMoves   
-                        b[i][j].takes &= knightTakes        
+            for i, j in b.rankAndFile:
+                if b[i][j].item == bishop and b[i][j].isColor(side):
+                    b[i][j].moves &= knightMoves   
+                    b[i][j].takes &= knightTakes        
 )
 
 const giraffe*: Power = Power(
@@ -295,12 +303,11 @@ const giraffe*: Power = Power(
     icon: "giraffe.svg",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == knight and b[i][j].isColor(side):
-                        b[i][j].moves = @[giraffeMoves]   
-                        b[i][j].takes = @[giraffeTakes]
-                        b[i][j].filePath = if side == black: "blackgiraffe.svg" else: "whitegiraffe.svg"
+            for i, j in b.rankAndFile:
+                if b[i][j].item == knight and b[i][j].isColor(side):
+                    b[i][j].moves = @[giraffeMoves]   
+                    b[i][j].takes = @[giraffeTakes]
+                    b[i][j].filePath = if side == black: "blackgiraffe.svg" else: "whitegiraffe.svg"
 )
 
 const calvary*: Power = Power(
@@ -309,17 +316,16 @@ const calvary*: Power = Power(
     priority: 15,
     description: 
         """Your knights learn to ride forward. They aren't very good at it, but they're trying their best. 
-            They can charge forward 2 tiles, but only to take a piece.They cannot jump for this move.""",
-    icon: "knight.svg",
+            They can charge forward up to 2 tiles, but only to take a piece. They cannot jump for this move.""",
+    icon: knightIcon,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == knight and b[i][j].isColor(side):
-                        if side == black:                            
-                            b[i][j].takes &= blackForwardTwiceTakes
-                        else:
-                            b[i][j].takes &= whiteForwardTwiceTakes                            
+            for i, j in b.rankAndFile:
+                if b[i][j].item == knight and b[i][j].isColor(side):
+                    if side == black:                            
+                        b[i][j].takes &= blackForwardTwiceTakes
+                    else:
+                        b[i][j].takes &= whiteForwardTwiceTakes                            
 )
 
 const anime*: Power = Power(
@@ -355,11 +361,10 @@ const masochistEmpressPower: Power = Power(
     priority: 15,
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == queen and b[i][j].isColor(side):
-                        b[i][j].takes.add(cannibalKnightTakes)
-                        b[i][j].moves.add(knightMoves)
+            for i, j in b.rankAndFile:
+                if b[i][j].item == queen and b[i][j].isColor(side):
+                    b[i][j].takes.add(cannibalKnightTakes)
+                    b[i][j].moves.add(knightMoves)
                         
 )
 
@@ -371,18 +376,14 @@ const masochistEmpress: Synergy = (
     index: -1
 )
 
-proc sacrificeWhenTaken*(taker: Tile, taken: Tile, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
-    if ((taker.file == taken.file) and (taker.rank == taken.rank)):
-        for i in 0..<board.len:
-            for j in 0..<board[0].len:
-                if board[i][j].sameColor(board[taker.rank][taker.file]):
-                    piecePromote((file: j, rank: i), board)
-
-    board[taker.rank][taker.file].tile = taken
-    board[taken.rank][taken.file] = board[taker.rank][taker.file]
-    board[taker.rank][taker.file] = Piece(item: none, tile: taker)
-    board[taker.rank][taker.file].piecesTaken += 1
-    return ((taken.file, taken.rank), true)
+const sacrificeWhenTaken*: WhenTaken = proc (taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] =
+    if (taken.tile == taker.tile):
+        for i, j in board.rankAndFile:
+            if board[i][j].sameColor(taken) and not board[i][j].promoted:
+                board[i][j].promote(board)
+        return (taken.tile, true)
+    else:
+        return defaultWhenTaken(taken, taker, board)
 
 
 const sacrifice*: Power = Power(
@@ -390,30 +391,26 @@ const sacrifice*: Power = Power(
     tier: UltraRare,
     priority: 15,
     description: """SACRIFICE THY MAIDENS TO THE BLOOD GOD""",
-    icon: "queen.svg",
+    icon: queenIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) =
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == queen and b[i][j].isColor(side):
-                        b[i][j].whenTake = sacrificeWhenTaken
-                        b[i][j].takes &= takeSelf
+            for i, j in b.rankAndFile:
+                if b[i][j].item == queen and b[i][j].isColor(side):
+                    b[i][j].whenTaken = sacrificeWhenTaken
+                    b[i][j].takes &= takeSelf
 )
 
-proc sacrificeWhenTakenEmpress*(taker: Tile, taken: Tile, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
-    if ((taker.file == taken.file) and (taker.rank == taken.rank)):
-        for i in 0..<board.len:
-            for j in 0..<board[0].len:
-                if board[i][j].sameColor(board[taker.rank][taker.file]):
-                    piecePromote((file: j, rank: i), board)
-                    board[i][j].moves &= knightMoves
-                    board[i][j].takes &= knightTakes
+const sacrificeWhenTakenEmpress*: WhenTaken = proc (taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] =
+    if (taken.tile == taker.tile):
+        for i, j in board.rankAndFile:
+            if board[i][j].sameColor(taken):
+                board[i][j].promote(board)
+                board[i][j].moves &= knightMoves
+                board[i][j].takes &= knightTakes
 
-    board[taker.rank][taker.file].tile = taken
-    board[taken.rank][taken.file] = board[taker.rank][taker.file]
-    board[taker.rank][taker.file] = Piece(item: none, tile: taker)
-    board[taker.rank][taker.file].piecesTaken += 1
-    return ((taken.file, taken.rank), true)
+        return (taken.tile, true)
+    else:
+        return defaultWhenTaken(taken, taker, board)
 
 
 const exodiaPower: Power = Power(
@@ -421,14 +418,13 @@ const exodiaPower: Power = Power(
     tier: UltraRare,
     priority: 15,
     description: "You had your fun, but the game is over. Too bad right?",
-    icon: "queen.svg",
+    icon: queenIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == queen and b[i][j].isColor(side):
-                        b[i][j].whenTake = sacrificeWhenTakenEmpress
-                        b[i][j].takes &= takeSelf            
+            for i, j in b.rankAndFile:
+                if b[i][j].item == queen and b[i][j].isColor(side):
+                    b[i][j].whenTaken = sacrificeWhenTakenEmpress
+                    b[i][j].takes &= takeSelf            
 )
 
 const exodia: Synergy = (
@@ -444,16 +440,15 @@ const backStep*: Power = Power(
     tier: Rare,
     priority: 15,
     description: "Your pawns receive some training. They can move one tile back. They cannot take this way.",
-    icon: "pawn.svg",
+    icon: pawnIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == pawn and b[i][j].isColor(side):
-                        if b[i][j].color == black:
-                            b[i][j].moves &= blackBackwardMove
-                        elif b[i][j].color == white:
-                            b[i][j].moves &= whiteBackwardMove
+            for i, j in b.rankAndFile:
+                if b[i][j].item == pawn and b[i][j].isColor(side):
+                    if b[i][j].color == black:
+                        b[i][j].moves &= blackBackwardMove
+                    elif b[i][j].color == white:
+                        b[i][j].moves &= whiteBackwardMove
 )
 
 const headStart*: Power = Power(
@@ -461,16 +456,15 @@ const headStart*: Power = Power(
     tier: Uncommon,
     priority: 15,
     description: "Your pawns can always move 2 forward. They still take like normal. It's kind of boring, don't you think?",
-    icon: "pawn.svg",
+    icon: pawnIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == pawn and b[i][j].isColor(side):
-                        if b[i][j].color == black:
-                            b[i][j].moves &= blackForwardTwiceMoves
-                        elif b[i][j].color == white:
-                            b[i][j].moves &= whiteForwardTwiceMoves
+            for i, j in b.rankAndFile:
+                if b[i][j].item == pawn and b[i][j].isColor(side):
+                    if b[i][j].color == black:
+                        b[i][j].moves &= blackForwardTwiceMoves
+                    elif b[i][j].color == white:
+                        b[i][j].moves &= whiteForwardTwiceMoves
 )
 
 const queenTrade*: Power = Power(
@@ -478,13 +472,12 @@ const queenTrade*: Power = Power(
     tier: Rare,
     priority: 20,
     description: "The patriarchy continues. Both queens mysteriously die.",
-    icon: "queen.svg",
+    icon: queenIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == queen:
-                        b[i][j] = Piece(item: none, tile: b[i][j].tile)
+            for i, j in b.rankAndFile:
+                if b[i][j].item == queen:
+                    b[i][j] = Piece(item: none, tile: b[i][j].tile)
 )
 
 const superPawnPower: Power = Power(
@@ -493,19 +486,18 @@ const superPawnPower: Power = Power(
     rarity: 0,
     priority: 15,
     description: "You have insane pawns. Please don't sacrifice them.",
-    icon: "pawn.svg",
+    icon: pawnIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             headStart.onStart(side, viewSide, b)
             backStep.onStart(side, viewSide, b)
             putInTheWork.onStart(side, viewSide, b)
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == pawn and b[i][j].isColor(side):
-                        if b[i][j].color == black:
-                            b[i][j].takes &= blackForwardTwiceTakes
-                        elif b[i][j].color == white:
-                            b[i][j].takes &= whiteForwardTwiceTakes
+            for i, j in b.rankAndFile:
+                if b[i][j].item == pawn and b[i][j].isColor(side):
+                    if b[i][j].color == black:
+                        b[i][j].takes &= blackForwardTwiceTakes
+                    elif b[i][j].color == white:
+                        b[i][j].takes &= whiteForwardTwiceTakes
 )
 
 const superPawn: Synergy = (
@@ -525,13 +517,12 @@ const lesbianPride*: Power = Power(
     noColor: true,
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == king and b[i][j].isColor(side):
-                        b[i][j] = whiteQueen.pieceCopy(color = b[i][j].color, item = king, tile = b[i][j].tile, rotate = true, filePath = $side & "queen.svg") 
-                        #`Piece.item` is still king so win/loss works. `Piece.rotate` = true should hopefully suggest this
-                    elif b[i][j].item == bishop and b[i][j].isColor(side):
-                        b[i][j] = Piece(item: none, tile: b[i][j].tile)
+            for i, j in b.rankAndFile:
+                if b[i][j].item == king and b[i][j].isColor(side):
+                    b[i][j] = whiteQueen.pieceCopy(color = b[i][j].color, item = king, tile = b[i][j].tile, rotate = true, filePath = $side & queenIcon) 
+                    #`Piece.item` is still king so win/loss works. `Piece.rotate` = true should hopefully suggest this
+                elif b[i][j].item == bishop and b[i][j].isColor(side):
+                    b[i][j] = Piece(item: none, tile: b[i][j].tile)
 )
 
 const queensWrathPower: Power = Power(
@@ -540,17 +531,16 @@ const queensWrathPower: Power = Power(
     rarity: 0,
     priority: 1,
     description: "Why must she die?",
-    icon: "queen.svg",
+    icon: queenIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item != queen and b[i][j].isColor(side):
-                        b[i][j] = Piece(item: none, tile: b[i][j].tile)
-                    elif b[i][j].item == queen and b[i][j].isColor(side):
-                        b[i][j].moves &= @[knightMoves, giraffeMoves]
-                        b[i][j].takes &= @[knightTakes, giraffeTakes]
-                        b[i][j].item = king
+            for i, j in b.rankAndFile:
+                if b[i][j].item != queen and b[i][j].isColor(side):
+                    b[i][j] = Piece(item: none, tile: b[i][j].tile)
+                elif b[i][j].item == queen and b[i][j].isColor(side):
+                    b[i][j].moves &= @[knightMoves, giraffeMoves]
+                    b[i][j].takes &= @[knightTakes, giraffeTakes]
+                    b[i][j].item = king
             
 )
 
@@ -563,19 +553,18 @@ const queensWrathSuperPower: Power = Power(
                     They will suffer. They will suffer. They will suffer. They will suffer. 
                     They will suffer. They will suffer. They will suffer. They will suffer.
                     They will suffer. They will suffer. They will suffer. They will suffer.""",
-    icon: "queen.svg",
+    icon: queenIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item != queen and b[i][j].isColor(side):
-                        b[i][j] = Piece(item: none, tile: b[i][j].tile)
-                    elif b[i][j].item == queen and b[i][j].isColor(side):
-                        b[i][j].moves &= @[knightMoves, giraffeMoves]
-                        b[i][j].takes &= @[knightTakes, giraffeTakes]
-                        b[i][j].item = king
-                    elif b[i][j].item == bishop and not b[i][j].isColor(side):
-                        b[i][j] = Piece(item: none, tile: b[i][j].tile)
+            for i, j in b.rankAndFile:
+                if b[i][j].item != queen and b[i][j].isColor(side):
+                    b[i][j] = Piece(item: none, tile: b[i][j].tile)
+                elif b[i][j].item == queen and b[i][j].isColor(side):
+                    b[i][j].moves &= @[knightMoves, giraffeMoves]
+                    b[i][j].takes &= @[knightTakes, giraffeTakes]
+                    b[i][j].item = king
+                elif b[i][j].item == bishop and not b[i][j].isColor(side):
+                    b[i][j] = Piece(item: none, tile: b[i][j].tile)
 )
 
 const queensWrath: Synergy = (
@@ -608,15 +597,14 @@ const knightChargePower*: Power = Power(
     rarity: 4,
     priority: 20,
     description: "CHARGE! Your knights start 3 tiles ahead.",
-    icon: "knight.svg",
+    icon: knightIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) =   
             let offset = if side == white: -3 else: 3
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == knight and b[i][j].isColor(side) and b[i][j].timesMoved == 0:
-                        b[i][j].timesMoved += 1
-                        b[i][j].pieceMove(i + offset, j, b)
+            for i, j in b.rankAndFile:
+                if b[i][j].item == knight and b[i][j].isColor(side) and b[i][j].timesMoved == 0:
+                    b[i][j].timesMoved += 1
+                    b[i][j].pieceMove(i + offset, j, b)
 )
 
 const calvaryCharge: Synergy = (
@@ -633,7 +621,7 @@ const battleFormationPower: Power = Power(
     rarity: 0,
     priority: 20,
     description: "Real Estate is going crazy with how developed the board is.",
-    icon: "knight.svg",
+    icon: knightIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             knightChargePower.onStart(side, viewSide, b)
@@ -680,17 +668,16 @@ const lineBackersPower: Power = Power(
     tier: Rare,
     rarity: 0,
     priority: 15,
-    description: "Your pawns learn to fight like men. They can two spaces ahead too.",
-    icon: "pawn.svg",
+    description: "Your pawns learn to fight like men. They can take two spaces ahead too.",
+    icon: pawnIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == pawn and b[i][j].isColor(side):
-                        if b[i][j].color == black:
-                            b[i][j].takes &= blackForwardTwiceTakes
-                        elif b[i][j].color == white:
-                            b[i][j].takes &= whiteForwardTwiceTakes
+            for i, j in b.rankAndFile:
+                if b[i][j].item == pawn and b[i][j].isColor(side):
+                    if b[i][j].color == black:
+                        b[i][j].takes &= blackForwardTwiceTakes
+                    elif b[i][j].color == white:
+                        b[i][j].takes &= whiteForwardTwiceTakes
 
 )
 
@@ -710,28 +697,26 @@ const nightRider: Power = Power(
     icon: "nightrider.svg",
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == knight and b[i][j].isColor(side):
-                        b[i][j].moves &= nightriderMoves
-                        b[i][j].takes &= nightriderTakes
-                        b[i][j].item = fairy
-                        b[i][j].filePath = $side & "nightrider.svg"
+            for i, j in b.rankAndFile:
+                if b[i][j].item == knight and b[i][j].isColor(side):
+                    b[i][j].moves &= nightriderMoves
+                    b[i][j].takes &= nightriderTakes
+                    b[i][j].item = fairy
+                    b[i][j].filePath = $side & "nightrider.svg"
 )
 
 const desegregation: Power = Power(
-    name: "Desgregation and Integration",
+    name: "Desegregation and Integration",
     tier: Uncommon,
     priority: 15,
     description: "Your bishops learn to accept their differences. They can move left and right.",
-    icon: "bishop.svg",
+    icon: bishopIcon,
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == bishop and b[i][j].isColor(side):
-                        b[i][j].moves &= leftRightMoves
-                        b[i][j].takes &= leftRightTakes
+            for i, j in b.rankAndFile:
+                if b[i][j].item == bishop and b[i][j].isColor(side):
+                    b[i][j].moves &= leftRightMoves
+                    b[i][j].takes &= leftRightTakes
 )
 
 const holyBishopPower*: Power = Power(
@@ -743,11 +728,10 @@ const holyBishopPower*: Power = Power(
     noColor: true,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == bishop and b[i][j].isColor(side):
-                        b[i][j].moves &= @[knightMoves, blackForwardTwiceJumpMove, whiteForwardTwiceJumpMove]  
-                        b[i][j].takes &= @[knightTakes, blackForwardTwiceJumpTake, whiteForwardTwiceJumpTake]    
+            for i, j in b.rankAndFile:
+                if b[i][j].item == bishop and b[i][j].isColor(side):
+                    b[i][j].moves &= @[knightMoves, blackForwardTwiceJumpMove, whiteForwardTwiceJumpMove]  
+                    b[i][j].takes &= @[knightTakes, blackForwardTwiceJumpTake, whiteForwardTwiceJumpTake]    
 
 )
 
@@ -759,49 +743,46 @@ const holyBishop: Synergy = (
     index: -1
 )
 
-proc concubineWhenTake(taker: Tile, taken: Tile, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] =
-    echo board[taker.rank][taker.file].item, board[taken.rank][taken.file].item
-    if board[taker.rank][taker.file].item == king and 
-        board[taken.rank][taken.file].item == rook and
-        board[taker.rank][taker.file].timesMoved == 0 and
-        board[taken.rank][taken.file].timesMoved == 0: 
-            taken.piecePromote(board)
-            if taken.file == 0:
-                board[taker.rank][taker.file].pieceMove(taker.rank, taker.file - 2, board)
-                board[taken.rank][taken.file].pieceMove(taker.rank, taker.file - 1, board)
-                return ((taker.file - 1, taker.rank), false)
+const concubineWhenTake = proc (taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] =
+    if taker.item == king and 
+        taken.item == rook and
+        taker.timesMoved == 0 and
+        taken.timesMoved == 0: 
+            taken.promote(board)
+            let kingTile = taker.tile
+            if taken.tile.file == 0:
+                taker.pieceMove(kingTile.rank, kingTile.file - 2, board)
+                taken.pieceMove(kingTile.rank, kingTile.file - 1, board)
+                return ((kingTile.file - 1, kingTile.rank), false)
             else:
-                board[taker.rank][taker.file].pieceMove(taker.rank, taker.file + 2, board)
-                board[taken.rank][taken.file].pieceMove(taker.rank, taker.file + 1, board)
-                return ((taker.file + 1, taker.rank), false)
+                taker.pieceMove(kingTile.rank, kingTile.file + 2, board)
+                taken.pieceMove(kingTile.rank, kingTile.file + 1, board)
+                return ((kingTile.file + 1, kingTile.rank), false)
     else:
-        return defaultWhenTake(taker, taken, board)
+        return defaultWhenTaken(taken, taker, board)
 
 const concubine*: Power = Power(
     name: "Concubine",
     tier: Rare,
     priority: 15,
-    description: "Your rook becomes a base queen when it castles.... You're sick.",
-    icon: "rook.svg",
+    description: "Your rook becomes a queen when it castles.... You're sick.",
+    icon: rookIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             var dna: Piece = if side == white: whiteQueen.pieceCopy() else: blackQueen.pieceCopy()
 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == queen and b[i][j].isColor(side):
-                        dna = b[i][j]
-                        break
+            for i, j in b.rankAndFile:
+                if b[i][j].item == queen and b[i][j].isColor(side):
+                    dna = b[i][j]
+                    break
 
-            let concubinePromote: OnAction = proc (taker: Tile, taken: Tile, board: var ChessBoard) = 
-                let rook = board[taken.rank][taken.file]
-                board[taken.rank][taken.file] = dna.pieceCopy(piecesTaken=rook.piecesTaken, tile=rook.tile, promoted = true)
+            let concubinePromote: OnPiece =  proc (piece: var Piece, board: var ChessBoard) =
+                piece = dna.pieceCopy(piecesTaken = piece.piecesTaken, tile = piece.tile, promoted = true)
 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == rook and b[i][j].isColor(side):
-                        b[i][j].onPromote &= @[concubinePromote]  
-                        b[i][j].whenTake = concubineWhenTake
+            for i, j in b.rankAndFile:
+                if b[i][j].item == rook and b[i][j].isColor(side):
+                    b[i][j].onPromote &= concubinePromote 
+                    b[i][j].whenTaken = concubineWhenTake
 )
 
 const reinforcements*: Power = Power(
@@ -809,57 +790,45 @@ const reinforcements*: Power = Power(
     tier: Uncommon,
     priority: 25,
     description: "Do you really need more than 8 pawns? Your rooks spawn a pawn for every 2 pieces they takes.",
-    icon: "rook.svg",
+    icon: rookIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             var dna: Piece = if side == white: whitePawn.pieceCopy() else: blackPawn.pieceCopy()
 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == pawn and b[i][j].isColor(side):
-                        dna = b[i][j]
-                        break
+            for i, j in b.rankAndFile:
+                if b[i][j].item == pawn and b[i][j].isColor(side):
+                    dna = b[i][j]
+                    break
 
-            let reinforcementsOntake = proc(taker: Tile, taken: Tile, board: var ChessBoard) = 
-                assert board[taker.rank][taker.file].getTakesOn(board).contains(taken)
-                let newTile = board[taken.rank][taken.file].whenTake(taker, taken, board)
-                board[newTile.endTile.rank][newTile.endTile.file].timesMoved += 1
+            let reinforcementsOntake: OnAction = proc(piece: var Piece, to: Tile, board: var ChessBoard) =
+                assert piece.getTakesOn(board).contains(to)
+                let takeResults = to.takenBy(piece, board)
+                let originalRookTile = piece.tile
+                board[takeResults.endTile.rank][takeResults.endTile.file].timesMoved += 1
 
-                if newTile.takeSuccess:
-                    board[newTile.endTile.rank][newTile.endTile.file].piecesTaken += 1
+                if takeResults.takeSuccess:
+                    board[takeResults.endTile.rank][takeResults.endTile.file].piecesTaken += 1
+                    if board[takeResults.endTile.rank][takeResults.endTile.file].piecesTaken mod 2 == 0:
+                        board[originalRookTile.rank][originalRookTile.file] = dna.pieceCopy(tile = originalRookTile)
 
-                    if board[newTile.endTile.rank][newTile.endTile.file].piecesTaken mod 2 == 0:
-                        board[taker.rank][taker.file] = dna.pieceCopy(tile = taker)
-                else: 
-                    echo "take of " & $board[taken.rank][taken.file].item &  " by " & $board[taker.rank][taker.file].item & " failed"
-
-                for f in board[newTile.endTile.rank][newTile.endTile.file].onEndTurn:
-                    f(newTile.endTile, taken, board)
-
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == rook and b[i][j].isColor(side):
-                        b[i][j].onTake = reinforcementsOntake
+            for i, j in b.rankAndFile:
+                if b[i][j].item == rook and b[i][j].isColor(side):
+                    b[i][j].onTake = reinforcementsOntake
 
 )
 
-proc shotgunKingOnTake*(taker: Tile, taken: Tile, board: var ChessBoard) = 
-    assert board[taker.rank][taker.file].getTakesOn(board).contains(taken)
-    let newTile = board[taken.rank][taken.file].whenTake(taker, taken, board)
-    board[newTile.endTile.rank][newTile.endTile.file].timesMoved += 1
-    if newTile.takeSuccess:
-        board[newTile.endTile.rank][newTile.endTile.file].piecesTaken += 1
+const shotgunKingOnTake*: OnAction = proc (piece: var Piece, to: Tile, board: var ChessBoard) = 
+    assert piece.getTakesOn(board).contains(to)
+    let originalKingTile = piece.tile
+    let takeResult = to.takenBy(piece, board)
+    piece.timesMoved += 1
+    if takeResult.takeSuccess:
+        piece.piecesTaken += 1
 
-        let king = board[newTile.endTile.rank][newTile.endTile.file]
-        if king.color == white and (taken.rank + 2 == taker.rank):
-            newTile.endTile.pieceMove(taker, board)
-        elif king.color == black and (taken.rank - 2 == taker.rank):
-            newTile.endTile.pieceMove(taker, board) #elif slightly reduced serverity of warcrime
-    else: 
-        echo "take of " & $board[taken.rank][taken.file].item &  " by " & $board[taker.rank][taker.file].item & " failed"
-
-    for f in board[newTile.endTile.rank][newTile.endTile.file].onEndTurn:
-        f(newTile.endTile, taken, board)
+        if (originalKingTile.rank + 2 == piece.tile.rank):
+            piece.pieceMove(originalKingTile, board)
+        elif (originalKingTile.rank - 2 == piece.tile.rank):
+            piece.pieceMove(originalKingTile, board)
 
 const shotgunKing*: Power = Power(
     name: "Shotgun King",
@@ -867,22 +836,21 @@ const shotgunKing*: Power = Power(
     priority: 5,
     description: """Your king knows its 2nd ammendment rights. It can take pieces two ahead or two behind. 
                     If it does this take, it does not move from its initial tile.""",
-    icon: "king.svg",
+    icon: kingIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == king and b[i][j].isColor(side):
-                        b[i][j].onTake = shotgunKingOnTake
-                        b[i][j].takes &= @[blackForwardTwiceJumpTake, whiteForwardTwiceJumpTake]
+            for i, j in b.rankAndFile:
+                if b[i][j].item == king and b[i][j].isColor(side):
+                    b[i][j].onTake = shotgunKingOnTake
+                    b[i][j].takes &= @[blackForwardTwiceJumpTake, whiteForwardTwiceJumpTake]
 )
 
-const bountyHunterOnEndTurn*: OnAction = proc (taker: Tile, taken: Tile, b: var ChessBoard) = 
-        if b[taker.rank][taker.file].piecesTaken == 4:
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == king and not b[i][j].sameColor(b[taker.rank][taker.file]):
-                        b[i][j] = Piece(item: none, tile: b[i][j].tile)  
+const bountyHunterOnEndTurn*: OnPiece = proc (piece: var Piece, board: var ChessBoard) = 
+        if piece.piecesTaken == 3:
+            for i, j in board.rankAndFile:
+                #searches for enemy king and deletes is
+                if board[i][j].item == king and not board[i][j].sameColor(piece):
+                    board[i][j] = Piece(item: none, tile: board[i][j].tile)  
 
 const bountyHunterPower*: Power = Power(
     name: "Bounty Hunter",
@@ -890,13 +858,12 @@ const bountyHunterPower*: Power = Power(
     rarity: 0,
     priority: 15,
     description: "It's hard to make a living these days. If your king takes 3 pieces, you automatically win.",
-    icon: "king.svg",
+    icon: kingIcon,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == king and b[i][j].isColor(side):
-                        b[i][j].onEndTurn &= bountyHunterOnEndTurn
+            for i, j in b.rankAndFile:
+                if b[i][j].item == king and b[i][j].isColor(side):
+                    b[i][j].onEndTurn &= bountyHunterOnEndTurn
 )
 
 const bountyHunter: Synergy = (
@@ -910,17 +877,42 @@ const bountyHunter: Synergy = (
 const coward: Power = Power(
     name: "Coward",
     tier: Common,
-    priority: 20,
+    priority: 25,
     description: "You coward. Your king swaps pieces with the king's side knight.",
-    icon: "king.svg",
+    icon: kingIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
-            for i in 0 ..< b.len:
-                for j in 0 ..< b[0].len:
-                    if b[i][j].item == king and b[i][j].isColor(side):
-                        if b[i][j].timesMoved == 0:
-                            inc b[i][j].timesMoved
-                            pieceSwap(b[i][j], b[i][j + 2], b)      
+            for i, j in b.rankAndFile:
+                if b[i][j].item == king and b[i][j].isColor(side):
+                    if b[i][j].timesMoved == 0:
+                        inc b[i][j].timesMoved
+                        pieceSwap(b[i][j], b[i][j + 2], b)      
+)
+
+const bombardOnTake*: OnAction = proc (piece: var Piece, to: Tile, board: var ChessBoard) = 
+    assert piece.getTakesOn(board).contains(to)
+    let originalTile = piece.tile
+    let takeResult = to.takenBy(piece, board)
+    piece.timesMoved += 1
+    if takeResult.takeSuccess:
+        piece.piecesTaken += 1
+
+        if ((originalTile.rank - piece.tile.rank != 0) and (originalTile.file - piece.tile.file) != 0):
+            piece.pieceMove(originalTile, board)
+
+const bombard: Power = Power(
+    name: "Bombard",
+    tier: Uncommon,
+    priority: 15,
+    description: "Your rooks get upgraded with some new cannons. They can shoot up to two tiles diagnal in each direction.",
+    icon: "bombard.svg",
+    onStart: 
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            for i, j in b.rankAndFile:
+                if b[i][j].item == rook and b[i][j].isColor(side):
+                    b[i][j].takes &= rookBombard
+                    b[i][j].onTake = bombardOnTake
+                    b[i][j].filePath = if side == black: "blackbombard.svg" else: "whitebombard.svg"
 )
 
 registerPower(empress)
@@ -951,6 +943,7 @@ registerPower(concubine)
 registerPower(reinforcements)
 registerPower(shotgunKing)
 registerPower(coward)
+registerPower(bombard)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)

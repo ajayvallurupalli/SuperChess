@@ -34,8 +34,9 @@ type
         rare: int
         ultraRare: int
 
-const defaultWeight: TierWeights = (60, 30, 9, 1)
-const defaultBuffedWeights: TierWeights = (50, 35, 13, 2)
+const defaultWeight*: TierWeights = (60, 30, 9, 1)
+const defaultBuffedWeights*: TierWeights = (50, 35, 13, 2)
+const defaultInsaneWeights*: TierWeights = (20, 40, 30, 10)
 
 #needed to ensure a power is always given with randomPower
 const emptyPower: Power = Power(
@@ -145,11 +146,11 @@ proc randomTier*(w: TierWeights = defaultWeight): Tier =
     else:
         return UltraRare
 
-proc draftRandomPowerTier*(t: Tier, allSelected: seq[Power], drafterSelected: seq[Power], options: int = 1, normalWeights: TierWeights = defaultWeight, buffedWeights = defaultBuffedWeights): seq[Power] = 
+proc draftRandomPowerTier*(t: Tier, allSelected: seq[Power], drafterSelected: seq[Power], options: int = 1, normalWeights: TierWeights = defaultWeight, buffedWeights: TierWeights = defaultBuffedWeights): seq[Power] = 
     for x in 0..options - 1:
         result.add(randomPower(t, drafterSelected, allSelected & result))
 
-proc draftRandomPower*(allSelected: seq[Power], drafterSelected: seq[Power], options: int = 1, normalWeights: TierWeights = defaultWeight, buffedWeights = defaultBuffedWeights): seq[Power] = 
+proc draftRandomPower*(allSelected: seq[Power], drafterSelected: seq[Power], options: int = 1, normalWeights: TierWeights = defaultWeight, buffedWeights: TierWeights = defaultBuffedWeights): seq[Power] = 
     let weights = if holy in drafterSelected: buffedWeights else: normalWeights
     for x in 0..options - 1:
         result.add(randomPower(randomTier(weights), drafterSelected, allSelected & result))

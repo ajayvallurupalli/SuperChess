@@ -2,77 +2,73 @@ import piece, moves
 
 #I dont' know why mentioning any base pieces causes a fatal error, but don't do it I guess
 
-proc rookWhenTake(taker: Tile, taken: Tile, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] =
-    echo board[taker.rank][taker.file].item, board[taken.rank][taken.file].item
-    if board[taker.rank][taker.file].item == king and 
-        board[taken.rank][taken.file].item == rook and
-        board[taker.rank][taker.file].timesMoved == 0 and
-        board[taken.rank][taken.file].timesMoved == 0: 
-            if taken.file == 0:
-                board[taker.rank][taker.file].pieceMove(taker.rank, taker.file - 2, board)
-                board[taken.rank][taken.file].pieceMove(taker.rank, taker.file - 1, board)
-                return ((taker.file - 1, taker.rank), false)
+const rookWhenTaken*: WhenTaken = proc (taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] =
+    if taker.item == king and 
+        taken.item == rook and
+        taker.timesMoved == 0 and
+        taken.timesMoved == 0: 
+            let kingTile = taker.tile
+            if taken.tile.file == 0:
+                taker.pieceMove(kingTile.rank, kingTile.file - 2, board)
+                taken.pieceMove(kingTile.rank, kingTile.file - 1, board)
+                return ((kingTile.file - 1, kingTile.rank), false)
             else:
-                board[taker.rank][taker.file].pieceMove(taker.rank, taker.file + 2, board)
-                board[taken.rank][taken.file].pieceMove(taker.rank, taker.file + 1, board)
-                return ((taker.file + 1, taker.rank), false)
+                taker.pieceMove(kingTile.rank, kingTile.file + 2, board)
+                taken.pieceMove(kingTile.rank, kingTile.file + 1, board)
+                return ((kingTile.file + 1, kingTile.rank), false)
     else:
-        return defaultWhenTake(taker, taken, board)
+        return defaultWhenTaken(taken, taker, board)
 
 #base pieces, should be copied and not used on their own
 #its annoying to have to do the defaults here, but I couldn't find another way
 const
     blackRook*: Piece = Piece(item: rook, color: black, moves: @[rookMoves], takes: @[rookTakes], onMove: defaultOnMove, onTake: defaultOnTake,
-                                whenTake: rookWhenTake, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
+                                whenTaken: rookWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
                                 filePath: "blackrook.svg")
     blackKnight*: Piece = Piece(item: knight, color: black, moves: @[knightMoves], takes: @[knightTakes], onMove: defaultOnMove, onTake: defaultOnTake, 
-                                whenTake: defaultWhenTake, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
+                                whenTaken: defaultWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
                                 filePath: "blackknight.svg")
     blackQueen*: Piece = Piece(item: queen, color: black, moves: queenMoves, takes: queenTakes, onMove: defaultOnMove, onTake: defaultOnTake,
-                                 whenTake: defaultWhenTake, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
+                                whenTaken: defaultWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
                                 filePath: "blackqueen.svg")
     blackKing*: Piece = Piece(item: king, color: black, moves: @[kingMoves], takes: @[kingTakes, kingCastles], onMove: defaultOnMove, onTake: defaultOnTake, 
-                                whenTake: defaultWhenTake, onEndTurn: @[defaultOnEndTurn],  onPromote: @[defaultOnEndTurn],
+                                whenTaken: defaultWhenTaken, onEndTurn: @[defaultOnEndTurn],  onPromote: @[defaultOnEndTurn],
                                 filePath: "blackking.svg")
     blackBishop*: Piece = Piece(item: bishop, color: black, moves: @[bishopMoves], takes: @[bishopTakes], onMove: defaultOnMove, onTake: defaultOnTake, 
-                                whenTake: defaultWhenTake, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
+                                whenTaken: defaultWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
                                 filePath: "blackbishop.svg")
     whiteRook*: Piece = Piece(item: rook, color: white, moves: @[rookMoves], takes: @[rookTakes], onMove: defaultOnMove, onTake: defaultOnTake, 
-                                whenTake: rookWhenTake, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
+                                whenTaken: rookWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
                                 filePath: "whiterook.svg")
     whiteKnight*: Piece = Piece(item: knight, color: white, moves: @[knightMoves], takes: @[knightTakes], onMove: defaultOnMove, onTake: defaultOnTake, 
-                                whenTake: defaultWhenTake, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
+                                whenTaken: defaultWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
                                 filePath: "whiteknight.svg")
     whiteQueen*: Piece = Piece(item: queen, color: white, moves: queenMoves, takes: queenTakes, onMove: defaultOnMove, onTake: defaultOnTake,
-                                whenTake: defaultWhenTake, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
+                                whenTaken: defaultWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
                                 filePath: "whitequeen.svg")
     whiteKing*: Piece = Piece(item: king, color: white, moves: @[kingMoves], takes: @[kingTakes, kingCastles], onMove: defaultOnMove, onTake: defaultOnTake, 
-                                whenTake: defaultWhenTake, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
+                                whenTaken: defaultWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
                                 filePath: "whiteking.svg")
     whiteBishop*: Piece = Piece(item: bishop, color: white, moves: @[bishopMoves], takes: @[bishopTakes], onMove: defaultOnMove, onTake: defaultOnTake, 
-                                whenTake: defaultWhenTake, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
+                                whenTaken: defaultWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
                                 filePath: "whitebishop.svg")
     air*: Piece = Piece(item: none, color: white)
 
-const onPawnPromote*: OnAction = proc (taker: Tile, taken: Tile, board: var ChessBoard) = 
-    let pawn = board[taken.rank][taken.file]
-    board[taken.rank][taken.file] = blackQueen.pieceCopy(piecesTaken=pawn.piecesTaken, tile=pawn.tile, promoted = true, color = pawn.color, filePath = $pawn.color & "queen.svg")
+const onPawnPromote*: OnPiece = proc (piece: var Piece, board: var ChessBoard) = 
+    piece = blackQueen.pieceCopy(piecesTaken=piece.piecesTaken, tile=piece.tile, promoted = true, color = piece.color, filePath = $piece.color & "queen.svg")
 
-const onPawnEnd*: OnAction = proc (taker: Tile, taken: Tile, board: var ChessBoard) = 
-    let pawn = board[taken.rank][taken.file]
-    if (taken.rank == 0 and pawn.color == white) or 
-        (taken.rank == 7 and pawn.color == black) and not pawn.promoted:
-        for p in pawn.onPromote:
-            p(taker, taken, board)
-
+const onPawnEnd*: OnPiece = proc (piece: var Piece, board: var ChessBoard) = 
+    if (piece.tile.rank == 0 and piece.color == white) or 
+        (piece.tile.rank == 7 and piece.color == black) and not piece.promoted:
+        piece.promote(board)
 #wierd order is because pawn requires onPawnEnd, which requires whiite queen. I wish Nim had hoisting, I think its the only thing that's missing
 #edit it turns out you can do hoist like in moves.nim but I can't figure out how to do it here
 const 
     blackPawn*: Piece = Piece(item: pawn, color: black, moves: @[blackPawnMoves], takes: @[blackPawnTakes], onMove: defaultOnMove, onTake: defaultOnTake, 
-                                whenTake: defaultWhenTake, onEndTurn: @[onPawnEnd], onPromote: @[onPawnPromote],
+                                whenTaken: defaultWhenTaken, onEndTurn: @[onPawnEnd], onPromote: @[onPawnPromote],
                                 filePath: "blackpawn.svg")
     whitePawn*: Piece = Piece(item: pawn, color: white, moves: @[whitePawnMoves], takes: @[whitePawnTakes], onMove: defaultOnMove, onTake: defaultOnTake, 
-                                whenTake: defaultWhenTake, onEndTurn: @[onPawnEnd], onPromote: @[onPawnPromote],
+                                whenTaken: defaultWhenTaken, onEndTurn: @[onPawnEnd], onPromote: @[onPawnPromote],
                                 filePath: "whitepawn.svg")
 
 proc startingBoard*(): ChessBoard = 
