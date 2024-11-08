@@ -35,8 +35,8 @@ type
         ultraRare: int
 
 const defaultWeight*: TierWeights = (60, 30, 9, 1)
-const defaultBuffedWeights*: TierWeights = (50, 35, 13, 2)
-const defaultInsaneWeights*: TierWeights = (20, 40, 30, 10)
+const defaultBuffedWeights*: TierWeights = (50, 36, 12, 2)
+const defaultInsaneWeights*: TierWeights = (20, 40, 30, 10) #used in the super random game mode
 
 #needed to ensure a power is always given with randomPower
 const emptyPower: Power = Power(

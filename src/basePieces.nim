@@ -1,6 +1,6 @@
 import piece, moves
 
-#I dont' know why mentioning any base pieces causes a fatal error, but don't do it I guess
+#I dont' know why printing any base pieces causes a fatal error, but don't do it I guess
 
 const rookWhenTaken*: WhenTaken = proc (taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] =
     if taker.item == king and 
@@ -84,7 +84,7 @@ proc startingBoard*(): ChessBoard =
     for j, r in result:
         for i, x in r:
             result[j][i] = x.pieceCopy(tile = (i, j))
-
+            
 when isMainModule:
     assert blackKnight.moves.typeof() is seq[MoveProc]
 

@@ -114,6 +114,7 @@ const kingCastles*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
         not p.inCheck(board):
             discard result.addIfTake(board, p, p.tile, shooterFactory(-4, 0), cannibalismFlag = true)
 
+#Needed because the king cannot castle when in check
 func inCheck*(p: Piece, b: ChessBoard): bool = 
     for i in 0..7:
         for j in 0..7:
@@ -151,7 +152,6 @@ const bishopTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
 const queenMoves*: seq[MoveProc] = @[bishopMoves,  rookMoves, kingMoves]
 const queenTakes*: seq[MoveProc] = @[bishopTakes,  rookTakes, kingTakes]
 
-
 const knightMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
     discard result.addIfFree(board, p.tile, shooterFactory(1, 2))
     discard result.addIfFree(board, p.tile, shooterFactory(-1, 2))
@@ -171,8 +171,6 @@ const knightTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
     discard result.addIfTake(board, p, p.tile, shooterFactory(-1, -2))
     discard result.addIfTake(board, p, p.tile, shooterFactory(-2, 1))
     discard result.addIfTake(board, p, p.tile, shooterFactory(-2, -1))
-
-
 
 #TESTS
 when isMainModule:

@@ -8,6 +8,7 @@ import power, moves, piece, basePieces, extraMoves
     20 - premoves. Any `Power.onStart` which moves `Piece`s around the `ChessBoard`
 ]#
 
+#default paths for the main pieces
 const kingIcon: string = "king.svg"
 const queenIcon: string = "queen.svg"
 const rookIcon: string = "rook.svg"
@@ -670,16 +671,16 @@ const lineBackersPower: Power = Power(
     tier: Rare,
     rarity: 0,
     priority: 15,
-    description: "Your pawns learn to fight like men. They can take two spaces ahead too.",
+    description: "Your pawns learn to fight like men. They can take one spaces ahead too.",
     icon: pawnIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             for i, j in b.rankAndFile:
                 if b[i][j].item == pawn and b[i][j].isColor(side):
                     if b[i][j].color == black:
-                        b[i][j].takes &= blackForwardTwiceTakes
+                        b[i][j].takes &= blackForwardTakes
                     elif b[i][j].color == white:
-                        b[i][j].takes &= whiteForwardTwiceTakes
+                        b[i][j].takes &= whiteForwardTakes
 
 )
 
@@ -827,10 +828,10 @@ const shotgunKingOnTake*: OnAction = proc (piece: var Piece, to: Tile, board: va
     if takeResult.takeSuccess:
         piece.piecesTaken += 1
 
-        if (originalKingTile.rank + 2 == piece.tile.rank):
-            piece.pieceMove(originalKingTile, board)
-        elif (originalKingTile.rank - 2 == piece.tile.rank):
-            piece.pieceMove(originalKingTile, board)
+        if (originalKingTile.rank + 2 == takeResult.endTile.rank):
+            takeResult.endTile.pieceMove(originalKingTile, board)
+        elif (originalKingTile.rank - 2 == takeResult.endTile.rank):
+            takeResult.endTile.pieceMove(originalKingTile, board)
 
 const shotgunKing*: Power = Power(
     name: "Shotgun King",
@@ -899,8 +900,8 @@ const bombardOnTake*: OnAction = proc (piece: var Piece, to: Tile, board: var Ch
     if takeResult.takeSuccess:
         piece.piecesTaken += 1
 
-        if ((originalTile.rank - piece.tile.rank != 0) and (originalTile.file - piece.tile.file) != 0):
-            piece.pieceMove(originalTile, board)
+        if ((originalTile.rank - takeResult.endTile.rank != 0) and (originalTile.file - takeResult.endTile.file) != 0):
+            takeResult.endTile.pieceMove(originalTile, board)
 
 const bombard: Power = Power(
     name: "Bombard",
@@ -1009,7 +1010,7 @@ registerPower(concubine)
 registerPower(reinforcements)
 registerPower(shotgunKing)
 registerPower(coward)
-registerPower(bombard)
+#registerPower(bombard)
 registerPower(lanceLeft)
 registerPower(lanceRight)
 

@@ -1,6 +1,11 @@
 import piece, moves, board
 from sequtils import filterIt
 
+#[
+This file has extra moves used by powers
+Normal Chess moves are found in Moves
+]#
+
 const diagnalMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
     discard result.addIfFree(board, p.tile, shooterFactory(1,1))
     discard result.addIfFree(board, p.tile, shooterFactory(-1,1))

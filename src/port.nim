@@ -24,6 +24,7 @@ new Peer(null, {config: {
                     }
                 })
 """.}
+
 proc newPeer*(data: cstring): Peer {.importjs: """
 new Peer(#, {config: {
                         iceServers: [
