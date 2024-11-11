@@ -1,11 +1,45 @@
 import power, moves, piece, basePieces, extraMoves
 
+#[TODO
+create synergy constructor which automatically sets index to -1
+or maybe just make it an object, since I don't think performance has ever mattered for this
+or remove `Synergy.index`, since I'm honestly not sure what it does
+
+Create secret secret synergy for bombard + reinforcements
+]#
+
 #[prioity rules: 
     higher priority happens later
     5 - New Pieces. Any `Power.onStart` which reassigns the `Piece.moves` or `Piece.takes`
     10 - default. Any `Power.onStart` which can't conflict should be here
     15 - buffs. Any `Power.onStart` which adds elements to `Piece.moves` or `Piece.takes`, but does not reassign it
     20 - premoves. Any `Power.onStart` which moves `Piece`s around the `ChessBoard`
+]#
+
+#[Synergies:   
+    
+    There are three types of synergies, decided by flags in `addSynergy`
+    TLDR: Normal Synergies must be drafted seperately
+          Secret Synergies are automatically added when the game starts
+          Secret Secret Synergies are like Secret Synergies, but they are completely hidden to the user
+            These are meant to be used as bandages for when powers conflict
+
+    Normal Synergies - 
+        if the drafter has all of its `Synergy.requirements`, then `Synergy.Power` become available.
+            with a rarity of `Synergy.rarity`. If picked, the users powers in `Synergy.requirements` are removed. 
+        The drafter than has to find and draft it.
+        The description of `Synergy.power` is automatically updated to say "Synergy (list of synergies)"
+    Secret Synergies - 
+        if the drafter has all of its `Synergy.requirements`, then when the game starts, `Synergy.requirements` is 
+            automatically replaced with `Synergy.power`
+        The description of `Synergy.power` is automatically updated to say "Secret Synergy (list of synergies)"
+    Secret Secret Synergies - 
+        if the drafter has all of its `Synergy.requirements`, then when the game starts, `Synergy.requirements` is 
+            automatically replaced with `Synergy.power`
+        The drafter has no choice, these are automatically added
+
+    Synergies take the `Power.priority` of `Synergy.power`
+    Always set index to -1
 ]#
 
 #default paths for the main pieces
@@ -751,7 +785,9 @@ const concubineWhenTake = proc (taken: var Piece, taker: var Piece, board: var C
         taken.item == rook and
         taker.timesMoved == 0 and
         taken.timesMoved == 0: 
+            echo "before"
             taken.promote(board)
+            echo "after"
             let kingTile = taker.tile
             if taken.tile.file == 0:
                 taker.pieceMove(kingTile.rank, kingTile.file - 2, board)

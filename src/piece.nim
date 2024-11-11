@@ -1,6 +1,10 @@
+#TODO remove Rank and File types since I forgot to use them, or maybe try to use them
+#all the types are defined here, even though their implementations are in other files, to fix cyclical definitons with `Piece`
+#I could have put it in a new file, but I didn't. The reason remains one of the world's greatest mysteries. 
+
 type
     Tile* = tuple[file: File, rank: Rank]
-    Rank* = int
+    Rank* = int 
     File* = int
 
     ChessRow* = array[0..7, Piece]
@@ -24,10 +28,10 @@ type
         timesMoved*: int = 0
         piecesTaken*: int = 0
         tile*: Tile = (file: -1, rank: -1)
-        moves*: seq[MoveProc]
+        moves*: seq[MoveProc]  #list of procs which return moves
         takes*: seq[MoveProc]
-        onMove*: OnAction
-        onTake*: OnAction
+        onMove*: OnAction  #on___ and whenTaken are methods for the objecy
+        onTake*: OnAction   #methods are on the object because it makes them more dynamic
         whenTaken*: WhenTaken 
         onEndTurn*: seq[OnPiece] 
         onPromote*: seq[OnPiece]
@@ -35,6 +39,10 @@ type
         filePath*: string = ""
         rotate*: bool = false
 
+#helper templates for `Piece` methods
+#since methods are properties of the class, you would usually have to do `Piece.method(Piece)`
+#since you need to access it in `Piece` and pass `Piece`
+#these templates fix that boilerplate a little bit
 template move* (a: var Piece, b: Tile, c: var ChessBoard): untyped = 
     a.onMove(a, b, c)
 
@@ -44,6 +52,7 @@ template take* (a: var Piece, b: Tile, c: var ChessBoard): untyped =
 template promote* (a: Piece, c: var ChessBoard): untyped = 
     for p in a.onPromote:
         p(a, c)
+        if a.promoted: break
 
 template endTurn* (a: var Piece, c: var ChessBoard): untyped = 
     for p in a.onEndTurn:
@@ -55,6 +64,12 @@ template takenBy*(taken: var Piece, taker: var Piece, board: var ChessBoard): tu
 template takenBy*(taken: Tile, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
     board[taken.rank][taken.file].whenTaken(board[taken.rank][taken.file], taker, board)
 
+#returns a tuple for each rank file pair of the board
+#so this 
+#```for i in 0..<board.len:
+#        for j in 0..<board[0].len:```
+#is replaced with
+#```for i, j in rankAndFile(board):```
 iterator rankAndFile*(board: ChessBoard): tuple[rank: int, file: int] = 
     for i in 0..<board.len:
         for j in 0..<board[0].len:

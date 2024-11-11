@@ -34,9 +34,10 @@ type
         rare: int
         ultraRare: int
 
-const defaultWeight*: TierWeights = (60, 30, 9, 1)
-const defaultBuffedWeights*: TierWeights = (50, 36, 12, 2)
-const defaultInsaneWeights*: TierWeights = (20, 40, 30, 10) #used in the super random game mode
+const 
+    defaultWeight*: TierWeights = (60, 30, 9, 1)
+    defaultBuffedWeights*: TierWeights = (50, 36, 12, 2)
+    defaultInsaneWeights*: TierWeights = (20, 40, 30, 10) #used in the super random game mode
 
 #needed to ensure a power is always given with randomPower
 const emptyPower: Power = Power(
@@ -49,6 +50,7 @@ const emptyPower: Power = Power(
             discard nil
 )
 
+#holy is a special power used in `draftRandomPower`, so it's defined here instead
 const holy*: Power = Power(
     name: "Holy",
     tier: Common,
@@ -72,6 +74,7 @@ var
     rarePowers*: seq[Power]
     ultraRarePowers*: seq[Power]
 
+#I know I should use an enum instead of secret and secretSecret, but I think this is funner
 proc registerSynergy*(s: Synergy, secret: bool = false, secretSecret = false) = 
     assert secret or not secretSecret #ensures that secret is true whenever secretSecret is true
     var x = s

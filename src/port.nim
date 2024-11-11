@@ -10,9 +10,11 @@ type
 
 var document* {.importc, nodecl.}: JsObject
 
+#prefix for id, so that the id can still be really long while allowing for a simple extension to be tacked on
 const baseId: cstring = "9e4ada91-c493-4fd4-881d-3e05db99e100"
 
-proc newPeer*(): Peer {.importjs:"""
+#creates an id automatically
+proc newPeer(): Peer {.importjs:"""
 new Peer(null, {config: {
                         iceServers: [
                             {
@@ -25,7 +27,8 @@ new Peer(null, {config: {
                 })
 """.}
 
-proc newPeer*(data: cstring): Peer {.importjs: """
+#sets id to `data`
+proc newPeer(data: cstring): Peer {.importjs: """
 new Peer(#, {config: {
                         iceServers: [
                             {

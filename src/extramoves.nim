@@ -3,7 +3,7 @@ from sequtils import filterIt
 
 #[
 This file has extra moves used by powers
-Normal Chess moves are found in Moves
+Normal Chess moves are found in moves.nim
 ]#
 
 const diagnalMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 

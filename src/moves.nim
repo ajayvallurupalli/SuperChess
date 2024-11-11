@@ -118,8 +118,12 @@ const kingCastles*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
 func inCheck*(p: Piece, b: ChessBoard): bool = 
     for i in 0..7:
         for j in 0..7:
+            #the next two lines creates a copy of the piece but without `kingCastles`
+            #without this, when castling a king would see if its in check by testing all pieces, including the king of the other side
+            #this king would see if it could castle, as a possible take, by seeing if it's in check. 
+            #they would then go back and forth and cause an infinite loop
             var piece = b[i][j]
-            if piece.item == king: piece.takes = filterIt(piece.takes, it != kingCastles)
+            if piece.item == king: piece.takes = piece.takes.filterIt(it != kingCastles)
             if not piece.isAir() and not p.sameColor(piece) and p.tile in piece.getTakesOn(b):
                 return true
 
