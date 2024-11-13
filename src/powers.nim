@@ -295,8 +295,8 @@ const werewolfPromoteConditions: OnPiece = proc(piece: var Piece, board: var Che
         piece.promote(board)
 
 const werewolfPromote: OnPiece = proc(piece: var Piece, board: var ChessBoard) =
-    piece.moves &= knightMoves
-    piece.takes &= knightTakes
+    piece.moves &= @[knightMoves, giraffeMoves]
+    piece.takes &= @[knightTakes, giraffeTakes]
     piece.promoted = true
 
 const warewolves*: Power = Power(
@@ -304,7 +304,7 @@ const warewolves*: Power = Power(
     tier: Uncommon,
     priority: 5, 
     description: 
-        """Your leftmost and rightmost pawns are secretly werewolves! When they take a piece, they eat it and gain the ability to jump like a knight. They do not promote.""",
+        """Your leftmost and rightmost pawns are secretly werewolves! When they take a piece, they eat it and gain the ability to jump like a knight and giraffe. They do not promote.""",
     icon: pawnIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
@@ -571,6 +571,7 @@ const queensWrathPower: Power = Power(
     icon: queenIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            sacrifice.onStart(side, viewSide, b)
             for i, j in b.rankAndFile:
                 if b[i][j].item != queen and b[i][j].isColor(side):
                     b[i][j] = Piece(item: none, tile: b[i][j].tile)
@@ -971,7 +972,7 @@ const lanceLeft*: Power = Power(
     rarity: 4, 
     description: 
         """The divine wind is behind you. 
-        Your left pawn is replaced with a lance from Shogi.""",
+        Your right pawn is replaced with a lance from Shogi.""",
     icon: "lance.svg",
     rotatable: true,
     noColor: true,
@@ -998,7 +999,7 @@ const lanceRight*: Power = Power(
     rarity: 4, 
     description: 
         """The divine wind is behind you. 
-        Your right pawn is replaced with a lance from Shogi.""",
+        Your left pawn is replaced with a lance from Shogi.""",
     icon: "lance.svg",
     rotatable: true,
     noColor: true,
