@@ -109,7 +109,6 @@ const defaultOnEndTurn*: OnPiece = proc(piece: var Piece, board: var ChessBoard)
         discard nil
 
 const defaultWhenTaken*: WhenTaken = proc(taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
-    inc taker.piecesTaken
     taker.pieceMove(taken, board)
     return (taken.tile, true)
 

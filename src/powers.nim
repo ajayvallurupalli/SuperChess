@@ -1,4 +1,5 @@
 import power, moves, piece, basePieces, extraMoves
+from sequtils import filterIt
 
 #[TODO
 create synergy constructor which automatically sets index to -1
@@ -65,8 +66,15 @@ const empress*: Power = Power(
 )
 
 const silverGeneralPromote*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
-    piece.moves &= leftRightMoves
-    piece.takes &= leftRightTakes
+    piece.moves = piece.moves.filterIt(it != diagnalMoves) #new technology to remove specific moves, since I apparently
+    piece.takes = piece.takes.filterIt(it != diagnalTakes) #didn't read the wikipedia article properly
+    #also apparently shogi pieces can promote earlier, though I'll probably never add taht
+    if piece.isColor(white):
+        piece.moves &= @[blackForwardMoves, whiteDiagnalMoves, leftRightMoves]
+        piece.takes &= @[blackForwardTakes, whiteDiagnalTakes, leftRightTakes]
+    else:
+        piece.moves &= @[whiteForwardMoves, blackDiagnalMoves, leftRightMoves]
+        piece.takes &= @[whiteForwardTakes, blackDiagnalTakes, leftRightTakes]
     piece.promoted = true
     piece.filePath = "promotedsilvergeneral.svg"
 
@@ -291,16 +299,15 @@ const wanderingRoninRight*: Power = Power(
 )
 
 const werewolfPromoteConditions: OnPiece = proc(piece: var Piece, board: var ChessBoard) =
-    if piece.piecesTaken == 1 and not piece.rotate:
+    if piece.piecesTaken >= 1 and not piece.rotate:
         piece.moves &= @[knightMoves, giraffeMoves]
         piece.takes &= @[knightTakes, giraffeTakes]
         piece.rotate = true
 
-
 const warewolves*: Power = Power(
     name: "Werewolves",
     tier: Uncommon,
-    priority: 5, 
+    priority: 15, 
     description: 
         """Your leftmost and rightmost pawns are secretly werewolves! When they take a piece, they eat it and gain the ability to jump like a knight and giraffe. They do not promote.""",
     icon: pawnIcon,
@@ -413,7 +420,8 @@ const sacrificeWhenTaken*: WhenTaken = proc (taken: var Piece, taker: var Piece,
         for i, j in board.rankAndFile:
             if board[i][j].sameColor(taken) and not board[i][j].promoted:
                 board[i][j].promote(board)
-        return (taken.tile, true)
+        board[taken.tile.rank][taken.tile.file] = Piece(item: none, tile: taken.tile)
+        return (taken.tile, false)
     else:
         return defaultWhenTaken(taken, taker, board)
 

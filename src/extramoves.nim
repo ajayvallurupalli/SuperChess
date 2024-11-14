@@ -6,6 +6,25 @@ This file has extra moves used by powers
 Normal Chess moves are found in moves.nim
 ]#
 
+#I just realized I've been spelling diagonal wrong this whole time
+#oh well
+
+const whiteDiagnalMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
+    discard result.addIfFree(board, p.tile, shooterFactory(1,-1))
+    discard result.addIfFree(board, p.tile, shooterFactory(-1,-1))
+
+const blackDiagnalMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
+    discard result.addIfFree(board, p.tile, shooterFactory(1,1))
+    discard result.addIfFree(board, p.tile, shooterFactory(-1,1))
+
+const whiteDiagnalTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
+    discard result.addIfTake(board, p, p.tile, shooterFactory(1,-1))
+    discard result.addIfTake(board, p, p.tile, shooterFactory(-1,-1))
+
+const blackDiagnalTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
+    discard result.addIfTake(board, p, p.tile, shooterFactory(1,1))
+    discard result.addIfTake(board, p, p.tile, shooterFactory(-1,1))
+
 const diagnalMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
     discard result.addIfFree(board, p.tile, shooterFactory(1,1))
     discard result.addIfFree(board, p.tile, shooterFactory(-1,1))
