@@ -291,13 +291,11 @@ const wanderingRoninRight*: Power = Power(
 )
 
 const werewolfPromoteConditions: OnPiece = proc(piece: var Piece, board: var ChessBoard) =
-    if piece.piecesTaken == 1 and not piece.promoted:
-        piece.promote(board)
+    if piece.piecesTaken == 1 and not piece.rotate:
+        piece.moves &= @[knightMoves, giraffeMoves]
+        piece.takes &= @[knightTakes, giraffeTakes]
+        piece.rotate = true
 
-const werewolfPromote: OnPiece = proc(piece: var Piece, board: var ChessBoard) =
-    piece.moves &= @[knightMoves, giraffeMoves]
-    piece.takes &= @[knightTakes, giraffeTakes]
-    piece.promoted = true
 
 const warewolves*: Power = Power(
     name: "Werewolves",
@@ -309,11 +307,8 @@ const warewolves*: Power = Power(
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) = 
             let rank = if side == black: 1 else: 6
-            b[rank][0].onEndTurn = @[werewolfPromoteConditions]
-            b[rank][0].onPromote = @[werewolfPromote]
-
-            b[rank][7].onEndTurn = @[werewolfPromoteConditions]
-            b[rank][0].onPromote = @[werewolfPromote]
+            b[rank][0].onEndTurn &= @[werewolfPromoteConditions]
+            b[rank][7].onEndTurn &= @[werewolfPromoteConditions]
 )
 
 const archBishops: Power = Power(
@@ -932,11 +927,8 @@ const coward: Power = Power(
 const bombardOnTake*: OnAction = proc (piece: var Piece, to: Tile, board: var ChessBoard) = 
     assert piece.getTakesOn(board).contains(to)
     let originalTile = piece.tile
-    let takeResult = to.takenBy(piece, board)
-    piece.timesMoved += 1
+    let takeResult = rookWhenTaken(piece, board[to.rank][to.file], board)
     if takeResult.takeSuccess:
-        piece.piecesTaken += 1
-
         if ((originalTile.rank - takeResult.endTile.rank != 0) and (originalTile.file - takeResult.endTile.file) != 0):
             takeResult.endTile.pieceMove(originalTile, board)
 
@@ -955,6 +947,37 @@ const bombard: Power = Power(
                     b[i][j].filePath = if side == black: "blackbombard.svg" else: "whitebombard.svg"
 )
 
+#unfinished
+const bombardWithReinforcements: Power = Power(
+    name: "Bombard",
+    tier: Uncommon,
+    description: "Your rooks get upgraded with some new cannons. They can shoot up to two tiles diangal in each direction.",
+    icon: "bombard.svg",
+    onStart:
+            proc (side: Color, _: Color, b: var ChessBoard) = 
+            var dna: Piece = if side == white: whitePawn.pieceCopy() else: blackPawn.pieceCopy()
+
+            for i, j in b.rankAndFile:
+                if b[i][j].item == pawn and b[i][j].isColor(side):
+                    dna = b[i][j]
+                    break
+
+            let reinforcementsOntake: OnAction = proc(piece: var Piece, to: Tile, board: var ChessBoard) =
+                assert piece.getTakesOn(board).contains(to)
+                let takeResults = to.takenBy(piece, board)
+                let originalRookTile = piece.tile
+                board[takeResults.endTile.rank][takeResults.endTile.file].timesMoved += 1
+
+                if takeResults.takeSuccess:
+                    board[takeResults.endTile.rank][takeResults.endTile.file].piecesTaken += 1
+                    if board[takeResults.endTile.rank][takeResults.endTile.file].piecesTaken mod 2 == 0:
+                        board[originalRookTile.rank][originalRookTile.file] = dna.pieceCopy(tile = originalRookTile)
+
+            for i, j in b.rankAndFile:
+                if b[i][j].item == rook and b[i][j].isColor(side):
+                    b[i][j].onTake = reinforcementsOntake
+)
+
 const lancePromote*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
     piece.moves = @[leftRightMoves, diagnalMoves, blackForwardMoves, whiteForwardMoves]
     piece.takes = @[leftRightTakes, diagnalTakes, blackForwardTakes, whiteForwardTakes]
@@ -962,7 +985,7 @@ const lancePromote*: OnPiece = proc(piece: var Piece, board: var ChessBoard) =
     piece.filePath = "promotedlance.svg"
 
 const lancePromoteConditions*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
-    if (piece.tile.rank == 0 or piece.tile.rank == 7) and not piece.promoted:  
+    if ((piece.tile.rank == 7 and piece.color == black) or (piece.tile.rank == 0 and piece.color == white)) and not piece.promoted:  
         piece.promote(board)
 
 const lanceLeft*: Power = Power(
