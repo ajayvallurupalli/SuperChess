@@ -4,7 +4,7 @@
 
 type
     Tile* = tuple[file: File, rank: Rank]
-    Rank* = int 
+    Rank* = int
     File* = int
 
     ChessRow* = array[0..7, Piece]
@@ -190,3 +190,5 @@ func getPiecesChecking*(b: ChessBoard, c: Color): seq[Tile] =
             if not p.isColor(c) and kingTile in p.getTakesOn(b):
                 result.add(p.tile)
 
+func isAtEnd*(piece: Piece): bool = 
+    return (piece.tile.rank == 7 and piece.color == black) or (piece.tile.rank == 0 and piece.color == white)

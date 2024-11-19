@@ -11,7 +11,8 @@ from sequtils import foldr, mapIt
 --add consts for paths for piece svgs in powers.nim
 --see if I completely failed the design and all of the OnActions should accept Pieces instead of this roundabout board indexijng
     consider rewriting it. I don't think it will be too bad since its just default methods and a few powers
-fix bombard power for castling, and make secret secret synergy with reinforcements so everything works. Then enable it
+--fix bombard power for castling, 
+and make secret secret synergy with reinforcements so everything works. Then enable it
 click enter to enter join code. I actually have no idea how to do this
 ]#
 

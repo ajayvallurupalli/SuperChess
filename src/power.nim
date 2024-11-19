@@ -1,5 +1,5 @@
 import piece
-from std/sequtils import foldr, mapIt, filterIt, applyIt
+from std/sequtils import foldr, mapIt, filterIt
 from std/algorithm import sortedByIt
 from std/random import randomize, rand
 
@@ -10,7 +10,7 @@ type
 
     Power* = object
         name*: string
-        synergy*: bool = true
+        synergy*: bool = true #can i delete?
         tier*: Tier
         rarity*: int = 8
         description*: string = "NONE"

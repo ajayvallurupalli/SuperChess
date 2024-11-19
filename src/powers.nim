@@ -61,14 +61,30 @@ const empress*: Power = Power(
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             for i, j in b.rankAndFile:
                 if b[i][j].item == queen and b[i][j].isColor(side):
-                    b[i][j].takes.add(knightTakes)
-                    b[i][j].moves.add(knightMoves)
+                    b[i][j].takes &= @[knightTakes]
+                    b[i][j].moves &= @[knightMoves]
 )
+
+const altEmpress*: Power = Power(
+    name: "Alternative Empress",
+    tier: Uncommon,
+    priority: 15,
+    rarity: 4,
+    description: "Your queen ascends, gaining the movement of a giraffe. ",
+    icon: queenIcon,
+    onStart: 
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            for i, j in b.rankAndFile:
+                if b[i][j].item == queen and b[i][j].isColor(side):
+                    b[i][j].takes &= @[giraffeTakes]
+                    b[i][j].moves &= @[giraffeMoves]
+)
+
 
 const silverGeneralPromote*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
     piece.moves = piece.moves.filterIt(it != diagnalMoves) #new technology to remove specific moves, since I apparently
     piece.takes = piece.takes.filterIt(it != diagnalTakes) #didn't read the wikipedia article properly
-    #also apparently shogi pieces can promote earlier, though I'll probably never add taht
+    #also apparently shogi pieces can promote earlier, though I'll probably never add that
     if piece.isColor(white):
         piece.moves &= @[blackForwardMoves, whiteDiagnalMoves, leftRightMoves]
         piece.takes &= @[blackForwardTakes, whiteDiagnalTakes, leftRightTakes]
@@ -79,7 +95,7 @@ const silverGeneralPromote*: OnPiece = proc(piece: var Piece, board: var ChessBo
     piece.filePath = "promotedsilvergeneral.svg"
 
 const silverGeneralPromoteConditions*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
-    if (piece.tile.rank == 0 or piece.tile.rank == 7) and not piece.promoted:  
+    if piece.isAtEnd() and not piece.promoted:  
         piece.promote(board)
 
 const mysteriousSwordsmanLeft*: Power = Power(
@@ -403,7 +419,6 @@ const masochistEmpressPower: Power = Power(
             for i, j in b.rankAndFile:
                 if b[i][j].item == queen and b[i][j].isColor(side):
                     b[i][j].takes.add(cannibalKnightTakes)
-                    b[i][j].moves.add(knightMoves)
                         
 )
 
@@ -411,7 +426,28 @@ const masochistEmpress: Synergy = (
     power: masochistEmpressPower,
     rarity: 0,
     requirements: @[empress.name, stepOnMe.name],
-    replacements: @[empress.name, stepOnMe.name],
+    replacements: @[],
+    index: -1
+)
+
+const masochistAltEmpressPower: Power = Power(
+    name: "Masochist Empress",
+    tier: UltraRare,
+    rarity: 0,
+    priority: 15,
+    onStart: 
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            for i, j in b.rankAndFile:
+                if b[i][j].item == queen and b[i][j].isColor(side):
+                    b[i][j].takes.add(cannibalGiraffeTakes)
+                        
+)
+
+const masochistAltEmpress: Synergy = (
+    power: masochistAltEmpressPower,
+    rarity: 0,
+    requirements: @[altEmpress.name, stepOnMe.name],
+    replacements: @[],
     index: -1
 )
 
@@ -429,7 +465,7 @@ const sacrificeWhenTaken*: WhenTaken = proc (taken: var Piece, taker: var Piece,
 const sacrifice*: Power = Power(
     name: "Sacrificial Maiden",
     tier: UltraRare,
-    priority: 15,
+    priority: 25,
     description: """SACRIFICE THY MAIDENS TO THE BLOOD GOD""",
     icon: queenIcon,
     onStart:
@@ -456,7 +492,7 @@ const sacrificeWhenTakenEmpress*: WhenTaken = proc (taken: var Piece, taker: var
 const exodiaPower: Power = Power(
     name: "Exodia",
     tier: UltraRare,
-    priority: 15,
+    priority: 25,
     description: "You had your fun, but the game is over. Too bad right?",
     icon: queenIcon,
     onStart:
@@ -574,7 +610,7 @@ const queensWrathPower: Power = Power(
     icon: queenIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
-            sacrifice.onStart(side, viewSide, b)
+            queenTrade.onStart(side, viewSide, b)
             for i, j in b.rankAndFile:
                 if b[i][j].item != queen and b[i][j].isColor(side):
                     b[i][j] = Piece(item: none, tile: b[i][j].tile)
@@ -993,7 +1029,7 @@ const lancePromote*: OnPiece = proc(piece: var Piece, board: var ChessBoard) =
     piece.filePath = "promotedlance.svg"
 
 const lancePromoteConditions*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
-    if ((piece.tile.rank == 7 and piece.color == black) or (piece.tile.rank == 0 and piece.color == white)) and not piece.promoted:  
+    if piece.isAtEnd() and not piece.promoted:  
         piece.promote(board)
 
 const lanceLeft*: Power = Power(
@@ -1051,6 +1087,7 @@ const lanceRight*: Power = Power(
 )
 
 registerPower(empress)
+registerPower(altEmpress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
 registerPower(developed)
@@ -1089,6 +1126,7 @@ registerSynergy(linebackers)
 registerSynergy(holyBishop)
 registerSynergy(bountyHunter)
 registerSynergy(masochistEmpress, true, true)
+registerSynergy(masochistAltEmpress, true, true)
 registerSynergy(exodia, true)
 registerSynergy(superPawn, true)
 registerSynergy(queensWrath, true)

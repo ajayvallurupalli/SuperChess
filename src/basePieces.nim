@@ -58,9 +58,9 @@ const onPawnPromote*: OnPiece = proc (piece: var Piece, board: var ChessBoard) =
     piece = blackQueen.pieceCopy(piecesTaken=piece.piecesTaken, tile=piece.tile, promoted = true, color = piece.color, filePath = $piece.color & "queen.svg")
 
 const onPawnEnd*: OnPiece = proc (piece: var Piece, board: var ChessBoard) = 
-    if (piece.tile.rank == 0 and piece.color == white) or 
-        (piece.tile.rank == 7 and piece.color == black) and not piece.promoted:
+    if piece.isAtEnd() and not piece.promoted:
         piece.promote(board)
+
 #wierd order is because pawn requires onPawnEnd, which requires whiite queen. I wish Nim had hoisting
 #edit it turns out you can do hoist like in moves.nim but I can't figure out how to do it here
 const 

@@ -108,6 +108,16 @@ const cannibalKnightTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves
     discard result.addIfTake(board, p, p.tile, shooterFactory(-2, 1), cannibalismFlag = true)
     discard result.addIfTake(board, p, p.tile, shooterFactory(-2, -1), cannibalismFlag = true)
 
+const cannibalGiraffeTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
+    discard result.addIfTake(board, p, p.tile, shooterFactory(1, 3), cannibalismFlag = true)
+    discard result.addIfTake(board, p, p.tile, shooterFactory(-1, 3), cannibalismFlag = true)
+    discard result.addIfTake(board, p, p.tile, shooterFactory(3, 1), cannibalismFlag = true)
+    discard result.addIfTake(board, p, p.tile, shooterFactory(3, -1), cannibalismFlag = true)
+    discard result.addIfTake(board, p, p.tile, shooterFactory(1, -3), cannibalismFlag = true)
+    discard result.addIfTake(board, p, p.tile, shooterFactory(-1, -3), cannibalismFlag = true)
+    discard result.addIfTake(board, p, p.tile, shooterFactory(-3, 1), cannibalismFlag = true)
+    discard result.addIfTake(board, p, p.tile, shooterFactory(-3, -1), cannibalismFlag = true)
+
 
 const giraffeTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
     discard result.addIfTake(board, p, p.tile, shooterFactory(1,3))
