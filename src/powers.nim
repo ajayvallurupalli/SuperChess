@@ -112,6 +112,7 @@ const mysteriousSwordsmanLeft*: Power = Power(
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             let rank = if side == black: 1 else: 6
+            assert b[rank][1].color == side
             if side == black:
                 b[rank][1].moves = @[diagnalMoves, blackForwardMoves]
                 b[rank][1].takes = @[diagnalTakes, blackForwardTakes]
@@ -139,6 +140,7 @@ const mysteriousSwordsmanRight*: Power = Power(
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             let rank = if side == black: 1 else: 6
+            assert b[rank][6].color == side
             if side == black:
                 b[rank][6].moves = @[diagnalMoves, blackForwardMoves]
                 b[rank][6].takes = @[diagnalTakes, blackForwardTakes]
@@ -275,6 +277,7 @@ const wanderingRoninLeft*: Power = Power(
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) =
             let rank = if side == black: 1 else: 6
+            assert b[rank][2].color == side
             if side == black:
                 b[rank][2].moves = @[diagnalMoves, blackForwardMoves, leftRightMoves]
                 b[rank][2].takes = @[diagnalTakes, blackForwardTakes, leftRightTakes]
@@ -301,6 +304,7 @@ const wanderingRoninRight*: Power = Power(
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             let rank = if side == black: 1 else: 6
+            assert b[rank][5].color == side
             if side == black:
                 b[rank][5].moves = @[diagnalMoves, blackForwardMoves, leftRightMoves]
                 b[rank][5].takes = @[diagnalTakes, blackForwardTakes, leftRightTakes]
@@ -360,6 +364,7 @@ const giraffe*: Power = Power(
         proc (side: Color, _: Color, b: var ChessBoard) = 
             for i, j in b.rankAndFile:
                 if b[i][j].item == knight and b[i][j].isColor(side):
+                    assert b[i][j].color == side
                     b[i][j].moves = @[giraffeMoves]   
                     b[i][j].takes = @[giraffeTakes]
                     b[i][j].filePath = if side == black: "blackgiraffe.svg" else: "whitegiraffe.svg"
@@ -920,6 +925,7 @@ const shotgunKing*: Power = Power(
         proc (side: Color, _: Color, b: var ChessBoard) = 
             for i, j in b.rankAndFile:
                 if b[i][j].item == king and b[i][j].isColor(side):
+                    assert b[i][j].color == side
                     b[i][j].onTake = shotgunKingOnTake
                     b[i][j].takes &= @[blackForwardTwiceJumpTake, whiteForwardTwiceJumpTake]
 )
@@ -1046,6 +1052,7 @@ const lanceLeft*: Power = Power(
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             let rank = if side == black: 1 else: 6
+            assert b[rank][0].color == side
             if side == black:
                 b[rank][0].moves = @[blackLanceMoves]
                 b[rank][0].takes = @[blackLanceTakes]
@@ -1073,6 +1080,7 @@ const lanceRight*: Power = Power(
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             let rank = if side == black: 1 else: 6
+            assert b[rank][7].color == side
             if side == black:
                 b[rank][7].moves = @[blackLanceMoves]
                 b[rank][7].takes = @[blackLanceTakes]

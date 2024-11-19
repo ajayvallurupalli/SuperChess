@@ -148,10 +148,10 @@ func isAir*(p: Piece): bool =
     return p.item == none
 
 func sameColor*(a: Piece, b: Piece): bool = 
-    return a.color == b.color
+    return a.color == b.color and not a.isAir() and not b.isAir()
 
 func isColor*(a: Piece, b: Color): bool = 
-    return a.color == b
+    return a.color == b and not a.isAir()
 
 func otherSide*(a: Color): Color = 
     return if a == white: black else: white
