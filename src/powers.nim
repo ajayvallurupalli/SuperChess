@@ -1327,7 +1327,7 @@ registerPower(lanceLeft)
 registerPower(lanceRight)
 registerPower(drunkKnights)
 registerPower(alcoholism)
-#registerPower(civilians)
+registerPower(civilians)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)
