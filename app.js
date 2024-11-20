@@ -4945,7 +4945,7 @@ function HEX3Aanonymous_1795164002(side_1795164003, __1795164004, b_1795164005) 
     var rank_1795164010 = Temporary1;
     var commoner_1795164030 = {item: 7, color: side_1795164003, moves: [], takes: [], onMove: HEX3Aanonymous_1459618172, onTake: HEX3Aanonymous_1459618242, whenTaken: HEX3Aanonymous_1795163994, onEndTurn: [HEX3Aanonymous_1795163984], onPromote: [HEX3Aanonymous_1459618142], filePath: (reprEnum(side_1795164003, NTI1459617801) || []).concat([99,105,118,105,108,105,97,110,46,115,118,103] || []), timesMoved: 0, piecesTaken: 0, tile: nimCopy(null, {Field0: (-1), Field1: (-1)}, NTI1459617795), promoted: false, rotate: false};
     var spawns_1795164031 = 3;
-    var failsafe_1795164032 = 20;
+    var failsafe_1795164032 = 100;
     var attempt_1795164033 = rand_1644167304(7);
     Label2: {
         Label3: while (true) {
@@ -4953,7 +4953,6 @@ function HEX3Aanonymous_1795164002(side_1795164003, __1795164004, b_1795164005) 
           if (isAir_1459618354(b_1795164005[chckIndx(rank_1795164010, 0, (b_1795164005).length - 1)][chckIndx(attempt_1795164033, 0, (b_1795164005[chckIndx(rank_1795164010, 0, (b_1795164005).length - 1)]).length - 1)])) {
           b_1795164005[chckIndx(rank_1795164010, 0, (b_1795164005).length - 1)][chckIndx(attempt_1795164033, 0, (b_1795164005[chckIndx(rank_1795164010, 0, (b_1795164005).length - 1)]).length - 1)] = nimCopy(b_1795164005[chckIndx(rank_1795164010, 0, (b_1795164005).length - 1)][chckIndx(attempt_1795164033, 0, (b_1795164005[chckIndx(rank_1795164010, 0, (b_1795164005).length - 1)]).length - 1)], commoner_1795164030, NTI1459617808);
           spawns_1795164031 = subInt(spawns_1795164031, 1);
-          attempt_1795164033 = rand_1644167304(7);
           }
           else {
           failsafe_1795164032 = subInt(failsafe_1795164032, 1);
