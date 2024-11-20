@@ -1,6 +1,6 @@
 import power, moves, piece, basePieces, extraMoves
 from sequtils import filterIt
-from random import sample, rand
+from random import sample, rand, randomize
 
 #[TODO
 create synergy constructor which automatically sets index to -1
@@ -1097,6 +1097,7 @@ const lanceRight*: Power = Power(
 
 
 const drunkOnEndTurn*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
+    randomize(10 * piece.tile.rank + 100 * piece.tile.file)
     let takes = piece.getTakesOn(board)
     let moves = piece.getMovesOn(board)
 
@@ -1140,6 +1141,8 @@ const alcoholism: Power = Power(
 
 #moves for civilian are put here so that it can't be moved normally
 const randomCivilianEndTurn*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
+    randomize(10 * piece.tile.rank + 100 * piece.tile.file)
+
     let moves = kingMoves(board, piece)
     piece.move(moves.sample(), board)
 
@@ -1156,20 +1159,24 @@ const civilians: Power = Power(
     icon: "civilian.svg",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) =
+            randomize(7)#find way to make more random
             let rank: int = if side == black: 2 else: 5
             let commoner = Piece(item: fairy, color: side, moves: @[], takes: @[], onMove: defaultOnMove, onTake: defaultOnTake, 
                                 whenTaken: attemptedWarCrimes, onEndTurn: @[randomCivilianEndTurn], onPromote: @[defaultOnEndTurn],
                                 filePath: $side & "civilian.svg")
 
             var spawns = 3
-            var failsafe = 100
+            var failsafe = 20
             var attempt: int = rand(7)
             while spawns != 3 and failSafe != 0:
                 if b[rank][attempt].isAir:
-                    b[rank][attempt] = commoner
+                    let tile = b[rank][attempt].tile
+                    b[rank][attempt] = commoner.pieceCopy(tile = tile)
                     dec spawns
                 else:
                     dec failSafe
+
+                attempt = rand(7)
 )
 
 
@@ -1205,9 +1212,9 @@ registerPower(coward)
 #registerPower(bombard)
 registerPower(lanceLeft)
 registerPower(lanceRight)
-registerPower(drunkKnights)
-registerPower(alcoholism)
-registerPower(civilians)
+#registerPower(drunkKnights)
+#registerPower(alcoholism)
+#registerPower(civilians)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)

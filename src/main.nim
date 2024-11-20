@@ -2,6 +2,7 @@ include karax / prelude
 import piece, basePieces, port, power, powers, karax/errors
 from strutils import split, parseInt
 from sequtils import foldr, mapIt
+from random import randomize, rand
 
 
 {.warning[CStringConv]: off.} 
@@ -302,7 +303,8 @@ proc createJoinMenu(): VNode =
         input(id = "joincode", onchange = validateNotEmpty("joincode"))
         button:
             proc onclick(ev: Event; v: VNode) = 
-                let id = getVNodeById("joincode").getInputText
+                let id = getVNodeById("joincode").getInputText 
+                roomId.value = id
                 echo getVNodeById("joincode")
                 if not peer.destroy.isNil():
                     peer.destroy()
