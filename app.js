@@ -4949,7 +4949,7 @@ function HEX3Aanonymous_1795164002(side_1795164003, __1795164004, b_1795164005) 
     var attempt_1795164033 = rand_1644167304(7);
     Label2: {
         Label3: while (true) {
-        if (!(!((spawns_1795164031 == 3)) || !((failsafe_1795164032 == 0)))) break Label3;
+        if (!(!((spawns_1795164031 == 3)) && !((failsafe_1795164032 == 0)))) break Label3;
           if (isAir_1459618354(b_1795164005[chckIndx(rank_1795164010, 0, (b_1795164005).length - 1)][chckIndx(attempt_1795164033, 0, (b_1795164005[chckIndx(rank_1795164010, 0, (b_1795164005).length - 1)]).length - 1)])) {
           b_1795164005[chckIndx(rank_1795164010, 0, (b_1795164005).length - 1)][chckIndx(attempt_1795164033, 0, (b_1795164005[chckIndx(rank_1795164010, 0, (b_1795164005).length - 1)]).length - 1)] = nimCopy(b_1795164005[chckIndx(rank_1795164010, 0, (b_1795164005).length - 1)][chckIndx(attempt_1795164033, 0, (b_1795164005[chckIndx(rank_1795164010, 0, (b_1795164005).length - 1)]).length - 1)], commoner_1795164030, NTI1459617808);
           spawns_1795164031 = subInt(spawns_1795164031, 1);
