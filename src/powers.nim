@@ -1162,12 +1162,13 @@ const civilians: Power = Power(
                                 filePath: $side & "civilian.svg")
 
             var spawns = 3
-            var failsafe = 100
+            var failsafe = 20
             var attempt: int = rand(7)
             while spawns != 3 and failSafe != 0:
                 if b[rank][attempt].isAir:
                     b[rank][attempt] = commoner
                     dec spawns
+                    attempt = rand(7)
                 else:
                     dec failSafe
 )
