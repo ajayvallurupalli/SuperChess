@@ -686,7 +686,7 @@ const knightChargePower*: Power = Power(
             let offset = if side == white: -3 else: 3
             for i, j in b.rankAndFile:
                 if b[i][j].item == knight and b[i][j].isColor(side) and b[i][j].timesMoved == 0:
-                    b[i][j].timesMoved += 1
+                    inc b[i][j].timesMoved
                     b[i][j].pieceMove(i + offset, j, b)
 )
 
@@ -707,7 +707,6 @@ const battleFormationPower: Power = Power(
     icon: knightIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
-            knightChargePower.onStart(side, viewSide, b)
             if side == black:
                 b[1][3].pieceMove(3, 3, b)
                 b[1][4].pieceMove(3, 4, b)
@@ -720,7 +719,7 @@ const battleFormation: Synergy = (
     power: battleFormationPower,
     rarity: 0,
     requirements: @[knightChargePower.name, developed.name],
-    replacements: @[knightChargePower.name, developed.name],
+    replacements: @[developed.name],
     index: -1
 )
 
@@ -831,9 +830,7 @@ const concubineWhenTake = proc (taken: var Piece, taker: var Piece, board: var C
         taken.item == rook and
         taker.timesMoved == 0 and
         taken.timesMoved == 0: 
-            echo "before"
             taken.promote(board)
-            echo "after"
             let kingTile = taker.tile
             if taken.tile.file == 0:
                 taker.pieceMove(kingTile.rank, kingTile.file - 2, board)
@@ -1184,7 +1181,7 @@ const virusPower*: Power = Power(
 #but still decided in advance so that I don't have to sync random seed
 const virus: Synergy = (
     power: virusPower,
-    rarity: 4,
+    rarity: 0,
     requirements: @[alcoholism.name, lanceLeft.name, headStart.name, mysteriousSwordsmanLeft.name],
     replacements: @[alcoholism.name],
     index: -1
@@ -1192,7 +1189,7 @@ const virus: Synergy = (
 
 const virus2: Synergy = (
     power: virusPower,
-    rarity: 4,
+    rarity: 0,
     requirements: @[alcoholism.name, backStep.name, knightChargePower.name, altEmpress.name],
     replacements: @[alcoholism.name],
     index: -1
@@ -1200,7 +1197,7 @@ const virus2: Synergy = (
 
 const virus3: Synergy = (
     power: virusPower,
-    rarity: 4,
+    rarity: 0,
     requirements: @[alcoholism.name, wanderingRoninLeft.name, superPawnPower.name, empress.name],
     replacements: @[alcoholism.name],
     index: -1
@@ -1208,7 +1205,7 @@ const virus3: Synergy = (
 
 const virus4: Synergy = (
     power: virusPower,
-    rarity: 4,
+    rarity: 0,
     requirements: @[alcoholism.name, stepOnMe.name, coward.name, shotgunKing.name],
     replacements: @[alcoholism.name],
     index: -1
@@ -1216,7 +1213,7 @@ const virus4: Synergy = (
 
 const virus5: Synergy = (
     power: virusPower,
-    rarity: 4,
+    rarity: 0,
     requirements: @[alcoholism.name, reinforcements.name, empress.name, giraffe.name, warewolves.name],
     replacements: @[alcoholism.name],
     index: -1
@@ -1224,7 +1221,7 @@ const virus5: Synergy = (
 
 const virus6: Synergy = (
     power: virusPower,
-    rarity: 4,
+    rarity: 0,
     requirements: @[alcoholism.name, anime.name, developed.name, sacrifice.name, illegalFormationBR.name],
     replacements: @[alcoholism.name],
     index: -1
@@ -1232,13 +1229,11 @@ const virus6: Synergy = (
 
 const virus7: Synergy = (
     power: virusPower,
-    rarity: 4,
+    rarity: 0,
     requirements: @[alcoholism.name, linebackersPower.name, nightrider.name, desegregation.name, holy.name],
     replacements: @[alcoholism.name],
     index: -1
 )
-
-
 
 #moves for civilian are put here so that it can't be moved normally
 const randomCivilianEndTurn*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
@@ -1266,7 +1261,7 @@ const attemptedWarCrimes*: WhenTaken = proc(taken: var Piece, taker: var Piece, 
 const civilians*: Power = Power(
     name: "Civilians",
     tier: Uncommon,
-    priority: 21,
+    priority: 30,
     description: """Of course, a battle will have its civillians. And of course, the enemy won't kill them.
                     3 civillians spawn on the enemy side. They randomly move and cannot be taken.""",
     icon: "civilian.svg",
@@ -1290,6 +1285,63 @@ const civilians*: Power = Power(
                     dec failSafe
 
                 attempt = rand(7)
+)
+
+const calvaryGiraffePower: Power = Power(
+    name: "Bandaid",
+    tier: UltraRare,
+    rarity: 0,
+    priority: 26, #after calvary charge
+    description: """It turns out that calvary plus giraffe is an automatic checkmate for white, 
+                    so I'm making the giraffes start one tile back. Sorry.""",
+    icon: "giraffe.svg",
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            for i, j in b.rankAndFile:
+                if b[i][j].item == knight and 
+                    b[i][j].iscolor(side) and 
+                    b[i][j].timesMoved == 1: # `== 1` because it was already incremented in knightCharge. Prevents double activation
+                        let back = if side == black: -1 else: 1
+                        inc b[i][j].timesMoved
+                        b[i][j].pieceMove(b[i][j].tile.rank + back, b[i][j].tile.file, b)
+
+)
+
+const calvaryGiraffe: Synergy = (
+    power: calvaryGiraffePower,
+    rarity: 0,
+    requirements: @[knightChargePower.name, giraffe.name],
+    replacements: @[],
+    index: -1
+)
+
+const lesbianBountyHunterOnEndTurn*: OnPiece = proc (piece: var Piece, board: var ChessBoard) = 
+        if piece.piecesTaken == 7:
+            for i, j in board.rankAndFile:
+                #searches for enemy king and deletes is
+                if board[i][j].item == king and not board[i][j].sameColor(piece):
+                    board[i][j] = Piece(item: none, tile: board[i][j].tile)  
+
+const lesbianBountyHunterPower*: Power = Power(
+    name: "Bounty Hunter Nerf",
+    tier: Common,
+    rarity: 0,
+    priority: 15,
+    description: "Yeah, 3 pieces is way too easy for our lesbian queens, so now it's 7 pieces. You got this!",
+    icon: kingIcon,
+    onStart: 
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            for i, j in b.rankAndFile:
+                if b[i][j].item == king and b[i][j].isColor(side):
+                    b[i][j].onEndTurn &= lesbianBountyHunterOnEndTurn
+)
+
+const lesbianBountyHunter: Synergy = (
+    power: lesbianBountyHunterPower,
+    rarity: 0,
+    requirements: @[lesbianPride.name, bountyHunterPower.name],
+    replacements: @[bountyHunterPower.name],
+    index: -1
 )
 
 
@@ -1343,6 +1395,8 @@ registerSynergy(queensWrath, true)
 registerSynergy(queensWrath2, true)
 registerSynergy(battleFormation, true)
 registerSynergy(queensWrathSuper, true)
+registerSynergy(calvaryGiraffe, true) #both of these would be secret synergies
+registerSynergy(lesbianBountyHunter, true) #but flavor text is fun
 
 registerSynergy(virus, true)
 registerSynergy(virus2, true)
