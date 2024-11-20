@@ -15,6 +15,7 @@ from random import randomize, rand
 --fix bombard power for castling, 
 and make secret secret synergy with reinforcements so everything works. Then enable it
 click enter to enter join code. I actually have no idea how to do this
+make moves a set instead of a seq so that I don't have to do wierd not in stuff, and instead I can just difference
 ]#
 
 const iconsPath: string  = "./icons/"
@@ -29,10 +30,10 @@ type
 
 var roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
 var peer: tuple[send: proc(data: cstring), destroy: proc()]
-var side: Color# = white # = white only for testing, delete
+var side: Color #= white # = white only for testing, delete
 var turn: bool# = true# = true#only for testing
-var myDrafts: seq[Power]# = @[alcoholism]
-var opponentDrafts: seq[Power]# = @[knightChargePower, developed, lesbianPride, mysteriousSwordsmanLeft]
+var myDrafts: seq[Power]
+var opponentDrafts: seq[Power]# = @[civilians]
 var baseDrafts: int #default value
 
 var draftOptions: seq[Power]

@@ -1109,14 +1109,7 @@ const drunkOnEndTurn*: OnPiece = proc(piece: var Piece, board: var ChessBoard) =
         if len(moves) == 0: return # I don't really like how this looks
 
 
-        var attempt = moves.sample()
-        var failsafe = 20
-
-        while attempt in takes and failsafe != 0:
-            attempt = moves.sample()
-            dec failsafe
-
-        if failsafe == 0: return
+        var attempt = moves.filterIt(it notin takes).sample()
 
         #it prioritizes takes to avoid potentially moving into another piece
         if attempt in moves:
@@ -1253,18 +1246,18 @@ const randomCivilianEndTurn*: OnPiece = proc(piece: var Piece, board: var ChessB
         piece.rand.drunk = true
         randomize(10 * piece.tile.rank + 100 * piece.tile.file + piece.rand.seed)
 
+        piece.moves &= kingMoves
         let moves = kingMoves(board, piece)
-        let takes = knightTakes(board, piece)
-        var attempt = moves.sample()
-        var failsafe = 20
+        let takes = kingTakes(board, piece)
+        var attempt = moves.filterIt(it notin takes) #remove takes to prevent conflict
 
-        while attempt in takes and failsafe != 0:
-            attempt = moves.sample()
-            dec failsafe
-
-        if failsafe == 0: return 
-
-        piece.move(attempt, board)
+        if attempt.len == 0: return
+        else: 
+            #we insert `kingMoves` so that it complies with assertion of `onMove`,
+            #then we remove it after so that the player still cannot move civie
+            piece.moves &= kingMoves
+            piece.move(attempt.sample(), board)
+            piece.moves = @[] #we reset it after to com
 
 #TODO: SEE IF I CAN KILL THE PIECE WHEN THIS HAPPENS. WHY CAPS LOCK
 const attemptedWarCrimes*: WhenTaken = proc(taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
@@ -1334,7 +1327,7 @@ registerPower(lanceLeft)
 registerPower(lanceRight)
 registerPower(drunkKnights)
 registerPower(alcoholism)
-registerPower(civilians)
+#registerPower(civilians)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)
