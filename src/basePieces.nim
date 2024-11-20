@@ -3,6 +3,7 @@ import piece, moves
 #I dont' know why printing any base pieces causes a fatal error, but don't do it I guess
 
 const rookWhenTaken*: WhenTaken = proc (taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] =
+    #castling behavior
     if taker.item == king and 
         taken.item == rook and
         taker.timesMoved == 0 and
@@ -17,6 +18,7 @@ const rookWhenTaken*: WhenTaken = proc (taken: var Piece, taker: var Piece, boar
                 taken.pieceMove(kingTile.rank, kingTile.file + 1, board)
                 return ((kingTile.file + 1, kingTile.rank), false)
     else:
+        #if not taken by king (how castling works), it does regular behavior
         return defaultWhenTaken(taken, taker, board)
 
 #base pieces, should be copied and not used on their own
@@ -84,7 +86,8 @@ proc startingBoard*(): ChessBoard =
     for j, r in result:
         for i, x in r:
             result[j][i] = x.pieceCopy(tile = (i, j))
-            
+
+#TESTS
 when isMainModule:
     assert blackKnight.moves.typeof() is seq[MoveProc]
 

@@ -3,22 +3,37 @@
 #I could have put it in a new file, but I didn't. The reason remains one of the world's greatest mysteries. 
 
 type
-    Tile* = tuple[file: File, rank: Rank]
-    Rank* = int
-    File* = int
+    Tile* = tuple[file: File, rank: Rank] #used for position of all pieces
+    Rank* = int #chess terminology, though I completely forgot to follow it
+    File* = int #it probably should have been an enum. Too late. Maybe just change to normal ints
 
+    #The main data structure which holds the entire state of the board
+    #It is created in `basePieces.startingBoard.nim`
     ChessRow* = array[0..7, Piece]
-    ChessBoard* = array[0..7, Chessrow]
+    ChessBoard* = array[0..7, Chessrow] 
 
+    #none is used for empty spaces
+    #fairy is used for custom spaces defined in `Powers.nim`
     PieceType* = enum
         king, queen, bishop, pawn, rook, knight, none, fairy
     Color* = enum
         black, white
 
-    Moves* = seq[Tile]
+    #The functions and implementations of these are defined in `moves.nim` and `board.nim`
+    Moves* = seq[Tile] 
+    #takes the state of the board and a piece, and returns possible `Moves` by that piece
+    #It only needs to return one type of moves (like one row forward), since 
+    #`Piece` takes a `seq` of `Moves`
     MoveProc* = proc(board: ChessBoard, piece: Piece): Moves {.noSideEffect.}
     Shooter* = proc(tile: Tile): Tile {.noSideEffect.}
+
+    #`OnAction` is used when `piece` tries to move to `to`
+    #it mutates the piece and the board
     OnAction* = proc(piece: var Piece, to: Tile, board: var ChessBoard)
+    #`WhenTaken` is called by the `taker Piece` when it attempts to take `taken Piece`
+    #It can mutate both pieces, so `endTile` should be used to access `taker` after, since `taken` and `taker` will can after this is called
+    #This is one of the sad truths of the code base, but I couldn't find anyway to change the board and not change the object given
+    #`takeSuccess` also returns true if the `taken` piece is killed by `taker`
     WhenTaken* = proc(taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool]
     OnPiece* = proc (piece: var Piece, board: var ChessBoard)
 

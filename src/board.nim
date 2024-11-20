@@ -1,6 +1,7 @@
 import std/options, piece
 
-#defined again to avoid cyclical imports with basePieces
+#defined to avoid cyclical imports with basePieces
+#only needed for testing, so only color and item matter
 const air: Piece = Piece(item: none)
 const black: Piece = Piece(color: black)
 const white: Piece = Piece(color: white)
@@ -23,6 +24,10 @@ func emptyBoard*(): ChessBoard =
 func `==`*(a: Tile, b: Tile): bool = 
     return a.file == b.file and a.rank == b.rank
 
+#returns a `Shooter` (see `Shooter) function which returns 
+#a function which takes a `Tile` and returns a `Tile`
+# `m` to the right and `n` below
+#m is annotated with `piece.File` to not confuse it when `syncio.File`
 func shooterFactory*(m: piece.File, n: Rank): Shooter = 
     result = proc(t: Tile): Tile = (t.file + m, t.rank + n)
 
@@ -38,6 +43,10 @@ func tileLeft*(t: Tile): Tile =
 func tileRight*(t: Tile): Tile = 
     return (t.file + 1, t.rank)
 
+#if `t` is a valid tile for the `ChessBoard b`, it returns `Some(p)`, where `p` is the `Piece` at that tile
+#otherwise, it returns none. 
+#I kind of forgot to use options in the rest of the project, but it's still needed here for 
+#`moves.nim`, to stop addding tiles when they are not on the board
 func boardRef*(b: ChessBoard, t: Tile): Option[Piece] = 
     if t.file < 0 or t.file >= b[0].len or
         t.rank < 0 or t.rank >= b.len:

@@ -1,5 +1,6 @@
 import power, moves, piece, basePieces, extraMoves
 from sequtils import filterIt
+from random import sample, rand
 
 #[TODO
 create synergy constructor which automatically sets index to -1
@@ -1094,6 +1095,84 @@ const lanceRight*: Power = Power(
             if side != viewSide: b[rank][7].rotate = true
 )
 
+
+const drunkOnEndTurn*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
+    let takes = piece.getTakesOn(board)
+    let moves = piece.getMovesOn(board)
+
+    let randomAction = (takes & moves).sample()
+
+    #it prioritizes takes to avoid potentially moving into another piece
+    if randomAction in takes:
+        piece.take(randomAction, board)
+    elif randomAction in moves:
+        piece.move(randomAction, board)
+
+
+const drunkKnights: Power = Power(
+    name: "Drunk Knights",
+    tier: Rare,
+    priority: 15,
+    description: 
+        """Drunk riding is dangerous, your knights should be ashamed of themselves. 
+        When you end your turn, they randomly move or take once""",
+    icon: knightIcon,
+    onStart: 
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            for i, j in b.rankAndFile:
+                if b[i][j].item == knight and b[i][j].isColor(side):
+                    b[i][j].onEndTurn &= drunkOnEndTurn
+)
+
+const alcoholism: Power = Power(
+    name: "Alcoholism",
+    tier: UltraRare,
+    priority: 15,
+    description: """You're families and friends miss you. The real you.""",
+    icon: pawnIcon,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            for i, j in b.rankAndFile:
+                if b[i][j].isColor(side):
+                    b[i][j].onEndTurn &= drunkOnEndTurn
+                    b[i][j].rotate = true
+)
+
+#moves for civilian are put here so that it can't be moved normally
+const randomCivilianEndTurn*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
+    let moves = kingMoves(board, piece)
+    piece.move(moves.sample(), board)
+
+#TODO: SEE IF I CAN KILL THE PIECE WHEN THIS HAPPENS. WHY CAPS LOCK
+const attemptedWarCrimes*: WhenTaken = proc(taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
+    return (taker.tile, false)
+
+const civilians: Power = Power(
+    name: "Civilians",
+    tier: Uncommon,
+    priority: 21,
+    description: """Of course, a battle will have its civillians. And of course, the enemy won't kill them.
+                    3 civillians spawn on the enemy side. They randomly move and cannot be taken.""",
+    icon: "civilian.svg",
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard) =
+            let rank: int = if side == black: 2 else: 5
+            let commoner = Piece(item: fairy, color: side, moves: @[], takes: @[], onMove: defaultOnMove, onTake: defaultOnTake, 
+                                whenTaken: attemptedWarCrimes, onEndTurn: @[randomCivilianEndTurn], onPromote: @[defaultOnEndTurn],
+                                filePath: $side & "civilian.svg")
+
+            var spawns = 3
+            var failsafe = 100
+            var attempt: int = rand(7)
+            while spawns != 3 or failSafe != 0:
+                if b[rank][attempt].isAir:
+                    b[rank][attempt] = commoner
+                    dec spawns
+                else:
+                    dec failSafe
+)
+
+
 registerPower(empress)
 registerPower(altEmpress)
 registerPower(mysteriousSwordsmanLeft)
@@ -1126,6 +1205,9 @@ registerPower(coward)
 #registerPower(bombard)
 registerPower(lanceLeft)
 registerPower(lanceRight)
+registerPower(drunkKnights)
+registerPower(alcoholism)
+registerPower(civilians)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)
