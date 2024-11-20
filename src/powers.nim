@@ -1097,18 +1097,51 @@ const lanceRight*: Power = Power(
 
 
 const drunkOnEndTurn*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
-    randomize(10 * piece.tile.rank + 100 * piece.tile.file)
-    let takes = piece.getTakesOn(board)
-    let moves = piece.getMovesOn(board)
+    if not piece.rand.drunk:
+        piece.rand.drunk = true #after move, piece is different, so we drunk now
+        #random seed is linked to location and `Piece.rand.seed`, which is made from id
+        #this ensures that both sides generate same move, even though they do it seperately
+        #it would be ideal to just send move over, but it's too late to add such a system
+        #also maybe research if the location *10 *100 is nesscary
+        randomize(10 * piece.tile.rank + 100 * piece.tile.file + piece.rand.seed)
+        let takes = piece.getTakesOn(board)
+        let moves = piece.getMovesOn(board)
+        if len(moves) == 0: return # I don't really like how this looks
 
-    let randomAction = (takes & moves).sample()
 
-    #it prioritizes takes to avoid potentially moving into another piece
-    if randomAction in takes:
-        piece.take(randomAction, board)
-    elif randomAction in moves:
-        piece.move(randomAction, board)
+        var attempt = moves.sample()
+        var failsafe = 20
 
+        while attempt in takes and failsafe != 0:
+            attempt = moves.sample()
+            dec failsafe
+
+        if failsafe == 0: return
+
+        #it prioritizes takes to avoid potentially moving into another piece
+        if attempt in moves:
+            piece.move(attempt, board)
+
+const drunkVirus*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
+    if not piece.rand.drunk:
+        piece.rand.drunk = true #after move, piece is different, so we drunk now
+        #random seed is linked to location and `Piece.rand.seed`, which is made from id
+        #this ensures that both sides generate same move, even though they do it seperately
+        #it would be ideal to just send move over, but it's too late to add such a system
+        #also maybe research if the location *10 *100 is nesscary
+        randomize(10 * piece.tile.rank + 100 * piece.tile.file + piece.rand.seed)
+        let takes = piece.getTakesOn(board)
+        let moves = piece.getMovesOn(board)
+        if len(moves & takes) == 0: return # I don't really like how this looks
+
+
+        let randomAction = sample(moves & takes)
+
+        #it prioritizes takes to avoid potentially moving into another piece
+        if randomAction in takes:
+            piece.take(randomAction, board)
+        elif randomAction in moves:
+            piece.move(randomAction, board)
 
 const drunkKnights: Power = Power(
     name: "Drunk Knights",
@@ -1116,7 +1149,7 @@ const drunkKnights: Power = Power(
     priority: 15,
     description: 
         """Drunk riding is dangerous, your knights should be ashamed of themselves. 
-        When you end your turn, they randomly move or take once""",
+        After every other turn, they randomly move.""",
     icon: knightIcon,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard) = 
@@ -1125,7 +1158,7 @@ const drunkKnights: Power = Power(
                     b[i][j].onEndTurn &= drunkOnEndTurn
 )
 
-const alcoholism: Power = Power(
+const alcoholism*: Power = Power(
     name: "Alcoholism",
     tier: UltraRare,
     priority: 15,
@@ -1139,18 +1172,105 @@ const alcoholism: Power = Power(
                     b[i][j].rotate = true
 )
 
+const virusPower*: Power = Power(
+    name: "virus",
+    tier: UltraRare,
+    priority: 15,
+    description: "They're dying. They're dying. They're dying.",
+    rarity: 0,
+    icon: "",
+    onStart: 
+        proc (side: Color, _: Color, b: var ChessBoard) =
+            for i, j in b.rankAndFile:
+                if b[i][j].isColor(side):
+                    b[i][j].onEndTurn &= drunkVirus
+                    b[i][j].rotate = true
+)  
+
+#virus powers just have random stuff
+#but still decided in advance so that I don't have to sync random seed
+const virus: Synergy = (
+    power: virusPower,
+    rarity: 4,
+    requirements: @[alcoholism.name, lanceLeft.name, headStart.name, mysteriousSwordsmanLeft.name],
+    replacements: @[alcoholism.name],
+    index: -1
+)
+
+const virus2: Synergy = (
+    power: virusPower,
+    rarity: 4,
+    requirements: @[alcoholism.name, backStep.name, knightChargePower.name, altEmpress.name],
+    replacements: @[alcoholism.name],
+    index: -1
+)
+
+const virus3: Synergy = (
+    power: virusPower,
+    rarity: 4,
+    requirements: @[alcoholism.name, wanderingRoninLeft.name, superPawnPower.name, empress.name],
+    replacements: @[alcoholism.name],
+    index: -1
+)
+
+const virus4: Synergy = (
+    power: virusPower,
+    rarity: 4,
+    requirements: @[alcoholism.name, stepOnMe.name, coward.name, shotgunKing.name],
+    replacements: @[alcoholism.name],
+    index: -1
+)
+
+const virus5: Synergy = (
+    power: virusPower,
+    rarity: 4,
+    requirements: @[alcoholism.name, reinforcements.name, empress.name, giraffe.name, warewolves.name],
+    replacements: @[alcoholism.name],
+    index: -1
+)
+
+const virus6: Synergy = (
+    power: virusPower,
+    rarity: 4,
+    requirements: @[alcoholism.name, anime.name, developed.name, sacrifice.name, illegalFormationBR.name],
+    replacements: @[alcoholism.name],
+    index: -1
+)
+
+const virus7: Synergy = (
+    power: virusPower,
+    rarity: 4,
+    requirements: @[alcoholism.name, linebackersPower.name, nightrider.name, desegregation.name, holy.name],
+    replacements: @[alcoholism.name],
+    index: -1
+)
+
+
+
 #moves for civilian are put here so that it can't be moved normally
 const randomCivilianEndTurn*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
-    randomize(10 * piece.tile.rank + 100 * piece.tile.file)
+    if not piece.rand.drunk:
+        piece.rand.drunk = true
+        randomize(10 * piece.tile.rank + 100 * piece.tile.file + piece.rand.seed)
 
-    let moves = kingMoves(board, piece)
-    piece.move(moves.sample(), board)
+        let moves = kingMoves(board, piece)
+        let takes = knightTakes(board, piece)
+        var attempt = moves.sample()
+        var failsafe = 20
+
+        while attempt in takes and failsafe != 0:
+            attempt = moves.sample()
+            dec failsafe
+
+        if failsafe == 0: return 
+
+        piece.move(attempt, board)
 
 #TODO: SEE IF I CAN KILL THE PIECE WHEN THIS HAPPENS. WHY CAPS LOCK
 const attemptedWarCrimes*: WhenTaken = proc(taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
     return (taker.tile, false)
 
-const civilians: Power = Power(
+const civilians*: Power = Power(
     name: "Civilians",
     tier: Uncommon,
     priority: 21,
@@ -1159,20 +1279,20 @@ const civilians: Power = Power(
     icon: "civilian.svg",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) =
-            randomize(7)#find way to make more random
-            let rank: int = if side == black: 2 else: 5
+            randomize(b[0][0].rand.seed)#dirty way to pass in random seed
+            let rank: int = if side == black: 5 else: 2
             let commoner = Piece(item: fairy, color: side, moves: @[], takes: @[], onMove: defaultOnMove, onTake: defaultOnTake, 
                                 whenTaken: attemptedWarCrimes, onEndTurn: @[randomCivilianEndTurn], onPromote: @[defaultOnEndTurn],
                                 filePath: $side & "civilian.svg")
 
-            var spawns = 3
+            var spawns = 0
             var failsafe = 20
             var attempt: int = rand(7)
             while spawns != 3 and failSafe != 0:
                 if b[rank][attempt].isAir:
                     let tile = b[rank][attempt].tile
                     b[rank][attempt] = commoner.pieceCopy(tile = tile)
-                    dec spawns
+                    inc spawns
                 else:
                     dec failSafe
 
@@ -1212,9 +1332,9 @@ registerPower(coward)
 #registerPower(bombard)
 registerPower(lanceLeft)
 registerPower(lanceRight)
-#registerPower(drunkKnights)
-#registerPower(alcoholism)
-#registerPower(civilians)
+registerPower(drunkKnights)
+registerPower(alcoholism)
+registerPower(civilians)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)
@@ -1230,3 +1350,12 @@ registerSynergy(queensWrath, true)
 registerSynergy(queensWrath2, true)
 registerSynergy(battleFormation, true)
 registerSynergy(queensWrathSuper, true)
+
+registerSynergy(virus, true)
+registerSynergy(virus2, true)
+registerSynergy(virus3, true)
+registerSynergy(virus4, true)
+registerSynergy(virus5, true)
+registerSynergy(virus6, true)
+registerSynergy(virus7, true)
+

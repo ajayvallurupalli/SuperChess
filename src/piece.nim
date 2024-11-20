@@ -53,6 +53,7 @@ type
         promoted*: bool = false
         filePath*: string = ""
         rotate*: bool = false
+        rand*: tuple[drunk: bool, seed: int]  = (false, 0) #used for some of the powers with rng
 
 #helper templates for `Piece` methods
 #since methods are properties of the class, you would usually have to do `Piece.method(Piece)`
@@ -154,10 +155,12 @@ func pieceCopy*(initial: Piece,
                 onPromote: seq[proc(piece: var Piece, board: var ChessBoard)] = initial.onPromote,
                 promoted: bool = initial.promoted,
                 filePath: string = initial.filePath,
-                rotate: bool = initial.rotate): Piece = 
+                rotate: bool = initial.rotate,
+                rand: tuple[drunk: bool, seed: int] = initial.rand): Piece = 
     return Piece(item: item, color: color, timesMoved: timesMoved, piecesTaken: piecesTaken,
                 tile: tile, moves: moves, takes: takes, onMove: onMove, onTake: onTake,
-                whenTaken: whenTaken, onEndTurn: onEndTurn, onPromote: onPromote,promoted: promoted, filePath: filePath, rotate: rotate)
+                whenTaken: whenTaken, onEndTurn: onEndTurn, onPromote: onPromote,promoted: promoted, filePath: filePath, rotate: rotate,
+                rand: rand)
 
 func isAir*(p: Piece): bool = 
     return p.item == none

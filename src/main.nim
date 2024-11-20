@@ -31,7 +31,7 @@ var roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
 var peer: tuple[send: proc(data: cstring), destroy: proc()]
 var side: Color# = white # = white only for testing, delete
 var turn: bool# = true# = true#only for testing
-var myDrafts: seq[Power]# = @[shotgunKing]
+var myDrafts: seq[Power]# = @[alcoholism]
 var opponentDrafts: seq[Power]# = @[knightChargePower, developed, lesbianPride, mysteriousSwordsmanLeft]
 var baseDrafts: int #default value
 
@@ -41,8 +41,8 @@ var draftsLeft: int #ignore how this is one less than actual draft, i will fix e
 var draftTier: Tier
 
 var rematch = false
-var theBoard: ChessBoard = startingBoard()
-var selectedTile: Tile = (file: -1, rank: -1)
+var theBoard: ChessBoard = startingBoard() #also for debug
+var selectedTile: Tile = (file: -1, rank: -1) #negative means unselected
 var possibleMoves: Moves = @[]
 var possibleTakes: Moves = @[]
 var lastMove: Moves = @[]
@@ -53,6 +53,8 @@ var currentScreen: Screen = Lobby # = Draft
 var gameMode: Gamemode# = TrueRandom #deubg
 
 #also for debugging
+for i, j in rankAndFile(theBoard):
+    theBoard[i][j].rand.seed = 0
 myDrafts.executeOn(white, side, theBoard)
 opponentDrafts.executeOn(black, side,theBoard)
 
@@ -64,10 +66,24 @@ proc pieceOf(tile: Tile): var Piece =
 proc isSelected(n: int, m: int): bool = 
     return selectedTile.rank == n and selectedTile.file == m
 
+proc initGame() = 
+    theBoard = startingBoard()
+    myDrafts = @[]
+    opponentDrafts = @[]
+    lastMove = @[]
+    piecesChecking = @[]
+    turnNumber = 0
+
 proc endRound() = 
-    piecesChecking = theBoard.getPiecesChecking(side)
     for i, j in rankAndFile(theBoard):
         theBoard[i][j].endTurn(theBoard)
+
+    #this is needed by the random move powers to prevent double moves
+    #It needs to happen after so that all drunkness is cleared after end turn stuff
+    for i, j in rankAndFile(theBoard):
+        theBoard[i][j].rand.drunk = false
+
+    piecesChecking = theBoard.getPiecesChecking(side)
     if gameIsOver(theBoard):
         currentScreen = Results
 
@@ -87,6 +103,7 @@ proc otherMove(d: string) =
         pieceOf(mover).take(moveTo, theBoard)
     turn = not turn
     endRound()
+
 
 proc sendMove(mode: string, start: Tile, to: Tile) = 
     peer.send("move:" & mode & "," & $start.rank & "," & $start.file & "," & $to.rank & "," & $to.file)
@@ -111,12 +128,7 @@ proc hostLogic(d: string, m: MessageType) =
     of HandShake: 
         peer.send("options:deciding")
         currentScreen = Options
-        theBoard = startingBoard()
-        myDrafts = @[]
-        opponentDrafts = @[]
-        lastMove = @[]
-        piecesChecking = @[]
-        turnNumber = 0
+        initGame()
         #this is only used when `gameMode == TrueRandom`
         draftTier = randomTier(defaultBuffedWeights) 
     of Draft:
@@ -131,6 +143,8 @@ proc hostLogic(d: string, m: MessageType) =
             else:
                 myDrafts.executeOn(white, side, theBoard)
                 opponentDrafts.executeOn(black, side, theBoard)
+                for i, j in rankAndFile(theBoard):
+                    theBoard[i][j].rand.seed = parseInt(roomId.value)
                 peer.send("handshake:gamestart")
                 currentScreen = Game
                 echo myDrafts.mapIt(it.name), opponentDrafts.mapIt(it.name)
@@ -154,15 +168,12 @@ proc joinLogic(d: string, m: MessageType) =
         currentScreen = Options
         side = black
         turn = false        
-        theBoard = startingBoard()
-        myDrafts = @[]
-        opponentDrafts = @[]
-        lastMove = @[]
-        piecesChecking = @[]
-        turnNumber = 0
+        initGame()
     of Handshake:
         myDrafts.executeOn(black, side, theBoard)
         opponentDrafts.executeOn(white, side, theBoard)
+        for i, j in rankAndFile(theBoard):
+            theBoard[i][j].rand.seed = parseInt(roomId.value)
         currentScreen = Game    
     of Rematch:
         if rematch:
@@ -183,8 +194,7 @@ proc joinLogic(d: string, m: MessageType) =
             
             turn = true
     of Move: 
-        otherMove(d) 
-        endRound()   
+        otherMove(d)  
     of End:
         if d == "disconn" or d == "exit":
             currentScreen = Disconnect
