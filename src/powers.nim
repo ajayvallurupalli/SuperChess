@@ -9,6 +9,7 @@ or remove `Synergy.index`, since I'm honestly not sure what it does
 powers are exported for debug, so remove that eventually
 
 Create secret secret synergy for bombard + reinforcements
+Add alternative exodia for alternative empress
 ]#
 
 #[prioity rules: 
@@ -610,7 +611,7 @@ const lesbianPride*: Power = Power(
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             for i, j in b.rankAndFile:
                 if b[i][j].item == king and b[i][j].isColor(side):
-                    b[i][j] = whiteQueen.pieceCopy(color = b[i][j].color, item = king, tile = b[i][j].tile, rotate = true, filePath = $side & queenIcon) 
+                    b[i][j] = whiteQueen.pieceCopy(color = b[i][j].color, item = king, tile = b[i][j].tile, rotate = true, filePath = queenIcon) 
                     #`Piece.item` is still king so win/loss works. `Piece.rotate` = true should hopefully suggest this
                 elif b[i][j].item == bishop and b[i][j].isColor(side):
                     b[i][j] = Piece(item: none, tile: b[i][j].tile)
