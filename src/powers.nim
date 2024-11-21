@@ -1344,6 +1344,36 @@ const lesbianBountyHunter: Synergy = (
     index: -1
 )
 
+proc createLottery(): OnPiece = 
+    var lastTimesMoved = 0
+    #closure is used to hold state
+    #this is preferable when state does not need to interact with the rest of the game's systems
+    #to better modularize the power's state, I think
+    #`Piece.rand` powers can't do this because it needs the seed, and a global clear of drunkenness
+    #which has to happen after all `Piece.onEndTurn` stuff, not during
+    result = proc(piece: var Piece, board: var ChessBoard) =
+        if piece.timesMoved != lastTimesMoved:
+            randomize(10 * piece.tile.rank + 100 * piece.tile.file + piece.rand.seed)
+            let ticket = rand(100)
+            if ticket == 42 or ticket == 17: #arbitrary
+                piece.promote(board)
+        lastTimesMoved = piece.timesMoved
+    
+
+const slumdogMillionare*: Power = Power(
+    name: "Slumdog Millionare",
+    tier: Common,
+    priority: 15,
+    description: """Have you seen the movie Slumdog Millionare? It's kind of like that. 
+                    Your pawns have a 2% chance of promoting whenever they move.""",
+    icon: pawnIcon,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            for i, j in b.rankAndFile:
+                if b[i][j].item == pawn and b[i][j].isColor(side):
+                    b[i][j].onEndTurn &= createLottery()
+)
+
 
 registerPower(empress)
 registerPower(altEmpress)
@@ -1380,6 +1410,7 @@ registerPower(lanceRight)
 registerPower(drunkKnights)
 registerPower(alcoholism)
 registerPower(civilians)
+registerPower(slumdogMillionare)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)
