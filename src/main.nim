@@ -294,8 +294,11 @@ proc createLobby(): VNode =
                     currentScreen = CreateRoom
                 text "Create a Room"
 
-        a(href = "https://docs.google.com/forms/d/e/1FAIpQLScSidB_dbpKlsWopscLZZn4ZJP_5U9gqb0WyMJ4-bN_yAruSg/viewform?usp=sf_link", target="_blank", rel="noopener noreferrer"):
+        a(href = "https://docs.google.com/forms/d/e/1FAIpQLScSidB_dbpKlsWopscLZZn4ZJP_5U9gqb0WyMJ4-bN_yAruSg/viewform?usp=sf_link", target = "_blank", rel = "noopener noreferrer"):
             text "Feedback form! Please fill out!"
+
+        a(href = "https://mytierlist.com/polls/4256671", target = "_blank", rel = "noopener noreferrer"):
+            text "Vote on the SuperChess tierlist!"
 
 proc createRoomMenu(): VNode = 
     result = buildHtml(tdiv(class="main")):

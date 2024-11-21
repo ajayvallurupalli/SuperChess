@@ -334,7 +334,7 @@ const werewolfPromoteConditions: OnPiece = proc (piece: var Piece, board: var Ch
         piece.takes &= @[knightTakes, giraffeTakes]
         piece.rotate = true
 
-const warewolves*: Power = Power(
+const werewolves*: Power = Power(
     name: "Werewolves",
     tier: Uncommon,
     priority: 15, 
@@ -1225,7 +1225,7 @@ const virus4: Synergy = (
 const virus5: Synergy = (
     power: virusPower,
     rarity: 0,
-    requirements: @[alcoholism.name, reinforcements.name, empress.name, giraffe.name, warewolves.name],
+    requirements: @[alcoholism.name, reinforcements.name, empress.name, giraffe.name, werewolves.name],
     replacements: @[alcoholism.name],
     index: -1
 )
@@ -1366,11 +1366,11 @@ proc createLottery(): OnPiece =
         lastTimesMoved = piece.timesMoved
     
 
-const slumdogMillionare*: Power = Power(
-    name: "Slumdog Millionare",
+const slumdogMillionaire*: Power = Power(
+    name: "Slumdog Millionaire",
     tier: Common,
     priority: 15,
-    description: """Have you seen the movie Slumdog Millionare? It's kind of like that. 
+    description: """Have you seen the movie Slumdog Millionaire? It's kind of like that. 
                     Your pawns have a 2% chance of promoting whenever they move.""",
     icon: pawnIcon,
     onStart:
@@ -1481,7 +1481,7 @@ registerPower(putInTheWork)
 registerPower(wanderingRoninLeft)
 registerPower(wanderingRoninRight)
 registerPower(archBishops)
-registerPower(warewolves)
+registerPower(werewolves)
 registerPower(giraffe)
 registerPower(sacrifice)
 registerPower(calvary)
@@ -1502,7 +1502,7 @@ registerPower(lanceRight)
 registerPower(drunkKnights)
 registerPower(alcoholism)
 registerPower(civilians)
-registerPower(slumdogMillionare)
+registerPower(slumdogMillionaire)
 registerPower(stupidPower)
 registerPower(conversion)
 
