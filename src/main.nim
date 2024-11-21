@@ -1,8 +1,7 @@
 include karax / prelude
-import piece, basePieces, port, power, powers, karax/errors
+import piece, basePieces, port, power, powers, karax/errors #powers import for debug
 from strutils import split, parseInt
 from sequtils import foldr, mapIt
-from random import randomize, rand
 
 
 {.warning[CStringConv]: off.} 
@@ -118,7 +117,7 @@ proc draft(allDrafts: seq[Power] = @[], drafter: seq[Power] = @[]) =
         #doesn't allow holy to be drafted in tierDraft because luck is consistent here
         draftOptions = draftRandomPowerTier(draftTier, allDrafts & holy, drafter, draftChoices)
     elif gameMode == SuperRandom:
-        draftOptions = draftRandomPower(allDrafts & holy, drafter, draftChoices, defaultInsaneWeights)
+        draftOptions = draftRandomPower(allDrafts, drafter, draftChoices, insaneWeights, buffedInsaneWeights)
 
 proc hostLogic(d: string, m: MessageType) = 
     echo $m, " of ", d, "\n"
@@ -262,7 +261,8 @@ proc createTile(p: Piece, m: int, n: int): VNode =
                 text $p
             else:
                 let class = if p.rotate: "rotate" else: ""
-                img(src = iconsPath & p.filePath, class = class)
+                let color = if p.colorable: $p.color else: ""
+                img(src = iconsPath & color & p.filePath, class = class)
 
 proc createBoard(): VNode =
     result = buildHtml(table):

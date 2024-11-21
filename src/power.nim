@@ -34,10 +34,13 @@ type
         rare: int
         ultraRare: int
 
+#they're called default because I had plans to allow user to change them
+#but now it seems to be a relic of the passed
 const 
     defaultWeight*: TierWeights = (60, 30, 9, 1)
     defaultBuffedWeights*: TierWeights = (50, 36, 12, 2)
-    defaultInsaneWeights*: TierWeights = (20, 40, 30, 10) #used in the super random game mode
+    insaneWeights*: TierWeights = (25, 35, 30, 10) #used in the super random game mode
+    buffedInsaneWeights*: TierWeights = (15, 38, 35, 12) #used in the super random game mode
 
 #needed to ensure a power is always given with randomPower
 const emptyPower: Power = Power(

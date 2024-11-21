@@ -26,34 +26,34 @@ const rookWhenTaken*: WhenTaken = proc (taken: var Piece, taker: var Piece, boar
 const
     blackRook*: Piece = Piece(item: rook, color: black, moves: @[rookMoves], takes: @[rookTakes], onMove: defaultOnMove, onTake: defaultOnTake,
                                 whenTaken: rookWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
-                                filePath: "blackrook.svg")
+                                filePath: "rook.svg")
     blackKnight*: Piece = Piece(item: knight, color: black, moves: @[knightMoves], takes: @[knightTakes], onMove: defaultOnMove, onTake: defaultOnTake, 
                                 whenTaken: defaultWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
-                                filePath: "blackknight.svg")
+                                filePath: "knight.svg")
     blackQueen*: Piece = Piece(item: queen, color: black, moves: queenMoves, takes: queenTakes, onMove: defaultOnMove, onTake: defaultOnTake,
                                 whenTaken: defaultWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
-                                filePath: "blackqueen.svg")
+                                filePath: "queen.svg")
     blackKing*: Piece = Piece(item: king, color: black, moves: @[kingMoves], takes: @[kingTakes, kingCastles], onMove: defaultOnMove, onTake: defaultOnTake, 
                                 whenTaken: defaultWhenTaken, onEndTurn: @[defaultOnEndTurn],  onPromote: @[defaultOnEndTurn],
-                                filePath: "blackking.svg")
+                                filePath: "king.svg")
     blackBishop*: Piece = Piece(item: bishop, color: black, moves: @[bishopMoves], takes: @[bishopTakes], onMove: defaultOnMove, onTake: defaultOnTake, 
                                 whenTaken: defaultWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
-                                filePath: "blackbishop.svg")
+                                filePath: "bishop.svg")
     whiteRook*: Piece = Piece(item: rook, color: white, moves: @[rookMoves], takes: @[rookTakes], onMove: defaultOnMove, onTake: defaultOnTake, 
                                 whenTaken: rookWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
-                                filePath: "whiterook.svg")
+                                filePath: "rook.svg")
     whiteKnight*: Piece = Piece(item: knight, color: white, moves: @[knightMoves], takes: @[knightTakes], onMove: defaultOnMove, onTake: defaultOnTake, 
                                 whenTaken: defaultWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
-                                filePath: "whiteknight.svg")
+                                filePath: "knight.svg")
     whiteQueen*: Piece = Piece(item: queen, color: white, moves: queenMoves, takes: queenTakes, onMove: defaultOnMove, onTake: defaultOnTake,
                                 whenTaken: defaultWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
-                                filePath: "whitequeen.svg")
+                                filePath: "queen.svg")
     whiteKing*: Piece = Piece(item: king, color: white, moves: @[kingMoves], takes: @[kingTakes, kingCastles], onMove: defaultOnMove, onTake: defaultOnTake, 
                                 whenTaken: defaultWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
-                                filePath: "whiteking.svg")
+                                filePath: "king.svg")
     whiteBishop*: Piece = Piece(item: bishop, color: white, moves: @[bishopMoves], takes: @[bishopTakes], onMove: defaultOnMove, onTake: defaultOnTake, 
                                 whenTaken: defaultWhenTaken, onEndTurn: @[defaultOnEndTurn], onPromote: @[defaultOnEndTurn],
-                                filePath: "whitebishop.svg")
+                                filePath: "bishop.svg")
     air*: Piece = Piece(item: none, color: white)
 
 const onPawnPromote*: OnPiece = proc (piece: var Piece, board: var ChessBoard) = 
@@ -68,10 +68,10 @@ const onPawnEnd*: OnPiece = proc (piece: var Piece, board: var ChessBoard) =
 const 
     blackPawn*: Piece = Piece(item: pawn, color: black, moves: @[blackPawnMoves], takes: @[blackPawnTakes], onMove: defaultOnMove, onTake: defaultOnTake, 
                                 whenTaken: defaultWhenTaken, onEndTurn: @[onPawnEnd], onPromote: @[onPawnPromote],
-                                filePath: "blackpawn.svg")
+                                filePath: "pawn.svg")
     whitePawn*: Piece = Piece(item: pawn, color: white, moves: @[whitePawnMoves], takes: @[whitePawnTakes], onMove: defaultOnMove, onTake: defaultOnTake, 
                                 whenTaken: defaultWhenTaken, onEndTurn: @[onPawnEnd], onPromote: @[onPawnPromote],
-                                filePath: "whitepawn.svg")
+                                filePath: "pawn.svg")
 
 proc startingBoard*(): ChessBoard = 
     result = [[blackRook, blackKnight, blackBishop, blackQueen, blackKing, blackBishop, blackKnight, blackRook],
