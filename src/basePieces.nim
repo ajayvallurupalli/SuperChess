@@ -57,7 +57,7 @@ const
     air*: Piece = Piece(item: none, color: white)
 
 const onPawnPromote*: OnPiece = proc (piece: var Piece, board: var ChessBoard) = 
-    piece = blackQueen.pieceCopy(piecesTaken=piece.piecesTaken, tile=piece.tile, promoted = true, color = piece.color, filePath = $piece.color & "queen.svg")
+    piece = blackQueen.pieceCopy(piecesTaken=piece.piecesTaken, tile=piece.tile, promoted = true, color = piece.color, filePath = "queen.svg")
 
 const onPawnEnd*: OnPiece = proc (piece: var Piece, board: var ChessBoard) = 
     if piece.isAtEnd() and not piece.promoted:
