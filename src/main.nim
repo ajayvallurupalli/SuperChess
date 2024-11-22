@@ -15,6 +15,14 @@ from sequtils import foldr, mapIt
 and make secret secret synergy with reinforcements so everything works. Then enable it
 click enter to enter join code. I actually have no idea how to do this
 make moves a set instead of a seq so that I don't have to do wierd not in stuff, and instead I can just difference
+for steam realease
+100 $
+show opponent powers when drafting / waiting
+fix css
+add screen to show all powers
+add sandbox mode
+add some more powers
+try steam servers?
 ]#
 
 const iconsPath: string  = "./icons/"

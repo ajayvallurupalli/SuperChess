@@ -481,6 +481,7 @@ const sacrificeWhenTaken*: WhenTaken = proc (taken: var Piece, taker: var Piece,
 const sacrifice*: Power = Power(
     name: "Sacrificial Maiden",
     tier: UltraRare,
+    rarity: 2,
     priority: 25,
     description: """SACRIFICE THY MAIDENS TO THE BLOOD GOD""",
     icon: queenIcon,
@@ -1138,6 +1139,7 @@ const drunkVirus*: OnPiece = proc (piece: var Piece, board: var ChessBoard) =
 
 
         let randomAction = sample(moves & takes)
+        inc piece.timesMoved
 
         #it prioritizes takes to avoid potentially moving into another piece
         if randomAction in takes:
@@ -1468,7 +1470,26 @@ const holyConversion: Synergy = (
     index: -1
 )
 
-registerPower(empress)
+#since end turn stuff now runs at the end of every turn, we have new 
+#tech like global powers
+const killPromoted: OnPiece = proc (piece: var Piece, board: var ChessBoard) =
+    for i, j in board.rankAndFile:
+        if board[i][j].promoted:
+                board[i][j] = air.pieceCopy(tile = board[i][j].tile)
+
+const americanDream: Power = Power(
+    name: "American Dream",
+    tier: Uncommon,
+    priority: 30, 
+    description: "All pieces, you and your opponent, are killed when they promote. It's not real.",
+    onStart: 
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            for i, j in b.rankAndFile:
+                #added to the king so that it stops when the game ends
+                if b[i][j].item == king and b[i][j].isColor(side):
+                    b[i][j].onEndTurn &= killPromoted
+)
+
 registerPower(altEmpress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
@@ -1505,7 +1526,7 @@ registerPower(alcoholism)
 registerPower(civilians)
 registerPower(slumdogMillionaire)
 registerPower(stupidPower)
-registerPower(conversion)
+registerPower(americanDream)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)
