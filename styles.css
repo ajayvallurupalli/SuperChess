@@ -1,15 +1,138 @@
 :root {
-    --border-width: 3px;
+    --border-width: 4px;
 }
 
 td {
-    min-width: 80px;
-    min-height: 80px;
-    width: 80px;
-    height: 80px;
-    text-align: center;
-    vertical-align: middle;
+    transition: ease-in-out all .5s;
 }
+
+@media only screen {
+    td {
+        min-width: 100px;
+        min-height: 100px;
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        vertical-align: middle;
+    }    
+
+    .power-grid {
+        font-size: 23px;
+    }
+}
+
+@media only screen and (max-width: 2000px) {
+    td {
+        min-width: 90px;
+        min-height: 90px;
+        width: 90px;
+        height: 90px;
+        text-align: center;
+        vertical-align: middle;
+    }    
+
+    .power-grid {
+        font-size: 21px;
+    }
+}
+
+
+@media only screen and (max-width: 1750px) {
+    td {
+        min-width: 80px;
+        min-height: 80px;
+        width: 80px;
+        height: 80px;
+        text-align: center;
+        vertical-align: middle;
+    }    
+
+    .power-grid {
+        font-size: 18px;
+    }
+}
+
+
+@media only screen and (max-width: 1500px) {
+    td {
+        min-width: 70px;
+        min-height: 70px;
+        width: 70px;
+        height: 70px;
+        text-align: center;
+        vertical-align: middle;
+    }    
+
+    .power-grid {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 1250px) {
+    td {
+        min-width: 60px;
+        min-height: 60px;
+        width: 60px;
+        height: 60px;
+        text-align: center;
+        vertical-align: middle;
+        border-width: 2px !important;
+    }    
+
+    .power-grid {
+        font-size: 24px;
+    }
+}
+
+
+@media only screen and (max-width: 1000px) {
+    td {
+        min-width: 50px;
+        min-height: 50px;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        vertical-align: middle;
+        border-width: 2px !important;
+    }    
+
+    .power-grid {
+        font-size: 22px;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    td {
+        min-width: 40px;
+        min-height: 40px;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        vertical-align: middle;
+        border-width: 2px !important;
+    }    
+
+    .power-grid {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    td {
+        min-width: 35px;
+        min-height: 35px;
+        width: 35px;
+        height: 35px;
+        text-align: center;
+        vertical-align: middle;
+        border-width: 2px !important;
+    }    
+
+    .power-grid {
+        font-size: 18px;
+    }
+}
+
 
 html, body{
     height: 100%;
@@ -25,27 +148,51 @@ img {
     object-fit: contain;
 }
 
+.height-100 {
+    min-height: 100%;
+    height: 100%;
+}
+
+.width-100 {
+    min-width: 100%;
+    width: 100%;
+}
+
 .main {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 30px;
-    min-height: 100%;
+    gap: 50px;
     height: 100%;
-    width: 100%;
-    min-width: 100%;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.cut-down {
+    max-height: 80%;
 }
 
 .column {
     display: flex;
-    min-height: 30%;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    align-self: center;
     gap: 20px;
     text-align: center;
-    padding: 35px;
+}
+
+hr {
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    /**one of these do something*/
+    border-style: solid;
+    border-width: 0px 0px 4px 0px;
+    border-color: black;
 }
 
 .start-column {
@@ -54,7 +201,7 @@ img {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 50px;
     text-align: center;
     padding: 35px;
 }
@@ -85,6 +232,7 @@ img {
     text-align: center;
 
     background-color: #F8F7F7;
+    transition: .9s;
 }
 
 .power:hover {
@@ -148,15 +296,57 @@ img {
     background-color: #F8F7F7;
     justify-content: center;
     height: auto;
-    min-height: 30%;
     min-width: 100%;
     max-width: 100%;
     text-wrap: wrap;
+    transition: 0.9s;
+}
+
+.setting-item {
+    display: grid;
+    grid-template-areas: 
+        'title title title'
+        'desc  desc   desc'
+        'desc  desc   desc'
+        'button     button button';
+
+    padding: 5px;
+    justify-content: center;
+    height: auto;
+    min-width: 100%;
+    max-width: 100%;
+    text-wrap: wrap;
+    transition: 0.9s;
+} 
+
+.setting-item > h5 {
+    font-size: 22px;
+    grid-area: title;
+    margin-bottom: 0px;
+}
+
+.setting-item > p {
+    grid-area: desc;
+}
+
+.setting-item > button {
+    grid-area: button;
+}
+
+.wrap > .power-grid {
+    padding: 5px;
+    background-color: #F8F7F7;
+    height: auto;
+    text-wrap: wrap;
+    max-width: 33%;
+    display: inline-block;
+    transition: 0.9s;
 }
 
 .power-grid > img {
     position: relative;
-    max-height: 55px;
+    max-height: 100px;
+    min-height: 100px;
 }
 
 .power-grid:hover {
@@ -223,7 +413,6 @@ img {
     border-style: solid;    
 }
 
-
 .blackTile{
     background-color: darkgrey;
 }
@@ -236,6 +425,10 @@ img {
     transform: rotate(180deg);
 }
 
-.small-text {
-    font-size: 15px;
+.menu-button {
+    min-width: 120px;
+}
+
+.scroll {
+    overflow: scroll;
 }

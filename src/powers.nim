@@ -105,6 +105,7 @@ const silverGeneralPromoteConditions*: OnPiece = proc (piece: var Piece, board: 
 
 const mysteriousSwordsmanLeft*: Power = Power(
     name: "Mysterious Swordsman", 
+    technicalName: "Mysterious Swordsman Left",
     tier: Common,
     priority: 5, 
     rarity: 4, 
@@ -134,6 +135,7 @@ const mysteriousSwordsmanLeft*: Power = Power(
 
 const mysteriousSwordsmanRight*: Power = Power(
     name: "Mysterious Swordsman", 
+    technicalName: "Mysterious Swordsman Right",
     tier: Common, 
     priority: 5, 
     rarity: 4,
@@ -197,6 +199,7 @@ const stepOnMe*: Power = Power(
 
 const illegalFormationRL: Power = Power(
     name: "Illegal Formation", 
+    technicalName: "Illegal Formation Left Rook",
     tier: Common, 
     rarity: 2,
     priority: 20,
@@ -211,6 +214,7 @@ const illegalFormationRL: Power = Power(
 
 const illegalFormationRR: Power = Power(
     name: "Illegal Formation", 
+    technicalName: "Illegal Formation Right Rook",
     tier: Common, 
     rarity: 2,
     priority: 20,
@@ -225,6 +229,7 @@ const illegalFormationRR: Power = Power(
 
 const illegalFormationBL*: Power = Power(
     name: "Illegal Formation", 
+    technicalName: "Illegal Formation Left Bishop",
     tier: Common, 
     rarity: 2,
     priority: 20,
@@ -239,6 +244,7 @@ const illegalFormationBL*: Power = Power(
 
 const illegalFormationBR: Power = Power(
     name: "Illegal Formation", 
+    technicalName: "Illegal Formation Right Bishop",
     tier: Common, 
     rarity: 2,
     priority: 20,
@@ -274,6 +280,7 @@ const putInTheWork*: Power = Power(
 
 const wanderingRoninLeft*: Power = Power(
     name: "Wandering Ronin", 
+    technicalName: "Wandering Ronin Left",
     tier: Uncommon, 
     priority: 5, 
     rarity: 4, 
@@ -302,6 +309,7 @@ const wanderingRoninLeft*: Power = Power(
 
 const wanderingRoninRight*: Power = Power(
     name: "Wandering Ronin", 
+    technicalName: "Wandering Ronin Right",
     tier: Uncommon, 
     priority: 5, 
     rarity: 4, 
@@ -627,7 +635,6 @@ const queensWrathPower: Power = Power(
     icon: queenIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
-            queenTrade.onStart(side, viewSide, b)
             for i, j in b.rankAndFile:
                 if b[i][j].item != queen and b[i][j].isColor(side):
                     b[i][j] = Piece(item: none, tile: b[i][j].tile)
@@ -665,7 +672,7 @@ const queensWrath: Synergy = (
     power: queensWrathPower,
     rarity: 0,
     requirements: @[lesbianPride.name, queenTrade.name],
-    replacements: @[lesbianPride.name, queenTrade.name],
+    replacements: @[lesbianPride.name],
     index: -1    
 )
 
@@ -1049,6 +1056,7 @@ const lancePromoteConditions*: OnPiece = proc (piece: var Piece, board: var Ches
 
 const lanceLeft*: Power = Power(
     name: "Kamikaze", 
+    technicalName: "Kamikaze Left",
     tier: Uncommon,
     priority: 5, 
     rarity: 4, 
@@ -1078,6 +1086,7 @@ const lanceLeft*: Power = Power(
 
 const lanceRight*: Power = Power(
     name: "Kamikaze", 
+    technicalName: "Kamikaze Right",
     tier: Uncommon,
     priority: 5, 
     rarity: 4, 
@@ -1482,6 +1491,8 @@ const americanDream: Power = Power(
     tier: Uncommon,
     priority: 30, 
     description: "All pieces, you and your opponent, are killed when they promote. It's not real.",
+    icon: "usflag.svg",
+    noColor: true,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard) = 
             for i, j in b.rankAndFile:

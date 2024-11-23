@@ -1,5 +1,7 @@
 include karax / prelude
-import piece, basePieces, port, power, powers, karax/errors #powers import for debug
+import karax/errors
+import piece, basePieces, port, power, powers, store #powers import for debug
+import std/dom #im not sure why dom stuff fails if I don't import the whole package
 from strutils import split, parseInt
 from sequtils import foldr, mapIt
 
@@ -18,61 +20,86 @@ make moves a set instead of a seq so that I don't have to do wierd not in stuff,
 for steam realease
 100 $
 show opponent powers when drafting / waiting
-fix css
+--(mostly): fix css
 add screen to show all powers
 add sandbox mode
 add some more powers
 try steam servers?
+I want a change log which gets text files, stored in a change_logs directory on github, decodes them from base64, and loads them in
+so that it is up to date whenever a new file is added to this folder
 ]#
 
 const iconsPath: string  = "./icons/"
 const defaultBaseDrafts: int = 3
 const defaultBaseDraftChoices: int = 3
 
+#CSS Classes
+const menuButton = "menu-button"
+
 type 
     Screen {.pure.} = enum 
-        Lobby, CreateRoom, JoinRoom, Game, Options, Draft, Results, Rematch, Disconnect
+        Lobby, CreateRoom, JoinRoom, Game, Options, Draft, 
+        Results, Rematch, Disconnect, Settings, Other
     Gamemode = enum 
         Normal, RandomTier, TrueRandom, SuperRandom
 
-var roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
-var peer: tuple[send: proc(data: cstring), destroy: proc()]
-var side: Color #= white # = white only for testing, delete
-var turn: bool# = true# = true#only for testing
-var myDrafts: seq[Power]
-var opponentDrafts: seq[Power]# = @[civilians]
-var baseDrafts: int #default value
+#I really went for 2 months changing the values by hand each time
+const debug: bool = false
+const debugScreen: Screen = Settings
+const myDebugPowers: seq[Power] = @[emptyPower, werewolves, wanderingRoninLeft]
+const opponentDebugPowers: seq[Power] = @[holy, mysteriousSwordsmanLeft]
 
-var draftOptions: seq[Power]
-var draftChoices: int = 3
-var draftsLeft: int #ignore how this is one less than actual draft, i will fix eventually
-var draftTier: Tier
+var screenWidth: int = window.innerWidth
 
-var rematch = false
-var theBoard: ChessBoard = startingBoard() #also for debug
-var selectedTile: Tile = (file: -1, rank: -1) #negative means unselected
-var possibleMoves: Moves = @[]
-var possibleTakes: Moves = @[]
-var lastMove: Moves = @[]
-var piecesChecking: Moves = @[]
-var turnNumber: int = 1
+var 
+    #state for coordination with other player
+    roomId: tuple[loaded: bool, value: kstring] = (false, "Waiting...")
+    peer: tuple[send: proc(data: cstring), destroy: proc()]
+    side: Color = if debug: white else: black
+    turn: bool = if debug: true else: false
+    myDrafts: seq[Power] = if debug: myDebugPowers else: @[]
+    opponentDrafts: seq[Power] = if debug: opponentDebugPowers else: @[]
 
-var currentScreen: Screen = Lobby # = Draft
-var gameMode: Gamemode# = TrueRandom #deubg
+    #state for draft
+    baseDrafts: int
+    draftOptions: seq[Power]
+    draftChoices: int = 3
+    draftsLeft: int #ignore how this is one less than actual draft, i will fix eventually
+    draftTier: Tier
 
-#also for debugging
-for i, j in rankAndFile(theBoard):
-    theBoard[i][j].rand.seed = 0
-myDrafts.executeOn(white, side, theBoard)
-opponentDrafts.executeOn(black, side,theBoard)
+    #state for game
+    rematch = false
+    theBoard: ChessBoard = startingBoard() #also for debug
+    selectedTile: Tile = (file: -1, rank: -1) #negative means unselected
+    possibleMoves: Moves = @[]
+    possibleTakes: Moves = @[]
+    lastMove: Moves = @[]
+    piecesChecking: Moves = @[]
+    turnNumber: int = 1
+
+    #settings decided by player
+    showTechnicalNames: bool = false
+
+    #state for webapp
+    currentScreen: Screen = if debug: debugScreen else: Lobby
+    gameMode: Gamemode# = TrueRandom #deubg
 
 proc alert(s: cstring) {.importjs: "alert(#)".}
+proc onresize(cb: proc()) {.importjs: "window.addEventListener('resize', #)".}
+
+proc resize() = 
+    screenWidth = window.innerWidth
+    redraw()
+
+onresize(resize)
 
 proc pieceOf(tile: Tile): var Piece = 
     theBoard[tile.rank][tile.file]
 
 proc isSelected(n: int, m: int): bool = 
     return selectedTile.rank == n and selectedTile.file == m
+
+initStorage()
 
 proc initGame() = 
     theBoard = startingBoard()
@@ -93,7 +120,9 @@ proc endRound() =
 
     piecesChecking = theBoard.getPiecesChecking(side)
     if gameIsOver(theBoard):
+        if side.alive(theBoard): addWins(myDrafts)
         currentScreen = Results
+
 
 proc otherMove(d: string) = 
     let data = split(d, ",")
@@ -114,6 +143,7 @@ proc otherMove(d: string) =
 
 
 proc sendMove(mode: string, start: Tile, to: Tile) = 
+    if debug and debugScreen == Game: return #returns early to stop send move, since peer would not be defined when debugging
     peer.send("move:" & mode & "," & $start.rank & "," & $start.file & "," & $to.rank & "," & $to.file)
     turn = not turn
     inc turnNumber
@@ -126,6 +156,16 @@ proc draft(allDrafts: seq[Power] = @[], drafter: seq[Power] = @[]) =
         draftOptions = draftRandomPowerTier(draftTier, allDrafts & holy, drafter, draftChoices)
     elif gameMode == SuperRandom:
         draftOptions = draftRandomPower(allDrafts, drafter, draftChoices, insaneWeights, buffedInsaneWeights)
+
+#also for debugging
+if debug and debugScreen == Screen.Draft:
+    gameMode = TrueRandom
+    draft()
+
+for i, j in rankAndFile(theBoard):
+    theBoard[i][j].rand.seed = 0
+myDrafts.executeOn(white, side, theBoard)
+opponentDrafts.executeOn(black, side,theBoard)
 
 proc hostLogic(d: string, m: MessageType) = 
     echo $m, " of ", d, "\n"
@@ -155,7 +195,6 @@ proc hostLogic(d: string, m: MessageType) =
                     theBoard[i][j].rand.seed = parseInt(roomId.value)
                 peer.send("handshake:gamestart")
                 currentScreen = Game
-                echo myDrafts.mapIt(it.name), opponentDrafts.mapIt(it.name)
 
 
     of Move: otherMove(d)
@@ -280,34 +319,40 @@ proc createBoard(): VNode =
                     createTile(p, i, j)
 
 proc reverseBoard(): VNode = 
-    result = buildHtml(tdiv):
+    result = buildHtml(table):
         for i in countdown(7, 0):
             tr:
                 for j in countdown(7, 0):
                     createTile(theBoard[i][j], i, j)
 
 proc createLobby(): VNode = 
-    result = buildHtml(tdiv(class="start-column")):                
-        tdiv(class="main"):
-            button: 
-                text "Join a Room"
-                proc onclick(_: Event; _: VNode) = 
-                    currentScreen = JoinRoom
-            button:
-                proc onclick(ev: Event; _: VNode) = 
-                    if not peer.destroy.isNil():
-                        peer.destroy()
-                    peer = newHost(hostLogic)
-                    
-                    currentScreen = CreateRoom
-                text "Create a Room"
+    result = buildHtml(tdiv(class="start-column height-100")):     
+        tdiv(class="main"):         
+            tdiv(class="start-column"):
+                button(class=menuButton): 
+                    text "Join a Room"
+                    proc onclick(_: Event; _: VNode) = 
+                        currentScreen = JoinRoom
+                button(class=menuButton):
+                    text "See Powers"
+                    proc onclick(ev: Event, _: VNode) =
+                        alert("Unimplemented")
 
-        a(href = "https://docs.google.com/forms/d/e/1FAIpQLScSidB_dbpKlsWopscLZZn4ZJP_5U9gqb0WyMJ4-bN_yAruSg/viewform?usp=sf_link", target = "_blank", rel = "noopener noreferrer"):
-            text "Feedback form! Please fill out!"
-
-        a(href = "https://mytierlist.com/polls/1882032", target = "_blank", rel = "noopener noreferrer"):
-            text "Vote on the SuperChess tierlist!"
-
+            tdiv(class="start-column"):
+                button(class=menuButton): 
+                    text "Create a Room"
+                    proc onclick(ev: Event; _: VNode) = 
+                        if not peer.destroy.isNil():
+                            peer.destroy()
+                        peer = newHost(hostLogic)
+                        
+                        currentScreen = CreateRoom
+                        
+                button(class=menuButton): 
+                    text "Other"
+                    proc onclick(ev: Event, _: VNode) =
+                        currentScreen = Other
+                        
 proc createRoomMenu(): VNode = 
     result = buildHtml(tdiv(class="main")):
         if not roomId.loaded:
@@ -319,7 +364,7 @@ proc createRoomMenu(): VNode =
             text roomId.value
 
 proc createJoinMenu(): VNode = 
-    result = buildHtml(tdiv(class="main", id = "join")):
+    result = buildHtml(tdiv(class="main cut-down", id = "join")):
         label(`for` = "joincode"):
             text "Join Code:"
         input(id = "joincode", onchange = validateNotEmpty("joincode"))
@@ -338,7 +383,7 @@ proc createOptionsMenu(): VNode =
         if side == black:
             text "Waiting for host to decide ruleset..."
         else:
-            tdiv(class="column"):
+            tdiv(class="column cut-down"):
                 button:
                     proc onclick(_: Event, _: VNode) = 
                         peer.send("handshake:gamestart")
@@ -349,98 +394,103 @@ proc createOptionsMenu(): VNode =
 
                 text "Classic Chess, with no special rules or abilites."
                 
-            tdiv(class="column"):
-                button:
-                    proc onclick(_: Event, _: VNode) = 
-                        peer.send("draft:start")
-                        currentScreen = Draft
-                        gameMode = RandomTier
-                        turn = true
-                        baseDrafts = parseInt(getVNodeById("draftTierNumber").getInputText)
-                        draftsLeft = baseDrafts - 1
-                        draftChoices = parseInt(getVNodeById("draftChoiceTierNumber").getInputText)
 
-                        draft()
+            tdiv(class="column cut-down"):
+                tdiv(class="column"):
+                    button:
+                        proc onclick(_: Event, _: VNode) = 
+                            peer.send("draft:start")
+                            currentScreen = Draft
+                            gameMode = RandomTier
+                            turn = true
+                            baseDrafts = parseInt(getVNodeById("draftTierNumber").getInputText)
+                            draftsLeft = baseDrafts - 1
+                            draftChoices = parseInt(getVNodeById("draftChoiceTierNumber").getInputText)
 
-                    text "Draft mode"
-                text """Take turns drafting power ups for your pieces, then play. 
-                        Each side is guaranteed to get power ups of the same tier."""
+                            draft()
+
+                        text "Draft mode"
+                    text """Take turns drafting power ups for your pieces, then play. 
+                            Each side is guaranteed to get power ups of the same tier."""
+                    
+                    label(`for` = "draftTierNumber"):
+                        text "Number of powers drafted"
+                    input(id = "draftTierNumber", `type` = "number", onchange = validateNotEmpty("draftTierNumber"), 
+                            step = "1", min = "1", max = "10", value = $defaultBaseDrafts)
+
+                    label(`for` = "draftChoiceTierNumber"): #i'm insane at naming things
+                        text "Number of choices each round"
+                    input(id = "draftChoiceTierNumber", `type` = "number", onchange = validateNotEmpty("draftChoiceTierNumber"), 
+                            step = "1", min = "1", max = "5", value = $defaultBaseDraftChoices)
+
+                hr()
+
+                tdiv(class="column"):
+                    button:
+                        proc onclick(_: Event, _: VNode) = 
+                            peer.send("draft:start")
+                            currentScreen = Draft
+                            gameMode = TrueRandom
+                            turn = true
+
+                            baseDrafts = parseInt(getVNodeById("draftRandNumber").getInputText)
+                            draftsLeft = baseDrafts - 1
+                            draftChoices = parseInt(getVNodeById("draftChoiceRandNumber").getInputText)
+
+                            draft()
+                            
+
+                        text "Random mode"
+
+                    text """Draft powerups of random strength and quality, then play. 
+                            Completely luck based."""
+                            
+                    label(`for` = "draftRandNumber"):
+                        text "Number of powers drafted"
+                    input(id = "draftRandNumber", `type` = "number", onchange = validateNotEmpty("draftRandNumber"), 
+                            step = "1", min = "1", max = "10", value = $defaultBaseDrafts)
+
+                    label(`for` = "draftChoiceRandNumber"): #i'm insane at naming things
+                        text "Number of choices each round"
+                    input(id = "draftChoiceRandNumber", `type` = "number", onchange = validateNotEmpty("draftChoiceRandNumber"), 
+                            step = "1", min = "1", max = "5", value = $defaultBaseDraftChoices)
+
+                hr()
                 
-                label(`for` = "draftTierNumber"):
-                    text "Number of powers drafted"
-                input(id = "draftTierNumber", `type` = "number", onchange = validateNotEmpty("draftTierNumber"), 
-                        step = "1", min = "1", max = "10", value = $defaultBaseDrafts)
+                tdiv(class="column"):
+                    button:
+                        proc onclick(_: Event, _: VNode) = 
+                            peer.send("draft:start")
+                            currentScreen = Draft
+                            gameMode = SuperRandom
+                            turn = true
 
-                label(`for` = "draftChoiceTierNumber"): #i'm insane at naming things
-                    text "Number of choices each round"
-                input(id = "draftChoiceTierNumber", `type` = "number", onchange = validateNotEmpty("draftChoiceTierNumber"), 
-                        step = "1", min = "1", max = "5", value = $defaultBaseDraftChoices)
+                            baseDrafts = parseInt(getVNodeById("draftSuperRandNumber").getInputText)
+                            draftsLeft = baseDrafts - 1
+                            draftChoices = parseInt(getVNodeById("draftChoiceSuperRandNumber").getInputText)
 
-            tdiv(class="column"):
-                button:
-                    proc onclick(_: Event, _: VNode) = 
-                        peer.send("draft:start")
-                        currentScreen = Draft
-                        gameMode = TrueRandom
-                        turn = true
+                            draft()
+                            
 
-                        baseDrafts = parseInt(getVNodeById("draftRandNumber").getInputText)
-                        draftsLeft = baseDrafts - 1
-                        draftChoices = parseInt(getVNodeById("draftChoiceRandNumber").getInputText)
+                        text "Super Random mode"
 
-                        draft()
-                        
+                    text """Draft powerups of random strength and quality, then play. 
+                            Completely luck based, with higher chances for rare pieces."""
+                            
+                    label(`for` = "draftSuperRandNumber"):
+                        text "Number of powers drafted"
+                    input(id = "draftSuperRandNumber", `type` = "number", onchange = validateNotEmpty("draftSuperRandNumber"), 
+                            step = "1", min = "1", max = "10", value = $defaultBaseDrafts)
 
-                    text "Random mode"
-
-                text """Draft powerups of random strength and quality, then play. 
-                        Completely luck based."""
-                        
-                label(`for` = "draftRandNumber"):
-                    text "Number of powers drafted"
-                input(id = "draftRandNumber", `type` = "number", onchange = validateNotEmpty("draftRandNumber"), 
-                        step = "1", min = "1", max = "10", value = $defaultBaseDrafts)
-
-                label(`for` = "draftChoiceRandNumber"): #i'm insane at naming things
-                    text "Number of choices each round"
-                input(id = "draftChoiceRandNumber", `type` = "number", onchange = validateNotEmpty("draftChoiceRandNumber"), 
-                        step = "1", min = "1", max = "5", value = $defaultBaseDraftChoices)
-
-            
-            tdiv(class="column"):
-                button:
-                    proc onclick(_: Event, _: VNode) = 
-                        peer.send("draft:start")
-                        currentScreen = Draft
-                        gameMode = SuperRandom
-                        turn = true
-
-                        baseDrafts = parseInt(getVNodeById("draftSuperRandNumber").getInputText)
-                        draftsLeft = baseDrafts - 1
-                        draftChoices = parseInt(getVNodeById("draftChoiceSuperRandNumber").getInputText)
-
-                        draft()
-                        
-
-                    text "Super Random mode"
-
-                text """Draft powerups of random strength and quality, then play. 
-                        Completely luck based, with higher chances for rare pieces."""
-                        
-                label(`for` = "draftSuperRandNumber"):
-                    text "Number of powers drafted"
-                input(id = "draftSuperRandNumber", `type` = "number", onchange = validateNotEmpty("draftSuperRandNumber"), 
-                        step = "1", min = "1", max = "10", value = $defaultBaseDrafts)
-
-                label(`for` = "draftChoiceSuperRandNumber"): #i'm insane at naming things
-                    text "Number of choices each round"
-                input(id = "draftChoiceSuperRandNumber", `type` = "number", onchange = validateNotEmpty("draftChoiceSuperRandNumber"), 
-                        step = "1", min = "1", max = "5", value = $defaultBaseDraftChoices)
+                    label(`for` = "draftChoiceSuperRandNumber"): #i'm insane at naming things
+                        text "Number of choices each round"
+                    input(id = "draftChoiceSuperRandNumber", `type` = "number", onchange = validateNotEmpty("draftChoiceSuperRandNumber"), 
+                            step = "1", min = "1", max = "5", value = $defaultBaseDraftChoices)
 
 proc createPowerMenu(p: Power): VNode = 
     result = buildHtml(tdiv(class="power")):
         h1:
-            text p.name
+            text if showTechnicalNames and p.technicalName != "": p.technicalName else: p.name
         if p.icon != "":
             var src = iconsPath
             if not p.noColor: src &= $side
@@ -471,8 +521,8 @@ proc createDraftMenu(): VNode =
 proc createPowerSummary(p: Power, ofSide: Color): VNode = 
     result = buildHtml(tdiv(class="power-grid")):
         h4(class = "title"):
-            text p.name
-        p(class="small-text desc"):
+            text if showTechnicalNames and p.technicalName != "": p.technicalName else: p.name
+        p(class="desc"):
             text p.description
 
         var class = "image "
@@ -487,14 +537,23 @@ proc createPowerSummary(p: Power, ofSide: Color): VNode =
             img(class = class, src = iconsPath & "blackbishop.svg")
 
 proc createGame(): VNode = 
-    result = buildHtml(tdiv(class="main")):
-        tdiv(class="column-scroll"):
-            for p in myDrafts.replaceAnySynergies():
-                createPowerSummary(p, side)
-        if side == white: createBoard() else: reverseBoard()
-        tdiv(class="column-scroll"):
-            for p in opponentDrafts.replaceAnySynergies():
-                createPowerSummary(p, otherSide(side))
+    echo screenWidth
+    result = if screenWidth > 1250: 
+            buildHtml(tdiv(class="main")):
+                tdiv(class="column-scroll"):
+                    for p in myDrafts.replaceAnySynergies():
+                        createPowerSummary(p, side)
+                if side == white: createBoard() else: reverseBoard()
+                tdiv(class="column-scroll"):
+                    for p in opponentDrafts.replaceAnySynergies():
+                        createPowerSummary(p, otherSide(side))
+        else:
+            buildHtml(tdiv(class="column height-100")):
+                for p in myDrafts.replaceAnySynergies():
+                    createPowerSummary(p, side)
+                if side == white: createBoard() else: reverseBoard()
+                for p in opponentDrafts.replaceAnySynergies():
+                    createPowerSummary(p, otherSide(side))
 
 proc createResults(): VNode = 
     result = buildHtml(tdiv(class="start-column")):
@@ -533,7 +592,6 @@ proc createRematch(): VNode =
                 peer.send("end:exit")
             text "Back to Lobby"
 
-
 proc createDisconnect(): VNode = 
     result = buildHtml(tdiv(class="start-column")):
         text "Your opponent disconnected"
@@ -542,8 +600,51 @@ proc createDisconnect(): VNode =
                 currentScreen = Lobby
             text "Back to Lobby"
 
+proc createOther(): VNode = 
+    result = buildHtml(tdiv(class="start-column")):
+        tdiv(class="main"):
+            button(class=menuButton):
+                text "Settings"
+                proc onclick(_: Event, _: VNode) = 
+                    currentScreen = Settings
+
+            button(class=menuButton):
+                text "Change Log"
+                proc onclick(ev: Event, _: VNode) =
+                    alert("Unimplemented")
+
+        button(class="width-100"):
+            text "Credits"
+            proc onclick(ev: Event, _: VNode) =
+                alert("Unimplemented")
+
+        button(class="width-100"):
+            text "Return To Lobby"
+            proc onclick(_: Event, _: VNode) = 
+                currentScreen = Lobby
+
+
+
+proc createSettings(): VNode = 
+    result = buildHtml(tdiv(class="start-column")):
+        tdiv(class="setting-item"):
+            h5():
+                text "Show Technical Names"
+            p():
+                text "Shows the technical names for each power."
+            button():
+                text if showTechnicalNames: "Disable" else: "Enable"
+                proc onclick(_: Event, _: VNode) = 
+                    showTechnicalNames = not showTechnicalNames
+        hr()
+        button(class="width-100"):
+            text "Return to Other"
+            proc onclick(_: Event, _: VNode) = 
+                currentScreen = Other
+
+
 proc main(): VNode = 
-    result = buildHtml(tdiv(class="main")):
+    result = buildHtml(tdiv(class="main scroll")):
         case currentScreen
         of Lobby: createLobby()
         of CreateRoom: createRoomMenu()
@@ -554,6 +655,8 @@ proc main(): VNode =
         of Results: createResults()
         of Rematch: createRematch()
         of Disconnect: createDisconnect()
+        of Other: createOther()
+        of Settings: createSettings()
 
 
 setRenderer main

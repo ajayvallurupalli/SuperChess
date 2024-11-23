@@ -1,0 +1,23 @@
+11/23/24 Changelog
+
+This is the first changelog I've written. I still haven't implemented showing the changelogs, but I figured I might as well write one for the future.
+Today I mainly worked on fixing the formatting and making the game work on mobile devices. I haven't tested a mobile game yet, but it should work.
+I think the transitions may be a little overkill, but I don't know how to make them more specific. Still they look nice. Maybe I just need even more. 
+
+I also added some new buttons for "See Powers" and "Other", which leads to "Settings", "Credits", and "Changelog", though "See Powers", "Credits", and "Changelog" are all unimplemented. 
+I plan on showing extra information on each power and synergy in See Powers. I also dream of adding a sandbox, where you can choose powers to test, though I don't know how hard that will be.
+The credits menu will allow me to give credit to all of the artists whose designs I gracefully stole from wikipedia, and credit to the playtesters who helped me. 
+The change log menu will include a list of change logs like this one. 
+I already made the settings menu, though it only has one option, which allows you to see the technical names for each power
+
+I also started implementation of storing wins with each piece locally. Currently it's only visible in browser dev tools, but I want to 
+let the user see their win / loss with each piece when drafting and when looking at see powers
+
+I also added the American Dream power, which automatically kills any promoted piece on either side. It's using new the technology of a global power, 
+which works now that I have rewritten the onEndTurn implementation for pieces. I plan on adding a few similar powers, along with continuing the random 
+number generation update from a few days ago. There are currently 46 powers and synergies in the game, which is a very solid amount. 
+I'm starting to realize that the game may become too unpredictable with even 50+ powers, because it's already hard to get a power you want.
+I might expand the power system to allow for multiple sets, like in Super Auto Pets
+Or maybe I'll play into the chaos by adding even more powers, while also adding similar / derivative powers in order to improve balance and consistency. 
+
+I feel like the final goal of a Steam Release is definately possible. I'd like to do that by the end of December, so that I can move on to other projects properly. 

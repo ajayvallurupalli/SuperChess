@@ -10,6 +10,7 @@ type
 
     Power* = object
         name*: string
+        technicalName*: string = ""
         synergy*: bool = true #can i delete?
         tier*: Tier
         rarity*: int = 8
@@ -43,7 +44,7 @@ const
     buffedInsaneWeights*: TierWeights = (15, 38, 35, 12) #used in the super random game mode
 
 #needed to ensure a power is always given with randomPower
-const emptyPower: Power = Power(
+const emptyPower*: Power = Power(
     name: "Nothing. Nothing...",
     tier: Common,
     description: "This does nothing. Unlucky!",
@@ -79,18 +80,29 @@ var
 
 #I know I should use an enum instead of secret and secretSecret, but I think this is funner
 proc registerSynergy*(s: Synergy, secret: bool = false, secretSecret = false) = 
-    assert secret or not secretSecret #ensures that secret is true whenever secretSecret is true
+    assert secret or not secretSecret #ensures that secretSecret is true if and only if secret is true
     var x = s
+    
     x.power.rarity = x.rarity
     x.power.index = powers[powers.len - 1].index + 1
     x.index = x.power.index
 
-    if secret and not secretSecret:
-        let str = s.requirements.foldr(a & " + " & b)
-        x.power.description = "Secret synergy! (" & str & ") -- "  & x.power.description
-    elif not secret:
-        let str = s.requirements.foldr(a & " + " & b)
-        x.power.description = "Synergy! (" & str & ") "  & x.power.description   
+    let requirements = s.requirements.foldr(a & " + " & b)
+
+    if secret and not secretSecret: #Secret Synergies
+        x.power.description = "Secret synergy! (" & requirements & ") -- "  & x.power.description
+        x.power.technicalName = 
+            if x.power.technicalName == "": x.power.name & " (Secret Synergy of " & requirements & ")"
+            else: x.power.technicalName & " (Secret Synergy of " & requirements & ")"
+    elif not secret: #Normal Synergies
+        x.power.description = "Synergy! (" & requirements & ") "  & x.power.description   
+        x.power.technicalName = 
+            if x.power.technicalName == "": x.power.name & " (Synergy of " & requirements & ")"
+            else: x.power.technicalName & " (Synergy of " & requirements & ")"
+    else: #Secret Secret Synergies
+        x.power.technicalName = 
+            if x.power.technicalName == "": x.power.name & " (Secret Secret Synergy of " & requirements & ")"
+            else: x.power.technicalName & " (Secret Secret Synergy of " & requirements & ")"
 
     powers.add(x.power)
     if secretSecret: secretSecretSynergies.add(x) 
@@ -125,6 +137,8 @@ proc seqOf(t: Tier): var seq[Power] =
 proc registerPower*(p: Power) = 
     var x = p #temp var so that we can increment `Power.index`
     x.index = powers[powers.len - 1].index + 1
+    if x.technicalName == "": x.technicalName = x.name
+
     powers.add(x)
     seqOf(x.tier).add(x)
 
