@@ -24,6 +24,7 @@ show opponent powers when drafting / waiting
 add screen to show all powers
 add sandbox mode
 add some more powers
+learn how to use electron
 try steam servers?
 I want a change log which gets text files, stored in a change_logs directory on github, decodes them from base64, and loads them in
 so that it is up to date whenever a new file is added to this folder
@@ -629,9 +630,9 @@ proc createSettings(): VNode =
     result = buildHtml(tdiv(class="start-column")):
         tdiv(class="setting-item"):
             h5():
-                text "Show Technical Names"
+                text "Technical Names"
             p():
-                text "Shows the technical names for each power."
+                text "Shows the technical names for synergy powers and powers with multiple variations."
             button():
                 text if showTechnicalNames: "Disable" else: "Enable"
                 proc onclick(_: Event, _: VNode) = 

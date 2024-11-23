@@ -1054,9 +1054,9 @@ const lancePromoteConditions*: OnPiece = proc (piece: var Piece, board: var Ches
     if piece.isAtEnd() and not piece.promoted:  
         piece.promote(board)
 
-const lanceLeft*: Power = Power(
+const lanceRight*: Power = Power(
     name: "Kamikaze", 
-    technicalName: "Kamikaze Left",
+    technicalName: "Kamikaze Right",
     tier: Uncommon,
     priority: 5, 
     rarity: 4, 
@@ -1084,9 +1084,9 @@ const lanceLeft*: Power = Power(
             if side != viewSide: b[rank][0].rotate = true
 )
 
-const lanceRight*: Power = Power(
+const lanceLeft*: Power = Power(
     name: "Kamikaze", 
-    technicalName: "Kamikaze Right",
+    technicalName: "Kamikaze Left",
     tier: Uncommon,
     priority: 5, 
     rarity: 4, 
