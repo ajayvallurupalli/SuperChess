@@ -45,7 +45,7 @@ type
         Normal, RandomTier, TrueRandom, SuperRandom
 
 #I really went for 2 months changing the values by hand each time
-const debug: bool = true
+const debug: bool = false
 const debugScreen: Screen = Game
 const myDebugPowers: seq[Power] = @[sleeperAgent, werewolves, wanderingRoninLeft]
 const opponentDebugPowers: seq[Power] = @[holy, sleeperAgent]

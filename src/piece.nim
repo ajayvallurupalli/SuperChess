@@ -55,6 +55,7 @@ type
         colorable*: bool = true
         rotate*: bool = false
         rand*: tuple[drunk: bool, seed: int]  = (false, 0) #used for some of the powers with rng
+        money*: int = 0
 
 #helper templates for `Piece` methods
 #since methods are properties of the class, you would usually have to do `Piece.method(Piece)`
