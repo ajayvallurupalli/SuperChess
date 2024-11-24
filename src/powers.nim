@@ -620,7 +620,7 @@ const lesbianPride*: Power = Power(
         proc (side: Color, viewSide: Color, b: var ChessBoard) = 
             for i, j in b.rankAndFile:
                 if b[i][j].item == King and b[i][j].isColor(side):
-                    b[i][j] = whiteQueen.pieceCopy(color = b[i][j].color, item = King, tile = b[i][j].tile, rotate = true, filePath = queenIcon) 
+                    b[i][j] = whiteQueen.pieceCopy(color = b[i][j].color, item = King, tile = b[i][j].tile, rotate = true, filePath = queenIcon, wallet = b[i][j].wallet) 
                     #`Piece.item` is still king so win/loss works. `Piece.rotate` = true should hopefully suggest this
                 elif b[i][j].item == Bishop and b[i][j].isColor(side):
                     b[i][j] = Piece(item: None, tile: b[i][j].tile)
@@ -877,7 +877,7 @@ const concubine*: Power = Power(
                     break
 
             let concubinePromote: OnPiece =  proc (piece: var Piece, board: var ChessBoard) =
-                piece = dna.pieceCopy(piecesTaken = piece.piecesTaken, tile = piece.tile, promoted = true)
+                piece = dna.pieceCopy(piecesTaken = piece.piecesTaken, tile = piece.tile, promoted = true, wallet = piece.wallet)
 
             for i, j in b.rankAndFile:
                 if b[i][j].item == Rook and b[i][j].isColor(side):
@@ -908,7 +908,7 @@ const reinforcements*: Power = Power(
                 if takeResults.takeSuccess:
                     board[takeResults.endTile.rank][takeResults.endTile.file].piecesTaken += 1
                     if board[takeResults.endTile.rank][takeResults.endTile.file].piecesTaken mod 2 == 0:
-                        board[originalRookTile.rank][originalRookTile.file] = dna.pieceCopy(tile = originalRookTile)
+                        board[originalRookTile.rank][originalRookTile.file] = dna.pieceCopy(tile = originalRookTile, wallet = piece.wallet)
 
             for i, j in b.rankAndFile:
                 if b[i][j].item == Rook and b[i][j].isColor(side):
@@ -1033,7 +1033,7 @@ const bombardWithReinforcements: Power = Power(
                 if takeResults.takeSuccess:
                     board[takeResults.endTile.rank][takeResults.endTile.file].piecesTaken += 1
                     if board[takeResults.endTile.rank][takeResults.endTile.file].piecesTaken mod 2 == 0:
-                        board[originalRookTile.rank][originalRookTile.file] = dna.pieceCopy(tile = originalRookTile)
+                        board[originalRookTile.rank][originalRookTile.file] = dna.pieceCopy(tile = originalRookTile, wallet = piece.wallet)
 
             for i, j in b.rankAndFile:
                 if b[i][j].item == Rook and b[i][j].isColor(side):
@@ -1577,12 +1577,14 @@ const capitalism*: Power = Power(
 
 const whiteMoveUp: OnPiece = proc (piece: var Piece, board: var ChessBoard) = 
     piece.move(tileAbove(piece.tile), board)
+    board[piece.tile.tileAbove.rank][piece.tile.file].endTurn(board) #piece changes after move, so we onEndTurn on where it should be    
 
 const whiteMoveUpCondition: BuyCondition = func (piece: Piece, board: ChessBoard): bool = 
     return piece.tile.rank != 0 and board[piece.tile.tileAbove.rank][piece.tile.file].isAir
 
 const blackMoveUp: OnPiece = proc (piece: var Piece, board: var ChessBoard) = 
     piece.move(tileBelow(piece.tile), board)
+    board[piece.tile.tileBelow.rank][piece.tile.file].endTurn(board) #piece changes after move, so we onEndTurn on where it should be    
 
 const blackMoveUpCondition: BuyCondition = func (piece: Piece, board: ChessBoard): bool = 
     return piece.tile.rank != 7 and board[piece.tile.tileBelow.rank][piece.tile.file].isAir
@@ -1696,7 +1698,10 @@ const upgrade*: Power = Power(
             let condition = buyMoveUpgradeCondition(knightMoves)
             for i, j in b.rankAndFile:
                 if b[i][j].isColor(side):
-                    b[i][j].wallet.options &= (name: "Upgrade", cost: 7, action: action, condition: condition)
+                    if b[i][j].item != King: #king has higher cost so it's not too strong
+                        b[i][j].wallet.options &= (name: "Upgrade", cost: 7, action: action, condition: condition)
+                    else:
+                        b[i][j].wallet.options &= (name: "Upgrade", cost: 15, action: action, condition: condition)
 )
 
 const capitalismThree1: Synergy = (
@@ -1713,8 +1718,8 @@ const upgrade2*: Power = Power(
     tier: Uncommon,
     rarity: 0, #rarity 0 because it should only be gotten through synergy
     priority: 15,
-    description: """Money can be used in exchange for goods and services. You can spend 7 dollars to give a piece the movement of a knight.
-                    It still cannot take like a giraffe.""",
+    description: """Money can be used in exchange for goods and services. You can spend 7 dollars to give a piece the movement of a knight. 
+                    This upgrade is 8 dollars more expensive for the king. It still cannot take like a giraffe.""",
     icon: "usflag.svg",
     noColor: true,
     onStart:
@@ -1723,8 +1728,10 @@ const upgrade2*: Power = Power(
             let condition = buyMoveUpgradeCondition(giraffeMoves)
             for i, j in b.rankAndFile:
                 if b[i][j].isColor(side):
-                    b[i][j].wallet.options &= (name: "Upgrade", cost: 7, action: action, condition: condition)
-
+                    if b[i][j].item != King:
+                        b[i][j].wallet.options &= (name: "Upgrade", cost: 7, action: action, condition: condition)
+                    else:
+                        b[i][j].wallet.options &= (name: "Upgrade", cost: 15, action: action, condition: condition)
 )
 
 const capitalismThree2: Synergy = (
@@ -1732,6 +1739,79 @@ const capitalismThree2: Synergy = (
     rarity: 16,
     requirements: @[capitalism.name],
     replacements: @[],
+    index: -1
+)
+
+const sellPiece: OnPiece = proc (piece: var Piece, b: var ChessBoard) =
+    b[piece.tile.rank][piece.tile.file] = air.pieceCopy(tile = piece.tile)
+
+const alwaysTrue: BuyCondition = func (piece: Piece, b: ChessBoard): bool =
+    return true
+
+const sell*: Power = Power(
+    name: "Capitalism IV",
+    technicalName: "Capitalism: Sell",
+    tier: Uncommon,
+    rarity: 0, #rarity 0 because it should only be gotten through synergy
+    priority: 15,
+    description: """Who needs these pieces? AFUERA! You can sell a piece for 3 dollars.""",
+    icon: "usflag.svg",
+    noColor: true,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            for i, j in b.rankAndFile:
+                if b[i][j].isColor(side):
+                    if b[i][j].item != King:
+                        b[i][j].wallet.options &= (name: "Sell", cost: -3, action: sellPiece, condition: alwaysTrue)
+)
+
+const capitalismFour1: Synergy = (
+    power: sell,
+    rarity: 16,
+    requirements: @[capitalism.name],
+    replacements: @[],
+    index: -1
+)
+
+#altered `createLottery()`, but also adds 10 dollars to King's wallet
+proc createSuperLottery(): OnPiece = 
+    var lastTimesMoved = 0
+    #closure is used to hold state
+    #this is preferable when state does not need to interact with the rest of the game's systems
+    #to better modularize the power's state, I think
+    #`Piece.rand` powers can't do this because it needs the seed, and a global clear of drunkenness
+    #which has to happen after all `Piece.onEndTurn` stuff, not during
+    result = proc (piece: var Piece, board: var ChessBoard) =
+        if piece.timesMoved != lastTimesMoved:
+            randomize(10 * piece.tile.rank + 100 * piece.tile.file + piece.rand.seed)
+            let ticket = rand(100)
+            if ticket == 42 or ticket == 17: #arbitrary
+                for i, j in board.rankAndFile:
+                    if board[i][j].item == King and board[i][j].sameColor(piece):
+                        board[i][j].wallet.money += 10
+                piece.promote(board)
+        lastTimesMoved = piece.timesMoved
+
+const slumdogBillionairePower*: Power = Power(
+    name: "Slumdog Billionaire",
+    tier: Common,
+    rarity: 0,
+    priority: 15,
+    description: """Have you seen the movie Slumdog Millionaire? It's kind of like that but more. 
+                    Your pawns have a 2% chance of promoting whenever they move. When this happens, you get 10 dollars.""",
+    icon: pawnIcon,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard) = 
+            for i, j in b.rankAndFile:
+                if b[i][j].item == Pawn and b[i][j].isColor(side):
+                    b[i][j].onEndTurn &= createSuperLottery()
+)
+
+const slumdogBillionaire: Synergy = (
+    power: slumdogBillionairePower,
+    rarity: 8,
+    requirements: @[capitalism.name, slumdogMillionaire.name],
+    replacements: @[slumdogMillionaire.name],
     index: -1
 )
 
@@ -1796,6 +1876,8 @@ registerSynergy(capitalismTwo2)
 registerSynergy(capitalismTwo3)
 registerSynergy(capitalismThree1)
 registerSynergy(capitalismThree2)
+registerSynergy(capitalismFour1)
+registerSynergy(slumdogBillionaire, true)
 
 registerSynergy(virus, true)
 registerSynergy(virus2, true)
