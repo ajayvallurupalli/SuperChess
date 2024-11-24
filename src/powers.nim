@@ -1807,3 +1807,7 @@ registerSynergy(virus7, true)
 
 registerSynergy(masochistEmpress, true, true)
 registerSynergy(masochistAltEmpress, true, true)
+
+#All powers with rng involved
+#so user can disable them if they want
+const rngPowers* = @[alcoholism, drunkKnights, civilians, slumdogMillionaire, stupidPower, sleeperAgent, conversion]

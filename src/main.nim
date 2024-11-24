@@ -80,6 +80,7 @@ var
 
     #settings decided by player
     showTechnicalNames: bool = false
+    disableRNGPowers: bool = false
 
     #state for webapp
     currentScreen: Screen = if debug: debugScreen else: Lobby
@@ -166,13 +167,18 @@ proc sendBuy(option: BuyOption, tile: Tile) =
     peer.send(fmt"buy:{option.name},{$tile.rank},{$tile.file}")
 
 proc draft(allDrafts: seq[Power] = @[], drafter: seq[Power] = @[]) = 
+    var disabled: seq[Power] = @[]
+
+    if disableRNGPowers:
+        disabled &= rngPowers
+
     if gameMode == TrueRandom:
-        draftOptions = draftRandomPower(allDrafts, drafter, draftChoices)
+        draftOptions = draftRandomPower(allDrafts & disabled, drafter, draftChoices)
     elif gameMode == RandomTier:
         #doesn't allow holy to be drafted in tierDraft because luck is consistent here
-        draftOptions = draftRandomPowerTier(draftTier, allDrafts & holy, drafter, draftChoices)
+        draftOptions = draftRandomPowerTier(draftTier, allDrafts & holy & disabled, drafter, draftChoices)
     elif gameMode == SuperRandom:
-        draftOptions = draftRandomPower(allDrafts, drafter, draftChoices, insaneWeights, buffedInsaneWeights)
+        draftOptions = draftRandomPower(allDrafts & disabled, drafter, draftChoices, insaneWeights, buffedInsaneWeights)
 
 #also for debugging
 if debug and debugScreen == Screen.Draft:
@@ -711,6 +717,16 @@ proc createSettings(): VNode =
                 text if showTechnicalNames: "Disable" else: "Enable"
                 proc onclick(_: Event, _: VNode) = 
                     showTechnicalNames = not showTechnicalNames
+        hr()
+        tdiv(class="setting-item"):
+            h5():
+                text "Disable RNG Powers"
+            p():
+                text "Removes RNG based powers, like civilians, from the draft pool. Only works when you are the host."
+            button():
+                text if not disableRNGPowers: "Disable" else: "Enable"
+                proc onclick(_: Event, _: VNode) = 
+                    disableRNGPowers = not disableRNGPowers
         hr()
         button(class="width-100"):
             text "Return to Other"
