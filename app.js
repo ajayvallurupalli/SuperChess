@@ -117,8 +117,6 @@ var NTI1476395014 = {size: 0, kind: 16, base: null, node: null, finalizer: null}
 var NTI1476395015 = {size: 0, kind: 16, base: null, node: null, finalizer: null};
 var NTI1509949645 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
 var NTI1493172231 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
-var NTI553648144 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
-var NTI553648135 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
 var NTI553648153 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
 var NTI1795162838 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
 var NTI1728053260 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
@@ -332,8 +330,6 @@ NTI1795162838.node = NNI1795162838;
 var NNI553648153 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI33554466, name: "Field0", sons: null}, 
 {kind: 1, offset: "Field1", len: 0, typ: NTI33554450, name: "Field1", sons: null}]};
 NTI553648153.node = NNI553648153;
-NTI553648135.base = NTI1728053253;
-NTI553648144.base = NTI1728053253;
 var NNI1493172231 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI1476395011, name: "Field0", sons: null}, 
 {kind: 1, offset: "Field1", len: 0, typ: NTI33554466, name: "Field1", sons: null}]};
 NTI1493172231.node = NNI1493172231;
@@ -1582,8 +1578,6 @@ var stupidPower_1795164305 = {name: [83,116,117,112,105,100,32,80,111,119,101,11
 var americanDream_1795164398 = {name: [65,109,101,114,105,99,97,110,32,68,114,101,97,109], technicalName: [], synergy: true, tier: 1, rarity: 8, description: makeNimstrLit("All pieces, you and your opponent, are killed when they promote. It\'s not real."), icon: [117,115,102,108,97,103,46,115,118,103], rotatable: false, noColor: true, onStart: HEX3Aanonymous_1795164384, index: (-1), priority: 30};
 var sleeperAgent_1795164450 = {name: [83,108,101,101,112,101,114,32,65,103,101,110,116], technicalName: [], synergy: true, tier: 0, rarity: 8, description: makeNimstrLit("The silent river collapses in pieces. \x0A                    One of your pawns is a sleeper agent. They can take forward."), icon: [112,97,119,110,46,115,118,103], rotatable: false, noColor: false, onStart: HEX3Aanonymous_1795164399, index: (-1), priority: 30};
 var capitalism_1795164578 = {name: [67,97,112,105,116,97,108,105,115,109], technicalName: [], synergy: true, tier: 1, rarity: 24, description: makeNimstrLit("The power of the free market is unmatched. \x0A                    All of your pieces get the ability to buy upgrades. \x0A                    You get 3 dollars for taking a piece.\x0A                    With 21 dollars, you can promote one piece."), icon: [117,115,102,108,97,103,46,115,118,103], rotatable: false, noColor: true, onStart: HEX3Aanonymous_1795164490, index: (-1), priority: 30};
-var myDebugPowers_553648179 = [{name: [83,108,101,101,112,101,114,32,65,103,101,110,116], technicalName: [], synergy: true, tier: 0, rarity: 8, description: makeNimstrLit("The silent river collapses in pieces. \x0A                    One of your pawns is a sleeper agent. They can take forward."), icon: [112,97,119,110,46,115,118,103], rotatable: false, noColor: false, onStart: HEX3Aanonymous_1795164399, index: (-1), priority: 30}, {name: [87,101,114,101,119,111,108,118,101,115], technicalName: [], synergy: true, tier: 1, rarity: 8, description: makeNimstrLit("Your leftmost and rightmost pawns are secretly werewolves! When they take a piece, they eat it and gain the ability to jump like a knight and giraffe. They do not promote."), icon: [112,97,119,110,46,115,118,103], rotatable: false, noColor: false, onStart: HEX3Aanonymous_1795162686, index: (-1), priority: 15}, {name: [87,97,110,100,101,114,105,110,103,32,82,111,110,105,110], technicalName: [87,97,110,100,101,114,105,110,103,32,82,111,110,105,110,32,76,101,102,116], synergy: true, tier: 1, rarity: 4, description: makeNimstrLit("A wandering Ronin joins your rank. \x0A        Your third pawn from the left is replaced with a gold general from Shogi."), icon: [103,111,108,100,103,101,110,101,114,97,108,46,115,118,103], rotatable: true, noColor: true, onStart: HEX3Aanonymous_1795162572, index: (-1), priority: 5}, {name: [67,97,112,105,116,97,108,105,115,109], technicalName: [], synergy: true, tier: 1, rarity: 24, description: makeNimstrLit("The power of the free market is unmatched. \x0A                    All of your pieces get the ability to buy upgrades. \x0A                    You get 3 dollars for taking a piece.\x0A                    With 21 dollars, you can promote one piece."), icon: [117,115,102,108,97,103,46,115,118,103], rotatable: false, noColor: true, onStart: HEX3Aanonymous_1795164490, index: (-1), priority: 30}, {name: [67,97,112,105,116,97,108,105,115,109,32,73,86], technicalName: [67,97,112,105,116,97,108,105,115,109,58,32,83,101,108,108], synergy: true, tier: 1, rarity: 0, description: makeNimstrLit("Who needs these pieces? AFUERA! You can sell a piece for 3 dollars."), icon: [117,115,102,108,97,103,46,115,118,103], rotatable: false, noColor: true, onStart: HEX3Aanonymous_1795164875, index: (-1), priority: 15}, {name: [83,108,117,109,100,111,103,32,77,105,108,108,105,111,110,97,105,114,101], technicalName: [], synergy: true, tier: 0, rarity: 8, description: makeNimstrLit("Have you seen the movie Slumdog Millionaire? It\'s kind of like that. \x0A                    Your pawns have a 2% chance of promoting whenever they move."), icon: [112,97,119,110,46,115,118,103], rotatable: false, noColor: false, onStart: HEX3Aanonymous_1795164265, index: (-1), priority: 15}, {name: [67,97,112,105,116,97,108,105,115,109,32,73,73], technicalName: [67,97,112,105,116,97,108,105,115,109,58,32,77,111,118,101,32,85,112], synergy: true, tier: 0, rarity: 0, description: makeNimstrLit("Money is pretty neat right? You can spend 5 dollars to move a piece one tile forward. It cannot take with this action."), icon: [117,115,102,108,97,103,46,115,118,103], rotatable: false, noColor: true, onStart: HEX3Aanonymous_1795164615, index: (-1), priority: 15}];
-var opponentDebugPowers_553648184 = [{name: [72,111,108,121], technicalName: [], synergy: true, tier: 0, rarity: 12, description: makeNimstrLit("You are favored slightly more by god. Your next powers are more likely to be uncommon, rare, and ultra rare"), icon: [99,114,111,115,115,46,115,118,103], rotatable: false, noColor: true, onStart: HEX3Aanonymous_1728053308, index: (-1), priority: 20}, {name: [83,108,101,101,112,101,114,32,65,103,101,110,116], technicalName: [], synergy: true, tier: 0, rarity: 8, description: makeNimstrLit("The silent river collapses in pieces. \x0A                    One of your pawns is a sleeper agent. They can take forward."), icon: [112,97,119,110,46,115,118,103], rotatable: false, noColor: false, onStart: HEX3Aanonymous_1795164399, index: (-1), priority: 30}, {name: [67,97,112,105,116,97,108,105,115,109], technicalName: [], synergy: true, tier: 1, rarity: 24, description: makeNimstrLit("The power of the free market is unmatched. \x0A                    All of your pieces get the ability to buy upgrades. \x0A                    You get 3 dollars for taking a piece.\x0A                    With 21 dollars, you can promote one piece."), icon: [117,115,102,108,97,103,46,115,118,103], rotatable: false, noColor: true, onStart: HEX3Aanonymous_1795164490, index: (-1), priority: 30}];
 var ConstSet2 = setConstr([88, 148]);
       var toTag_754975044 = ["#text", "#int", "#bool", "#vthunk", "#dthunk", "#component", "#verbatim", "html", "head", "title", "base", "link", "meta", "style", "script", "noscript", "body", "section", "nav", "article", "aside", "h1", "h2", "h3", "h4", "h5", "h6", "hgroup", "header", "footer", "address", "main", "p", "hr", "pre", "blockquote", "ol", "ul", "li", "dl", "dt", "dd", "figure", "figcaption", "div", "a", "em", "strong", "small", "s", "cite", "quote", "dfn", "abbr", "data", "time", "code", "var", "samp", "kbd", "sub", "sup", "i", "b", "u", "mark", "ruby", "rt", "rp", "bdi", "dbo", "span", "br", "wbr", "ins", "del", "img", "iframe", "embed", "object", "param", "video", "audio", "source", "track", "canvas", "map", "area", "animate", "animateMotion", "animateTransform", "circle", "clipPath", "defs", "desc", "discard", "ellipse", "feBlend", "feColorMatrix", "feComponentTransfer", "feComposite", "feConvolveMatrix", "feDiffuseLighting", "feDisplacementMap", "feDistantLight", "feDropShadow", "feFlood", "feFuncA", "feFuncB", "feFuncG", "feFuncR", "feGaussianBlur", "feImage", "feMerge", "feMergeNode", "feMorphology", "feOffset", "fePointLight", "feSpecularLighting", "feSpotLight", "feTile", "feTurbulence", "filter", "foreignObject", "g", "image", "line", "linearGradient", "marker", "mask", "metadata", "mpath", "path", "pattern", "polygon", "polyline", "radialGradient", "rect", "set", "stop", "svg", "switch", "symbol", "text", "textPath", "tspan", "unknown", "use", "view", "maction", "math", "menclose", "merror", "mfenced", "mfrac", "mglyph", "mi", "mlabeledtr", "mmultiscripts", "mn", "mo", "mover", "mpadded", "mphantom", "mroot", "mrow", "ms", "mspace", "msqrt", "mstyle", "msub", "msubsup", "msup", "mtable", "mtd", "mtext", "mtr", "munder", "munderover", "semantics", "table", "caption", "colgroup", "col", "tbody", "thead", "tfoot", "tr", "td", "th", "form", "fieldset", "legend", "label", "input", "button", "select", "datalist", "optgroup", "option", "textarea", "keygen", "output", "progress", "meter", "details", "summary", "command", "menu", "bdo", "dialog", "slot", "template"];
 var ConstSet3 = setConstr([149, 179]);
@@ -12112,7 +12106,7 @@ function formatValue_553648564(result_553648566, result_553648566_Idx, value_553
 
 function sendBuy_553648544(option_553648545, tile_553648546) {
   BeforeRet: {
-    if (true) {
+    if (false) {
     break BeforeRet;
     }
     
@@ -12313,7 +12307,7 @@ function createPowerSummary_553649254(p_553649255, ofSide_553649256) {
 
 function sendMove_553648480(mode_553648481, start_553648482, to_553648483) {
   BeforeRet: {
-    if (true) {
+    if (false) {
     break BeforeRet;
     }
     
@@ -12975,29 +12969,13 @@ function main_553649476() {
   return result_553649477;
 
 }
-var Temporary2;
-var Temporary3;
 var screenWidth_553648185 = [window.innerWidth];
 var roomId_553648188 = [nimCopy(null, {Field0: false, Field1: "Waiting..."}, NTI553648153)];
 var peer_553648194 = [{Field0: null, Field1: null}];
-var side_553648195 = [1];
-var turn_553648196 = [true];
-if (true) {
-Temporary2 = myDebugPowers_553648179;
-}
-else {
-Temporary2 = [];
-}
-
-var myDrafts_553648201 = [nimCopy(null, Temporary2, NTI553648135)];
-if (true) {
-Temporary3 = opponentDebugPowers_553648184;
-}
-else {
-Temporary3 = [];
-}
-
-var opponentDrafts_553648206 = [nimCopy(null, Temporary3, NTI553648144)];
+var side_553648195 = [0];
+var turn_553648196 = [false];
+var myDrafts_553648201 = [[]];
+var opponentDrafts_553648206 = [[]];
 var baseDrafts_553648207 = [0];
 var draftOptions_553648208 = [[]];
 var draftChoices_553648209 = [3];
@@ -13013,7 +12991,7 @@ var piecesChecking_553648236 = [[]];
 var turnNumber_553648237 = [1];
 var showTechnicalNames_553648238 = [false];
 var disableRNGPowers_553648239 = [false];
-var currentScreen_553648240 = [3];
+var currentScreen_553648240 = [0];
 var gameMode_553648241 = [0];
 window.addEventListener('resize', resize_553648247);
 initStorage_1845493769();
@@ -13022,22 +13000,22 @@ gameMode_553648241[0] = 2;
 draft_553648589([], []);
 }
 
-Label4: {
+Label2: {
   var i_553648661 = [0];
   var j_553648662 = [0];
-  Label5: {
+  Label3: {
     var i_553649512 = 0;
     var i_553649513 = 0;
-    Label6: {
-        Label7: while (true) {
-        if (!(i_553649513 < 8)) break Label7;
+    Label4: {
+        Label5: while (true) {
+        if (!(i_553649513 < 8)) break Label5;
           i_553649512 = i_553649513;
-          Label8: {
+          Label6: {
             var j_553649516 = 0;
             var i_553649517 = 0;
-            Label9: {
-                Label10: while (true) {
-                if (!(i_553649517 < 8)) break Label10;
+            Label7: {
+                Label8: while (true) {
+                if (!(i_553649517 < 8)) break Label8;
                   j_553649516 = i_553649517;
                   i_553648661[0] = i_553649512;
                   j_553648662[0] = j_553649516;
