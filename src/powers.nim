@@ -1510,12 +1510,22 @@ const sleeperAgent*: Power = Power(
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard) =
             randomize(b[0][0].rand.seed)
-            let sleeper = rand(b.len)
+            var sleeper = rand(b.len)
+            var failsafe = b.len + 1
 
-            if side == black:
-                b[1][sleeper].takes &= blackForwardTakes
-            else:
-                b[6][sleeper].takes &= whiteForwardTakes
+            #if sleeper is not a pawn, then it tries next piece
+            #after 10 tries it gives up
+            while b[1][sleeper].item != pawn and failsafe != 0:
+                inc sleeper
+                dec failsafe
+                sleeper = sleeper mod 8 
+
+            #only places piece if it knows that search succeeded
+            if failsafe != 0:
+                if side == black:
+                    b[1][sleeper].takes &= blackForwardTakes
+                else:
+                    b[6][sleeper].takes &= whiteForwardTakes
             
             
 )
