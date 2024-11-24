@@ -2,7 +2,7 @@ import std/options, piece
 
 #defined to avoid cyclical imports with basePieces
 #only needed for testing, so only color and item matter
-const air: Piece = Piece(item: none)
+const air: Piece = Piece(item: None)
 const black: Piece = Piece(color: black)
 const white: Piece = Piece(color: white)
 
@@ -65,7 +65,6 @@ func pieceLeft*(b: ChessBoard, t: Tile): Option[Piece] =
 
 func pieceRight*(b: ChessBoard, t: Tile): Option[Piece] = 
     return b.boardRef(t.tileRight())
-
 
 #TESTS
 when isMainModule:

@@ -15,7 +15,7 @@ type
     #none is used for empty spaces
     #fairy is used for custom spaces defined in `Powers.nim`
     PieceType* = enum
-        king, queen, bishop, pawn, rook, knight, none, fairy
+        King, Queen, Bishop, Pawn, Rook, Knight, None, Fairy
     Color* = enum
         black, white
 
@@ -37,6 +37,9 @@ type
     WhenTaken* = proc(taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool]
     OnPiece* = proc (piece: var Piece, board: var ChessBoard)
 
+    BuyCondition* = proc(piece: Piece, board: ChessBoard): bool {.noSideEffect.}
+    BuyOption* = tuple[name: string, cost: int, action: OnPiece, condition: BuyCondition]
+
     Piece* = object
         item*: Piecetype
         color*: Color
@@ -55,7 +58,7 @@ type
         colorable*: bool = true
         rotate*: bool = false
         rand*: tuple[drunk: bool, seed: int]  = (false, 0) #used for some of the powers with rng
-        money*: int = 0
+        wallet*: tuple[money: int, options: seq[BuyOption]] = (-1, @[])
 
 #helper templates for `Piece` methods
 #since methods are properties of the class, you would usually have to do `Piece.method(Piece)`
@@ -103,7 +106,7 @@ func getTakesOn*(p: Piece, board: ChessBoard): Moves =
 
 proc pieceMove*(p: var Piece, rank: int, file: int, board: var ChessBoard) = 
     board[rank][file] = board[p.tile.rank][p.tile.file]
-    board[p.tile.rank][p.tile.file] = Piece(item: none, tile: p.tile)
+    board[p.tile.rank][p.tile.file] = Piece(item: None, tile: p.tile)
     board[rank][file].tile = (file: file, rank: rank)
 
 proc pieceMove*(p: var Piece, t: Tile, board: var ChessBoard) = 
@@ -131,12 +134,10 @@ const defaultWhenTaken*: WhenTaken = proc(taken: var Piece, taker: var Piece, bo
     return (taken.tile, true)
 
 const defaultOnMove*: OnAction = proc (piece: var Piece, to: Tile, board: var ChessBoard) = 
-    assert piece.getMovesOn(board).contains(to)
     inc piece.timesMoved
     piece.pieceMove(to, board)
 
 const defaultOnTake*: OnAction = proc (piece: var Piece, taking: Tile, board: var ChessBoard) = 
-    assert piece.getTakesOn(board).contains(taking)
     let takeResult = taking.takenBy(piece, board)
     inc piece.timesMoved
     if takeResult.takeSuccess:
@@ -159,14 +160,15 @@ func pieceCopy*(initial: Piece,
                 filePath: string = initial.filePath,
                 colorable: bool = initial.colorable,
                 rotate: bool = initial.rotate,
-                rand: tuple[drunk: bool, seed: int] = initial.rand): Piece = 
+                rand: tuple[drunk: bool, seed: int] = initial.rand,
+                wallet: tuple[money: int, options: seq[BuyOption]] = initial.wallet): Piece = 
     return Piece(item: item, color: color, timesMoved: timesMoved, piecesTaken: piecesTaken,
                 tile: tile, moves: moves, takes: takes, onMove: onMove, onTake: onTake,
                 whenTaken: whenTaken, onEndTurn: onEndTurn, onPromote: onPromote,promoted: promoted, filePath: filePath, rotate: rotate,
-                rand: rand, colorable: colorable)
+                rand: rand, colorable: colorable, wallet: wallet)
 
 func isAir*(p: Piece): bool = 
-    return p.item == none
+    return p.item == None
 
 func sameColor*(a: Piece, b: Piece): bool = 
     return a.color == b.color and not a.isAir() and not b.isAir()
@@ -178,7 +180,7 @@ func otherSide*(a: Color): Color =
     return if a == white: black else: white
 
 func `$`*(p: Piece): string = 
-    if p.item == none:
+    if p.item == None:
         return ""
     else: 
         return $p.color & $p.item
@@ -186,7 +188,7 @@ func `$`*(p: Piece): string =
 func alive*(c: Color, b: ChessBoard): bool = 
     for row in b:
         for p in row:
-            if p.item == king and p.isColor(c):
+            if p.item == King and p.isColor(c):
                 return true
 
     return false
@@ -195,7 +197,7 @@ func gameIsOver*(b: ChessBoard): bool =
     var kings: int = 0
     for row in b:
         for p in row:
-            if p.item == king: inc kings
+            if p.item == King: inc kings
 
     return kings != 2
 
@@ -203,7 +205,7 @@ func getPiecesChecking*(b: ChessBoard, c: Color): seq[Tile] =
     var kingTile: Tile = (-1, -1)
     for row in b:
         for p in row:
-            if p.item == king and p.isColor(c):
+            if p.item == King and p.isColor(c):
                 kingTile = p.tile
 
     for row in b:
@@ -213,3 +215,24 @@ func getPiecesChecking*(b: ChessBoard, c: Color): seq[Tile] =
 
 func isAtEnd*(piece: Piece): bool = 
     return (piece.tile.rank == 7 and piece.color == black) or (piece.tile.rank == 0 and piece.color == white)
+
+func hasWallet*(side: Color, b: ChessBoard): bool =
+    for i, j in b.rankAndFile:
+        if b[i][j].isColor(side) and 
+            b[i][j].item == King and
+            b[i][j].wallet.money != -1:
+                return true
+
+func getWallet*(side: Color, b: ChessBoard): int =
+    for i, j in b.rankAndFile:
+        if b[i][j].isColor(side) and 
+            b[i][j].item == King:
+                return b[i][j].wallet.money 
+
+proc buy*(piece: var Piece, option: BuyOption, board: var ChessBoard) =
+    echo piece, option.name, getWallet(piece.color, board)
+    for i, j in board.rankAndFile:
+        if board[i][j].item == King and board[i][j].sameColor(piece):
+            if board[i][j].wallet.money >= option.cost:
+                board[i][j].wallet.money -= option.cost
+                option.action(piece, board)

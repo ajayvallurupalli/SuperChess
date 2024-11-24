@@ -1,7 +1,7 @@
 include karax / prelude
 import karax/errors
 import piece, basePieces, port, power, powers, store #powers import for debug
-import std/dom #im not sure why dom stuff fails if I don't import the whole package
+import std/dom, std/strformat #im not sure why dom stuff fails if I don't import the whole package
 from strutils import split, parseInt
 from sequtils import foldr, mapIt
 
@@ -47,8 +47,8 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = Game
-const myDebugPowers: seq[Power] = @[sleeperAgent, werewolves, wanderingRoninLeft]
-const opponentDebugPowers: seq[Power] = @[holy, sleeperAgent]
+const myDebugPowers: seq[Power] = @[sleeperAgent, werewolves, wanderingRoninLeft, capitalism, moveUp, upgrade, moveBack, upgrade2, income]
+const opponentDebugPowers: seq[Power] = @[holy, sleeperAgent, capitalism]
 
 var screenWidth: int = window.innerWidth
 
@@ -130,8 +130,10 @@ proc otherMove(d: string) =
     let mover: Tile = (parseInt(data[2]), parseInt(data[1]))
     let moveTo: Tile = (parseInt(data[4]), parseInt(data[3]))
 
-    assert lastMove != @[mover, moveTo]
     lastMove = @[mover, moveTo]
+    possibleMoves = @[]
+    possibleTakes = @[]
+
     inc turnNumber
 
     echo d, data[0], mover, moveTo
@@ -142,12 +144,26 @@ proc otherMove(d: string) =
     turn = not turn
     endRound()
 
-
 proc sendMove(mode: string, start: Tile, to: Tile) = 
     if debug and debugScreen == Game: return #returns early to stop send move, since peer would not be defined when debugging
     peer.send("move:" & mode & "," & $start.rank & "," & $start.file & "," & $to.rank & "," & $to.file)
     turn = not turn
     inc turnNumber
+
+
+proc otherBuy(d: string) = 
+    let data = d.split(",")
+    let piece = (parseInt(data[2]), parseInt(data[1]))
+    assert pieceOf(piece).color.hasWallet(theBoard)
+
+    for option in pieceOf(piece).wallet.options:
+        if option.name == data[0]:
+            buy(pieceOf(piece), option, theBoard)
+
+
+proc sendBuy(option: BuyOption, tile: Tile) = 
+    if debug and debugScreen == Game: return #returns early since peer is undefined when debugging
+    peer.send(fmt"buy:{option.name},{$tile.rank},{$tile.file}")
 
 proc draft(allDrafts: seq[Power] = @[], drafter: seq[Power] = @[]) = 
     if gameMode == TrueRandom:
@@ -199,6 +215,7 @@ proc hostLogic(d: string, m: MessageType) =
 
 
     of Move: otherMove(d)
+    of Buy: otherBuy(d)
     of End:
         if d == "disconn" or d == "exit":
             currentScreen = Disconnect
@@ -241,8 +258,8 @@ proc joinLogic(d: string, m: MessageType) =
                 draftOptions.add(powers[parseInt(i)])
             
             turn = true
-    of Move: 
-        otherMove(d)  
+    of Move: otherMove(d)  
+    of Buy: otherBuy(d)
     of End:
         if d == "disconn" or d == "exit":
             currentScreen = Disconnect
@@ -520,39 +537,96 @@ proc createDraftMenu(): VNode =
             text "Opponent is drafting..."
 
 proc createPowerSummary(p: Power, ofSide: Color): VNode = 
+    var class = "image "
+    if side != ofSide and p.rotatable:
+        class &= " rotate "
+    
+    var src = iconsPath #base icon oath
+    if not p.noColor: src &= $ofSide
+
     result = buildHtml(tdiv(class="power-grid")):
         h4(class = "title"):
             text if showTechnicalNames and p.technicalName != "": p.technicalName else: p.name
         p(class="desc"):
             text p.description
-
-        var class = "image "
-        if side != ofSide and p.rotatable:
-            class &= " rotate "
-        
-        var src = iconsPath
-        if not p.noColor: src &= $ofSide
         if p.icon != "":
             img(class = class, src = src & p.icon)
         else:
-            img(class = class, src = iconsPath & "blackbishop.svg")
+            img(class = class, src = iconsPath & "blackbishop.svg") #placeholder
+
+proc createBuyButton(option: BuyOption, p: var Piece): VNode =
+    if not option.condition(p, theBoard): 
+        return buildHtml(tdiv())
+    else:
+        let disabled = not turn or getWallet(side, theBoard) < option.cost
+        buildHtml(button(class=menuButton, disabled=disabled)):
+            text fmt"{option.name}: ${option.cost}"
+            proc onclick(_: Event; _: VNode) = 
+                sendBuy(option, p.tile)
+                buy(p, option, theBoard)
+                selectedTile = (-1, -1) #clears since piece could be in a different spot
+                possibleMoves = @[] #TODO make this clearing a function because its DRY
+                possibleTakes = @[]
+
+proc createPieceProfile(p: var Piece): VNode = 
+    if p.isAir():
+        return buildHtml(tdiv())
+    var imgClass = ""
+    if side != p.color and p.rotate:
+        imgClass &= "rotate "
+    
+    var src = iconsPath #base icon path
+    if p.colorable: src &= $p.color
+
+    let name = $p.item
+
+    result = buildHtml(tdiv(class="piece-row")):
+        h4:
+            text name
+        img(class=imgClass, src=src & p.filePath)
+        p(class="take"):
+            text fmt"Kills: {p.piecesTaken} pieces."
+        if p.isColor(side): #only show buttons when its your piece
+            tdiv(class="row"):
+                for option in p.wallet.options:
+                    createBuyButton(option, p)
+
+proc createWallet(side: Color): VNode = 
+    result = buildHtml(tdiv):
+        if hasWallet(side, theBoard):
+            h1:
+                text fmt"You have {getWallet(side, theBoard)} dollars."
 
 proc createGame(): VNode = 
     echo screenWidth
     result = if screenWidth > 1250: 
             buildHtml(tdiv(class="main")):
                 tdiv(class="column-scroll"):
+                    if not isSelected(-1, -1):
+                        createPieceProfile(pieceOf(selectedTile))
                     for p in myDrafts.replaceAnySynergies():
                         createPowerSummary(p, side)
-                if side == white: createBoard() else: reverseBoard()
+                tdiv(class="column"):
+                    if side == white: createBoard() else: reverseBoard()
+                    createWallet(side)
                 tdiv(class="column-scroll"):
                     for p in opponentDrafts.replaceAnySynergies():
                         createPowerSummary(p, otherSide(side))
+
+
         else:
             buildHtml(tdiv(class="column height-100")):
                 for p in opponentDrafts.replaceAnySynergies():
                     createPowerSummary(p, otherSide(side))
+                if not isSelected(-1, -1) and pieceOf(selectedTile).isColor(otherSide(side)): 
+                    createPieceProfile(pieceOf(selectedTile))
+
                 if side == white: createBoard() else: reverseBoard()
+
+                createWallet(side)
+
+                if not isSelected(-1, -1) and pieceOf(selectedTile).isColor(side): 
+                    createPieceProfile(pieceOf(selectedTile))
                 for p in myDrafts.replaceAnySynergies():
                     createPowerSummary(p, side)
 

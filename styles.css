@@ -1,5 +1,7 @@
 :root {
     --border-width: 4px;
+    --background-highlight: #F8F7F7;
+    --background-hover: #DCDCDC;
 }
 
 td {
@@ -127,10 +129,6 @@ td {
         vertical-align: middle;
         border-width: 2px !important;
     }    
-
-    .power-grid {
-        font-size: 18px;
-    }
 }
 
 
@@ -165,6 +163,10 @@ img {
     align-items: center;
     gap: 50px;
     height: 100%;
+}
+
+.gap-10 {
+    gap: 10px !important;
 }
 
 .wrap {
@@ -231,12 +233,12 @@ hr {
     align-items: center;
     text-align: center;
 
-    background-color: #F8F7F7;
+    background-color: var(--background-highlight);
     transition: .9s;
 }
 
 .power:hover {
-    background-color: #DCDCDC;
+    background-color: var(--background-hover);
 }
 
 .column-scroll {
@@ -268,21 +270,6 @@ hr {
     background-color: rgba(0, 0, 0, .1);
 }
 
-.power-row {
-    width: 100%;
-    min-width: 100%;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    align-items: center;
-    text-align: center;
-
-    border-width: 2px;
-    border-color: black;
-    border-style: solid;
-}
-
 .power-grid {
     display: grid;
     grid-template-areas: 
@@ -293,7 +280,7 @@ hr {
 
     gap: 10px;
     padding: 5px;
-    background-color: #F8F7F7;
+    background-color: var(--background-highlight);
     justify-content: center;
     height: auto;
     min-width: 100%;
@@ -333,9 +320,68 @@ hr {
     grid-area: button;
 }
 
+.piece-row {
+    display: grid;
+    grid-template-columns: repeat(3, .5fr);
+    grid-template-areas:
+        'name   .     .'
+        'img    .     row'
+        'take   .     row';
+    justify-content: left;
+    text-wrap: wrap;
+    padding: 10px;
+
+    min-width: 50%;
+
+    background-color: var(--background-highlight);
+    transition: 0.9s;
+}
+
+.piece-row:hover {
+    background-color: var(--background-hover);
+}
+
+.piece-row > h4 {
+    grid-area: name;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+.piece-row > img {
+    grid-area: img;
+}
+
+.piece-row > .row {
+    grid-area: row;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.piece-row > .row > button {
+    height: min-content;
+    font-size: 20px;
+}
+
+.column-scroll > .piece-row{
+    min-width: 100%;
+}
+
+/*If you close your eyes its not too bad*/
+.column-scroll > .piece-row > .row > button {
+    font-size: 16px;
+    max-width: min-content
+}
+
+.piece-row > .take {
+    grid-area: take;
+}
+
 .wrap > .power-grid {
     padding: 5px;
-    background-color: #F8F7F7;
+    background-color: var(--background-highlight);
     height: auto;
     text-wrap: wrap;
     max-width: 33%;
@@ -350,7 +396,7 @@ hr {
 }
 
 .power-grid:hover {
-    background-color: #DCDCDC;
+    background-color: var(--background-hover);
 }
 
 .power-grid > h4 {

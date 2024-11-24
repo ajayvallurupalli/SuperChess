@@ -103,7 +103,7 @@ const kingCastles*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
     #king side castle
     if board[p.tile.rank][p.tile.file + 1].isAir() and
         board[p.tile.rank][p.tile.file + 2].isAir() and
-        board[p.tile.rank][p.tile.file + 3].item == rook and
+        board[p.tile.rank][p.tile.file + 3].item == Rook and
         board[p.tile.rank][p.tile.file + 3].timesMoved == 0 and
         not p.inCheck(board):
             discard result.addIfTake(board, p, p.tile, shooterFactory(3, 0), cannibalismFlag = true)
@@ -112,7 +112,7 @@ const kingCastles*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
     if board[p.tile.rank][p.tile.file - 1].isAir() and
         board[p.tile.rank][p.tile.file - 2].isAir() and
         board[p.tile.rank][p.tile.file - 3].isAir() and
-        board[p.tile.rank][p.tile.file - 4].item == rook and
+        board[p.tile.rank][p.tile.file - 4].item == Rook and
         board[p.tile.rank][p.tile.file - 4].timesMoved == 0 and
         not p.inCheck(board):
             discard result.addIfTake(board, p, p.tile, shooterFactory(-4, 0), cannibalismFlag = true)
@@ -126,7 +126,7 @@ func inCheck*(p: Piece, b: ChessBoard): bool =
             #this king would see if it could castle, as a possible take, by seeing if it's in check. 
             #they would then go back and forth and cause an infinite loop
             var piece = b[i][j]
-            if piece.item == king: piece.takes = piece.takes.filterIt(it != kingCastles)
+            if piece.item == King: piece.takes = piece.takes.filterIt(it != kingCastles)
             if not piece.isAir() and not p.sameColor(piece) and p.tile in piece.getTakesOn(b):
                 return true
 
@@ -181,8 +181,8 @@ const knightTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
 
 #TESTS
 when isMainModule:
-    let whitePawn: Piece = Piece(item: pawn, color: white, tile: (0,5))
-    let blackPawn: Piece = Piece(item: pawn, color: black, tile: (0,5))
+    let whitePawn: Piece = Piece(item: Pawn, color: white, tile: (0,5))
+    let blackPawn: Piece = Piece(item: Pawn, color: black, tile: (0,5))
     let testBoard: ChessBoard = emptyBoard()
 
     assert lineTakes(testBoard, whitePawn, tileAbove) == @[(0,1)]
