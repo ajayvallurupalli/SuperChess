@@ -1148,7 +1148,6 @@ const drunkVirus*: OnPiece = proc (piece: var Piece, board: var ChessBoard) =
 
 
         let randomAction = sample(moves & takes)
-        inc piece.timesMoved
 
         #it prioritizes takes to avoid potentially moving into another piece
         if randomAction in takes:
@@ -1501,6 +1500,26 @@ const americanDream: Power = Power(
                     b[i][j].onEndTurn &= killPromoted
 )
 
+const sleeperAgent*: Power = Power(
+    name: "Sleeper Agent",
+    tier: Common,
+    priority: 30,
+    description: """The silent river collapses in pieces. 
+                    One of your pawns is a sleeper agent. They can take forward.""",
+    icon: pawnIcon,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard) =
+            randomize(b[0][0].rand.seed)
+            let sleeper = rand(b.len)
+
+            if side == black:
+                b[1][sleeper].takes &= blackForwardTakes
+            else:
+                b[6][sleeper].takes &= whiteForwardTakes
+            
+            
+)
+
 registerPower(altEmpress)
 registerPower(mysteriousSwordsmanLeft)
 registerPower(mysteriousSwordsmanRight)
@@ -1538,6 +1557,7 @@ registerPower(civilians)
 registerPower(slumdogMillionaire)
 registerPower(stupidPower)
 registerPower(americanDream)
+registerPower(sleeperAgent)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)

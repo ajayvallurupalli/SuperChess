@@ -45,10 +45,10 @@ type
         Normal, RandomTier, TrueRandom, SuperRandom
 
 #I really went for 2 months changing the values by hand each time
-const debug: bool = false
-const debugScreen: Screen = Settings
-const myDebugPowers: seq[Power] = @[emptyPower, werewolves, wanderingRoninLeft]
-const opponentDebugPowers: seq[Power] = @[holy, mysteriousSwordsmanLeft]
+const debug: bool = true
+const debugScreen: Screen = Game
+const myDebugPowers: seq[Power] = @[sleeperAgent, werewolves, wanderingRoninLeft]
+const opponentDebugPowers: seq[Power] = @[holy, sleeperAgent]
 
 var screenWidth: int = window.innerWidth
 
@@ -550,11 +550,11 @@ proc createGame(): VNode =
                         createPowerSummary(p, otherSide(side))
         else:
             buildHtml(tdiv(class="column height-100")):
-                for p in myDrafts.replaceAnySynergies():
-                    createPowerSummary(p, side)
-                if side == white: createBoard() else: reverseBoard()
                 for p in opponentDrafts.replaceAnySynergies():
                     createPowerSummary(p, otherSide(side))
+                if side == white: createBoard() else: reverseBoard()
+                for p in myDrafts.replaceAnySynergies():
+                    createPowerSummary(p, side)
 
 proc createResults(): VNode = 
     result = buildHtml(tdiv(class="start-column")):
