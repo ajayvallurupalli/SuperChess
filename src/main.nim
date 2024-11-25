@@ -47,7 +47,7 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = Game
-const myDebugPowers: seq[Power] = @[sleeperAgent, werewolves, wanderingRoninLeft, capitalism, sell, slumdogMillionaire, moveUp]
+const myDebugPowers: seq[Power] = @[sacrifice, altEmpress]
 const opponentDebugPowers: seq[Power] = @[holy, sleeperAgent, capitalism]
 
 var screenWidth: int = window.innerWidth

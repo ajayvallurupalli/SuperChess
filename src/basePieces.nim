@@ -6,6 +6,7 @@ const rookWhenTaken*: WhenTaken = proc (taken: var Piece, taker: var Piece, boar
     #castling behavior
     if taker.item == King and 
         taken.item == Rook and
+        taken.sameColor(taker) and
         taker.timesMoved == 0 and
         taken.timesMoved == 0: 
             let kingTile = taker.tile

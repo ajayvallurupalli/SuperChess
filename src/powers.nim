@@ -489,7 +489,7 @@ const sacrificeWhenTaken*: WhenTaken = proc (taken: var Piece, taker: var Piece,
 const sacrifice*: Power = Power(
     name: "Sacrificial Maiden",
     tier: UltraRare,
-    rarity: 2,
+    rarity: 1,
     priority: 25,
     description: """SACRIFICE THY MAIDENS TO THE BLOOD GOD""",
     icon: queenIcon,
@@ -509,6 +509,7 @@ const sacrificeWhenTakenEmpress*: WhenTaken = proc (taken: var Piece, taker: var
                 board[i][j].moves &= knightMoves
                 board[i][j].takes &= knightTakes
 
+        taken = air.pieceCopy(tile = taken.tile)
         return (taken.tile, true)
     else:
         return defaultWhenTaken(taken, taker, board)
@@ -517,6 +518,7 @@ const sacrificeWhenTakenEmpress*: WhenTaken = proc (taken: var Piece, taker: var
 const exodiaPower: Power = Power(
     name: "Exodia",
     tier: UltraRare,
+    rarity: 0,
     priority: 25,
     description: "You had your fun, but the game is over. Too bad right?",
     icon: queenIcon,
@@ -532,7 +534,44 @@ const exodia: Synergy = (
     power: exodiaPower,
     rarity: 0,
     requirements: @[empress.name, sacrifice.name],
-    replacements: @[empress.name, sacrifice.name],
+    replacements: @[sacrifice.name],
+    index: -1
+)
+
+const sacrificeWhenTakenAltEmpress*: WhenTaken = proc (taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] =
+    if (taken.tile == taker.tile):
+        for i, j in board.rankAndFile:
+            if board[i][j].sameColor(taken):
+                board[i][j].promote(board)
+                board[i][j].moves &= giraffeMoves
+                board[i][j].takes &= giraffeTakes
+
+        taken = air.pieceCopy(tile = taken.tile)
+        return (taken.tile, true)
+    else:
+        return defaultWhenTaken(taken, taker, board)
+
+
+const altExodiaPower: Power = Power(
+    name: "Exodia",
+    tier: UltraRare,
+    rarity: 0,
+    priority: 25,
+    description: "You had your fun, but the game is over. Too bad right?",
+    icon: queenIcon,
+    onStart:
+        proc (side: Color, viewSide: Color, b: var ChessBoard) = 
+            for i, j in b.rankAndFile:
+                if b[i][j].item == Queen and b[i][j].isColor(side):
+                    b[i][j].whenTaken = sacrificeWhenTakenAltEmpress
+                    b[i][j].takes &= takeSelf            
+)
+
+const altExodia: Synergy = (
+    power: altExodiaPower,
+    rarity: 0,
+    requirements: @[altEmpress.name, sacrifice.name],
+    replacements: @[sacrifice.name],
     index: -1
 )
 
@@ -612,6 +651,7 @@ const superPawn: Synergy = (
 const lesbianPride*: Power = Power(
     name: "Lesbian Pride",
     tier: UltraRare,
+    rarity: 1,
     priority: 1,
     description: "🧡🤍🩷",
     icon: "lesbianprideflag.svg",
@@ -688,7 +728,7 @@ const queensWrathSuper: Synergy = (
     power: queensWrathSuperPower,
     rarity: 0,
     requirements: @[lesbianPride.name, queenTrade.name, sacrifice.name],
-    replacements: @[lesbianPride.name, queenTrade.name, sacrifice.name],
+    replacements: @[lesbianPride.name, sacrifice.name],
     index: -1
 )
 
@@ -741,12 +781,13 @@ const battleFormation: Synergy = (
     index: -1
 )
 
-const differentGamePower: Power = Power(
+const differentGamePower*: Power = Power(
     name: "Criminal Formation",
     tier: Common,
     rarity: 0,
     priority: 20,
     description: "I guess the rules didn't get to you. Your pawns above both knights and both rooks swap places with those pieces.",
+    icon: pawnIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard) =
             illegalFormationBL.onStart(side, viewSide, b)
@@ -846,6 +887,7 @@ const holyBishop: Synergy = (
 const concubineWhenTake = proc (taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] =
     if taker.item == King and 
         taken.item == Rook and
+        taken.sameColor(taker) and
         taker.timesMoved == 0 and
         taken.timesMoved == 0: 
             taken.promote(board)
@@ -1169,6 +1211,7 @@ const drunkKnights: Power = Power(
 const alcoholism*: Power = Power(
     name: "Alcoholism",
     tier: UltraRare,
+    rarity: 4,
     priority: 15,
     description: """You're families and friends miss you. The real you.""",
     icon: pawnIcon,
@@ -1863,6 +1906,7 @@ registerSynergy(holyBishop)
 registerSynergy(bountyHunter)
 registerSynergy(holyConversion)
 registerSynergy(exodia, true)
+registerSynergy(altExodia, true)
 registerSynergy(superPawn, true)
 registerSynergy(queensWrath, true)
 registerSynergy(queensWrath2, true)

@@ -120,12 +120,17 @@ proc synergize(pool: seq[Power], currentPowers: seq[Power], t: Tier): seq[Power]
 
 proc secretSynergize(currentPowers: seq[Power], synergies: seq[Synergy]): seq[Power] = 
     result = currentPowers
+
     for s in synergies.sortedByIt(it.power.priority):
+        if result.filterIt(it.name in s.requirements).len == 1 :
+            echo s.power.name 
         if result.filterIt(it.name in s.requirements).len == s.requirements.len:
-                if s.replacements.len == 0:
-                    result &= powers[s.index]
-                else: 
-                    result = result.filterIt(it.name notin s.replacements) & powers[s.index]
+            if s.replacements.len == 0:
+                echo "hello?"
+                result &= powers[s.index]
+            else: 
+                echo "hello?"
+                result = result.filterIt(it.name != "Illegal Formation") & powers[s.index]
 
 proc seqOf(t: Tier): var seq[Power] = 
     case t
