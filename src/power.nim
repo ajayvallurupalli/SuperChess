@@ -1,5 +1,5 @@
 import piece
-from std/sequtils import foldr, mapIt, filterIt
+from std/sequtils import foldr, mapIt, filterIt, concat
 from std/algorithm import sortedByIt
 from std/random import randomize, rand
 
@@ -7,6 +7,8 @@ type
     Tier* = enum
         Common, Uncommon, Rare, UltraRare
     FilePath* = string
+
+    OnStart* = proc (drafterSide: Color, viewerSide: Color, b: var ChessBoard, s: var BoardState)
 
     Power* = object
         name*: string
@@ -18,7 +20,7 @@ type
         icon*: FilePath = ""
         rotatable*: bool = false
         noColor*: bool = false
-        onStart*: proc (drafterSide: Color, viewerSide: Color, b: var ChessBoard)
+        onStart*: OnStart
         index*: int = -1
         priority*: int = 10
 
@@ -50,7 +52,7 @@ const emptyPower*: Power = Power(
     description: "This does nothing. Unlucky!",
     index: 0,
     onStart:
-        proc (side: Color, _: Color, b: var ChessBoard) = 
+        proc (_: Color, _: Color, _: var ChessBoard, _: var BoardState) = 
             discard nil
 )
 
@@ -64,7 +66,7 @@ const holy*: Power = Power(
     icon: "cross.svg",
     noColor: true,
     onStart: 
-        proc (side: Color, _: Color, b: var ChessBoard) = 
+        proc (_: Color, _: Color, _: var ChessBoard, _: var BoardState) = 
             discard nil
 )
 
@@ -122,14 +124,10 @@ proc secretSynergize(currentPowers: seq[Power], synergies: seq[Synergy]): seq[Po
     result = currentPowers
 
     for s in synergies.sortedByIt(it.power.priority):
-        if result.filterIt(it.name in s.requirements).len == 1 :
-            echo s.power.name 
         if result.filterIt(it.name in s.requirements).len == s.requirements.len:
             if s.replacements.len == 0:
-                echo "hello?"
                 result &= powers[s.index]
             else: 
-                echo "hello?"
                 result = result.filterIt(it.name != "Illegal Formation") & powers[s.index]
 
 proc seqOf(t: Tier): var seq[Power] = 
@@ -180,9 +178,19 @@ proc draftRandomPower*(allSelected: seq[Power], drafterSelected: seq[Power], opt
     for x in 0..options - 1:
         result.add(randomPower(randomTier(weights), drafterSelected, allSelected & result))
 
-proc executeOn*(drafts: seq[Power], draftSide: Color, mySide: Color, board: var ChessBoard) = 
-    for d in drafts.secretSynergize(secretSynergies & secretSecretSynergies).sortedByIt(it.priority):
-        d.onStart(draftSide, mySide, board)
+#assumes that there is no intersection between myDrafts and opponentDrafts
+proc execute*(myDrafts: seq[Power], opponentDrafts: seq[Power], mySide: Color, board: var ChessBoard, state: var BoardState) = 
+    for x in myDrafts:
+        assert x notin opponentDrafts, x.name & " is somehow in both pools"
+
+    let mySynergizedDrafts = myDrafts.secretSynergize(secretSynergies & secretSecretSynergies)
+    let opponentSynergizedDrafts = opponentDrafts.secretSynergize(secretSynergies & secretSecretSynergies)
+
+    for d in concat(mySynergizedDrafts, opponentSynergizedDrafts).sortedByIt(it.priority):
+        if d in mySynergizedDrafts:
+            d.onStart(mySide, mySide, board, state)
+        else:
+            d.onStart(otherSide(mySide), mySide, board, state)
 
 proc replaceAnySynergies*(powers: seq[Power]): seq[Power] = 
     return powers.secretSynergize(secretSynergies)

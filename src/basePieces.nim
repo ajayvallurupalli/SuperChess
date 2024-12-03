@@ -2,7 +2,7 @@ import piece, moves
 
 #I dont' know why printing any base pieces causes a fatal error, but don't do it I guess
 
-const rookWhenTaken*: WhenTaken = proc (taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] =
+const rookWhenTaken*: WhenTaken = proc (taken: var Piece, taker: var Piece, board: var ChessBoard, state: var BoardState): tuple[endTile: Tile, takeSuccess: bool] =
     #castling behavior
     if taker.item == King and 
         taken.item == Rook and
@@ -11,16 +11,16 @@ const rookWhenTaken*: WhenTaken = proc (taken: var Piece, taker: var Piece, boar
         taken.timesMoved == 0: 
             let kingTile = taker.tile
             if taken.tile.file == 0:
-                taker.pieceMove(kingTile.rank, kingTile.file - 2, board)
-                taken.pieceMove(kingTile.rank, kingTile.file - 1, board)
+                taker.pieceMove(kingTile.rank, kingTile.file - 2, board, state)
+                taken.pieceMove(kingTile.rank, kingTile.file - 1, board, state)
                 return ((kingTile.file - 1, kingTile.rank), false)
             else:
-                taker.pieceMove(kingTile.rank, kingTile.file + 2, board)
-                taken.pieceMove(kingTile.rank, kingTile.file + 1, board)
+                taker.pieceMove(kingTile.rank, kingTile.file + 2, board, state)
+                taken.pieceMove(kingTile.rank, kingTile.file + 1, board, state)
                 return ((kingTile.file + 1, kingTile.rank), false)
     else:
         #if not taken by king (how castling works), it does regular behavior
-        return defaultWhenTaken(taken, taker, board)
+        return defaultWhenTaken(taken, taker, board, state)
 
 #base pieces, should be copied and not used on their own
 #its annoying to have to do the defaults here, but I couldn't find another way
@@ -57,12 +57,19 @@ const
                                 filePath: "bishop.svg")
     air*: Piece = Piece(item: None, color: white)
 
-const onPawnPromote*: OnPiece = proc (piece: var Piece, board: var ChessBoard) = 
-    piece = blackQueen.pieceCopy(piecesTaken=piece.piecesTaken, tile=piece.tile, promoted = true, color = piece.color, filePath = "queen.svg", wallet = piece.wallet)
+const onPawnPromote*: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
+    piece = blackQueen.pieceCopy(
+        index = piece.index,
+        piecesTaken = piece.piecesTaken, 
+        timesMoved = piece.timesMoved,
+        tile=piece.tile, 
+        promoted = true, 
+        color = piece.color, 
+        filePath = "queen.svg")
 
-const onPawnEnd*: OnPiece = proc (piece: var Piece, board: var ChessBoard) = 
+const onPawnEnd*: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
     if piece.isAtEnd() and not piece.promoted:
-        piece.promote(board)
+        piece.promote(board, state)
 
 #wierd order is because pawn requires onPawnEnd, which requires whiite queen. I wish Nim had hoisting
 #edit it turns out you can do hoist like in moves.nim but I can't figure out how to do it here
@@ -74,7 +81,7 @@ const
                                 whenTaken: defaultWhenTaken, onEndTurn: @[onPawnEnd], onPromote: @[onPawnPromote],
                                 filePath: "pawn.svg")
 
-proc startingBoard*(): ChessBoard = 
+proc startingBoard*(state: var BoardState): ChessBoard = 
     result = [[blackRook, blackKnight, blackBishop, blackQueen, blackKing, blackBishop, blackKnight, blackRook],
               [blackPawn, blackPawn,   blackPawn,   blackPawn,  blackPawn, blackPawn,   blackPawn,   blackPawn],
               [air,       air,         air,         air,        air,       air,         air,         air],
@@ -84,9 +91,9 @@ proc startingBoard*(): ChessBoard =
               [whitePawn, whitePawn,   whitePawn,   whitePawn,  whitePawn, whitePawn,   whitePawn,   whitePawn],
               [whiteRook, whiteKnight, whiteBishop, whiteQueen, whiteKing, whiteBishop, whiteKnight, whiteRook]]
 
-    for j, r in result:
-        for i, x in r:
-            result[j][i] = x.pieceCopy(tile = (i, j))
+    for i, r in result:
+        for j, x in r:
+            result[i][j] = x.pieceCopy(index = newIndex(state), tile = (j, i))
 
 #TESTS
 when isMainModule:

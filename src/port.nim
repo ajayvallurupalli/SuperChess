@@ -6,7 +6,7 @@ type
     Peer = JsObject
     Connection = JsObject
     MessageType* = enum
-        Id, Handshake, Move, Options, Draft, End, Rematch, Buy
+        Id, Handshake, Options, Draft, End, Rematch, Action
 
 var document* {.importc, nodecl.}: JsObject
 
@@ -47,8 +47,6 @@ func messageType(data: cstring): MessageType =
         return Id
     elif "handshake:" in str:
         return Handshake
-    elif "move:" in str:
-        return Move
     elif "options:" in str:
         return Options
     elif "draft:" in str:
@@ -57,8 +55,8 @@ func messageType(data: cstring): MessageType =
         return Rematch
     elif "end:" in str:
         return End
-    elif "buy:" in str:
-        return Buy
+    elif "action:" in str:
+        return Action
 
 func cutMessage(data: cstring): string = 
     return split($data, ':')[1]

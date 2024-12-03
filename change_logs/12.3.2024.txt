@@ -1,0 +1,11 @@
+12/3/2024 Changelog
+
+I added new glass powers, which take one turn to cast. Currently, there are only 3:
+Sky - teleport 2 pieces
+Zero - kill 2 tiles
+Steel - have 3 pieces take any piece in front of them
+
+I originally planned to only make 3, but since it ended up taking so long, I need 
+to add more to get my money's worth. I created an action system, which is currently 
+only used by the glass system. I think I want these actions to become the future 
+of the game, since they are fun. Glass and capitalism are the start of these powers.

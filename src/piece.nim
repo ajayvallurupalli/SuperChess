@@ -1,11 +1,12 @@
 #TODO remove Rank and File types since I forgot to use them, or maybe try to use them
+#think about unifying GlassMoves and BuyCondition
 #all the types are defined here, even though their implementations are in other files, to fix cyclical definitons with `Piece`
 #I could have put it in a new file, but I didn't. The reason remains one of the world's greatest mysteries. 
+import std/options
+from sequtils import filterIt, mapIt
 
 type
-    Tile* = tuple[file: File, rank: Rank] #used for position of all pieces
-    Rank* = int #chess terminology, though I completely forgot to follow it
-    File* = int #it probably should have been an enum. Too late. Maybe just change to normal ints
+    Tile* = tuple[file: int, rank: int] #used for position of all pieces
 
     #The main data structure which holds the entire state of the board
     #It is created in `basePieces.startingBoard.nim`
@@ -24,25 +25,41 @@ type
     #takes the state of the board and a piece, and returns possible `Moves` by that piece
     #It only needs to return one type of moves (like one row forward), since 
     #`Piece` takes a `seq` of `Moves`
-    MoveProc* = proc(board: ChessBoard, piece: Piece): Moves {.noSideEffect.}
-    Shooter* = proc(tile: Tile): Tile {.noSideEffect.}
+    MoveProc* = proc (board: ChessBoard, piece: Piece): Moves {.noSideEffect.}
+    Shooter* = proc (tile: Tile): Tile {.noSideEffect.}
 
     #`OnAction` is used when `piece` tries to move to `to`
     #it mutates the piece and the board
-    OnAction* = proc(piece: var Piece, to: Tile, board: var ChessBoard)
+    OnAction* = proc (piece: var Piece, to: Tile, board: var ChessBoard, state: var BoardState)
     #`WhenTaken` is called by the `taker Piece` when it attempts to take `taken Piece`
     #It can mutate both pieces, so `endTile` should be used to access `taker` after, since `taken` and `taker` will can after this is called
     #This is one of the sad truths of the code base, but I couldn't find anyway to change the board and not change the object given
     #`takeSuccess` also returns true if the `taken` piece is killed by `taker`
-    WhenTaken* = proc(taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool]
-    OnPiece* = proc (piece: var Piece, board: var ChessBoard)
+    WhenTaken* = proc (taken: var Piece, taker: var Piece, board: var ChessBoard, state: var BoardState): tuple[endTile: Tile, takeSuccess: bool]
+    OnPiece* = proc (piece: var Piece, board: var ChessBoard, state: var BoardState)
+    BoardAction* = proc (board: var ChessBoard, state: var BoardState)
 
-    BuyCondition* = proc(piece: Piece, board: ChessBoard): bool {.noSideEffect.}
-    BuyOption* = tuple[name: string, cost: int, action: OnPiece, condition: BuyCondition]
+    Casting* = tuple[on: Tile, group: int, glass: GlassType]
+
+    BuyCondition* = proc (piece: Piece, board: ChessBoard, s: BoardState): bool {.noSideEffect.}
+    BuyCost* = proc (piece: Piece, board: ChessBoard, s: BoardState): int {.noSideEffect.}
+    BuyOption* = tuple[name: string, cost: BuyCost, action: OnPiece, condition: BuyCondition]
+
+
+    GlassType* = enum 
+        Sky, Zero, Steel
+    GlassMoves* = proc (side: Color, piece: Piece, b: ChessBoard, s: BoardState): Moves {.noSideEffect.}
+    GlassTile* = proc (side: Color, piece: Piece, castedTile: Tile): Tile {.noSideEffect.}#I am the king of over engineering
+    GlassAbility* = tuple
+        strength: int
+        action: OnAction
+        condition: GlassMoves
+    Glasses* = array[GlassType, Option[GlassAbility]]
 
     Piece* = object
         item*: Piecetype
         color*: Color
+        index*: int #index is used for equality. if `p1.index == p2.index` then `p1 == p2`
         timesMoved*: int = 0
         piecesTaken*: int = 0
         tile*: Tile = (file: -1, rank: -1)
@@ -57,33 +74,30 @@ type
         filePath*: string = ""
         colorable*: bool = true
         rotate*: bool = false
-        rand*: tuple[drunk: bool, seed: int]  = (false, 0) #used for some of the powers with rng
-        wallet*: tuple[money: int, options: seq[BuyOption]] = (-1, @[])
+        drunk*: bool = false
+        casts*: seq[Casting]
 
-#helper templates for `Piece` methods
-#since methods are properties of the class, you would usually have to do `Piece.method(Piece)`
-#since you need to access it in `Piece` and pass `Piece`
-#these templates fix that boilerplate a little bit
-template move* (a: var Piece, b: Tile, c: var ChessBoard): untyped = 
-    a.onMove(a, b, c)
+    BoardState* = tuple[shared: SharedState, side: array[Color, SideState]]
 
-template take* (a: var Piece, b: Tile, c: var ChessBoard): untyped = 
-    a.onTake(a, b, c)
+    SharedState* = object
+        nextIndex: int = 1 #hidden because `newIndex` should be used instead to ensure proper management
+        nextGroup: int = 1
+        randSeed*: int = 0
+        turnNumber*: int = 0
 
-template promote* (a: Piece, c: var ChessBoard): untyped = 
-    for p in a.onPromote:
-        p(a, c)
-        if a.promoted: break
+    SideState* = object
+        abilityTakes*: int = 0 #takes from ability. I could put on a piece, but it would cause issues with some powers
 
-template endTurn* (a: var Piece, c: var ChessBoard): untyped = 
-    for p in a.onEndTurn:
-        p(a, c)
+        wallet*: Option[int] = none(int)
+        buys*: seq[BuyOption] = @[]
+        piecesSold*: int = 0
 
-template takenBy*(taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
-    taken.whenTaken(taken, taker, board)
+        glass*: Glasses = arrayWith(none(GlassAbility), GlassType.high.ord.succ) #high.ord.succ finds length of enum. I could do high.ord + 1 but .succ looks cooler
 
-template takenBy*(taken: Tile, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
-    board[taken.rank][taken.file].whenTaken(board[taken.rank][taken.file], taker, board)
+
+func startingState*(): BoardState = 
+    result.shared = SharedState()
+    result.side = [SideState(), SideState()]
 
 #returns a tuple for each rank file pair of the board
 #so this 
@@ -91,32 +105,117 @@ template takenBy*(taken: Tile, taker: var Piece, board: var ChessBoard): tuple[e
 #        for j in 0..<board[0].len:```
 #is replaced with
 #```for i, j in rankAndFile(board):```
-iterator rankAndFile*(board: ChessBoard): tuple[rank: int, file: int] = 
+iterator rankAndFile*(board: ChessBoard): Tile = 
     for i in 0..<board.len:
         for j in 0..<board[0].len:
             yield (i, j)
 
-func getMovesOn*(p: Piece, board: ChessBoard): Moves = 
-    for x in p.moves:
-        result.add(x(board, p))
+iterator byTwo*[T](s: seq[T]): tuple[a: T, b: T] {.inline.} = 
+    assert s.len mod 2 == 0 #assert even number
+    var index = 0
+    while index < s.len:
+        yield (s[index], s[index + 1])
+        index += 2
+
+#about time I did this
+#allows board to be index like `board[tile]`
+#instead of previous `board[tile.rank][tile.file]`
+#not sure what {.inline.} does, but the docs use it
+#TODO: USE THIS EVERYWHERE
+func `[]`*(b: ChessBoard, tile: Tile): Piece {.inline.} = 
+    return b[tile.rank][tile.file]
+
+#var version
+#techincally nim doesn't count refs as side effects, but I do
+proc `[]`*(b: var ChessBoard, tile: Tile): var Piece {.inline.} = 
+    return b[tile.rank][tile.file]
+
+#for assigning
+proc `[]=`*(b: var ChessBoard, tile: Tile, newPiece: Piece) {.inline.} = 
+    b[tile.rank][tile.file] = newPiece
+
+#I don't know how to get the option version to work, so I'm returning tile
+func tileOf*(board: var ChessBoard, index: int): Option[Tile] = 
+    for i, j in board.rankAndFile:
+        if board[i][j].index == index: return some(board[i][j].tile)
+    
+    return none(Tile)
+
+func `==`*(a: Piece, b: Piece): bool = 
+    return a.index == b.index
+
+#TODO RENAME TO emptyOnPiece
+const defaultOnEndTurn*: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
+        discard nil
+
+const emptyOnAction*: OnAction = proc (piece: var Piece, to: Tile, board: var ChessBoard, state: var BoardState) = 
+        discard nil
+
+#helper templates for `Piece` methods
+#since methods are properties of the class, you would usually have to do `Piece.method(Piece)`
+#since you need to access it in `Piece` and pass `Piece`
+#these templates fix that boilerplate a little bit
+template move* (p: var Piece, to: Tile, b: var ChessBoard, s: var BoardState): untyped = 
+    p.onMove(p, to, b, s)
+
+template take* (p: var Piece, to: Tile, b: var ChessBoard, s: var BoardState): untyped = 
+    p.onTake(p, to, b, s)
+
+template promote* (p: var Piece, b: var ChessBoard, s: var BoardState): untyped = 
+    for x in p.onPromote:
+        x(p, b, s)
+        if p.promoted: break
+
+template endTurn* (p: var Piece, b: var ChessBoard, s: var BoardState): untyped = 
+    for x in p.onEndTurn:
+        x(p, b, s)
+
+template takenBy*(taken: var Piece, taker: var Piece, b: var ChessBoard, state: var BoardState): tuple[endTile: Tile, takeSuccess: bool] = 
+    taken.whenTaken(taken, taker, board, state)
+
+template takenBy*(taken: Tile, taker: var Piece, b: var ChessBoard, state: var BoardState): tuple[endTile: Tile, takeSuccess: bool] = 
+    board[taken.rank][taken.file].whenTaken(board[taken.rank][taken.file], taker, b, state)
+
+proc newIndex*(s: var BoardState): int = 
+    inc s.shared.nextIndex
+    return s.shared.nextIndex
+    
+proc newGroup*(s: var BoardState): int = 
+    inc s.shared.nextGroup
+    return s.shared.nextGroup
+
 
 func getTakesOn*(p: Piece, board: ChessBoard): Moves = 
     for x in p.takes:
         result.add(x(board, p))
 
-proc pieceMove*(p: var Piece, rank: int, file: int, board: var ChessBoard) = 
+#I'm not sure if I've done a perfect job at ensuring that 
+#takes and moves are disjoint, so I'm going to be overkill for now
+#while running some tests
+#I really wish I could use a set, but nim doesn't allow implementing traits like ordinal
+#at least I don't think
+#I could use hashset, but the conversion seems kind of annoying
+func getMovesOn*(p: Piece, board: ChessBoard): Moves = 
+    for x in p.moves:
+        result.add(x(board, p))
+    let takes = getTakesOn(p, board)
+    for x in takes: #debug for study
+        if x in result: debugEcho $x, " is a take and a move"
+    result = result.filterIt(it notin takes)
+
+proc pieceMove*(p: var Piece, rank: int, file: int, board: var ChessBoard, state: var BoardState) = 
     board[rank][file] = board[p.tile.rank][p.tile.file]
-    board[p.tile.rank][p.tile.file] = Piece(item: None, tile: p.tile)
+    board[p.tile.rank][p.tile.file] = Piece(index: newIndex(state), item: None, tile: p.tile)
     board[rank][file].tile = (file: file, rank: rank)
 
-proc pieceMove*(p: var Piece, t: Tile, board: var ChessBoard) = 
-    pieceMove(p, t.rank, t.file, board)
+proc pieceMove*(p: var Piece, t: Tile, board: var ChessBoard, state: var BoardState) = 
+    pieceMove(p, t.rank, t.file, board, state)
 
-proc pieceMove*(p: Tile, t: Tile, board: var ChessBoard) = 
-    pieceMove(board[p.rank][p.file], t.rank, t.file, board)
+proc pieceMove*(p: Tile, t: Tile, board: var ChessBoard, state: var BoardState) = 
+    pieceMove(board[p.rank][p.file], t.rank, t.file, board, state)
 
-proc pieceMove*(p: var Piece, t: Piece, board: var ChessBoard) = 
-    pieceMove(p, t.tile.rank, t.tile.file, board)
+proc pieceMove*(p: var Piece, t: Piece, board: var ChessBoard, state: var BoardState) = 
+    pieceMove(p, t.tile.rank, t.tile.file, board, state)
 
 proc pieceSwap*(p1: Piece, p2: Piece, board: var ChessBoard) = 
     let temp = p1
@@ -126,24 +225,21 @@ proc pieceSwap*(p1: Piece, p2: Piece, board: var ChessBoard) =
     board[p1.tile.rank][p1.tile.file].tile = (file: p1.tile.file, rank: p1.tile.rank)
     board[temp.tile.rank][temp.tile.file].tile = (file: temp.tile.file, rank: temp.tile.rank)
 
-const defaultOnEndTurn*: OnPiece = proc(piece: var Piece, board: var ChessBoard) = 
-        discard nil
-
-const defaultWhenTaken*: WhenTaken = proc(taken: var Piece, taker: var Piece, board: var ChessBoard): tuple[endTile: Tile, takeSuccess: bool] = 
-    taker.pieceMove(taken, board)
+const defaultWhenTaken*: WhenTaken = proc(taken: var Piece, taker: var Piece, board: var ChessBoard, state: var BoardState): tuple[endTile: Tile, takeSuccess: bool] = 
+    taker.pieceMove(taken, board, state)
     return (taken.tile, true)
 
-const defaultOnMove*: OnAction = proc (piece: var Piece, to: Tile, board: var ChessBoard) = 
+const defaultOnMove*: OnAction = proc (piece: var Piece, to: Tile, b: var ChessBoard, state: var BoardState) = 
     inc piece.timesMoved
-    piece.pieceMove(to, board)
+    piece.pieceMove(to, b, state)
 
-const defaultOnTake*: OnAction = proc (piece: var Piece, taking: Tile, board: var ChessBoard) = 
-    let takeResult = taking.takenBy(piece, board)
+const defaultOnTake*: OnAction = proc (piece: var Piece, taking: Tile, board: var ChessBoard, state: var BoardState) = 
     inc piece.timesMoved
+    let takeResult = taking.takenBy(piece, board, state)
     if takeResult.takeSuccess:
         board[takeResult.endTile.rank][takeResult.endTile.file].piecesTaken += 1
 
-func pieceCopy*(initial: Piece,
+func pieceCopy*(initial: Piece, index: int, #index is required so I don't mess up
                 item: PieceType = initial.item, 
                 color: Color = initial.color,
                 timesMoved: int = initial.timesMoved, 
@@ -154,18 +250,17 @@ func pieceCopy*(initial: Piece,
                 onMove: OnAction = initial.onMove,
                 onTake: OnAction = initial.onTake,
                 whenTaken: WhenTaken = initial.whenTaken,
-                onEndTurn: seq[proc(piece: var Piece, board: var ChessBoard)] = initial.onEndTurn,
-                onPromote: seq[proc(piece: var Piece, board: var ChessBoard)] = initial.onPromote,
+                onEndTurn: seq[proc(piece: var Piece, board: var ChessBoard, state: var BoardState)] = initial.onEndTurn,
+                onPromote: seq[proc(piece: var Piece, board: var ChessBoard, state: var BoardState)] = initial.onPromote,
                 promoted: bool = initial.promoted,
                 filePath: string = initial.filePath,
                 colorable: bool = initial.colorable,
                 rotate: bool = initial.rotate,
-                rand: tuple[drunk: bool, seed: int] = initial.rand,
-                wallet: tuple[money: int, options: seq[BuyOption]] = initial.wallet): Piece = 
-    return Piece(item: item, color: color, timesMoved: timesMoved, piecesTaken: piecesTaken,
+                drunk: bool= initial.drunk): Piece = 
+    return Piece(index: index, item: item, color: color, timesMoved: timesMoved, piecesTaken: piecesTaken,
                 tile: tile, moves: moves, takes: takes, onMove: onMove, onTake: onTake,
                 whenTaken: whenTaken, onEndTurn: onEndTurn, onPromote: onPromote,promoted: promoted, filePath: filePath, rotate: rotate,
-                rand: rand, colorable: colorable, wallet: wallet)
+                drunk: drunk, colorable: colorable)
 
 func isAir*(p: Piece): bool = 
     return p.item == None
@@ -178,12 +273,6 @@ func isColor*(a: Piece, b: Color): bool =
 
 func otherSide*(a: Color): Color = 
     return if a == white: black else: white
-
-func `$`*(p: Piece): string = 
-    if p.item == None:
-        return ""
-    else: 
-        return $p.color & $p.item
 
 func alive*(c: Color, b: ChessBoard): bool = 
     for row in b:
@@ -213,26 +302,24 @@ func getPiecesChecking*(b: ChessBoard, c: Color): seq[Tile] =
             if not p.isColor(c) and kingTile in p.getTakesOn(b):
                 result.add(p.tile)
 
+func wouldCheckAt*(p: Piece, at: Tile, b: ChessBoard): bool = 
+    #we make copies to avoid ruining original state
+    var testboard = b
+    var testpiece = p
+    var emptyState: BoardState #sets to default, since we don't really need indexing
+    pieceMove(testpiece, at, testboard, emptyState)
+    #if the move would cause for more pieces to be checking, then we know that it would cause a check
+    return getPiecesChecking(testBoard, otherSide(p.color)).len > getPiecesChecking(b, otherSide(p.color)).len
+
 func isAtEnd*(piece: Piece): bool = 
     return (piece.tile.rank == 7 and piece.color == black) or (piece.tile.rank == 0 and piece.color == white)
 
-func hasWallet*(side: Color, b: ChessBoard): bool =
-    for i, j in b.rankAndFile:
-        if b[i][j].isColor(side) and 
-            b[i][j].item == King and
-            b[i][j].wallet.money != -1:
-                return true
-
-func getWallet*(side: Color, b: ChessBoard): int =
-    for i, j in b.rankAndFile:
-        if b[i][j].isColor(side) and 
-            b[i][j].item == King:
-                return b[i][j].wallet.money 
-
-proc buy*(piece: var Piece, option: BuyOption, board: var ChessBoard) =
-    echo piece, option.name, getWallet(piece.color, board)
+func getKing*(side: Color, board: ChessBoard): Tile = 
     for i, j in board.rankAndFile:
-        if board[i][j].item == King and board[i][j].sameColor(piece):
-            if board[i][j].wallet.money >= option.cost:
-                board[i][j].wallet.money -= option.cost
-                option.action(piece, board)
+        if board[i][j].item == King and board[i][j].color == side:
+            return board[i][j].tile
+
+func getKingPiece*(side: Color, board: ChessBoard): Piece = 
+    for i, j in board.rankAndFile:
+        if board[i][j].item == King and board[i][j].color == side:
+            return board[i][j]

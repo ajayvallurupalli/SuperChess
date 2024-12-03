@@ -1,0 +1,264 @@
+/*
+I split the css into two files so that I can have two strokes
+as punishment for my sins.
+
+*/
+
+$border-width: 4px;
+$background-highlight: #F8F7F7;
+$background-hover: #DCDCDC;
+$sky: #183dd1;
+$zero: #424242;
+$steel: #ea332d;
+
+@mixin row($col, $row){
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    text-wrap: wrap;
+
+    display: grid;
+    grid-template-columns: repeat($col, 1fr);
+    grid-template-rows: repeat($row, 1fr);
+
+    column-gap: 10%;
+    row-gap: 20px;
+    padding-top: -20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    min-width: 90%;
+    width: 90%;
+    max-width: 90%;
+
+    min-height: fit-content;
+
+    transition: ease-in-out all .5s;
+
+    background-color: $background-highlight;
+
+    &:hover {
+        background-color: $background-hover;
+    }
+}
+
+@media only screen {
+    td {
+        min-width: 100px;
+        min-height: 100px;
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        vertical-align: middle;
+        border-width: 6px;
+        transition: ease-in-out all .5s;
+    }    
+    
+    .power-grid {
+        font-size: 23px;
+    }    
+}
+
+@for $i from 0 through 8 {
+    @media only screen and (max-width:(2000px - ($i * 100))) {
+        td {
+            min-width: (75px - ($i * 6));
+            min-height: (75px - ($i * 6));
+            width: (75px - ($i * 6));
+            height: (75px - ($i * 6));
+            text-align: center;
+            vertical-align: middle;
+        }    
+    
+        .column-scroll {
+            font-size: (23px - ($i * 0.5));
+
+            h4 {
+                font-size: (32px - ($i * 0.5));
+            }
+        }
+
+        .glass-menu {
+            width: (40px - ($i * 5)) !important; 
+            height: (40px - ($i * 5)) !important; 
+            border-width: (6px - ($i * .2)) !important; 
+        }
+
+        .bottom-info {
+            max-width: ((80px - ($i * 5)) * 8 - 10);
+        }
+    }
+}
+
+@for $i from 1 through 15 {
+    @media only screen and (max-width:(1250px - ($i * 50))) {
+
+        td {
+            min-width: (90px - ($i * 4));
+            min-height: (90px - ($i * 4));
+            width: (90px - ($i * 4));
+            height: (90px - ($i * 4));
+            text-align: center;
+            vertical-align: middle;
+            border-width: 3px !important;
+        }    
+    
+        .column-scroll {
+            font-size: 27px;
+
+            h4 {
+                font-size: 32px;
+            }
+        }
+
+
+        .glass-menu > span {
+            width: 40px !important; 
+            height: 40px !important; 
+            border-width: 5px !important; 
+        }
+    }
+}
+
+.glass-menu {
+    @include row(3, 4);
+
+    grid-template-areas: 
+        '.        title      .'
+        'sky      zero       steel'
+        'skydesc  zerodesc   steeldesc'
+        'cancel   use        use';
+
+    .title {
+        grid-area: title;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        font-size: 23px;
+    }
+
+    span {
+        width: 40px;
+        height: 40px;
+        
+        border-radius: 50%;
+        border-color: gray;
+        border-width: 5px;
+        border-style: solid;
+    
+        display: inline-block;
+        align-self: center;
+        
+        transition: .9s;
+    }
+    
+    button {
+        font-size: 25px;
+    }
+
+    span.sky {
+        grid-area: sky;
+        background-color: $sky;
+    }
+    
+    span.zero {
+        grid-area: zero;
+        background-color: $zero;
+    }
+
+    span.steel {
+        grid-area: steel;
+        background-color: $steel;
+    }
+
+    p.sky {
+        grid-area: skydesc;
+    }
+
+    p.zero {
+        grid-area: zerodesc;
+    }
+    
+
+    p.steel {
+        grid-area: steeldesc;
+    }
+
+    span.empty {
+        background-color: #fdfcfc !important;
+    }
+
+    button.cancel {
+        margin-left: 10px;
+        min-width: 100%;
+        grid-area: cancel;
+    }
+
+    button.use {
+        margin-right: 10px;
+        min-width: 100%;
+        grid-area: use;
+    }
+}
+
+
+
+.piece-row {
+    @include row(3, 3);
+
+    grid-template-areas:
+        'name   .     row'
+        'img    .     row'
+        'take   .     row';
+
+    h4 {
+        grid-area: name;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        font-size: 20px;
+    }
+
+    img {
+        grid-area: img;
+    }
+
+    .row {
+        grid-area: row;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 50px;
+        
+        button {
+            height: min-content;
+            font-size: 20px;
+            min-width: fit-content;
+        }
+    }    
+    
+    .take {
+        grid-area: take;
+    }
+
+}
+
+.power-grid {
+    @include row(5, 4);
+
+    grid-template-areas: 
+        'title title title .     .'
+        'desc  desc  desc  img   img'
+        'desc  desc  desc  img   img'
+        'desc  desc  desc  .     .';
+
+    img {
+        position: relative;
+        max-height: 100px;
+        min-height: 100px;
+    }
+
+    h4 {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}

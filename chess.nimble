@@ -29,3 +29,6 @@ task jscr, "compiles for release":
 
 task host, "hosts app.html, build from main.nim with task html":
     exec "npx parcel app/app.html"
+
+task sass, "adds watcher to scss":
+    exec "sass --watch styles.scss main.css"

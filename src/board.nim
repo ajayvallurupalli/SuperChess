@@ -19,7 +19,7 @@ func emptyBoard*(): ChessBoard =
 
     for j,x in result:
         for i,y in x:
-            result[j][i] = y.pieceCopy(tile=(j, i))
+            result[j][i] = y.pieceCopy(0, tile=(j, i))
             
 func `==`*(a: Tile, b: Tile): bool = 
     return a.file == b.file and a.rank == b.rank
@@ -28,7 +28,7 @@ func `==`*(a: Tile, b: Tile): bool =
 #a function which takes a `Tile` and returns a `Tile`
 # `m` to the right and `n` below
 #m is annotated with `piece.File` to not confuse it when `syncio.File`
-func shooterFactory*(m: piece.File, n: Rank): Shooter = 
+func shooterFactory*(m: int, n: int): Shooter = 
     result = proc(t: Tile): Tile = (t.file + m, t.rank + n)
 
 func tileAbove*(t: Tile): Tile = 
@@ -42,6 +42,10 @@ func tileLeft*(t: Tile): Tile =
 
 func tileRight*(t: Tile): Tile = 
     return (t.file + 1, t.rank)
+
+func forward*(p: Piece): Tile = 
+    if p.color == piece.white: return p.tile.tileAbove
+    else: return p.tile.tileBelow
 
 #if `t` is a valid tile for the `ChessBoard b`, it returns `Some(p)`, where `p` is the `Piece` at that tile
 #otherwise, it returns none. 

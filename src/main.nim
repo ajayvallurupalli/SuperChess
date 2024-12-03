@@ -1,10 +1,12 @@
 include karax / prelude
 import karax/errors
-import piece, basePieces, port, power, powers, store #powers import for debug
+import piece, basePieces, port, power, powers, store, capitalism #powers import for debug
+import extrapower/glass
 import std/dom, std/strformat #im not sure why dom stuff fails if I don't import the whole package
-from strutils import split, parseInt
-from sequtils import foldr, mapIt
-
+import std/options #try to expand use of this, instead of wierd tuple[has: bool stuff
+from strutils import split, parseInt, join, toLower
+from sequtils import foldr, mapIt, cycle, filterIt
+from std/algorithm import reversed
 
 {.warning[CStringConv]: off.} 
 #fixing the issue makes the code look bad, so I'm turning it off. Genius, I know
@@ -35,22 +37,40 @@ const defaultBaseDrafts: int = 3
 const defaultBaseDraftChoices: int = 3
 
 #CSS Classes
-const menuButton = "menu-button"
+#TODO migrate to these constants
+#spaces made concat easy
+const 
+    menuButton = " menu-button "
+    pieceRow = " piece-row "
+    glassMenu = " glass-menu "
+    height100 = " height-100 "
+    width100 = " width-100 "
+    settingItem = " setting-item "
+    castingAnimations: array[GlassType, string] = 
+        ["casting-sky", "casting-zero", "casting-steel"] #corresponding css classes for each type
 
 type 
     Screen {.pure.} = enum 
         Lobby, CreateRoom, JoinRoom, Game, Options, Draft, 
         Results, Rematch, Disconnect, Settings, Other
-    Gamemode = enum 
+    Gamemode {.pure.} = enum 
         Normal, RandomTier, TrueRandom, SuperRandom
+    Tab {.pure.} = enum
+        My, Opponent, Control, Debug
+    ActionContext = tuple
+        name: string
+        turns: int
+        group: int
+        action: BoardAction
+        cancelable: bool
+        passthrough: bool
+        send: proc ()
 
 #I really went for 2 months changing the values by hand each time
-const debug: bool = false
+const debug: bool = true
 const debugScreen: Screen = Game
-const myDebugPowers: seq[Power] = @[sacrifice, altEmpress]
-const opponentDebugPowers: seq[Power] = @[holy, sleeperAgent, capitalism]
-
-var screenWidth: int = window.innerWidth
+const myDebugPowers: seq[Power] = @[capitalismPower, sell, income, moveUp, upgrade, exponentialGrowth, skyGlass, steelGlass, zeroGlass]
+const opponentDebugPowers: seq[Power] = @[developed]
 
 var 
     #state for coordination with other player
@@ -58,8 +78,8 @@ var
     peer: tuple[send: proc(data: cstring), destroy: proc()]
     side: Color = if debug: white else: black
     turn: bool = if debug: true else: false
-    myDrafts: seq[Power] = if debug: myDebugPowers else: @[]
-    opponentDrafts: seq[Power] = if debug: opponentDebugPowers else: @[]
+    myDrafts: seq[Power] = @[]
+    opponentDrafts: seq[Power] = @[]
 
     #state for draft
     baseDrafts: int
@@ -70,21 +90,42 @@ var
 
     #state for game
     rematch = false
-    theBoard: ChessBoard = startingBoard() #also for debug
+    theBoard: ChessBoard #also for debug
+    theState: BoardState
     selectedTile: Tile = (file: -1, rank: -1) #negative means unselected
     possibleMoves: Moves = @[]
     possibleTakes: Moves = @[]
     lastMove: Moves = @[]
     piecesChecking: Moves = @[]
-    turnNumber: int = 1
 
     #settings decided by player
     showTechnicalNames: bool = false
     disableRNGPowers: bool = false
+    showDebug: bool = false
+    enableExperimental: bool = false
 
     #state for webapp
     currentScreen: Screen = if debug: debugScreen else: Lobby
+    currentTab: Tab = My
     gameMode: Gamemode# = TrueRandom #deubg
+    screenWidth: int = window.innerWidth
+
+    #for glass stuff
+    #i'll namespace in a tuple if I feel like there are too many globals
+    selectedGlass: Option[GlassType] = none(GlassType)
+
+    actionStack: seq[ActionContext] = @[]
+    nextActionStack: seq[ActionContext] = @[]
+    toSend: seq[ActionContext] = @[] 
+    promptHistory: seq[string] = @[]
+    promptStack: seq[string] = @[]
+    picksLeft: int = 0
+    getPickOptions: proc(): seq[Tile]
+    pickOptions: seq[Tile]
+    picks: seq[Tile] = @[] 
+    whenCollected: proc()
+
+
 
 proc alert(s: cstring) {.importjs: "alert(#)".}
 proc onresize(cb: proc()) {.importjs: "window.addEventListener('resize', #)".}
@@ -93,38 +134,105 @@ proc resize() =
     screenWidth = window.innerWidth
     redraw()
 
-onresize(resize)
-
 proc pieceOf(tile: Tile): var Piece = 
     theBoard[tile.rank][tile.file]
 
 proc isSelected(n: int, m: int): bool = 
     return selectedTile.rank == n and selectedTile.file == m
 
-initStorage()
+proc busy(): bool = 
+    return actionStack.len != 0 or picksLeft != 0 or not turn
 
 proc initGame() = 
-    theBoard = startingBoard()
+    theState = startingState()
+    theBoard = startingBoard(theState)
+    if not debug: theState.shared.randSeed = roomId.value.parseInt()
     myDrafts = @[]
     opponentDrafts = @[]
     lastMove = @[]
     piecesChecking = @[]
-    turnNumber = 0
+
+proc clear() =
+    selectedTile = (-1, -1)
+    possibleMoves = @[]
+    possibleTakes = @[]
+
 
 proc endRound() = 
     for i, j in rankAndFile(theBoard):
-        theBoard[i][j].endTurn(theBoard)
+        theBoard[i][j].endTurn(theBoard, theState)
 
     #this is needed by the random move powers to prevent double moves
     #It needs to happen after so that all drunkness is cleared after end turn stuff
     for i, j in rankAndFile(theBoard):
-        theBoard[i][j].rand.drunk = false
+        theBoard[i][j].drunk = false
 
     piecesChecking = theBoard.getPiecesChecking(side)
     if gameIsOver(theBoard):
         if side.alive(theBoard): addWins(myDrafts)
         currentScreen = Results
 
+    #TODO remove after tests
+    #ensuring that indexes are never duplicated
+    var test: seq[int] = @[]
+    for i, j in theBoard.rankAndFile:
+        assert theBoard[i][j].index notin test, fmt"{theBoard[i][j]} has some issues"
+        test.add(theBoard[i][j].index)
+
+proc sendAction(data: string, `end`: bool) =
+    if `end`: inc theState.shared.turnNumber 
+    if not debug: #skip send whn debugging because peer is undefined
+        peer.send(fmt"action:{data}") 
+        if `end`: 
+            turn = false #I also want turn to be always true when in debug
+            echo "send action changing turn"
+    if `end`: endRound() 
+
+proc updateActionStack() = 
+    echo "as", actionStack
+    echo "nas", nextActionStack
+    echo "s", toSend
+    if actionStack.len == 0:
+        if nextActionStack.len != 0:
+            for i, x in nextActionStack:
+                dec nextActionStack[i].turns
+
+        if not debug:
+            if toSend.len != 0:
+                for x in toSend:
+                    x.send()
+                    echo "send, this ends turn if .send does"
+            else:
+                #if all of them are not passThough, then pass
+                if nextActionStack.len != 0 and not nextActionStack.mapIt(it.passthrough).foldr(a and b):
+                    sendAction("pass", true)
+
+        actionStack = nextActionStack
+        nextActionStack = @[]
+        toSend = @[]
+
+proc sendMove(moveType: string, start: Tile, to: Tile) = 
+    sendAction(fmt"{$moveType},{$start.rank},{& $start.file},{$to.rank},{$to.file}", true)
+
+proc sendBuy(option: BuyOption, tile: Tile) = 
+    sendAction(fmt"buy,{option.name},{$tile.rank},{$tile.file}", false)
+
+proc createSendGlass(group: int): proc () = 
+    result = proc () =
+        #I think its easier to send them one at a time, but 
+        #that means that we need a final send, which is just a pass
+        sendAction(fmt"castingcomplete,{group}", false)
+        sendAction("pass", true) 
+
+proc otherBuy(d: string) = 
+    let data = d.split(",")
+    assert data[0] == "buy"
+    let piece = (parseInt(data[3]), parseInt(data[2]))
+    assert pieceOf(piece).color.hasWallet(theState)
+
+    for option in theState.side[otherSide(side)].buys:
+        if option.name == data[1]:
+            buy(pieceOf(piece), option, theBoard, theState)
 
 proc otherMove(d: string) = 
     let data = split(d, ",")
@@ -135,42 +243,83 @@ proc otherMove(d: string) =
     possibleMoves = @[]
     possibleTakes = @[]
 
-    inc turnNumber
+    inc theState.shared.turnNumber
 
     echo d, data[0], mover, moveTo
     if data[0] == "move":
-        pieceOf(mover).move(moveTo, theBoard)
+        pieceOf(mover).move(moveTo, theBoard, theState)
     elif data[0] == "take":
-        pieceOf(mover).take(moveTo, theBoard)
-    turn = not turn
-    endRound()
+        pieceOf(mover).take(moveTo, theBoard, theState)
 
-proc sendMove(mode: string, start: Tile, to: Tile) = 
-    if debug and debugScreen == Game: return #returns early to stop send move, since peer would not be defined when debugging
-    peer.send("move:" & mode & "," & $start.rank & "," & $start.file & "," & $to.rank & "," & $to.file)
-    turn = not turn
-    inc turnNumber
+proc otherGlass(d: string) = 
+    let data = split(d, ",")
+    if data[0] == "castingstart":
+        theBoard[parseInt(data[1])][parseInt(data[2])].casts.add((
+            on: (file: parseInt(data[4]), rank: parseInt(data[3])).Tile,
+            group: parseInt(data[5]),
+            glass: data[6].toGlassType()
+        ))
+    elif data[0] == "castingcomplete":
+        turn = true
+        echo "turn equals true: otherglass"
+        for i, j in theBoard.rankAndFile:
+            for c in theBoard[i][j].casts:
+                if c.group == parseInt(data[1]):
+                    #we filterit out first because it could move away during the action 
+                    theBoard[i][j].casts = theBoard[i][j].casts.filterIt(it.group != c.group)
+                    theState.side[otherSide(side)].glass[c.glass].get().action(
+                        theBoard[i][j], c.on, theBoard, theState
+                    )
 
 
-proc otherBuy(d: string) = 
+proc otherAction(d: string) = 
     let data = d.split(",")
-    let piece = (parseInt(data[2]), parseInt(data[1]))
-    assert pieceOf(piece).color.hasWallet(theBoard)
+    if data[0] == "buy":
+        otherBuy(d)
+        endRound()
+    elif data[0] == "move" or data[0] == "take":
+        turn = true
+        echo "otheraction of move/take: turn equals true"
+        otherMove(d)
+        endRound()
+    elif data[0].contains("casting"):
+        otherGlass(d)
+    elif data[0] == "pass":
+        turn = true
+        echo "otheraction of pass: turn equals true"
+        endRound()
 
-    for option in pieceOf(piece).wallet.options:
-        if option.name == data[0]:
-            buy(pieceOf(piece), option, theBoard)
+proc cancelPick() = 
+    if promptHistory.len > 0:
+        inc picksLeft
+        discard picks.pop() #remove pick
+        promptStack.add(promptHistory.pop()) #push back to history
+        pickOptions = getPickOptions()
+    
+proc cancelPick(_: Event, _: VNode) = 
+    cancelPick()
 
+proc cancelAllPicks() =
+    promptHistory = @[]
+    promptStack = @[]
+    picks = @[]
+    picksLeft = 0
 
-proc sendBuy(option: BuyOption, tile: Tile) = 
-    if debug and debugScreen == Game: return #returns early since peer is undefined when debugging
-    peer.send(fmt"buy:{option.name},{$tile.rank},{$tile.file}")
+    pickOptions = @[]
 
+    whenCollected = nil
+    getPickOptions = nil
+
+proc cancelAllPicks(_: Event, _: VNode) =
+    cancelAllPicks()
+    
 proc draft(allDrafts: seq[Power] = @[], drafter: seq[Power] = @[]) = 
     var disabled: seq[Power] = @[]
 
     if disableRNGPowers:
         disabled &= rngPowers
+    if not enableExperimental:
+        disabled &= experimentalPowers
 
     if gameMode == TrueRandom:
         draftOptions = draftRandomPower(allDrafts & disabled, drafter, draftChoices)
@@ -179,16 +328,6 @@ proc draft(allDrafts: seq[Power] = @[], drafter: seq[Power] = @[]) =
         draftOptions = draftRandomPowerTier(draftTier, allDrafts & holy & disabled, drafter, draftChoices)
     elif gameMode == SuperRandom:
         draftOptions = draftRandomPower(allDrafts & disabled, drafter, draftChoices, insaneWeights, buffedInsaneWeights)
-
-#also for debugging
-if debug and debugScreen == Screen.Draft:
-    gameMode = TrueRandom
-    draft()
-
-for i, j in rankAndFile(theBoard):
-    theBoard[i][j].rand.seed = 0
-myDrafts.executeOn(white, side, theBoard)
-opponentDrafts.executeOn(black, side,theBoard)
 
 proc hostLogic(d: string, m: MessageType) = 
     echo $m, " of ", d, "\n"
@@ -212,16 +351,10 @@ proc hostLogic(d: string, m: MessageType) =
                 draftTier = randomTier(defaultBuffedWeights)
                 draft(myDrafts & opponentDrafts, myDrafts)
             else:
-                myDrafts.executeOn(white, side, theBoard)
-                opponentDrafts.executeOn(black, side, theBoard)
-                for i, j in rankAndFile(theBoard):
-                    theBoard[i][j].rand.seed = parseInt(roomId.value)
+                execute(myDrafts, opponentDrafts, side, theBoard, theState)
                 peer.send("handshake:gamestart")
                 currentScreen = Game
-
-
-    of Move: otherMove(d)
-    of Buy: otherBuy(d)
+    of Action: otherAction(d)
     of End:
         if d == "disconn" or d == "exit":
             currentScreen = Disconnect
@@ -241,10 +374,7 @@ proc joinLogic(d: string, m: MessageType) =
         turn = false        
         initGame()
     of Handshake:
-        myDrafts.executeOn(black, side, theBoard)
-        opponentDrafts.executeOn(white, side, theBoard)
-        for i, j in rankAndFile(theBoard):
-            theBoard[i][j].rand.seed = parseInt(roomId.value)
+        execute(myDrafts, opponentDrafts, side, theBoard, theState)
         currentScreen = Game    
     of Rematch:
         if rematch:
@@ -264,8 +394,7 @@ proc joinLogic(d: string, m: MessageType) =
                 draftOptions.add(powers[parseInt(i)])
             
             turn = true
-    of Move: otherMove(d)  
-    of Buy: otherBuy(d)
+    of Action: otherAction(d)
     of End:
         if d == "disconn" or d == "exit":
             currentScreen = Disconnect
@@ -285,11 +414,22 @@ proc validateNotEmpty(field: kstring): proc () =
 
 proc createTile(p: Piece, m: int, n: int): VNode = 
     var class = if (m*7+n) mod 2 == 0: "whiteTile" else: "blackTile"
+
+    for i, j in theBoard.rankAndFile:
+        for c in theBoard[i][j].casts:
+            if p.tile == c.on:
+                class &= " casting-on-" & ($c.glass).toLower()
+
+    for c in p.casts:
+        class &= " casting-" & ($c.glass).toLower()
+
     if isSelected(m, n) and possibleTakes.contains(p.tile):
         class &= " can-take"
     elif isSelected(m,n):
         class &= " selected"
-    elif possibleMoves.contains(p.tile):
+    elif p.tile in picks: 
+        class &= " picking"
+    elif possibleMoves.contains(p.tile) or p.tile in pickOptions:
         class &= " can-move"
     elif possibleTakes.contains(p.tile):
         class &= " can-take"
@@ -304,32 +444,39 @@ proc createTile(p: Piece, m: int, n: int): VNode =
 
     result = buildHtml():
         td(class=class):
-            proc onclick(_: Event; _: VNode) =           
-                if possibleMoves.contains(p.tile) and turn and pieceOf(selectedTile).isColor(side):
-                    sendMove("move", selectedTile, p.tile)
-                    pieceOf(selectedTile).move(p.tile, theBoard)
-                    possibleMoves = @[]
-                    selectedTile = (-1,-1)
-                    possibleTakes = @[]
-                    endRound()
-                elif possibleTakes.contains(p.tile) and turn and pieceOf(selectedTile).isColor(side):
-                    sendMove("take", selectedTile, p.tile)
-                    pieceOf(selectedTile).take(p.tile, theBoard)
-                    possibleTakes = @[]
-                    selectedTile = (-1, -1)
-                    possibleMoves = @[]
-                    endRound()
+            proc onclick(_: Event; _: VNode) =     
+                if picksLeft != 0 and p.tile in pickOptions:
+                    dec picksLeft
+                    picks.add(p.tile)
+                    promptHistory.add(promptStack.pop()) #moves from stack to history
+                    pickOptions = getPickOptions()
+                    clear()
+                    if picksLeft == 0: 
+                        echo "when collected start"
+                        whenCollected()
+                        echo "When Collected"
+                        cancelAllPicks()
+                        echo "Cancel All"
+                elif possibleMoves.contains(p.tile) and 
+                    pieceOf(selectedTile).isColor(side) and not busy(): #picksLeft == 0 stops moves during pick
+                        pieceOf(selectedTile).move(p.tile, theBoard, theState)
+                        sendMove("move", selectedTile, p.tile)
+                        echo "send"
+                        clear()
+                elif possibleTakes.contains(p.tile) and 
+                    pieceOf(selectedTile).isColor(side) and not busy(): #picksLeft == 0 stops moves during pick:
+                        pieceOf(selectedTile).take(p.tile, theBoard, theState)
+                        sendMove("take", selectedTile, p.tile)
+                        clear()
                 elif not isSelected(m, n):
                     selectedTile = (n, m)
                     possibleMoves = p.getMovesOn(theBoard)        
                     possibleTakes = p.getTakesOn(theBoard)            
                 else:
-                    selectedTile = (-1,-1)
-                    possibleMoves = @[]
-                    possibleTakes = @[]
+                    clear()
 
             if p.filePath == "":
-                text $p
+                text ""
             else:
                 let class = if p.rotate: "rotate" else: ""
                 let color = if p.colorable: $p.color else: ""
@@ -387,19 +534,20 @@ proc createRoomMenu(): VNode =
             br()
             text roomId.value
 
+proc join(_: Event, _: VNode) =
+    let id = getVNodeById("joincode").getInputText 
+    roomId.value = id
+    echo getVNodeById("joincode")
+    if not peer.destroy.isNil():
+        peer.destroy()
+    peer = newJoin(id, joinLogic)
+
 proc createJoinMenu(): VNode = 
-    result = buildHtml(tdiv(class="main cut-down", id = "join")):
+    result = buildHtml(tdiv(class="main cut-down", id = "join", onkeyupenter = join)):
         label(`for` = "joincode"):
             text "Join Code:"
         input(id = "joincode", onchange = validateNotEmpty("joincode"))
-        button:
-            proc onclick(ev: Event; v: VNode) = 
-                let id = getVNodeById("joincode").getInputText 
-                roomId.value = id
-                echo getVNodeById("joincode")
-                if not peer.destroy.isNil():
-                    peer.destroy()
-                peer = newJoin(id, joinLogic)
+        button(onclick = join):
             text "Enter"
 
 proc createOptionsMenu(): VNode = 
@@ -561,22 +709,21 @@ proc createPowerSummary(p: Power, ofSide: Color): VNode =
             img(class = class, src = iconsPath & "blackbishop.svg") #placeholder
 
 proc createBuyButton(option: BuyOption, p: var Piece): VNode =
-    if not option.condition(p, theBoard): 
+    if not option.condition(p, theBoard, theState): 
         return buildHtml(tdiv())
     else:
-        let disabled = not turn or getWallet(side, theBoard) < option.cost
-        buildHtml(button(class=menuButton, disabled=disabled)):
-            text fmt"{option.name}: ${option.cost}"
+        let cost = option.cost(p, theBoard, theState)
+        let disabled = not turn or getMoney(side, theState) < cost
+        #technically, a positive cost means that you pay that much, but that isn't very intuitive
+        let sign = if cost >= 0: "-" else: "+" 
+        buildHtml(button(disabled=disabled)):
+            text fmt"{option.name}: {sign}${abs(cost)}" #abs beacuse sign should be infront of dollar sign
             proc onclick(_: Event; _: VNode) = 
                 sendBuy(option, p.tile)
-                buy(p, option, theBoard)
-                selectedTile = (-1, -1) #clears since piece could be in a different spot
-                possibleMoves = @[] #TODO make this clearing a function because its DRY
-                possibleTakes = @[]
+                buy(p, option, theBoard, theState)
+                clear() #clears since piece could be in a different spot
 
 proc createPieceProfile(p: var Piece): VNode = 
-    if p.isAir():
-        return buildHtml(tdiv())
     var imgClass = ""
     if side != p.color and p.rotate:
         imgClass &= "rotate "
@@ -586,7 +733,7 @@ proc createPieceProfile(p: var Piece): VNode =
 
     let name = $p.item
 
-    result = buildHtml(tdiv(class="piece-row")):
+    result = buildHtml(tdiv(class=pieceRow)):
         h4:
             text name
         img(class=imgClass, src=src & p.filePath)
@@ -594,47 +741,211 @@ proc createPieceProfile(p: var Piece): VNode =
             text fmt"Kills: {p.piecesTaken} pieces."
         if p.isColor(side): #only show buttons when its your piece
             tdiv(class="row"):
-                for option in p.wallet.options:
+                for option in theState.side[p.color].buys:
                     createBuyButton(option, p)
 
-proc createWallet(side: Color): VNode = 
-    result = buildHtml(tdiv):
-        if hasWallet(side, theBoard):
-            h1:
-                text fmt"You have {getWallet(side, theBoard)} dollars."
+proc createInfo(): VNode = 
+    result = buildHtml(tdiv(class="bottom-info")):
+        if turn and actionStack.len != 0:
+            if actionStack[^1].turns == 0: #it has to be your turn, or it has to be passThrough
+                h3:
+                    if actionStack[^1].passThrough:
+                        text fmt"Execute {actionStack[^1].name} (This will end your turn, after all other actions are resolved): "
+                    else:
+                        text fmt"Execute {actionStack[^1].name}: "
+                button:
+                    text "Execute!"
+                proc onclick(_: Event, _: VNode) =
+                    actionStack[^1].action(theBoard, theState)
+                    echo "action complete"
+                    for i, j in theBoard.rankAndFile:
+                        theBoard[i][j].casts = theBoard[i][j].casts.filterIt(it.group != actionStack[^1].group)
+                    toSend.add(actionStack.pop())
+                    echo "sent"
+                    updateActionStack()
+            elif actionStack[^1].cancelable:
+                h3:
+                    if actionStack[^1].passThrough:
+                        text fmt"""{actionStack[^1].name} will complete in {actionStack[^1].turns}. Continuing does not end your turn. """
+                    else:
+                        text fmt"""{actionStack[^1].name} will complete in {actionStack[^1].turns}. Your turn will end if you continue."""
+                tdiv(class="column"):
+                    button:
+                        text "Continue"
+                        proc onclick(_: Event, _: VNode) = 
+                            nextActionStack.add(actionStack.pop())
+                            updateActionStack()
+                    button:
+                        text "Cancel"
+                        proc onclick(_: Event, _: VNode) = 
+                            discard actionStack.pop()
+                            updateActionStack()
+            else:
+                h3:
+                    if actionStack[^1].passThrough:
+                        text fmt"{actionStack[^1].name} will resolve in {actionStack[^1].turns} turns." 
+                    else:
+                        text fmt"""{actionStack[^1].name} will resolve in {actionStack[^1].turns} turns.
+                                    This will end your turn, once all other actions are resolved."""
+                button:
+                    text "Ok"
+                    proc onclick(_: Event, _: VNode) = 
+                        nextActionStack.add(actionStack.pop())
+                        updateActionStack()
+        elif promptStack.len == 0:
+            var text = if turn: "It is your turn. " else: "Opponent is moving. "
+            if hasWallet(side, theState):
+                text &= fmt"You have {getMoney(side, theState)} dollars."
+            h3:
+                text text
+        else:
+            h3:
+                text promptStack[^1] #last
+            button(onclick=cancelPick):
+                text "Undo last"
+
+
+proc createGlassOnClick(glass: GlassType): proc (_: Event, _: VNode) = 
+    result = proc (_: Event, _: VNode) =
+        if selectedGlass.isNone() or selectedGlass.get() != glass:
+            selectedGlass = some(glass)
+        else:
+            selectedGlass = none(GlassType)
+
+proc createGlassMenu(): VNode =
+    result = buildHtml(tdiv(class=glassMenu)):
+        h4(class="title"):
+            text "Glasses"
+
+        for glass in GlassType:
+            if theState.side[side].glass[glass].isSome():
+                span(class = ($glass).toLower(), onclick=createGlassOnClick(glass))
+            else:
+                span(class = fmt"{($glass).toLower()} empty")
+            p(class = ($glass).toLower()):
+                text $glass
+        if selectedGlass.isSome():
+            let glass = selectedGlass.get()
+            if picksLeft != 0:
+                button(class="cancel", onclick=cancelAllPicks):
+                    text "Cancel"
+            button(class="use", disabled = busy()):
+                text fmt"Use {glass}"
+                proc onclick(_: Event, _: VNode) = 
+                    let strength = theState.side[side].glass[glass].get().strength
+                    let group = newGroup(theState)
+                    var newCasting: seq[Casting]
+                    var pieces: seq[Piece] = @[]
+                    var tiles: seq[Tile] = @[]
+                    let action = theState.side[side].glass[glass].get().action
+
+                    picksLeft = strength * 2
+                    promptStack = [
+                        fmt"Pick a piece to start casting {glass}.", 
+                        fmt"Pick a tile to cast {glass} on."
+                    ].cycle(strength).reversed()
+                    whenCollected = proc () =
+                        for piece, tile in byTwo(picks):
+                            echo "piecetile", piece, "tile, ", tile
+                            pieces.add(theBoard[piece])
+                            tiles.add(tile)
+                            newCasting.add(( 
+                                on: tile,
+                                group: group,
+                                glass: glass
+                            ))
+
+                            theBoard[piece].casts.add(( 
+                                on: tile,
+                                group: group,
+                                glass: glass
+                            ))
+
+                            sendAction(fmt"""castingstart,{piece.rank},{piece.file},{tile.rank},{tile.file},{group},{glass}""", false)
+                        echo "adding actionStack"
+                        actionStack.add((
+                            name: "Casting " & $glass,
+                            turns: 1,
+                            group: group,
+                            action: packageGlass(pieces, tiles, action),
+                            cancelable: true,
+                            passThrough: false,
+                            send: createSendGlass(group)
+                        ))
+                        echo "avtionstack added"
+                        sendAction("pass", true)
+                    getPickOptions = proc (): Moves =
+                        if picksLeft mod 2 == 0: #picking piece
+                            for i, j in theBoard.rankAndFile:
+                                if theBoard[i][j].isColor(side):
+                                    result.add(theBoard[i][j].tile)
+                        else: #picking tile
+                            let condition = theState.side[side].glass[glass].get().condition
+                            #theBoard[^1] is the last element, which would be the corresonding piece
+                            result.add(condition(side, theBoard[picks[^1]], theBoard, theState))
+                    pickOptions = getPickOptions() #we run once so that there are intitial options
+                    clear()
 
 proc createGame(): VNode = 
-    echo screenWidth
-    result = if screenWidth > 1250: 
-            buildHtml(tdiv(class="main")):
-                tdiv(class="column-scroll"):
-                    if not isSelected(-1, -1):
-                        createPieceProfile(pieceOf(selectedTile))
+    let topClass = if screenWidth > 1200: "main" else: "column height-100"
+    let nextClass = if screenWidth > 1200: "tab-column" else: "tab-column long"
+    buildHtml(tdiv(class=topClass)):
+        tdiv(class=nextClass):
+            tdiv(class="tab-row"):
+                button:
+                    text "Your Drafts"
+                    proc onclick(_: Event, _: VNode) =
+                        currentTab = My
+                button:
+                    text "Opponent Drafts"
+                    proc onclick(_: Event, _: VNode) =
+                        currentTab = Opponent
+                button:
+                    text "Power Control"
+                    proc onclick(_: Event, _: VNode) =
+                        currentTab = Control
+                if debug or showDebug:
+                    button:
+                        text "Debug"
+                        proc onclick(_: Event, _: VNode) =
+                            currentTab = Debug
+
+            tdiv(class="column-scroll"):
+                case currentTab
+                of My:
                     for p in myDrafts.replaceAnySynergies():
                         createPowerSummary(p, side)
-                tdiv(class="column"):
-                    if side == white: createBoard() else: reverseBoard()
-                    createWallet(side)
-                tdiv(class="column-scroll"):
+                    tdiv(class="debug"): #cheeky dev button
+                        proc onclick(_: Event, _: VNode) = 
+                            showDebug = true
+                of Opponent:
                     for p in opponentDrafts.replaceAnySynergies():
                         createPowerSummary(p, otherSide(side))
+                of Control:
+                    if isSelected(-1, -1) or theBoard[selectedTile].isAir():
+                        createPieceProfile(theBoard[getKing(side, theBoard)]) #default    
+                    else: 
+                        createPieceProfile(pieceOf(selectedTile))
+                    if side.hasGlass(theState):
+                        createGlassMenu()
+                of Debug:
+                    tdiv(class="main"):
+                        text fmt"Shared: {$theState.shared}"
+                    tdiv(class="main"):
+                        text fmt"White: {$theState.side[white]}"
+                    tdiv(class="main"):
+                        text fmt"Black: {$theState.side[black]}"
+                    if not isSelected(-1, -1):
+                        tdiv(class="main"):
+                            text fmt"Selected piece: {$pieceOf(selectedTile)}"
+                    tdiv(class="main"):
+                        text fmt"Action Stack: {actionStack}"
+                    tdiv(class="main"):
+                        text fmt"Next ActionStack: {nextActionStack}"
 
-
-        else:
-            buildHtml(tdiv(class="column height-100")):
-                for p in opponentDrafts.replaceAnySynergies():
-                    createPowerSummary(p, otherSide(side))
-                if not isSelected(-1, -1) and pieceOf(selectedTile).isColor(otherSide(side)): 
-                    createPieceProfile(pieceOf(selectedTile))
-
-                if side == white: createBoard() else: reverseBoard()
-
-                createWallet(side)
-
-                if not isSelected(-1, -1) and pieceOf(selectedTile).isColor(side): 
-                    createPieceProfile(pieceOf(selectedTile))
-                for p in myDrafts.replaceAnySynergies():
-                    createPowerSummary(p, side)
+        tdiv(class="column"):
+            if side == white: createBoard() else: reverseBoard()
+            createInfo()
 
 proc createResults(): VNode = 
     result = buildHtml(tdiv(class="start-column")):
@@ -704,30 +1015,41 @@ proc createOther(): VNode =
             proc onclick(_: Event, _: VNode) = 
                 currentScreen = Lobby
 
-
+#if default option is true, then first change disables it
+proc createSetting(setting: var bool, title: string, description: string, defaultOption = false): VNode =
+    result = buildHtml(tdiv(class="start-column")):
+        tdiv(class=settingItem):
+            h4():
+                text $title
+            p():
+                text $description
+            button():
+                text if defaultOption: 
+                        if not setting: "Disable" else: "Enable"
+                    else:
+                        if setting: "Disable" else: "Enable"
+                proc onclick(_: Event, _: VNode) = 
+                    setting = not setting
+        hr()
 
 proc createSettings(): VNode = 
-    result = buildHtml(tdiv(class="start-column")):
-        tdiv(class="setting-item"):
-            h5():
-                text "Technical Names"
-            p():
-                text "Shows the technical names for synergy powers and powers with multiple variations."
-            button():
-                text if showTechnicalNames: "Disable" else: "Enable"
-                proc onclick(_: Event, _: VNode) = 
-                    showTechnicalNames = not showTechnicalNames
-        hr()
-        tdiv(class="setting-item"):
-            h5():
-                text "Disable RNG Powers"
-            p():
-                text "Removes RNG based powers, like civilians, from the draft pool. Only works when you are the host."
-            button():
-                text if not disableRNGPowers: "Disable" else: "Enable"
-                proc onclick(_: Event, _: VNode) = 
-                    disableRNGPowers = not disableRNGPowers
-        hr()
+    result = buildHtml(tdiv(class="start-column gap-10")):
+        createSetting(
+            showTechnicalNames,
+            "Technical Names",
+            "Shows the technical names for synergy powers and powers with multiple variations.",
+        )
+        createSetting(
+            disableRNGPowers,
+            "Disable RNG Powers",
+            "Removes RNG based powers, like civilians, from the draft pool. Only works when you are the host.",
+            true
+        )
+        createSetting(
+            enableExperimental,
+            "Include Experimental Powers",
+            "Adds the cutting edge of SuperChess. It is likely to break or be unbalanced.",
+        )
         button(class="width-100"):
             text "Return to Other"
             proc onclick(_: Event, _: VNode) = 
@@ -748,6 +1070,24 @@ proc main(): VNode =
         of Disconnect: createDisconnect()
         of Other: createOther()
         of Settings: createSettings()
+
+
+initStorage()
+onresize(resize)
+
+
+if debug: 
+    case currentScreen
+    of Game:
+        initGame()
+        theState.shared.randSeed = 0
+        myDrafts = myDebugPowers
+        opponentDrafts = opponentDebugPowers
+        execute(myDrafts, opponentDrafts, side, theBoard, theState)
+    of Draft: 
+        gameMode = TrueRandom
+        draft()
+    else: discard nil
 
 
 setRenderer main

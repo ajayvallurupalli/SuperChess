@@ -1,0 +1,413 @@
+@use 'rows';
+@use 'sass:string';
+@use 'sass:list';
+@use 'sass:math';
+
+/*
+WARNING: Due to the graphic nature of the following, we require you to sign
+a Non Dicslosure Agreenebt (NDA) before acessing the content. Such a contract waives your 
+write to report on the following, to any other person, or entity, for perpetuity. Violating this agreement
+will result in fines up to 5000 dollares and up to 3 years of jail time. 
+*/
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    min-height: 100%;
+    min-width: 100%;
+}
+
+h3 {
+    font-size: 25px;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    max-height: inherit;
+    object-fit: contain;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    height: 0px;
+    width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .1);
+}
+
+.height-100 {
+    min-height: 100%;
+    height: 100%;
+}
+
+.width-100 {
+    min-width: 100%;
+    width: 100%;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 90px;
+    height: 100%;
+}
+
+.cut-down {
+    max-height: 80%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    align-self: center;
+    gap: 20px;
+    text-align: center;
+}
+
+hr {
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    /**one of these do something*/
+    border-style: solid;
+    border-width: 0px 0px 4px 0px;
+    border-color: black;
+}
+
+.start-column {
+    display: flex;
+    min-height: 50%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    text-align: center;
+    padding: 35px;
+}
+
+.power-menu {
+    flex-wrap: wrap;
+}
+
+.power {
+    padding: 20px;
+    min-height: 90%;
+    width: 180px;
+    min-width: 180px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    background-color: rows.$background-highlight;
+    transition: .9s;
+}
+
+.power:hover {
+    background-color: rows.$background-hover;
+}
+
+.column-scroll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+
+    border-width: 3px;
+    border-color: black;
+    border-style: solid;
+
+    overflow-y: scroll;
+    overflow-x: scroll;
+    max-height: 100%;
+    height: 100%;
+    max-width: 95%;
+    min-width: 95%;
+    width: 95%;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/*If you close your eyes its not too bad*/
+.column-scroll>.piece-row>.row>button {
+    font-size: 16px;
+    max-width: min-content
+}
+
+.setting-item {
+    display: grid;
+    grid-template-areas:
+        'title title title'
+        'desc  desc   desc'
+        'desc  desc   desc'
+        'button     button button';
+
+    padding: 5px;
+    justify-content: center;
+    height: auto;
+    min-width: 100%;
+    max-width: 100%;
+    text-wrap: wrap;
+    transition: 0.9s;
+}
+
+.setting-item>h4 {
+    font-size: 22px;
+    grid-area: title;
+    margin-bottom: 0px;
+}
+
+.setting-item>p {
+    grid-area: desc;
+}
+
+.setting-item>button {
+    grid-area: button;
+}
+
+.title {
+    grid-area: title;
+}
+
+.desc {
+    grid-area: desc;
+}
+
+
+.image {
+    grid-area: img;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.power>h1 {
+    text-align: center;
+    flex-basis: 90px;
+}
+
+.tab-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0px;
+
+    min-width: 100%;
+    margin-top: -10px;
+    height: auto;
+
+    transform: translateX(2.5%);
+
+    button {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    /*Moves every other element to the right
+    to make an overlap effect*/
+    button:not(first-child) {
+        margin-right: -6px;
+    }
+}
+
+.tab-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    align-self: center;
+
+    max-height: 78%;
+    min-height: 78%;
+    height: 78%;
+
+    width: min-content;
+    min-width: 70%;
+    max-width: 70%;
+}
+
+.long {
+    max-height: 40% !important;
+    min-height: 40% !important;
+    height: 40% !important;
+    width: 90% !important;
+    min-width: 90% !important;
+    max-width: 90% !important;
+
+    transform: translateY(10px);
+}
+
+
+
+.debug {
+    min-width: 10px;
+    min-height: 10px;
+    background-color: lightyellow;
+}
+
+.unselected {
+    border-color: rgba(0, 0, 0, 0);
+    border-style: solid;
+}
+
+.selected {
+    border-color: blue !important;
+    border-style: solid;
+}
+
+.can-move {
+    border-color: green !important;
+    border-style: solid;
+}
+
+.can-take {
+    border-color: yellow !important;
+    border-style: solid;
+}
+
+.last-move {
+    border-color: purple;
+    border-style: solid;
+}
+
+.checking {
+    border-color: red;
+    border-style: solid;
+}
+
+.picking {
+    border-color: orange;
+    border-style: solid;
+}
+
+@mixin casting($color) {
+    $id: string.unique-id();
+
+    content: '';
+    position: absolute;
+    min-width: inherit;
+    min-height: inherit;
+    padding-bottom: 5px;
+    
+    border-radius: 50%;
+
+    outline-width: 2px;
+    outline-style: solid;
+    animation: castingAnimation-#{$id} 4s ease-in-out infinite;
+
+    @keyframes castingAnimation-#{$id} {
+        0% {
+            outline-width: 3px;
+            outline-offset: 50px;
+            outline-color: $color;
+        }
+
+        100% {
+            outline-width: 20px;
+            outline-offset: -25px;
+            outline-color: rgba(0, 0, 0, 0);
+        }
+    }
+}
+
+@mixin castingOn($color) {
+    $id: string.unique-id();
+
+    outline-width: 1px;
+    outline-color: $color;
+    outline-style: solid;
+    animation: animateOutline#{$id} 2s ease infinite;
+
+    @keyframes animateOutline#{$id} {
+        0% {
+            outline-width: 2px;
+            outline-offset: 0px;
+            outline-color: $color;
+        }
+
+        50% {
+            outline-width: 8px;
+            outline-offset: 0px;
+            outline-color: rgba(0, 0, 0, 0);
+        }
+
+        100% {
+            outline-width: 2px;
+            outline-offset: 0px;
+            outline-color: $color;
+        }
+
+    }
+}
+
+.casting-on-sky {
+    @include castingOn(rows.$sky)
+}
+
+.casting-on-steel {
+    @include castingOn(rows.$steel)
+}
+
+.casting-on-zero {
+    @include castingOn(rows.$zero)
+}
+
+.casting-sky::before {
+    @include casting(rows.$sky)
+}
+
+.casting-steel::before {
+    @include casting(rows.$steel)
+}
+
+.casting-zero::before {
+    @include casting(rows.$zero)
+}
+
+.blackTile {
+    background-color: darkgrey;
+}
+
+.whiteTile {
+    background-color: whitesmoke;
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
+.menu-button {
+    min-width: 120px;
+}
+
+.scroll {
+    overflow: scroll;
+}
+
+.bottom-info {
+    margin-bottom: -10px;
+    margin-top: -10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 90px;
+    height: 100%;
+}
+
+.gap-10 {
+    gap: 10px;
+}

@@ -1,0 +1,1179 @@
+/*
+I split the css into two files so that I can have two strokes
+as punishment for my sins.
+
+*/
+@media only screen {
+  td {
+    min-width: 100px;
+    min-height: 100px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 6px;
+    transition: ease-in-out all 0.5s;
+  }
+  .power-grid {
+    font-size: 23px;
+  }
+}
+@media only screen and (max-width: 2000px) {
+  td {
+    min-width: 75px;
+    min-height: 75px;
+    width: 75px;
+    height: 75px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .column-scroll {
+    font-size: 23px;
+  }
+  .column-scroll h4 {
+    font-size: 32px;
+  }
+  .glass-menu {
+    width: 40px !important;
+    height: 40px !important;
+    border-width: 6px !important;
+  }
+  .bottom-info {
+    max-width: 630px;
+  }
+}
+@media only screen and (max-width: 1900px) {
+  td {
+    min-width: 69px;
+    min-height: 69px;
+    width: 69px;
+    height: 69px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .column-scroll {
+    font-size: 22.5px;
+  }
+  .column-scroll h4 {
+    font-size: 31.5px;
+  }
+  .glass-menu {
+    width: 35px !important;
+    height: 35px !important;
+    border-width: 5.8px !important;
+  }
+  .bottom-info {
+    max-width: 590px;
+  }
+}
+@media only screen and (max-width: 1800px) {
+  td {
+    min-width: 63px;
+    min-height: 63px;
+    width: 63px;
+    height: 63px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .column-scroll {
+    font-size: 22px;
+  }
+  .column-scroll h4 {
+    font-size: 31px;
+  }
+  .glass-menu {
+    width: 30px !important;
+    height: 30px !important;
+    border-width: 5.6px !important;
+  }
+  .bottom-info {
+    max-width: 550px;
+  }
+}
+@media only screen and (max-width: 1700px) {
+  td {
+    min-width: 57px;
+    min-height: 57px;
+    width: 57px;
+    height: 57px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .column-scroll {
+    font-size: 21.5px;
+  }
+  .column-scroll h4 {
+    font-size: 30.5px;
+  }
+  .glass-menu {
+    width: 25px !important;
+    height: 25px !important;
+    border-width: 5.4px !important;
+  }
+  .bottom-info {
+    max-width: 510px;
+  }
+}
+@media only screen and (max-width: 1600px) {
+  td {
+    min-width: 51px;
+    min-height: 51px;
+    width: 51px;
+    height: 51px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .column-scroll {
+    font-size: 21px;
+  }
+  .column-scroll h4 {
+    font-size: 30px;
+  }
+  .glass-menu {
+    width: 20px !important;
+    height: 20px !important;
+    border-width: 5.2px !important;
+  }
+  .bottom-info {
+    max-width: 470px;
+  }
+}
+@media only screen and (max-width: 1500px) {
+  td {
+    min-width: 45px;
+    min-height: 45px;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .column-scroll {
+    font-size: 20.5px;
+  }
+  .column-scroll h4 {
+    font-size: 29.5px;
+  }
+  .glass-menu {
+    width: 15px !important;
+    height: 15px !important;
+    border-width: 5px !important;
+  }
+  .bottom-info {
+    max-width: 430px;
+  }
+}
+@media only screen and (max-width: 1400px) {
+  td {
+    min-width: 39px;
+    min-height: 39px;
+    width: 39px;
+    height: 39px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .column-scroll {
+    font-size: 20px;
+  }
+  .column-scroll h4 {
+    font-size: 29px;
+  }
+  .glass-menu {
+    width: 10px !important;
+    height: 10px !important;
+    border-width: 4.8px !important;
+  }
+  .bottom-info {
+    max-width: 390px;
+  }
+}
+@media only screen and (max-width: 1300px) {
+  td {
+    min-width: 33px;
+    min-height: 33px;
+    width: 33px;
+    height: 33px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .column-scroll {
+    font-size: 19.5px;
+  }
+  .column-scroll h4 {
+    font-size: 28.5px;
+  }
+  .glass-menu {
+    width: 5px !important;
+    height: 5px !important;
+    border-width: 4.6px !important;
+  }
+  .bottom-info {
+    max-width: 350px;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  td {
+    min-width: 27px;
+    min-height: 27px;
+    width: 27px;
+    height: 27px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .column-scroll {
+    font-size: 19px;
+  }
+  .column-scroll h4 {
+    font-size: 28px;
+  }
+  .glass-menu {
+    width: 0px !important;
+    height: 0px !important;
+    border-width: 4.4px !important;
+  }
+  .bottom-info {
+    max-width: 310px;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  td {
+    min-width: 86px;
+    min-height: 86px;
+    width: 86px;
+    height: 86px;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 3px !important;
+  }
+  .column-scroll {
+    font-size: 27px;
+  }
+  .column-scroll h4 {
+    font-size: 32px;
+  }
+  .glass-menu > span {
+    width: 40px !important;
+    height: 40px !important;
+    border-width: 5px !important;
+  }
+}
+@media only screen and (max-width: 1150px) {
+  td {
+    min-width: 82px;
+    min-height: 82px;
+    width: 82px;
+    height: 82px;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 3px !important;
+  }
+  .column-scroll {
+    font-size: 27px;
+  }
+  .column-scroll h4 {
+    font-size: 32px;
+  }
+  .glass-menu > span {
+    width: 40px !important;
+    height: 40px !important;
+    border-width: 5px !important;
+  }
+}
+@media only screen and (max-width: 1100px) {
+  td {
+    min-width: 78px;
+    min-height: 78px;
+    width: 78px;
+    height: 78px;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 3px !important;
+  }
+  .column-scroll {
+    font-size: 27px;
+  }
+  .column-scroll h4 {
+    font-size: 32px;
+  }
+  .glass-menu > span {
+    width: 40px !important;
+    height: 40px !important;
+    border-width: 5px !important;
+  }
+}
+@media only screen and (max-width: 1050px) {
+  td {
+    min-width: 74px;
+    min-height: 74px;
+    width: 74px;
+    height: 74px;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 3px !important;
+  }
+  .column-scroll {
+    font-size: 27px;
+  }
+  .column-scroll h4 {
+    font-size: 32px;
+  }
+  .glass-menu > span {
+    width: 40px !important;
+    height: 40px !important;
+    border-width: 5px !important;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  td {
+    min-width: 70px;
+    min-height: 70px;
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 3px !important;
+  }
+  .column-scroll {
+    font-size: 27px;
+  }
+  .column-scroll h4 {
+    font-size: 32px;
+  }
+  .glass-menu > span {
+    width: 40px !important;
+    height: 40px !important;
+    border-width: 5px !important;
+  }
+}
+@media only screen and (max-width: 950px) {
+  td {
+    min-width: 66px;
+    min-height: 66px;
+    width: 66px;
+    height: 66px;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 3px !important;
+  }
+  .column-scroll {
+    font-size: 27px;
+  }
+  .column-scroll h4 {
+    font-size: 32px;
+  }
+  .glass-menu > span {
+    width: 40px !important;
+    height: 40px !important;
+    border-width: 5px !important;
+  }
+}
+@media only screen and (max-width: 900px) {
+  td {
+    min-width: 62px;
+    min-height: 62px;
+    width: 62px;
+    height: 62px;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 3px !important;
+  }
+  .column-scroll {
+    font-size: 27px;
+  }
+  .column-scroll h4 {
+    font-size: 32px;
+  }
+  .glass-menu > span {
+    width: 40px !important;
+    height: 40px !important;
+    border-width: 5px !important;
+  }
+}
+@media only screen and (max-width: 850px) {
+  td {
+    min-width: 58px;
+    min-height: 58px;
+    width: 58px;
+    height: 58px;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 3px !important;
+  }
+  .column-scroll {
+    font-size: 27px;
+  }
+  .column-scroll h4 {
+    font-size: 32px;
+  }
+  .glass-menu > span {
+    width: 40px !important;
+    height: 40px !important;
+    border-width: 5px !important;
+  }
+}
+@media only screen and (max-width: 800px) {
+  td {
+    min-width: 54px;
+    min-height: 54px;
+    width: 54px;
+    height: 54px;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 3px !important;
+  }
+  .column-scroll {
+    font-size: 27px;
+  }
+  .column-scroll h4 {
+    font-size: 32px;
+  }
+  .glass-menu > span {
+    width: 40px !important;
+    height: 40px !important;
+    border-width: 5px !important;
+  }
+}
+@media only screen and (max-width: 750px) {
+  td {
+    min-width: 50px;
+    min-height: 50px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 3px !important;
+  }
+  .column-scroll {
+    font-size: 27px;
+  }
+  .column-scroll h4 {
+    font-size: 32px;
+  }
+  .glass-menu > span {
+    width: 40px !important;
+    height: 40px !important;
+    border-width: 5px !important;
+  }
+}
+@media only screen and (max-width: 700px) {
+  td {
+    min-width: 46px;
+    min-height: 46px;
+    width: 46px;
+    height: 46px;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 3px !important;
+  }
+  .column-scroll {
+    font-size: 27px;
+  }
+  .column-scroll h4 {
+    font-size: 32px;
+  }
+  .glass-menu > span {
+    width: 40px !important;
+    height: 40px !important;
+    border-width: 5px !important;
+  }
+}
+@media only screen and (max-width: 650px) {
+  td {
+    min-width: 42px;
+    min-height: 42px;
+    width: 42px;
+    height: 42px;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 3px !important;
+  }
+  .column-scroll {
+    font-size: 27px;
+  }
+  .column-scroll h4 {
+    font-size: 32px;
+  }
+  .glass-menu > span {
+    width: 40px !important;
+    height: 40px !important;
+    border-width: 5px !important;
+  }
+}
+@media only screen and (max-width: 600px) {
+  td {
+    min-width: 38px;
+    min-height: 38px;
+    width: 38px;
+    height: 38px;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 3px !important;
+  }
+  .column-scroll {
+    font-size: 27px;
+  }
+  .column-scroll h4 {
+    font-size: 32px;
+  }
+  .glass-menu > span {
+    width: 40px !important;
+    height: 40px !important;
+    border-width: 5px !important;
+  }
+}
+@media only screen and (max-width: 550px) {
+  td {
+    min-width: 34px;
+    min-height: 34px;
+    width: 34px;
+    height: 34px;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 3px !important;
+  }
+  .column-scroll {
+    font-size: 27px;
+  }
+  .column-scroll h4 {
+    font-size: 32px;
+  }
+  .glass-menu > span {
+    width: 40px !important;
+    height: 40px !important;
+    border-width: 5px !important;
+  }
+}
+@media only screen and (max-width: 500px) {
+  td {
+    min-width: 30px;
+    min-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 3px !important;
+  }
+  .column-scroll {
+    font-size: 27px;
+  }
+  .column-scroll h4 {
+    font-size: 32px;
+  }
+  .glass-menu > span {
+    width: 40px !important;
+    height: 40px !important;
+    border-width: 5px !important;
+  }
+}
+.glass-menu {
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  text-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  column-gap: 10%;
+  row-gap: 20px;
+  padding-top: -20px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  min-width: 90%;
+  width: 90%;
+  max-width: 90%;
+  min-height: fit-content;
+  transition: ease-in-out all 0.5s;
+  background-color: #F8F7F7;
+  grid-template-areas: ".        title      ." "sky      zero       steel" "skydesc  zerodesc   steeldesc" "cancel   use        use";
+}
+.glass-menu:hover {
+  background-color: #DCDCDC;
+}
+.glass-menu .title {
+  grid-area: title;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  font-size: 23px;
+}
+.glass-menu span {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border-color: gray;
+  border-width: 5px;
+  border-style: solid;
+  display: inline-block;
+  align-self: center;
+  transition: 0.9s;
+}
+.glass-menu button {
+  font-size: 25px;
+}
+.glass-menu span.sky {
+  grid-area: sky;
+  background-color: #183dd1;
+}
+.glass-menu span.zero {
+  grid-area: zero;
+  background-color: #424242;
+}
+.glass-menu span.steel {
+  grid-area: steel;
+  background-color: #ea332d;
+}
+.glass-menu p.sky {
+  grid-area: skydesc;
+}
+.glass-menu p.zero {
+  grid-area: zerodesc;
+}
+.glass-menu p.steel {
+  grid-area: steeldesc;
+}
+.glass-menu span.empty {
+  background-color: #fdfcfc !important;
+}
+.glass-menu button.cancel {
+  margin-left: 10px;
+  min-width: 100%;
+  grid-area: cancel;
+}
+.glass-menu button.use {
+  margin-right: 10px;
+  min-width: 100%;
+  grid-area: use;
+}
+
+.piece-row {
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  text-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  column-gap: 10%;
+  row-gap: 20px;
+  padding-top: -20px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  min-width: 90%;
+  width: 90%;
+  max-width: 90%;
+  min-height: fit-content;
+  transition: ease-in-out all 0.5s;
+  background-color: #F8F7F7;
+  grid-template-areas: "name   .     row" "img    .     row" "take   .     row";
+}
+.piece-row:hover {
+  background-color: #DCDCDC;
+}
+.piece-row h4 {
+  grid-area: name;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-size: 20px;
+}
+.piece-row img {
+  grid-area: img;
+}
+.piece-row .row {
+  grid-area: row;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+.piece-row .row button {
+  height: min-content;
+  font-size: 20px;
+  min-width: fit-content;
+}
+.piece-row .take {
+  grid-area: take;
+}
+
+.power-grid {
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  text-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  column-gap: 10%;
+  row-gap: 20px;
+  padding-top: -20px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  min-width: 90%;
+  width: 90%;
+  max-width: 90%;
+  min-height: fit-content;
+  transition: ease-in-out all 0.5s;
+  background-color: #F8F7F7;
+  grid-template-areas: "title title title .     ." "desc  desc  desc  img   img" "desc  desc  desc  img   img" "desc  desc  desc  .     .";
+}
+.power-grid:hover {
+  background-color: #DCDCDC;
+}
+.power-grid img {
+  position: relative;
+  max-height: 100px;
+  min-height: 100px;
+}
+.power-grid h4 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+/*
+WARNING: Due to the graphic nature of the following, we require you to sign
+a Non Dicslosure Agreenebt (NDA) before acessing the content. Such a contract waives your 
+write to report on the following, to any other person, or entity, for perpetuity. Violating this agreement
+will result in fines up to 5000 dollares and up to 3 years of jail time. 
+*/
+html,
+body {
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+h3 {
+  font-size: 25px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  max-height: inherit;
+  object-fit: contain;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  height: 0px;
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.height-100 {
+  min-height: 100%;
+  height: 100%;
+}
+
+.width-100 {
+  min-width: 100%;
+  width: 100%;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 90px;
+  height: 100%;
+}
+
+.cut-down {
+  max-height: 80%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  align-self: center;
+  gap: 20px;
+  text-align: center;
+}
+
+hr {
+  min-width: 100%;
+  max-width: 100%;
+  width: 100%;
+  /**one of these do something*/
+  border-style: solid;
+  border-width: 0px 0px 4px 0px;
+  border-color: black;
+}
+
+.start-column {
+  display: flex;
+  min-height: 50%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  text-align: center;
+  padding: 35px;
+}
+
+.power-menu {
+  flex-wrap: wrap;
+}
+
+.power {
+  padding: 20px;
+  min-height: 90%;
+  width: 180px;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: #F8F7F7;
+  transition: 0.9s;
+}
+
+.power:hover {
+  background-color: #DCDCDC;
+}
+
+.column-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  border-width: 3px;
+  border-color: black;
+  border-style: solid;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  max-height: 100%;
+  height: 100%;
+  max-width: 95%;
+  min-width: 95%;
+  width: 95%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/*If you close your eyes its not too bad*/
+.column-scroll > .piece-row > .row > button {
+  font-size: 16px;
+  max-width: min-content;
+}
+
+.setting-item {
+  display: grid;
+  grid-template-areas: "title title title" "desc  desc   desc" "desc  desc   desc" "button     button button";
+  padding: 5px;
+  justify-content: center;
+  height: auto;
+  min-width: 100%;
+  max-width: 100%;
+  text-wrap: wrap;
+  transition: 0.9s;
+}
+
+.setting-item > h4 {
+  font-size: 22px;
+  grid-area: title;
+  margin-bottom: 0px;
+}
+
+.setting-item > p {
+  grid-area: desc;
+}
+
+.setting-item > button {
+  grid-area: button;
+}
+
+.title {
+  grid-area: title;
+}
+
+.desc {
+  grid-area: desc;
+}
+
+.image {
+  grid-area: img;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.power > h1 {
+  text-align: center;
+  flex-basis: 90px;
+}
+
+.tab-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0px;
+  min-width: 100%;
+  margin-top: -10px;
+  height: auto;
+  transform: translateX(2.5%);
+  /*Moves every other element to the right
+  to make an overlap effect*/
+}
+.tab-row button {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.tab-row button:not(first-child) {
+  margin-right: -6px;
+}
+
+.tab-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  align-self: center;
+  max-height: 78%;
+  min-height: 78%;
+  height: 78%;
+  width: min-content;
+  min-width: 70%;
+  max-width: 70%;
+}
+
+.long {
+  max-height: 40% !important;
+  min-height: 40% !important;
+  height: 40% !important;
+  width: 90% !important;
+  min-width: 90% !important;
+  max-width: 90% !important;
+  transform: translateY(10px);
+}
+
+.debug {
+  min-width: 10px;
+  min-height: 10px;
+  background-color: lightyellow;
+}
+
+.unselected {
+  border-color: rgba(0, 0, 0, 0);
+  border-style: solid;
+}
+
+.selected {
+  border-color: blue !important;
+  border-style: solid;
+}
+
+.can-move {
+  border-color: green !important;
+  border-style: solid;
+}
+
+.can-take {
+  border-color: yellow !important;
+  border-style: solid;
+}
+
+.last-move {
+  border-color: purple;
+  border-style: solid;
+}
+
+.checking {
+  border-color: red;
+  border-style: solid;
+}
+
+.picking {
+  border-color: orange;
+  border-style: solid;
+}
+
+.casting-on-sky {
+  outline-width: 1px;
+  outline-color: #183dd1;
+  outline-style: solid;
+  animation: animateOutlineu7lkoj6 2s ease infinite;
+}
+@keyframes animateOutlineu7lkoj6 {
+  0% {
+    outline-width: 2px;
+    outline-offset: 0px;
+    outline-color: #183dd1;
+  }
+  50% {
+    outline-width: 8px;
+    outline-offset: 0px;
+    outline-color: rgba(0, 0, 0, 0);
+  }
+  100% {
+    outline-width: 2px;
+    outline-offset: 0px;
+    outline-color: #183dd1;
+  }
+}
+
+.casting-on-steel {
+  outline-width: 1px;
+  outline-color: #ea332d;
+  outline-style: solid;
+  animation: animateOutlineu7lkojk 2s ease infinite;
+}
+@keyframes animateOutlineu7lkojk {
+  0% {
+    outline-width: 2px;
+    outline-offset: 0px;
+    outline-color: #ea332d;
+  }
+  50% {
+    outline-width: 8px;
+    outline-offset: 0px;
+    outline-color: rgba(0, 0, 0, 0);
+  }
+  100% {
+    outline-width: 2px;
+    outline-offset: 0px;
+    outline-color: #ea332d;
+  }
+}
+
+.casting-on-zero {
+  outline-width: 1px;
+  outline-color: #424242;
+  outline-style: solid;
+  animation: animateOutlineu7lkojl 2s ease infinite;
+}
+@keyframes animateOutlineu7lkojl {
+  0% {
+    outline-width: 2px;
+    outline-offset: 0px;
+    outline-color: #424242;
+  }
+  50% {
+    outline-width: 8px;
+    outline-offset: 0px;
+    outline-color: rgba(0, 0, 0, 0);
+  }
+  100% {
+    outline-width: 2px;
+    outline-offset: 0px;
+    outline-color: #424242;
+  }
+}
+
+.casting-sky::before {
+  content: "";
+  position: absolute;
+  min-width: inherit;
+  min-height: inherit;
+  padding-bottom: 5px;
+  border-radius: 50%;
+  outline-width: 2px;
+  outline-style: solid;
+  animation: castingAnimation-u7lkojz 4s ease-in-out infinite;
+}
+@keyframes castingAnimation-u7lkojz {
+  0% {
+    outline-width: 3px;
+    outline-offset: 50px;
+    outline-color: #183dd1;
+  }
+  100% {
+    outline-width: 20px;
+    outline-offset: -25px;
+    outline-color: rgba(0, 0, 0, 0);
+  }
+}
+
+.casting-steel::before {
+  content: "";
+  position: absolute;
+  min-width: inherit;
+  min-height: inherit;
+  padding-bottom: 5px;
+  border-radius: 50%;
+  outline-width: 2px;
+  outline-style: solid;
+  animation: castingAnimation-u7lkokw 4s ease-in-out infinite;
+}
+@keyframes castingAnimation-u7lkokw {
+  0% {
+    outline-width: 3px;
+    outline-offset: 50px;
+    outline-color: #ea332d;
+  }
+  100% {
+    outline-width: 20px;
+    outline-offset: -25px;
+    outline-color: rgba(0, 0, 0, 0);
+  }
+}
+
+.casting-zero::before {
+  content: "";
+  position: absolute;
+  min-width: inherit;
+  min-height: inherit;
+  padding-bottom: 5px;
+  border-radius: 50%;
+  outline-width: 2px;
+  outline-style: solid;
+  animation: castingAnimation-u7lkold 4s ease-in-out infinite;
+}
+@keyframes castingAnimation-u7lkold {
+  0% {
+    outline-width: 3px;
+    outline-offset: 50px;
+    outline-color: #424242;
+  }
+  100% {
+    outline-width: 20px;
+    outline-offset: -25px;
+    outline-color: rgba(0, 0, 0, 0);
+  }
+}
+
+.blackTile {
+  background-color: darkgrey;
+}
+
+.whiteTile {
+  background-color: whitesmoke;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+.menu-button {
+  min-width: 120px;
+}
+
+.scroll {
+  overflow: scroll;
+}
+
+.bottom-info {
+  margin-bottom: -10px;
+  margin-top: -10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 90px;
+  height: 100%;
+}
+
+.gap-10 {
+  gap: 10px;
+}
+
+/*# sourceMappingURL=main.css.map */
