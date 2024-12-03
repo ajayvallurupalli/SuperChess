@@ -181,7 +181,7 @@ proc draftRandomPower*(allSelected: seq[Power], drafterSelected: seq[Power], opt
 #assumes that there is no intersection between myDrafts and opponentDrafts
 proc execute*(myDrafts: seq[Power], opponentDrafts: seq[Power], mySide: Color, board: var ChessBoard, state: var BoardState) = 
     for x in myDrafts:
-        assert x notin opponentDrafts, x.name & " is somehow in both pools"
+        assert x notin opponentDrafts and x.name != emptyPower.name, x.name & " is somehow in both pools"
 
     let mySynergizedDrafts = myDrafts.secretSynergize(secretSynergies & secretSecretSynergies)
     let opponentSynergizedDrafts = opponentDrafts.secretSynergize(secretSynergies & secretSecretSynergies)

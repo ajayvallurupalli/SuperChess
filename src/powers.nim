@@ -1,6 +1,7 @@
 import power, moves, piece, basePieces, extraMoves, board, capitalism
 import std/options
-from sequtils import filterIt
+from sequtils import filterIt, mapIt
+from strutils import contains
 from random import sample, rand, randomize
 
 #[TODO
@@ -1911,7 +1912,9 @@ const skyGlassAction: OnAction = proc (piece: var Piece, to: Tile, b: var ChessB
     piece.move(to, b, s)
 
 const canZeroGlass: GlassMoves = 
-    func (side: Color, piece: Piece, b: ChessBoard, _: BoardState): Moves =
+    func (side: Color, piece: Piece, b: ChessBoard, s: BoardState): Moves =
+        if s.shared.turnNumber == 0: return @[]
+
         for i, j in b.rankAndFile:
             if b[i][j].item != King:
                 result.add(b[i][j].tile)
@@ -1972,7 +1975,7 @@ const zeroGlass*: Power = Power(
     rarity: 24, #while new
     priority: 15,
     description: """You unlock the Glass of Zero ability, which allows you to mark 
-                    any 2 non-king tiles. Any piece on these tiles will die if the cast completes. """ &
+                    any 2 non-king tiles. Any piece on these tiles will die if the cast completes. Zero cannot be cast turn one.""" &
                     createGlassDescription(),
     icon: "zeroglass.svg",
     noColor: true,
@@ -1985,7 +1988,7 @@ const zeroGlass*: Power = Power(
             ))
 )
 
-const steelMove*: OnPiece = proc (piece: var Piece, _: var ChessBoard, state: var BoardState) = 
+const steelMove: OnPiece = proc (piece: var Piece, _: var ChessBoard, state: var BoardState) = 
     #i'm not sure how to iterate a variable
     for i, c in piece.casts:
         if c.glass == Steel:
@@ -2014,6 +2017,39 @@ const steelGlass*: Power = Power(
                     b[i][j].onEndTurn &= steelMove
 )
 
+const divineMove: OnPiece = proc (piece: var Piece, b: var ChessBoard, state: var BoardState) = 
+    randomize(state.shared.randSeed)
+
+    #I split this in two to avoid insane tabbing
+    for i, j in b.rankAndFile:
+        if Sky in b[i][j].casts.mapIt(it.glass):
+            piece.take(piece.getTakesOn(b).sample(), b, state)
+            break
+        
+
+const divineWindPower*: Power = Power(
+    name: "Divine Wind",
+    tier: Uncommon,
+    priority: 15,
+    description: """The divine wind briskly brushes your back. Your lances will take forward while sky is casting.""",
+    icon: "lance.svg",
+    noColor: true,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            for i, j in b.rankAndFile:
+                if b[i][j].isColor(side) and b[i][j].filePath.contains("lance"): #since namesystem is not done yet, this is a cheeky way to find lances
+                    b[i][j].onEndTurn &= divineMove
+
+
+)
+
+const divineWind: Synergy = (
+    power: divineWindPower,
+    rarity: 12,
+    requirements: @[skyGlass.name, lanceLeft.name],
+    replacements: @[],
+    index: -1
+)
 
 
 registerPower(empress)
@@ -2069,6 +2105,7 @@ registerSynergy(linebackers)
 registerSynergy(holyBishop)
 registerSynergy(bountyHunter)
 registerSynergy(holyConversion)
+registerSynergy(divineWind)
 registerSynergy(exodia, true)
 registerSynergy(altExodia, true)
 registerSynergy(superPawn, true)

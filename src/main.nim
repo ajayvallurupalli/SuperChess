@@ -19,6 +19,9 @@ from std/algorithm import reversed
 and make secret secret synergy with reinforcements so everything works. Then enable it
 click enter to enter join code. I actually have no idea how to do this
 make moves a set instead of a seq so that I don't have to do wierd not in stuff, and instead I can just difference
+ 
+SUPER IMPORTANT ****If you cancel, send cancel so that the animation stops****
+
 for steam realease
 100 $
 show opponent powers when drafting / waiting
@@ -713,7 +716,7 @@ proc createBuyButton(option: BuyOption, p: var Piece): VNode =
         return buildHtml(tdiv())
     else:
         let cost = option.cost(p, theBoard, theState)
-        let disabled = not turn or getMoney(side, theState) < cost
+        let disabled = busy() or getMoney(side, theState) < cost
         #technically, a positive cost means that you pay that much, but that isn't very intuitive
         let sign = if cost >= 0: "-" else: "+" 
         buildHtml(button(disabled=disabled)):
