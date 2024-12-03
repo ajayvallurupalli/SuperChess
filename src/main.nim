@@ -67,7 +67,7 @@ type
         send: proc ()
 
 #I really went for 2 months changing the values by hand each time
-const debug: bool = true
+const debug: bool = false
 const debugScreen: Screen = Game
 const myDebugPowers: seq[Power] = @[capitalismPower, sell, income, moveUp, upgrade, exponentialGrowth, skyGlass, steelGlass, zeroGlass]
 const opponentDebugPowers: seq[Power] = @[developed]
