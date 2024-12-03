@@ -1614,6 +1614,8 @@ proc moneyForTake(): OnPiece =
             if b[i][j].sameColor(piece):
                 allPiecesTaken += b[i][j].piecesTaken
 
+        allPiecesTaken += state.side[piece.color].abilityTakes #includes takes which are not by any piece
+
         if allPiecesTaken > lastPiecesTaken:
             addMoney(piece.color, 3, state)
         lastPiecesTaken = allPiecesTaken
@@ -1942,25 +1944,16 @@ const steelGlassAction: OnAction = proc (piece: var Piece, to: Tile, b: var Ches
 #so that I can just update it here
 #which i will need to do because it doesn't make sense
 #strength indicates how many pieces the power works for
-proc createGlassDescription(strength: int): string = 
-    let quantity = if strength == 1: "1 piece" else: $strength & " pieces"
-    return " On Glass Powers: Instead of moving, you can select " & 
-            quantity & 
-            """ to start casting. 
-            Pieces then spend one turn casting, during which you cannot do anything, unless 
-            if you cancel all casts. If the piece is still alive the following turn, the 
-            cast completes and its ability occurs."""
-
-
-
+proc createGlassDescription(): string = 
+    return """Glass powers take one turn to start casting, one turn waiting to draw glass power, and one turn to complete the cast."""
 
 const skyGlass*: Power = Power(
     name: "Glass: Sky",
     tier: Common,
     rarity: 24, #while new
     priority: 15,
-    description: """You unlock the Glass of Sky ability, which allows you to move up to 2 of your 
-                    pieces to any tile which does not put the king in check.""" & createGlassDescription(2),
+    description: """You unlock the Glass of Sky ability, which allows you to teleport up to 2 of your 
+                    pieces to any tile which does not put the king in check, when the cast completes.""" & createGlassDescription(),
     icon: "skyglass.svg",
     noColor: true,
     onStart: 
@@ -1980,7 +1973,7 @@ const zeroGlass*: Power = Power(
     priority: 15,
     description: """You unlock the Glass of Zero ability, which allows you to mark 
                     any 2 non-king tiles. Any piece on these tiles will die if the cast completes. """ &
-                    createGlassDescription(2),
+                    createGlassDescription(),
     icon: "zeroglass.svg",
     noColor: true,
     onStart: 
@@ -2003,15 +1996,15 @@ const steelGlass*: Power = Power(
     tier: Common,
     rarity: 24,
     priority: 15,
-    description: """You unlock the Glass of Steel ability, which allows you to mark up to 3 of your pieces. 
+    description: """You unlock the Glass of Steel ability, which allows you to mark 5 of your pieces. 
                     If there is an enemy one tile in front of them when the cast completes, they take forward.""" &
-                    createGlassDescription(3),
+                    createGlassDescription(),
     icon: "steelglass.svg",
     noColor: true,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             s.side[side].glass[Steel] = some((
-                strength: 3,
+                strength: 5,
                 action: steelGlassAction,
                 condition: canSteelGlass,
             ))
