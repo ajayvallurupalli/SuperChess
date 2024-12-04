@@ -104,6 +104,7 @@ const kingCastles*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
     if board[p.tile.rank][p.tile.file + 1].isAir() and
         board[p.tile.rank][p.tile.file + 2].isAir() and
         board[p.tile.rank][p.tile.file + 3].item == Rook and
+        board[p.tile.rank][p.tile.file + 3].sameColor(p) and
         board[p.tile.rank][p.tile.file + 3].timesMoved == 0 and
         not p.inCheck(board):
             discard result.addIfTake(board, p, p.tile, shooterFactory(3, 0), cannibalismFlag = true)
@@ -113,6 +114,7 @@ const kingCastles*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
         board[p.tile.rank][p.tile.file - 2].isAir() and
         board[p.tile.rank][p.tile.file - 3].isAir() and
         board[p.tile.rank][p.tile.file - 4].item == Rook and
+        board[p.tile.rank][p.tile.file + 3].sameColor(p) and
         board[p.tile.rank][p.tile.file - 4].timesMoved == 0 and
         not p.inCheck(board):
             discard result.addIfTake(board, p, p.tile, shooterFactory(-4, 0), cannibalismFlag = true)

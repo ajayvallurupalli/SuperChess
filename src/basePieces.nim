@@ -2,6 +2,7 @@ import piece, moves
 
 #I dont' know why printing any base pieces causes a fatal error, but don't do it I guess
 
+#TODO FIND WHY THIS DOES NOT WORK SOMETHIMES
 const rookWhenTaken*: WhenTaken = proc (taken: var Piece, taker: var Piece, board: var ChessBoard, state: var BoardState): tuple[endTile: Tile, takeSuccess: bool] =
     #castling behavior
     if taker.item == King and 

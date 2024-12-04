@@ -1643,6 +1643,15 @@ const capitalismPower*: Power = Power(
 
 )
 
+proc createCapitalism(power: Power, rarity: int = 16, requirements: seq[string] = @[], replacements: seq[string] = @[]): Synergy =
+        return (
+            power: power,
+            rarity: rarity,
+            requirements: @[capitalismPower.name] & requirements,
+            replacements: replacements,
+            index: -1
+        )
+
 const whiteMoveUp: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
     piece.move(tileAbove(piece.tile), board, state)
     board[piece.tile.tileAbove.rank][piece.tile.file].endTurn(board, state) #piece changes after move, so we onEndTurn on where it should be    
@@ -1674,13 +1683,7 @@ const moveUp*: Power = Power(
                 s.side[side].buys &= (name: "Move Up", cost: alwaysCost(7), action: whiteMoveUp, condition: whiteMoveUpCondition)
 )
 
-const capitalismTwo1: Synergy = (
-    power: moveUp,
-    rarity: 16,
-    requirements: @[capitalismPower.name],
-    replacements: @[],
-    index: -1
-)
+const capitalismTwo1: Synergy = createCapitalism(moveUp)
 
 #I'm feeling explicit today so I'm giving proper names
 #instead of just giving the blackMoveUp to white
@@ -1706,13 +1709,7 @@ const moveBack*: Power = Power(
                 s.side[side].buys &= (name: "Move Back", cost: alwaysCost(7), action: whiteMoveBack, condition: whiteMoveBackConditions)
 )
 
-const capitalismTwo2: Synergy = (
-    power: moveBack,
-    rarity: 16,
-    requirements: @[capitalismPower.name],
-    replacements: @[],
-    index: -1
-)
+const capitalismTwo2: Synergy = createCapitalism(moveBack)
 
 const income*: Power = Power(
     name: "Capitalism II",
@@ -1724,17 +1721,11 @@ const income*: Power = Power(
     icon: "usflag.svg",
     noColor: true,
     onStart: 
-        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) =
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             addMoney(side, 10, s)
 )
 
-const capitalismTwo3: Synergy = (
-    power: income,
-    rarity: 16,
-    requirements: @[capitalismPower.name],
-    replacements: @[],
-    index: -1
-)
+const capitalismTwo3: Synergy = createCapitalism(income)
 
 const upgrade*: Power = Power(
     name: "Capitalism III",
@@ -1753,13 +1744,7 @@ const upgrade*: Power = Power(
             s.side[side].buys &= (name: "Upgrade", cost: exceptCost(8, King, 38), action: action, condition: condition)
 )
 
-const capitalismThree1: Synergy = (
-    power: upgrade,
-    rarity: 16,
-    requirements: @[capitalismPower.name],
-    replacements: @[],
-    index: -1
-)
+const capitalismThree1: Synergy = createCapitalism(upgrade)
 
 const upgrade2*: Power = Power(
     name: "Capitalism III",
@@ -1778,13 +1763,8 @@ const upgrade2*: Power = Power(
             s.side[side].buys &= (name: "Upgrade", cost: exceptCost(8, King, 38), action: action, condition: condition)
 )
 
-const capitalismThree2: Synergy = (
-    power: upgrade2,
-    rarity: 16,
-    requirements: @[capitalismPower.name],
-    replacements: @[],
-    index: -1
-)
+const capitalismThree2: Synergy = createCapitalism(upgrade2)
+
 
 const sellPiece: OnPiece = proc (piece: var Piece, b: var ChessBoard, state: var BoardState) =
     b[piece.tile.rank][piece.tile.file] = air.pieceCopy(index = b[piece.tile.rank][piece.tile.file].index, tile = piece.tile)
@@ -1820,13 +1800,7 @@ const sell*: Power = Power(
             s.side[side].buys &= (name: "Sell", cost: createPieceMarket(-3, -1), action: sellPiece, condition: notKing)
 )
 
-const capitalismFour1: Synergy = (
-    power: sell,
-    rarity: 16,
-    requirements: @[capitalismPower.name],
-    replacements: @[],
-    index: -1
-)
+const capitalismFour1: Synergy = createCapitalism(sell)
 
 #altered `createLottery()`, but also adds 10 dollars to King's wallet
 proc createSuperLottery(): OnPiece = 
@@ -1860,13 +1834,7 @@ const slumdogBillionairePower*: Power = Power(
                     b[i][j].onEndTurn &= createSuperLottery()
 )
 
-const slumdogBillionaire: Synergy = (
-    power: slumdogBillionairePower,
-    rarity: 8,
-    requirements: @[capitalismPower.name, slumdogMillionaire.name],
-    replacements: @[slumdogMillionaire.name],
-    index: -1
-)
+const slumdogBillionaire: Synergy = createCapitalism(slumdogBillionairePower, 8, @[slumdogMillionaire.name], @[slumdogMillionaire.name])
 
 const exponentialGrowthOnEndTurn: OnPiece = proc (piece: var Piece, _: var ChessBoard, state: var BoardState) =
     let currentMoney = getMoney(piece.color, state)
@@ -1889,7 +1857,7 @@ const exponentialGrowth*: Power = Power(
 )
 
 const capitalismTwoThousand: Synergy = (
-    power: sell,
+    power: exponentialGrowth,
     rarity: 16,
     requirements: @[capitalismPower.name, capitalismTwo2.power.name, capitalismThree1.power.name, capitalismFour1.power.name],
     replacements: @[],
