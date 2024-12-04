@@ -9808,7 +9808,7 @@ function startingBoard_1526726918(state_1526726919) {
 function initGame_553648349() {
     theState_553648248[0] = nimCopy(theState_553648248[0], startingState_1476395254(), NTI1476395033);
     theBoard_553648247[0] = nimCopy(theBoard_553648247[0], startingBoard_1526726918(theState_553648248[0]), NTI1476395013);
-    if (false) {
+    if (true) {
     theState_553648248[0].Field0.randSeed = parseInt(roomId_553648222[0].Field1, 10);
     }
     
@@ -13983,7 +13983,7 @@ function setAttr_754975512(n_754975513, key_754975514, val_754975515) {
 }
 
 function sendAction_553649038(data_553649039, end_553649040) {
-    if (false) {
+    if (true) {
     Label1: {
       var fmtRes_553649045 = [mnewString(0)];
       fmtRes_553649045[0].push.apply(fmtRes_553649045[0], [97,99,116,105,111,110,58]);;
@@ -15537,7 +15537,7 @@ function updateActionStack_553649053() {
     };
     }
     
-    if (false) {
+    if (true) {
     if (!(((toSend_553648308[0]).length == 0))) {
     Label4: {
       var x_553649443 = {Field0: [], Field1: 0, Field2: 0, Field3: null, Field4: false, Field5: false, Field6: null};
@@ -15959,7 +15959,7 @@ function HEX3Aanonymous_553651521(__553651522, __553651523) {
     add_754975552(tmp_553651478, text_754975684([80,111,119,101,114,32,67,111,110,116,114,111,108]));
     addEventHandler_721422102(tmp_553651478, 0, HEX3Aanonymous_553651511, kxi__);
     add_754975552(tmp_553651475, tmp_553651478);
-    if ((true || showDebug_553648274[0])) {
+    if ((false || showDebug_553648274[0])) {
     var tmp_553651479 = tree_754975616(195, []);
     add_754975552(tmp_553651479, text_754975684([68,101,98,117,103]));
     addEventHandler_721422102(tmp_553651479, 0, HEX3Aanonymous_553651514, kxi__);
@@ -16402,8 +16402,8 @@ function main_553652285() {
 }
 var roomId_553648222 = [nimCopy(null, {Field0: false, Field1: "Waiting..."}, NTI553648163)];
 var peer_553648228 = [{Field0: null, Field1: null}];
-var side_553648229 = [1];
-var turn_553648230 = [true];
+var side_553648229 = [0];
+var turn_553648230 = [false];
 var myDrafts_553648235 = [[]];
 var opponentDrafts_553648240 = [[]];
 var baseDrafts_553648241 = [0];
@@ -16423,7 +16423,7 @@ var showTechnicalNames_553648272 = [false];
 var disableRNGPowers_553648273 = [false];
 var showDebug_553648274 = [false];
 var enableExperimental_553648275 = [false];
-var currentScreen_553648276 = [3];
+var currentScreen_553648276 = [0];
 var currentTab_553648277 = [0];
 var gameMode_553648278 = [0];
 var screenWidth_553648279 = [window.innerWidth];
@@ -16440,7 +16440,7 @@ var picks_553648327 = [[]];
 var whenCollected_553648329 = [null];
 initStorage_1879048201();
 window.addEventListener('resize', resize_553648335);
-if (true) {
+if (false) {
 switch (currentScreen_553648276[0]) {
 case 3:
   initGame_553648349();
