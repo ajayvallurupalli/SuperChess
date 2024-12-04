@@ -1248,6 +1248,39 @@ const alcoholism*: Power = Power(
                     b[i][j].rotate = true
 )
 
+const drunkNightRiderPower: Power = Power(
+    name: "nighetriedder",
+    tier: UltraRare,
+    priority: 17,
+    rarity: 0,
+    description: "nighetriedder.?",
+    icon: "nightrider.svg",
+    onStart: 
+        proc (side: Color, _: Color, b: var ChessBoard, _: var BoardState) = 
+            for i, j in b.rankAndFile:
+                if b[i][j].filePath.contains("nightrider") and b[i][j].isColor(side):
+                    #I usually try to avoid this filtering, I'm not sure why
+                    #it works fine, and performance has never been an issue
+                    b[i][j].onEndTurn = b[i][j].onEndTurn.filterIt(it != drunkOnEndTurn)
+                    b[i][j].onEndTurn &= drunkVirus
+)
+
+const drunkNightRider: Synergy = (
+    power: drunkNightRiderPower,
+    rarity: 0,
+    requirements: @[drunkKnights.name, nightRider.name],
+    replacements: @[],
+    index: -1
+)
+
+const drunkNightRider2: Synergy = (
+    power: drunkNightRiderPower,
+    rarity: 0,
+    requirements: @[alcoholism.name, nightRider.name],
+    replacements: @[],
+    index: -1
+)
+
 const virusPower*: Power = Power(
     name: "virus",
     tier: UltraRare,
@@ -1551,7 +1584,7 @@ const killPromoted: OnPiece = proc (piece: var Piece, board: var ChessBoard, sta
 
 const americanDream: Power = Power(
     name: "American Dream",
-    tier: Uncommon,
+    tier: Rare,
     priority: 30, 
     description: "All pieces, you and your opponent, are killed when they promote. It's not real.",
     icon: "usflag.svg",
@@ -1643,6 +1676,7 @@ const capitalismPower*: Power = Power(
 
 )
 
+#helper function to create capitalism powers, since they need to be synergies to ensure use has money
 proc createCapitalism(power: Power, rarity: int = 16, requirements: seq[string] = @[], replacements: seq[string] = @[]): Synergy =
         return (
             power: power,
@@ -2083,6 +2117,8 @@ registerSynergy(battleFormation, true)
 registerSynergy(queensWrathSuper, true)
 registerSynergy(calvaryGiraffe, true) #both of these would be secret synergies
 registerSynergy(lesbianBountyHunter, true) #but flavor text is fun
+registerSynergy(drunkNightRider)
+registerSynergy(drunkNightRider2)
 
 registerSynergy(capitalismTwo1)
 registerSynergy(capitalismTwo2)
