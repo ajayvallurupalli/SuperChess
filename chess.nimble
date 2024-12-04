@@ -2,7 +2,7 @@
 
 version       = "0.1.0"
 author        = "Ajay Vallurupalli"
-description   = "A new awesome nimble package"
+description   = "The future of chess as we know it"
 license       = "MIT"
 srcDir        = "src"
 bin           = @["main"]
@@ -18,6 +18,8 @@ requires "karax >= 1.3.3"
 task jsc, "compiles just the js, instead of doing all that rewriting":
     exec "nim js --out:app.js src/main.nim"
 
+#use jsc when debug needs to be on
+#only use jscr before pushing to github
 task jscr, "compiles for release": 
     try :
         exec "grep 'debug: bool = false' src/main.nim" #this will do nothing if true, and error if false

@@ -68,6 +68,7 @@ type
         cancelable: bool
         passthrough: bool
         send: proc ()
+        cancel: proc ()
 
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
@@ -223,10 +224,13 @@ proc sendBuy(option: BuyOption, tile: Tile) =
 
 proc createSendGlass(group: int): proc () = 
     result = proc () =
-        #I think its easier to send them one at a time, but 
-        #that means that we need a final send, which is just a pass
-        sendAction(fmt"castingcomplete,{group}", false)
-        sendAction("pass", true) 
+        sendAction(fmt"castingcomplete,{group}", true)
+
+proc createCancelGlass(group: int): proc () = 
+    result = proc () =
+        for i, j in theBoard.rankAndFile:
+            theBoard[i][j].casts = theBoard[i][j].casts.filterIt(it.group != group)
+        sendAction(fmt"castingcancel,{group}", true)
 
 proc otherBuy(d: string) = 
     let data = d.split(",")
@@ -261,9 +265,14 @@ proc otherGlass(d: string) =
             group: parseInt(data[5]),
             glass: data[6].toGlassType()
         ))
-    elif data[0] == "castingcomplete":
+    elif data[0] == "castingcancel":
         turn = true
-        echo "turn equals true: otherglass"
+        echo "turn equals true: otherglass cancel"
+        for i, j in theBoard.rankAndFile:
+            theBoard[i][j].casts = theBoard[i][j].casts.filterIt(it.group != parseInt(data[1]))
+    elif data[0] == "castingcomplete": #TODO clean code
+        turn = true
+        echo "turn equals true: otherglass complete"
         for i, j in theBoard.rankAndFile:
             for c in theBoard[i][j].casts:
                 if c.group == parseInt(data[1]):
@@ -780,6 +789,7 @@ proc createInfo(): VNode =
                     button:
                         text "Cancel"
                         proc onclick(_: Event, _: VNode) = 
+                            actionStack[^1].cancel()
                             discard actionStack.pop()
                             updateActionStack()
             else:
@@ -872,7 +882,8 @@ proc createGlassMenu(): VNode =
                             action: packageGlass(pieces, tiles, action),
                             cancelable: true,
                             passThrough: false,
-                            send: createSendGlass(group)
+                            send: createSendGlass(group),
+                            cancel: createCancelGlass(group)
                         ))
                         echo "avtionstack added"
                         sendAction("pass", true)
