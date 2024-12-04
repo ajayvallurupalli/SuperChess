@@ -1628,9 +1628,23 @@ const sleeperAgent*: Power = Power(
             
 )
 
-const promoteBuying: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) =
-    piece.promote(board, state)
+#we capture the moves, and give it back the next turn, so that you can't do a one turn promote + checkmate
+const promoteBuying: OnPiece = proc (piece: var Piece, b: var ChessBoard, s: var BoardState) =
+    piece.promote(b, s)
+    let captureMove = piece.moves
+    let captureTake = piece.takes
+    let turnOfPromote = s.shared.turnNumber
+    var release = false
+    piece.moves = @[]
+    piece.takes = @[]
     piece.promoted = true
+
+    piece.onEndTurn &= 
+        proc (piece: var Piece, board: var ChessBoard, state: var BoardState) =
+            if state.shared.turnNumber != turnOfPromote and not release:
+                piece.moves &= captureMove
+                piece.takes &= captureTake
+                release = true
 
 const promoteBuyingCondition: BuyCondition = func (piece: Piece, board: ChessBoard, s: BoardState): bool =
     return not piece.promoted and piece.onPromote != @[defaultOnEndTurn]
@@ -1662,7 +1676,7 @@ const capitalismPower*: Power = Power(
     description: """The power of the free market is unmatched. 
                     All of your pieces get the ability to buy upgrades. 
                     You get 3 dollars for taking a piece.
-                    With 30 dollars, you can promote one piece.""",
+                    With 30 dollars, you can promote one piece. The promoted piece cannot move on the turn it is promoted.""",
     icon: "usflag.svg",
     noColor: true,
     onStart:

@@ -70,7 +70,7 @@ type
         send: proc ()
 
 #I really went for 2 months changing the values by hand each time
-const debug: bool = false
+const debug: bool = true
 const debugScreen: Screen = Game
 const myDebugPowers: seq[Power] = @[capitalismPower, sell, income, moveUp, upgrade, exponentialGrowth, skyGlass, steelGlass, zeroGlass]
 const opponentDebugPowers: seq[Power] = @[developed]
@@ -162,6 +162,8 @@ proc clear() =
 
 
 proc endRound() = 
+    inc theState.shared.turnNumber
+
     for i, j in rankAndFile(theBoard):
         theBoard[i][j].endTurn(theBoard, theState)
 
@@ -183,7 +185,6 @@ proc endRound() =
         test.add(theBoard[i][j].index)
 
 proc sendAction(data: string, `end`: bool) =
-    if `end`: inc theState.shared.turnNumber 
     if not debug: #skip send whn debugging because peer is undefined
         peer.send(fmt"action:{data}") 
         if `end`: 
@@ -245,8 +246,6 @@ proc otherMove(d: string) =
     lastMove = @[mover, moveTo]
     possibleMoves = @[]
     possibleTakes = @[]
-
-    inc theState.shared.turnNumber
 
     echo d, data[0], mover, moveTo
     if data[0] == "move":
