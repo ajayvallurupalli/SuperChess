@@ -357,7 +357,7 @@ const werewolves*: Power = Power(
     tier: Uncommon,
     priority: 15, 
     description: 
-        """Your leftmost and rightmost pawns are secretly werewolves! When they take a piece, they eat it and gain the ability to jump like a knight and giraffe. They do not promote.""",
+        """Your leftmost and rightmost pawns are secretly werewolves! When they take a piece, they eat it and gain the ability to jump like a knight and giraffe. They can still promote.""",
     icon: pawnIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, _: var BoardState) = 
@@ -1677,7 +1677,7 @@ const capitalismPower*: Power = Power(
 )
 
 #helper function to create capitalism powers, since they need to be synergies to ensure use has money
-proc createCapitalism(power: Power, rarity: int = 16, requirements: seq[string] = @[], replacements: seq[string] = @[]): Synergy =
+proc createCapitalism(power: Power, rarity: int = 24, requirements: seq[string] = @[], replacements: seq[string] = @[]): Synergy =
         return (
             power: power,
             rarity: rarity,
@@ -1970,7 +1970,6 @@ const skyGlass*: Power = Power(
             ))
 )
 
-
 const zeroGlass*: Power = Power(
     name: "Glass: Zero",
     tier: Rare,
@@ -2053,6 +2052,44 @@ const divineWind: Synergy = (
     index: -1
 )
 
+const canBankruptGlass: GlassMoves = 
+    func (side: Color, piece: Piece, b: ChessBoard, s: BoardState): Moves =
+        assert s.side[side].wallet.isSome()
+        
+        #can only do it when money is 0
+        if s.shared.turnNumber == 0 or 
+             s.side[side].wallet.get() != 0 : return @[]
+
+        for i, j in b.rankAndFile:
+            if b[i][j].item != King:
+                result.add(b[i][j].tile)
+
+const bankruptGlassPower*: Power = Power(
+    name: "Glass: Bankruptcy",
+    tier: Rare,
+    rarity: 24, #while new
+    priority: 0,
+    description: """You unlock the Glass of Bankruptcy ability, which allows you to mark 
+                    any 3 non-king tiles, but only if you have 0 dollars. Any piece on these tiles will die if the cast completes. Bankruptcy cannot be cast turn one.""" &
+                    createGlassDescription(),
+    icon: "zeroglass.svg",
+    noColor: true,
+    onStart: 
+        proc (side: Color, _: Color, _: var ChessBoard, s: var BoardState) = 
+            s.side[side].glass[Zero] = some((
+                strength: 3,
+                action: createZeroGlassAction(side),
+                condition: canBankruptGlass,
+            ))
+)
+
+const bankruptcyGlass: Synergy = (
+    power: bankruptGlassPower,
+    rarity: 8,
+    requirements: @[zeroGlass.name, capitalismPower.name],
+    replacements: @[zeroGlass.name],
+    index: -1
+)
 
 registerPower(empress)
 registerPower(altEmpress)
@@ -2108,6 +2145,7 @@ registerSynergy(holyBishop)
 registerSynergy(bountyHunter)
 registerSynergy(holyConversion)
 registerSynergy(divineWind)
+registerSynergy(bankruptcyGlass)
 registerSynergy(exodia, true)
 registerSynergy(altExodia, true)
 registerSynergy(superPawn, true)
@@ -2117,8 +2155,8 @@ registerSynergy(battleFormation, true)
 registerSynergy(queensWrathSuper, true)
 registerSynergy(calvaryGiraffe, true) #both of these would be secret synergies
 registerSynergy(lesbianBountyHunter, true) #but flavor text is fun
-registerSynergy(drunkNightRider)
-registerSynergy(drunkNightRider2)
+registerSynergy(drunkNightRider, true)
+registerSynergy(drunkNightRider2, true)
 
 registerSynergy(capitalismTwo1)
 registerSynergy(capitalismTwo2)
