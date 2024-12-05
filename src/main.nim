@@ -42,6 +42,7 @@ const defaultBaseDraftChoices: int = 3
 #CSS Classes
 #TODO migrate to these constants
 #spaces made concat easy
+#maybe I should make a css type with a & that auto does this
 const 
     menuButton = " menu-button "
     pieceRow = " piece-row "
@@ -50,7 +51,9 @@ const
     width100 = " width-100 "
     settingItem = " setting-item "
     castingAnimations: array[GlassType, string] = 
-        ["casting-sky", "casting-zero", "casting-steel"] #corresponding css classes for each type
+        [" casting-sky ", " casting-zero ", " casting-steel ", " casting-reverie "] #corresponding css classes for each type
+    castingOnAnimations: array[GlassType, string] = 
+        [" casting-on-sky ", " casting-on-zero ", " casting-on-steel ", " casting-on-reverie "]#corresponding css classes for each type
 
 type 
     Screen {.pure.} = enum 
@@ -73,7 +76,7 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = Game
-const myDebugPowers: seq[Power] = @[capitalismPower, sell, income, moveUp, upgrade, exponentialGrowth, skyGlass, steelGlass, zeroGlass]
+const myDebugPowers: seq[Power] = @[capitalismPower, sell, income, moveUp, upgrade, exponentialGrowth, skyGlass, steelGlass, zeroGlass, reverieGlass]
 const opponentDebugPowers: seq[Power] = @[developed]
 
 var 
@@ -429,10 +432,10 @@ proc createTile(p: Piece, m: int, n: int): VNode =
     for i, j in theBoard.rankAndFile:
         for c in theBoard[i][j].casts:
             if p.tile == c.on:
-                class &= " casting-on-" & ($c.glass).toLower()
+                class &= castingOnAnimations[c.glass]
 
     for c in p.casts:
-        class &= " casting-" & ($c.glass).toLower()
+        class &= castingAnimations[c.glass]
 
     if isSelected(m, n) and possibleTakes.contains(p.tile):
         class &= " can-take"
@@ -829,19 +832,23 @@ proc createGlassMenu(): VNode =
         h4(class="title"):
             text "Glasses"
 
-        for glass in GlassType:
-            if theState.side[side].glass[glass].isSome():
-                span(class = ($glass).toLower(), onclick=createGlassOnClick(glass))
-            else:
-                span(class = fmt"{($glass).toLower()} empty")
-            p(class = ($glass).toLower()):
-                text $glass
+        tdiv(class="glasses"):
+            for glass in GlassType:
+                tdiv(class="glass"):
+                    if theState.side[side].glass[glass].isSome():
+                        span(class = "circle " & ($glass).toLower(), onclick=createGlassOnClick(glass))
+                    else:
+                        span(class = "circle empty")
+                    p:
+                        text $glass
         if selectedGlass.isSome():
             let glass = selectedGlass.get()
             if picksLeft != 0:
                 button(class="cancel", onclick=cancelAllPicks):
                     text "Cancel"
-            button(class="use", disabled = busy()):
+            #I'm just going to hardcode this condition for now
+            let zerocond = glass == Zero and theState.shared.turnNumber == 0
+            button(class="use", disabled = busy() or zerocond):
                 text fmt"Use {glass}"
                 proc onclick(_: Event, _: VNode) = 
                     let strength = theState.side[side].glass[glass].get().strength

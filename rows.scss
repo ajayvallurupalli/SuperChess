@@ -10,6 +10,8 @@ $background-hover: #DCDCDC;
 $sky: #183dd1;
 $zero: #424242;
 $steel: #ea332d;
+$reverie: rgb(206, 206, 206);
+$glasses: ("sky": $sky, "steel": $steel, "reverie": $reverie, "zero": $zero);
 
 @mixin row($col, $row){
     justify-content: center;
@@ -125,10 +127,10 @@ $steel: #ea332d;
     @include row(3, 4);
 
     grid-template-areas: 
-        '.        title      .'
-        'sky      zero       steel'
-        'skydesc  zerodesc   steeldesc'
-        'cancel   use        use';
+        '.        title    .'
+        'glasses  glasses  glasses'
+        'glasses  glasses  glasses'
+        'cancel   use      use';
 
     .title {
         grid-area: title;
@@ -136,57 +138,66 @@ $steel: #ea332d;
         margin-bottom: 10px;
         font-size: 23px;
     }
-
-    span {
-        width: 40px;
-        height: 40px;
-        
-        border-radius: 50%;
-        border-color: gray;
-        border-width: 5px;
-        border-style: solid;
-    
-        display: inline-block;
-        align-self: center;
-        
-        transition: .9s;
-    }
     
     button {
         font-size: 25px;
     }
 
-    span.sky {
-        grid-area: sky;
-        background-color: $sky;
-    }
+    .glasses {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        grid-area: glasses;
+        justify-content: center;
+        gap: 50px;
+
+        .glass {
+            display: grid;
+            grid-template-areas:
+                'circle'
+                'desc';
+
+            min-width: 150px;
+            align-items: center;
+            justify-items: center;
+
+            span {
+                grid-area: circle;
+
+                width: 40px;
+                height: 40px;
+                
+                border-radius: 50%;
+                border-color: gray;
+                border-width: 5px;
+                border-style: solid;
+            
+                display: inline-block;
+                align-self: center;
+                
+                transition: .9s;
+            }
     
-    span.zero {
-        grid-area: zero;
-        background-color: $zero;
-    }
-
-    span.steel {
-        grid-area: steel;
-        background-color: $steel;
-    }
-
-    p.sky {
-        grid-area: skydesc;
-    }
-
-    p.zero {
-        grid-area: zerodesc;
-    }
+            span.sky {
+                background-color: $sky;
+            }
     
+            @each $name, $color in $glasses {
+                span.#{$name} {
+                    background-color: $color;
+                }
+            }
+    
+            span.empty {
+                background-color: #fdfcfc !important;
+            }
 
-    p.steel {
-        grid-area: steeldesc;
+            p {
+                grid-area: desc;
+            }
+        }
     }
 
-    span.empty {
-        background-color: #fdfcfc !important;
-    }
 
     button.cancel {
         margin-left: 10px;

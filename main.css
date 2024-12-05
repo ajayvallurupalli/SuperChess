@@ -584,7 +584,7 @@ as punishment for my sins.
   min-height: fit-content;
   transition: ease-in-out all 0.5s;
   background-color: #F8F7F7;
-  grid-template-areas: ".        title      ." "sky      zero       steel" "skydesc  zerodesc   steeldesc" "cancel   use        use";
+  grid-template-areas: ".        title    ." "glasses  glasses  glasses" "glasses  glasses  glasses" "cancel   use      use";
 }
 .glass-menu:hover {
   background-color: #DCDCDC;
@@ -595,7 +595,26 @@ as punishment for my sins.
   margin-bottom: 10px;
   font-size: 23px;
 }
-.glass-menu span {
+.glass-menu button {
+  font-size: 25px;
+}
+.glass-menu .glasses {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  grid-area: glasses;
+  justify-content: center;
+  gap: 50px;
+}
+.glass-menu .glasses .glass {
+  display: grid;
+  grid-template-areas: "circle" "desc";
+  min-width: 150px;
+  align-items: center;
+  justify-items: center;
+}
+.glass-menu .glasses .glass span {
+  grid-area: circle;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -606,32 +625,26 @@ as punishment for my sins.
   align-self: center;
   transition: 0.9s;
 }
-.glass-menu button {
-  font-size: 25px;
-}
-.glass-menu span.sky {
-  grid-area: sky;
+.glass-menu .glasses .glass span.sky {
   background-color: #183dd1;
 }
-.glass-menu span.zero {
-  grid-area: zero;
-  background-color: #424242;
+.glass-menu .glasses .glass span.sky {
+  background-color: #183dd1;
 }
-.glass-menu span.steel {
-  grid-area: steel;
+.glass-menu .glasses .glass span.steel {
   background-color: #ea332d;
 }
-.glass-menu p.sky {
-  grid-area: skydesc;
+.glass-menu .glasses .glass span.reverie {
+  background-color: rgb(206, 206, 206);
 }
-.glass-menu p.zero {
-  grid-area: zerodesc;
+.glass-menu .glasses .glass span.zero {
+  background-color: #424242;
 }
-.glass-menu p.steel {
-  grid-area: steeldesc;
-}
-.glass-menu span.empty {
+.glass-menu .glasses .glass span.empty {
   background-color: #fdfcfc !important;
+}
+.glass-menu .glasses .glass p {
+  grid-area: desc;
 }
 .glass-menu button.cancel {
   margin-left: 10px;
@@ -1001,9 +1014,9 @@ hr {
   outline-width: 1px;
   outline-color: #183dd1;
   outline-style: solid;
-  animation: animateOutlineu7lkoj6 2s ease infinite;
+  animation: animateOutlineu9ge616 2s ease infinite;
 }
-@keyframes animateOutlineu7lkoj6 {
+@keyframes animateOutlineu9ge616 {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1018,54 +1031,6 @@ hr {
     outline-width: 2px;
     outline-offset: 0px;
     outline-color: #183dd1;
-  }
-}
-
-.casting-on-steel {
-  outline-width: 1px;
-  outline-color: #ea332d;
-  outline-style: solid;
-  animation: animateOutlineu7lkojk 2s ease infinite;
-}
-@keyframes animateOutlineu7lkojk {
-  0% {
-    outline-width: 2px;
-    outline-offset: 0px;
-    outline-color: #ea332d;
-  }
-  50% {
-    outline-width: 8px;
-    outline-offset: 0px;
-    outline-color: rgba(0, 0, 0, 0);
-  }
-  100% {
-    outline-width: 2px;
-    outline-offset: 0px;
-    outline-color: #ea332d;
-  }
-}
-
-.casting-on-zero {
-  outline-width: 1px;
-  outline-color: #424242;
-  outline-style: solid;
-  animation: animateOutlineu7lkojl 2s ease infinite;
-}
-@keyframes animateOutlineu7lkojl {
-  0% {
-    outline-width: 2px;
-    outline-offset: 0px;
-    outline-color: #424242;
-  }
-  50% {
-    outline-width: 8px;
-    outline-offset: 0px;
-    outline-color: rgba(0, 0, 0, 0);
-  }
-  100% {
-    outline-width: 2px;
-    outline-offset: 0px;
-    outline-color: #424242;
   }
 }
 
@@ -1078,9 +1043,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-u7lkojz 4s ease-in-out infinite;
+  animation: castingAnimation-u9ge61x 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-u7lkojz {
+@keyframes castingAnimation-u9ge61x {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1093,6 +1058,30 @@ hr {
   }
 }
 
+.casting-on-steel {
+  outline-width: 1px;
+  outline-color: #ea332d;
+  outline-style: solid;
+  animation: animateOutlineu9ge62j 2s ease infinite;
+}
+@keyframes animateOutlineu9ge62j {
+  0% {
+    outline-width: 2px;
+    outline-offset: 0px;
+    outline-color: #ea332d;
+  }
+  50% {
+    outline-width: 8px;
+    outline-offset: 0px;
+    outline-color: rgba(0, 0, 0, 0);
+  }
+  100% {
+    outline-width: 2px;
+    outline-offset: 0px;
+    outline-color: #ea332d;
+  }
+}
+
 .casting-steel::before {
   content: "";
   position: absolute;
@@ -1102,9 +1091,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-u7lkokw 4s ease-in-out infinite;
+  animation: castingAnimation-u9ge631 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-u7lkokw {
+@keyframes castingAnimation-u9ge631 {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1117,6 +1106,78 @@ hr {
   }
 }
 
+.casting-on-reverie {
+  outline-width: 1px;
+  outline-color: rgb(206, 206, 206);
+  outline-style: solid;
+  animation: animateOutlineu9ge63u 2s ease infinite;
+}
+@keyframes animateOutlineu9ge63u {
+  0% {
+    outline-width: 2px;
+    outline-offset: 0px;
+    outline-color: rgb(206, 206, 206);
+  }
+  50% {
+    outline-width: 8px;
+    outline-offset: 0px;
+    outline-color: rgba(0, 0, 0, 0);
+  }
+  100% {
+    outline-width: 2px;
+    outline-offset: 0px;
+    outline-color: rgb(206, 206, 206);
+  }
+}
+
+.casting-reverie::before {
+  content: "";
+  position: absolute;
+  min-width: inherit;
+  min-height: inherit;
+  padding-bottom: 5px;
+  border-radius: 50%;
+  outline-width: 2px;
+  outline-style: solid;
+  animation: castingAnimation-u9ge63x 4s ease-in-out infinite;
+}
+@keyframes castingAnimation-u9ge63x {
+  0% {
+    outline-width: 3px;
+    outline-offset: 50px;
+    outline-color: rgb(206, 206, 206);
+  }
+  100% {
+    outline-width: 20px;
+    outline-offset: -25px;
+    outline-color: rgba(0, 0, 0, 0);
+  }
+}
+
+.casting-on-zero {
+  outline-width: 1px;
+  outline-color: #424242;
+  outline-style: solid;
+  animation: animateOutlineu9ge64t 2s ease infinite;
+}
+@keyframes animateOutlineu9ge64t {
+  0% {
+    outline-width: 2px;
+    outline-offset: 0px;
+    outline-color: #424242;
+  }
+  50% {
+    outline-width: 8px;
+    outline-offset: 0px;
+    outline-color: rgba(0, 0, 0, 0);
+  }
+  100% {
+    outline-width: 2px;
+    outline-offset: 0px;
+    outline-color: #424242;
+  }
+}
+
 .casting-zero::before {
   content: "";
   position: absolute;
@@ -1126,9 +1187,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-u7lkold 4s ease-in-out infinite;
+  animation: castingAnimation-u9ge65n 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-u7lkold {
+@keyframes castingAnimation-u9ge65n {
   0% {
     outline-width: 3px;
     outline-offset: 50px;

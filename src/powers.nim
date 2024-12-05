@@ -1,8 +1,8 @@
 import power, moves, piece, basePieces, extraMoves, board, capitalism
 import std/options
-from sequtils import filterIt, mapIt
+from sequtils import filterIt, mapIt, concat
 from strutils import contains
-from random import sample, rand, randomize
+from random import sample, rand, randomize, shuffle
 
 #[TODO
 create synergy constructor which automatically sets index to -1
@@ -1964,15 +1964,16 @@ const steelGlassAction: OnAction = proc (piece: var Piece, to: Tile, b: var Ches
 #which i will need to do because it doesn't make sense
 #strength indicates how many pieces the power works for
 proc createGlassDescription(): string = 
-    return """Glass powers take one turn to start casting, one turn waiting to draw glass power, and one turn to complete the cast."""
+    return """Glass powers take one turn to start casting, one turn waiting to draw glass power, and one turn when the cast completes."""
 
 const skyGlass*: Power = Power(
     name: "Glass: Sky",
-    tier: Common,
-    rarity: 24, #while new
+    tier: Uncommon,
+    rarity: 6, 
     priority: 15,
-    description: """You unlock the Glass of Sky ability, which allows you to teleport up to 2 of your 
-                    pieces to any tile which does not put the king in check, when the cast completes.""" & createGlassDescription(),
+    description: """On your turn, instead of moving, you can choose 2 pieces to each cast Sky on any 
+                    open tile. These pieces teleport to their selected tile when the cast completes. 
+                    Pieces cannot try to teleport to a tile where they would check the king. """ & createGlassDescription(),
     icon: "skyglass.svg",
     noColor: true,
     onStart: 
@@ -1987,10 +1988,10 @@ const skyGlass*: Power = Power(
 const zeroGlass*: Power = Power(
     name: "Glass: Zero",
     tier: Rare,
-    rarity: 24, #while new
+    rarity: 6,
     priority: 15,
-    description: """You unlock the Glass of Zero ability, which allows you to mark 
-                    any 2 non-king tiles. Any piece on these tiles will die if the cast completes. Zero cannot be cast turn one.""" &
+    description: """On your turn, instead of moving, you can choose 2 pieces to each cast Zero on  
+                    any non-king tile. Any piece on these tiles will die if the cast completes. Zero cannot be cast turn one. """ &
                     createGlassDescription(),
     icon: "zeroglass.svg",
     noColor: true,
@@ -2012,10 +2013,10 @@ const steelMove: OnPiece = proc (piece: var Piece, _: var ChessBoard, state: var
 const steelGlass*: Power = Power(
     name: "Glass: Steel",
     tier: Common,
-    rarity: 24,
+    rarity: 6,
     priority: 15,
-    description: """You unlock the Glass of Steel ability, which allows you to mark 5 of your pieces. 
-                    If there is an enemy one tile in front of them when the cast completes, they take forward.""" &
+    description: """On your turn, instead of moving, you can choose 5 pieces to each cast Steel. 
+                    If there is an enemy one tile in front of them when the cast completes, they take forward. """ &
                     createGlassDescription(),
     icon: "steelglass.svg",
     noColor: true,
@@ -2081,10 +2082,10 @@ const canBankruptGlass: GlassMoves =
 const bankruptGlassPower*: Power = Power(
     name: "Glass: Bankruptcy",
     tier: Rare,
-    rarity: 24, #while new
+    rarity: 6, #while new
     priority: 0,
-    description: """You unlock the Glass of Bankruptcy ability, which allows you to mark 
-                    any 3 non-king tiles, but only if you have 0 dollars. Any piece on these tiles will die if the cast completes. Bankruptcy cannot be cast turn one.""" &
+    description: """On your turn, if you have only 0 dollars, instead of moving you can choose 3 pieces to each cast Bankruptcy on  
+                    any non-king tiles. Any piece on these tiles will die if the cast completes. Bankruptcy cannot be cast turn one. """ &
                     createGlassDescription(),
     icon: "zeroglass.svg",
     noColor: true,
@@ -2103,6 +2104,54 @@ const bankruptcyGlass: Synergy = (
     requirements: @[zeroGlass.name, capitalismPower.name],
     replacements: @[zeroGlass.name],
     index: -1
+)
+
+const canReverieGlass: GlassMoves = 
+    func (side: Color, piece: Piece, b: ChessBoard, s: BoardState): Moves =
+        for i, j in b.rankAndFile:
+            if b[i][j].item != King and not b[i][j].isAir():
+                result.add(b[i][j].tile)
+
+const reverieGlassAction: OnAction = proc (piece: var Piece, to: Tile, b: var ChessBoard, s: var BoardState) = 
+    if b[to].isAir or b[to].item == King or piece.item == King: return
+
+    randomize(s.shared.randSeed + piece.tile.rank * 10 + piece.tile.file * 100)
+
+    var allMoves = piece.moves & b[to].moves
+    var allTakes = piece.takes & b[to].takes
+
+    allMoves.shuffle()
+    allTakes.shuffle()
+
+    let casterMoves = piece.moves.len
+    let casterTakes = piece.takes.len
+
+    #shuffles and returns slices, with the same size to ensure they technically have the same moves
+    #though a move could be doubled up
+    piece.moves = allMoves[0..<casterMoves]
+    b[to].moves = allMoves[casterMoves..^1]
+    piece.takes = allTakes[0..<casterTakes]
+    b[to].takes = allTakes[casterTakes..^1]
+
+const reverieGlass*: Power = Power(
+    name: "Glass: Reverie",
+    tier: Common,
+    rarity: 6, #while new
+    priority: 0,
+    description: """On your turn, instead of moving you can choose 3 pieces to each cast Reverie on 
+                    an opponent tile. When the cast completes, 
+                    they swap moves and takes with whatever piece is on that tile. If that piece 
+                    is a king, the cast fails. """ &
+                    createGlassDescription(),
+    icon: "reverieglass.svg",
+    noColor: true,
+    onStart: 
+        proc (side: Color, _: Color, _: var ChessBoard, s: var BoardState) = 
+            s.side[side].glass[Reverie] = some((
+                strength: 3,
+                action: reverieGlassAction,
+                condition: canReverieGlass,
+            ))
 )
 
 registerPower(empress)
@@ -2139,7 +2188,7 @@ registerPower(lanceLeft)
 registerPower(lanceRight)
 registerPower(drunkKnights)
 registerPower(alcoholism)
-registerPower(civilians)
+#registerPower(civilians)
 registerPower(slumdogMillionaire)
 registerPower(stupidPower)
 registerPower(conversion)
@@ -2149,7 +2198,9 @@ registerPower(capitalismPower)
 
 registerPower(skyGlass)
 registerPower(zeroGlass)
+registerSynergy(bankruptcyGlass)
 registerPower(steelGlass)
+registerPower(reverieGlass)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)
@@ -2159,7 +2210,6 @@ registerSynergy(holyBishop)
 registerSynergy(bountyHunter)
 registerSynergy(holyConversion)
 registerSynergy(divineWind)
-registerSynergy(bankruptcyGlass)
 registerSynergy(exodia, true)
 registerSynergy(altExodia, true)
 registerSynergy(superPawn, true)
@@ -2195,4 +2245,4 @@ registerSynergy(masochistAltEmpress, true, true)
 #All powers with rng involved
 #so user can disable them if they want
 const rngPowers* = @[alcoholism, drunkKnights, civilians, slumdogMillionaire, stupidPower, sleeperAgent, conversion]
-const experimentalPowers* = @[skyGlass, zeroGlass, steelGlass]
+const experimentalPowers* = @[skyGlass, zeroGlass, steelGlass, reverieGlass]

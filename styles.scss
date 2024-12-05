@@ -352,28 +352,14 @@ hr {
     }
 }
 
-.casting-on-sky {
-    @include castingOn(rows.$sky)
-}
+@each $name, $color in rows.$glasses {
+    .casting-on-#{$name} {
+        @include castingOn($color);
+    }
 
-.casting-on-steel {
-    @include castingOn(rows.$steel)
-}
-
-.casting-on-zero {
-    @include castingOn(rows.$zero)
-}
-
-.casting-sky::before {
-    @include casting(rows.$sky)
-}
-
-.casting-steel::before {
-    @include casting(rows.$steel)
-}
-
-.casting-zero::before {
-    @include casting(rows.$zero)
+    .casting-#{$name}::before {
+        @include casting($color)
+    }    
 }
 
 .blackTile {

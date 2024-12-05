@@ -13,6 +13,10 @@ type
     ChessRow* = array[0..7, Piece]
     ChessBoard* = array[0..7, Chessrow] 
 
+    #TODO FINISH
+    MiniChessRow* = array[0..4, Piece]
+    MiniChessBoard* = array[0..4, MiniChessRow]
+
     #none is used for empty spaces
     #fairy is used for custom spaces defined in `Powers.nim`
     PieceType* = enum
@@ -47,7 +51,7 @@ type
 
 
     GlassType* = enum 
-        Sky, Zero, Steel
+        Sky, Zero, Steel, Reverie
     GlassMoves* = proc (side: Color, piece: Piece, b: ChessBoard, s: BoardState): Moves {.noSideEffect.}
     GlassTile* = proc (side: Color, piece: Piece, castedTile: Tile): Tile {.noSideEffect.}#I am the king of over engineering
     GlassAbility* = tuple
@@ -79,9 +83,9 @@ type
 
     BoardState* = tuple[shared: SharedState, side: array[Color, SideState]]
 
-    SharedState* = object
+    SharedState*  = object
         nextIndex: int = 1 #hidden because `newIndex` should be used instead to ensure proper management
-        nextGroup: int = 1
+        nextGroup: int = 1 #hidden because `newGroup` should be used instead to ensure proper management
         randSeed*: int = 0
         turnNumber*: int = 0
 

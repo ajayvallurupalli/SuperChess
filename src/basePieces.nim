@@ -96,6 +96,16 @@ proc startingBoard*(state: var BoardState): ChessBoard =
         for j, x in r:
             result[i][j] = x.pieceCopy(index = newIndex(state), tile = (j, i))
 
+proc startingMiniBoard*(state: var BoardState): MiniChessBoard = 
+    result = [[air,      air,            air,         air,          air],
+              [air,      blackPawn,     blackPawn,    blackPawn,    air],
+              [air,      air,           air,          air,          air],
+              [air,      whitePawn,     whitePawn,    whitePawn,    air],
+              [air,      air,           air,          air,          air]]
+
+    for i, r in result:
+        for j, x in r:
+            result[i][j] = x.pieceCopy(index = newIndex(state), tile = (j, i))
 #TESTS
 when isMainModule:
     assert blackKnight.moves.typeof() is seq[MoveProc]
