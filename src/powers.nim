@@ -902,7 +902,7 @@ const concubineWhenTake =
         if taker.item == King and 
             taken.item == Rook and
             taken.sameColor(taker) and
-            taker.timesMoved == 0 and
+            taker.timesMoved == 1 and #one move from castling
             taken.timesMoved == 0: 
                 taken.promote(board, state)
                 let kingTile = taker.tile
@@ -1800,7 +1800,7 @@ const upgrade2*: Power = Power(
     tier: Uncommon,
     rarity: 0, #rarity 0 because it should only be gotten through synergy
     priority: 15,
-    description: """Money can be used in exchange for goods and services. You can spend 8 dollars to give a piece the movement of a knight. 
+    description: """Money can be used in exchange for goods and services. You can spend 8 dollars to give a piece the movement of a giraffe. 
                     This upgrade is 30 dollars more expensive for the king. The upgraded piece still cannot take like a giraffe.""",
     icon: "usflag.svg",
     noColor: true,
@@ -1840,12 +1840,12 @@ const sell*: Power = Power(
     tier: Uncommon,
     rarity: 0, #rarity 0 because it should only be gotten through synergy
     priority: 15,
-    description: """Who needs these pieces? AFUERA! You can sell a piece for 3 dollars. Each subsequent piece sold gives one less. """,
+    description: """Who needs these pieces? AFUERA! You can sell a piece for 4 dollars. Each subsequent piece sold gives one less. """,
     icon: "usflag.svg",
     noColor: true,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            s.side[side].buys &= (name: "Sell", cost: createPieceMarket(-3, -1), action: sellPiece, condition: notKing)
+            s.side[side].buys &= (name: "Sell", cost: createPieceMarket(-4, -1), action: sellPiece, condition: notKing)
 )
 
 const capitalismFour1: Synergy = createCapitalism(sell)

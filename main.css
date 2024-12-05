@@ -20,10 +20,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 2000px) {
   td {
-    min-width: 75px;
-    min-height: 75px;
-    width: 75px;
-    height: 75px;
+    min-width: 70px;
+    min-height: 70px;
+    width: 70px;
+    height: 70px;
     text-align: center;
     vertical-align: middle;
   }
@@ -44,10 +44,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 1900px) {
   td {
-    min-width: 69px;
-    min-height: 69px;
-    width: 69px;
-    height: 69px;
+    min-width: 64px;
+    min-height: 64px;
+    width: 64px;
+    height: 64px;
     text-align: center;
     vertical-align: middle;
   }
@@ -68,10 +68,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 1800px) {
   td {
-    min-width: 63px;
-    min-height: 63px;
-    width: 63px;
-    height: 63px;
+    min-width: 58px;
+    min-height: 58px;
+    width: 58px;
+    height: 58px;
     text-align: center;
     vertical-align: middle;
   }
@@ -92,10 +92,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 1700px) {
   td {
-    min-width: 57px;
-    min-height: 57px;
-    width: 57px;
-    height: 57px;
+    min-width: 52px;
+    min-height: 52px;
+    width: 52px;
+    height: 52px;
     text-align: center;
     vertical-align: middle;
   }
@@ -116,10 +116,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 1600px) {
   td {
-    min-width: 51px;
-    min-height: 51px;
-    width: 51px;
-    height: 51px;
+    min-width: 46px;
+    min-height: 46px;
+    width: 46px;
+    height: 46px;
     text-align: center;
     vertical-align: middle;
   }
@@ -140,10 +140,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 1500px) {
   td {
-    min-width: 45px;
-    min-height: 45px;
-    width: 45px;
-    height: 45px;
+    min-width: 40px;
+    min-height: 40px;
+    width: 40px;
+    height: 40px;
     text-align: center;
     vertical-align: middle;
   }
@@ -164,10 +164,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 1400px) {
   td {
-    min-width: 39px;
-    min-height: 39px;
-    width: 39px;
-    height: 39px;
+    min-width: 34px;
+    min-height: 34px;
+    width: 34px;
+    height: 34px;
     text-align: center;
     vertical-align: middle;
   }
@@ -188,10 +188,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 1300px) {
   td {
-    min-width: 33px;
-    min-height: 33px;
-    width: 33px;
-    height: 33px;
+    min-width: 28px;
+    min-height: 28px;
+    width: 28px;
+    height: 28px;
     text-align: center;
     vertical-align: middle;
   }
@@ -212,10 +212,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 1200px) {
   td {
-    min-width: 27px;
-    min-height: 27px;
-    width: 27px;
-    height: 27px;
+    min-width: 22px;
+    min-height: 22px;
+    width: 22px;
+    height: 22px;
     text-align: center;
     vertical-align: middle;
   }
@@ -1014,9 +1014,9 @@ hr {
   outline-width: 1px;
   outline-color: #183dd1;
   outline-style: solid;
-  animation: animateOutlineu9ge616 2s ease infinite;
+  animation: animateOutlineud5qjn6 2s ease infinite;
 }
-@keyframes animateOutlineu9ge616 {
+@keyframes animateOutlineud5qjn6 {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1043,9 +1043,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-u9ge61x 4s ease-in-out infinite;
+  animation: castingAnimation-ud5qjo2 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-u9ge61x {
+@keyframes castingAnimation-ud5qjo2 {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1062,9 +1062,9 @@ hr {
   outline-width: 1px;
   outline-color: #ea332d;
   outline-style: solid;
-  animation: animateOutlineu9ge62j 2s ease infinite;
+  animation: animateOutlineud5qjou 2s ease infinite;
 }
-@keyframes animateOutlineu9ge62j {
+@keyframes animateOutlineud5qjou {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1091,9 +1091,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-u9ge631 4s ease-in-out infinite;
+  animation: castingAnimation-ud5qjpp 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-u9ge631 {
+@keyframes castingAnimation-ud5qjpp {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1110,9 +1110,9 @@ hr {
   outline-width: 1px;
   outline-color: rgb(206, 206, 206);
   outline-style: solid;
-  animation: animateOutlineu9ge63u 2s ease infinite;
+  animation: animateOutlineud5qjq6 2s ease infinite;
 }
-@keyframes animateOutlineu9ge63u {
+@keyframes animateOutlineud5qjq6 {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1139,9 +1139,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-u9ge63x 4s ease-in-out infinite;
+  animation: castingAnimation-ud5qjql 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-u9ge63x {
+@keyframes castingAnimation-ud5qjql {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1158,9 +1158,9 @@ hr {
   outline-width: 1px;
   outline-color: #424242;
   outline-style: solid;
-  animation: animateOutlineu9ge64t 2s ease infinite;
+  animation: animateOutlineud5qjqs 2s ease infinite;
 }
-@keyframes animateOutlineu9ge64t {
+@keyframes animateOutlineud5qjqs {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1187,9 +1187,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-u9ge65n 4s ease-in-out infinite;
+  animation: castingAnimation-ud5qjqv 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-u9ge65n {
+@keyframes castingAnimation-ud5qjqv {
   0% {
     outline-width: 3px;
     outline-offset: 50px;

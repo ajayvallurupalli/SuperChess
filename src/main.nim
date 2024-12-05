@@ -74,7 +74,7 @@ type
         cancel: proc ()
 
 #I really went for 2 months changing the values by hand each time
-const debug: bool = false
+const debug: bool = true
 const debugScreen: Screen = Game
 const myDebugPowers: seq[Power] = @[capitalismPower, sell, income, moveUp, upgrade, exponentialGrowth, skyGlass, steelGlass, zeroGlass, reverieGlass]
 const opponentDebugPowers: seq[Power] = @[developed]

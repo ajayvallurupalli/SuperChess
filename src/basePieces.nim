@@ -5,10 +5,12 @@ import piece, moves
 #TODO FIND WHY THIS DOES NOT WORK SOMETHIMES
 const rookWhenTaken*: WhenTaken = proc (taken: var Piece, taker: var Piece, board: var ChessBoard, state: var BoardState): tuple[endTile: Tile, takeSuccess: bool] =
     #castling behavior
+    echo "castle"
+    echo "k", taker.item == King, "r", taken.item == Rook, "s", taken.sameColor(taker), "m", taker.timesMoved, "m2", taken.timesMoved
     if taker.item == King and 
         taken.item == Rook and
         taken.sameColor(taker) and
-        taker.timesMoved == 0 and
+        taker.timesMoved == 1 and #one move from castling
         taken.timesMoved == 0: 
             let kingTile = taker.tile
             if taken.tile.file == 0:
