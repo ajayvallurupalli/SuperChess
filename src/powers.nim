@@ -1516,7 +1516,7 @@ const convertingTake: OnAction = proc (piece: var Piece, taking: Tile, board: va
     let dice = rand(20)
 
     inc piece.timesMoved
-    if dice <= 3: #creates odds of 3/20 or 15%
+    if dice <= 3 and board[taking].item != King: #creates odds of 3/20 or 15%
         board[taking].color = piece.color
         board[taking].index = newIndex(state)
         pieceSwap(piece, board[taking], board)
@@ -1544,7 +1544,7 @@ const holyConvertingTake: OnAction = proc (piece: var Piece, taking: Tile, board
     let dice = rand(20)
 
     inc piece.timesMoved
-    if dice <= 6: #creates odds of 6/20 or 30%
+    if dice <= 6  and board[taking].item != King: #creates odds of 6/20 or 30%
         board[taking].color = piece.color
         board[taking].index = newIndex(state)
         pieceSwap(piece, board[taking], board)
