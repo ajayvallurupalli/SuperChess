@@ -2,6 +2,8 @@ import piece
 from std/sequtils import foldr, mapIt, filterIt, concat
 from std/algorithm import sortedByIt
 from std/random import randomize, rand
+from std/strformat import fmt
+import std/tables
 
 type
     Tier* = enum
@@ -75,10 +77,10 @@ var
     draftSynergies*: seq[Synergy]
     secretSynergies*: seq[Synergy]
     secretSecretSynergies*: seq[Synergy]
-    commonPowers*: seq[Power]
-    uncommonPowers*: seq[Power]
-    rarePowers*: seq[Power]
-    ultraRarePowers*: seq[Power]
+    commonPowers: seq[Power]
+    uncommonPowers: seq[Power]
+    rarePowers: seq[Power]
+    ultraRarePowers: seq[Power]
 
 #I know I should use an enum instead of secret and secretSecret, but I think this is funner
 proc registerSynergy*(s: Synergy, secret: bool = false, secretSecret = false) = 
@@ -91,20 +93,21 @@ proc registerSynergy*(s: Synergy, secret: bool = false, secretSecret = false) =
 
     let requirements = s.requirements.foldr(a & " + " & b)
 
+    #updating techincal name and description of added power
     if secret and not secretSecret: #Secret Synergies
-        x.power.description = "Secret synergy! (" & requirements & ") -- "  & x.power.description
+        x.power.description = fmt"Secret Synergy! ({requirements}) -- {x.power.description}"
         x.power.technicalName = 
-            if x.power.technicalName == "": x.power.name & " (Secret Synergy of " & requirements & ")"
-            else: x.power.technicalName & " (Secret Synergy of " & requirements & ")"
+            if x.power.technicalName == "": fmt"{x.power.name} (Secret Synergy of {requirements})"
+            else: fmt"{x.power.technicalName} (Secret Synergy of {requirements})"
     elif not secret: #Normal Synergies
-        x.power.description = "Synergy! (" & requirements & ") "  & x.power.description   
+        x.power.description = fmt"Synergy! ({requirements}) -- {x.power.description}" 
         x.power.technicalName = 
-            if x.power.technicalName == "": x.power.name & " (Synergy of " & requirements & ")"
-            else: x.power.technicalName & " (Synergy of " & requirements & ")"
+            if x.power.technicalName == "": fmt"{x.power.name} (Synergy of {requirements})"
+            else: fmt"{x.power.technicalName} (Synergy of {requirements})"
     else: #Secret Secret Synergies
         x.power.technicalName = 
-            if x.power.technicalName == "": x.power.name & " (Secret Secret Synergy of " & requirements & ")"
-            else: x.power.technicalName & " (Secret Secret Synergy of " & requirements & ")"
+            if x.power.technicalName == "": fmt"{x.power.name} (Secret Secret Synergy of {requirements})"
+            else: fmt"{x.power.technicalName} (Secret Secret Synergy of {requirements})"
 
     powers.add(x.power)
     if secretSecret: secretSecretSynergies.add(x) 
@@ -195,4 +198,17 @@ proc execute*(myDrafts: seq[Power], opponentDrafts: seq[Power], mySide: Color, b
 proc replaceAnySynergies*(powers: seq[Power]): seq[Power] = 
     return powers.secretSynergize(secretSynergies)
 
+
+proc getAllPowers*(): Table[string, seq[Power]] = 
+    result = initTable[string, seq[Power]]()
+
+    #since `powers`includes synergies, we have to create a list from the other `seq[Power]`
+    let allPowers = commonPowers & uncommonPowers & rarePowers & ultraRarePowers
+
+    for p in allPowers:
+        if p.name in result:
+            result[p.name].add(p)
+        else:
+            result[p.name] = @[p]
+            
 registerPower(holy)

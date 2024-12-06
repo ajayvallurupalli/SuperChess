@@ -1,12 +1,14 @@
 include karax / prelude
 import karax/errors
 import piece, basePieces, port, power, powers, store, capitalism #powers import for debug
+from board import tileAbove, tileBelow
 import extrapower/glass
 import std/dom, std/strformat #im not sure why dom stuff fails if I don't import the whole package
-import std/options #try to expand use of this, instead of wierd tuple[has: bool stuff
+import std/options, std/tables#try to expand use of this, instead of wierd tuple[has: bool stuff
 from strutils import split, parseInt, join, toLower
-from sequtils import foldr, mapIt, cycle, filterIt
-from std/algorithm import reversed
+from std/editdistance import editDistance
+from sequtils import foldr, mapIt, cycle, filterIt, toSeq
+from std/algorithm import reversed, sortedByIt
 
 {.warning[CStringConv]: off.} 
 #fixing the issue makes the code look bad, so I'm turning it off. Genius, I know
@@ -58,7 +60,7 @@ const
 type 
     Screen {.pure.} = enum 
         Lobby, CreateRoom, JoinRoom, Game, Options, Draft, 
-        Results, Rematch, Disconnect, Settings, Other
+        Results, Rematch, Disconnect, Settings, Other, SeePower
     Gamemode {.pure.} = enum 
         Normal, RandomTier, TrueRandom, SuperRandom
     Tab {.pure.} = enum
@@ -75,8 +77,8 @@ type
 
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
-const debugScreen: Screen = Game
-const myDebugPowers: seq[Power] = @[capitalismPower, sell, income, moveUp, upgrade, exponentialGrowth, skyGlass, steelGlass, zeroGlass, reverieGlass]
+const debugScreen: Screen = SeePower
+const myDebugPowers: seq[Power] = @[alcoholism, steelGlass]
 const opponentDebugPowers: seq[Power] = @[developed]
 
 var 
@@ -109,7 +111,7 @@ var
     showTechnicalNames: bool = false
     disableRNGPowers: bool = false
     showDebug: bool = false
-    enableExperimental: bool = false
+    enableExperimental: bool = true
 
     #state for webapp
     currentScreen: Screen = if debug: debugScreen else: Lobby
@@ -132,7 +134,8 @@ var
     picks: seq[Tile] = @[] 
     whenCollected: proc()
 
-
+    allPowers: Table[string, seq[Power]] = getAllPowers()
+    selectedSubPower: Table[string, int]
 
 proc alert(s: cstring) {.importjs: "alert(#)".}
 proc onresize(cb: proc()) {.importjs: "window.addEventListener('resize', #)".}
@@ -173,12 +176,28 @@ proc endRound() =
 
     #this is needed by the random move powers to prevent double moves
     #It needs to happen after so that all drunkness is cleared after end turn stuff
-    for i, j in rankAndFile(theBoard):
+    for i, j in rankAndFile(theBoard): 
+        #this is hardcoded in because we need it to happen last, and it needs to happen even if the piece moves   
+        #TODO rework onEndTurn to ensure that it is the same piece
+        #So I don't need these bandaids
+        #this isn't the most important
+        #but I could do something with indexes
+        #though indexes still kind of suck
+        for ic, c in theBoard[i][j].casts:
+            if c.glass == Steel:
+                if theBoard[i][j].isColor(white):
+                    theBoard[i][j].casts[ic].on = theBoard[i][j].tile.tileAbove()
+                else:
+                    theBoard[i][j].casts[ic].on = theBoard[i][j].tile.tileBelow()
         theBoard[i][j].drunk = false
 
     piecesChecking = theBoard.getPiecesChecking(side)
     if gameIsOver(theBoard):
-        if side.alive(theBoard): addWins(myDrafts)
+        echo side.alive(theBoard)
+        if side.alive(theBoard): 
+            addWins(myDrafts)
+        else:
+            addLosses(myDrafts)
         currentScreen = Results
 
     #TODO remove after tests
@@ -268,6 +287,8 @@ proc otherGlass(d: string) =
             group: parseInt(data[5]),
             glass: data[6].toGlassType()
         ))
+        discard newGroup(theState) #this ensures that group is properly incremented
+        #it does it more than needed, but that shouldn't be an issue
     elif data[0] == "castingcancel":
         turn = true
         echo "turn equals true: otherglass cancel"
@@ -521,7 +542,7 @@ proc createLobby(): VNode =
                 button(class=menuButton):
                     text "See Powers"
                     proc onclick(ev: Event, _: VNode) =
-                        alert("Unimplemented")
+                        currentScreen = SeePower
 
             tdiv(class="start-column"):
                 button(class=menuButton): 
@@ -847,7 +868,7 @@ proc createGlassMenu(): VNode =
                 button(class="cancel", onclick=cancelAllPicks):
                     text "Cancel"
             #I'm just going to hardcode this condition for now
-            let zerocond = glass == Zero and theState.shared.turnNumber == 0
+            let zerocond = glass == Zero and theState.shared.turnNumber <= 1
             button(class="use", disabled = busy() or zerocond):
                 text fmt"Use {glass}"
                 proc onclick(_: Event, _: VNode) = 
@@ -862,7 +883,8 @@ proc createGlassMenu(): VNode =
                     promptStack = [
                         fmt"Pick a piece to start casting {glass}.", 
                         fmt"Pick a tile to cast {glass} on."
-                    ].cycle(strength).reversed()
+                    ].cycle(strength).reversed() #reversed so that I can write them in order, which looks nice
+                    assert promptStack.len == picksLeft
                     whenCollected = proc () =
                         for piece, tile in byTwo(picks):
                             echo "piecetile", piece, "tile, ", tile
@@ -881,6 +903,8 @@ proc createGlassMenu(): VNode =
                             ))
 
                             sendAction(fmt"""castingstart,{piece.rank},{piece.file},{tile.rank},{tile.file},{group},{glass}""", false)
+                            discard newGroup(theState) #this ensures that group is properly incremented
+                            #it does it more than needed, but that shouldn't be an issue
                         echo "adding actionStack"
                         actionStack.add((
                             name: "Casting " & $glass,
@@ -912,14 +936,16 @@ proc createGame(): VNode =
     buildHtml(tdiv(class=topClass)):
         tdiv(class=nextClass):
             tdiv(class="tab-row"):
-                button:
-                    text "Your Drafts"
-                    proc onclick(_: Event, _: VNode) =
-                        currentTab = My
-                button:
-                    text "Opponent Drafts"
-                    proc onclick(_: Event, _: VNode) =
-                        currentTab = Opponent
+                if myDrafts.len != 0:
+                    button:
+                        text "Your Drafts"
+                        proc onclick(_: Event, _: VNode) =
+                            currentTab = My
+                if opponentDrafts.len != 0:
+                    button:
+                        text "Opponent Drafts"
+                        proc onclick(_: Event, _: VNode) =
+                            currentTab = Opponent
                 button:
                     text "Power Control"
                     proc onclick(_: Event, _: VNode) =
@@ -1075,6 +1101,66 @@ proc createSettings(): VNode =
             proc onclick(_: Event, _: VNode) = 
                 currentScreen = Other
 
+proc createSeePower(p: Power): VNode =     
+    var src = if p.noColor: p.icon else: $black & p.icon
+    let record = getRecord(p.technicalName)
+    let class = if record.wins > 0: "see-power has-won" else: "see-power"
+    result = buildHtml(tdiv(class=class)):
+        h4:
+            text p.technicalName
+        p(class="desc"):
+            text p.description
+        if p.icon != "":
+            img(src = iconsPath & src)
+        else:
+            img(src = iconsPath & "blackbishop.svg") #placeholder
+        p(class="win"):
+            text fmt"Wins: {record.wins}, Losses: {record.losses}"
+        #TODO add practice mode which puts player into game with just the one power
+        #button:
+        #    text "Practice"
+
+proc createSeePowerOnclick(name: string, index: int): proc (_: Event, _: VNode)  = 
+    result = proc (_: Event, _: VNode) = 
+        selectedSubPower[name] = index
+
+proc createSeePower(): VNode = 
+    result = buildHtml(tdiv(class = "tab-column")):
+        button(class = "top-button"):
+            text "Return to Lobby"
+            proc onclick(_: Event, _: VNode) = 
+                currentScreen = Lobby
+
+        tdiv(class = "search move-up"):
+            label(`for` = "search"):
+                text "Search :"
+            input(id = "search", onchange = validateNotEmpty("search"))
+
+        #TODO
+        #add another tab for synergies
+        #[
+        tdiv(class = "tab-row"):
+            button(class = "font-20"):
+                text "Powers"
+            button(class = "font-20"):
+                text "Synergies"
+        ]#
+
+        let search = 
+            try: getVNodeById("search").getInputText
+            except: ""
+        
+        for _, powers in allPowers.values.toSeq.sortedByIt(editDistance(it[0].name, $search)):
+            if powers.len == 1:
+                createSeePower(powers[0])
+            else:
+                tdiv(class = "tab-row margin-t-20"):
+                    for index, power in powers:
+                        button(class = "font-20", onclick = createSeePowerOnClick(power.name, index)):
+                            text if screenWidth < (powers.len * 400): $index else: power.technicalName
+                createSeePower(powers[selectedSubPower[powers[0].name]])
+
+            hr()
 
 proc main(): VNode = 
     result = buildHtml(tdiv(class="main scroll")):
@@ -1090,10 +1176,15 @@ proc main(): VNode =
         of Disconnect: createDisconnect()
         of Other: createOther()
         of Settings: createSettings()
+        of SeePower: createSeePower()
 
 
 initStorage()
 onresize(resize)
+
+for name, power in allPowers:
+    if power.len != 0:
+        selectedSubPower[name] = 0
 
 
 if debug: 
@@ -1108,6 +1199,5 @@ if debug:
         gameMode = TrueRandom
         draft()
     else: discard nil
-
 
 setRenderer main

@@ -10,6 +10,10 @@ func toGlassType*(str: string): GlassType =
         return Zero
     elif str.toLower() == "steel":
         return Steel
+    elif str.toLower() == "reverie":
+        return Reverie
+    else:
+        raiseAssert "????, " & str & " is not a glass"
 
 #I'm plutting the glass stuff here instead of a new file
 #since its only like two things

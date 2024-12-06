@@ -43,10 +43,6 @@ func tileLeft*(t: Tile): Tile =
 func tileRight*(t: Tile): Tile = 
     return (t.file + 1, t.rank)
 
-func forward*(p: Piece): Tile = 
-    if p.color == piece.white: return p.tile.tileAbove
-    else: return p.tile.tileBelow
-
 #if `t` is a valid tile for the `ChessBoard b`, it returns `Some(p)`, where `p` is the `Piece` at that tile
 #otherwise, it returns none. 
 #I kind of forgot to use options in the rest of the project, but it's still needed here for 

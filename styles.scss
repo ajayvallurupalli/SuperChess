@@ -59,6 +59,35 @@ img {
     height: 100%;
 }
 
+.search {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    min-width: 70%;
+    min-height: 100px;
+
+    gap: 20px;
+
+    font-size: 30px;
+
+            
+    #search {
+        flex-grow: 2;
+        height: 20%;
+        transform: translateY(2px);
+    }
+
+    button {
+        font-size: inherit;
+    }
+
+    input {
+        font-size: 20px;
+    }
+}
+
 .cut-down {
     max-height: 80%;
 }
@@ -111,10 +140,15 @@ hr {
 
     background-color: rows.$background-highlight;
     transition: .9s;
-}
 
-.power:hover {
-    background-color: rows.$background-hover;
+    h1 {
+        text-align: center;
+        flex-basis: 90px;
+    }
+
+    &:hover {
+        background-color: rows.$background-hover;
+    }
 }
 
 .column-scroll {
@@ -161,40 +195,22 @@ hr {
     max-width: 100%;
     text-wrap: wrap;
     transition: 0.9s;
-}
 
-.setting-item>h4 {
-    font-size: 22px;
-    grid-area: title;
-    margin-bottom: 0px;
-}
+    h4 {
+        font-size: 22px;
+        grid-area: title;
+        margin-bottom: 0px;
+    }
 
-.setting-item>p {
-    grid-area: desc;
-}
+    p {
+        grid-area: desc;
+    }
 
-.setting-item>button {
-    grid-area: button;
-}
-
-.title {
-    grid-area: title;
-}
-
-.desc {
-    grid-area: desc;
-}
-
-
-.image {
-    grid-area: img;
-    max-width: 100%;
-    max-height: 100%;
-}
-
-.power>h1 {
-    text-align: center;
-    flex-basis: 90px;
+    button {
+        grid-area: button;
+    }
+    
+    
 }
 
 .tab-row {
@@ -207,8 +223,6 @@ hr {
     min-width: 100%;
     margin-top: -10px;
     height: auto;
-
-    transform: translateX(2.5%);
 
     button {
         border-top-left-radius: 10px;
@@ -396,4 +410,16 @@ hr {
 
 .gap-10 {
     gap: 10px;
+}
+
+
+.move-up {
+    transform: translateY(-25px);
+}
+
+.top-button {
+    min-width: 70%;
+    font-size: 40px;
+    border-radius: 5px;
+    transform: translateY(-50px);
 }

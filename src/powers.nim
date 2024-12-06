@@ -1929,7 +1929,7 @@ const skyGlassAction: OnAction = proc (piece: var Piece, to: Tile, b: var ChessB
 
 const canZeroGlass: GlassMoves = 
     func (side: Color, piece: Piece, b: ChessBoard, s: BoardState): Moves =
-        if s.shared.turnNumber == 0: return @[]
+        if s.shared.turnNumber <= 1: return @[]
 
         for i, j in b.rankAndFile:
             if b[i][j].item != King:
@@ -1956,7 +1956,8 @@ const canSteelGlass: GlassMoves =
 const steelGlassAction: OnAction = proc (piece: var Piece, to: Tile, b: var ChessBoard, s: var BoardState) = 
     #this is not in the condition because it can change after
     #but it should still be a viable attempt before
-    if b[to.rank][to.file].item == None: return
+    if b[to].item == None or 
+        b[to] == piece: return
     piece.take(to, b, s)
 
 #helper function to create  the "On Glass Powers" part
@@ -2004,12 +2005,6 @@ const zeroGlass*: Power = Power(
             ))
 )
 
-const steelMove: OnPiece = proc (piece: var Piece, _: var ChessBoard, state: var BoardState) = 
-    #i'm not sure how to iterate a variable
-    for i, c in piece.casts:
-        if c.glass == Steel:
-            piece.casts[i].on = piece.forward()
-
 const steelGlass*: Power = Power(
     name: "Glass: Steel",
     tier: Common,
@@ -2027,10 +2022,6 @@ const steelGlass*: Power = Power(
                 action: steelGlassAction,
                 condition: canSteelGlass,
             ))
-
-            for i, j in b.rankAndFile:
-                if b[i][j].isColor(side):
-                    b[i][j].onEndTurn &= steelMove
 )
 
 const divineMove: OnPiece = proc (piece: var Piece, b: var ChessBoard, state: var BoardState) = 
@@ -2072,7 +2063,7 @@ const canBankruptGlass: GlassMoves =
         assert s.side[side].wallet.isSome()
         
         #can only do it when money is 0
-        if s.shared.turnNumber == 0 or 
+        if s.shared.turnNumber <= 1 or 
              s.side[side].wallet.get() != 0 : return @[]
 
         for i, j in b.rankAndFile:
