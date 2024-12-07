@@ -61,7 +61,7 @@ const
 type 
     Screen {.pure.} = enum 
         Lobby, CreateRoom, JoinRoom, Game, Options, Draft, 
-        Results, Rematch, Disconnect, Settings, Other, SeePower
+        Results, Rematch, Disconnect, Settings, Other, SeePower, Test
     Gamemode {.pure.} = enum 
         Normal, RandomTier, TrueRandom, SuperRandom
     Tab {.pure.} = enum
@@ -1230,6 +1230,7 @@ proc main(): VNode =
         of Other: createOther()
         of Settings: createSettings()
         of SeePower: createSeePower()
+        of Test: tdiv()
 
 
 initStorage()
