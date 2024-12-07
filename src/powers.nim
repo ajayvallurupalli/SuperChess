@@ -1117,15 +1117,15 @@ const lancePromoteConditions*: OnPiece = proc (piece: var Piece, board: var Ches
     if piece.isAtEnd() and not piece.promoted:  
         piece.promote(board, state)
 
-const lanceRight*: Power = Power(
+const lanceLeft*: Power = Power(
     name: "Kamikaze", 
-    technicalName: "Kamikaze Right",
+    technicalName: "Kamikaze Left",
     tier: Uncommon,
     priority: 5, 
     rarity: 4, 
     description: 
         """The divine wind is behind you. 
-        Your right pawn is replaced with a lance from Shogi.""",
+        Your left pawn is replaced with a lance from Shogi.""",
     icon: "lance.svg",
     rotatable: true,
     noColor: true,
@@ -1147,15 +1147,15 @@ const lanceRight*: Power = Power(
             if side != viewSide: b[rank][0].rotate = true
 )
 
-const lanceLeft*: Power = Power(
+const lanceRight*: Power = Power(
     name: "Kamikaze", 
-    technicalName: "Kamikaze Left",
+    technicalName: "Kamikaze Right",
     tier: Uncommon,
     priority: 5, 
     rarity: 4, 
     description: 
         """The divine wind is behind you. 
-        Your left pawn is replaced with a lance from Shogi.""",
+        Your right pawn is replaced with a lance from Shogi.""",
     icon: "lance.svg",
     rotatable: true,
     noColor: true,
@@ -1716,7 +1716,7 @@ const blackMoveUpCondition: BuyCondition = func (piece: Piece, board: ChessBoard
 
 const moveUp*: Power = Power(
     name: "Capitalism II",
-    technicalName: "Capitalism: Move Up",
+    technicalName: "Capitalism II: Move Up",
     tier: Common,
     rarity: 0,
     priority: 15,
@@ -1742,7 +1742,7 @@ const blackMoveBackCondition = whiteMoveUpCondition
 
 const moveBack*: Power = Power(
     name: "Capitalism II",
-    technicalName: "Capitalism: Move Back",
+    technicalName: "Capitalism II: Move Back",
     tier: Common,
     rarity: 0,
     priority: 15,
@@ -1761,7 +1761,7 @@ const capitalismTwo2: Synergy = createCapitalism(moveBack)
 
 const income*: Power = Power(
     name: "Capitalism II",
-    technicalName: "Capitalism: Income",
+    technicalName: "Capitalism II: Income",
     tier: Common,
     rarity: 0,
     priority: 35,
@@ -1777,7 +1777,7 @@ const capitalismTwo3: Synergy = createCapitalism(income)
 
 const upgrade*: Power = Power(
     name: "Capitalism III",
-    technicalName: "Capitalism: Upgrade Knight",
+    technicalName: "Capitalism III: Upgrade Knight",
     tier: Uncommon,
     rarity: 0, #rarity 0 because it should only be gotten through synergy
     priority: 15,
@@ -1796,7 +1796,7 @@ const capitalismThree1: Synergy = createCapitalism(upgrade)
 
 const upgrade2*: Power = Power(
     name: "Capitalism III",
-    technicalName: "Capitalism: Upgrade Giraffe",
+    technicalName: "Capitalism III: Upgrade Giraffe",
     tier: Uncommon,
     rarity: 0, #rarity 0 because it should only be gotten through synergy
     priority: 15,
@@ -1833,14 +1833,13 @@ proc createPieceMarket(cost: int, rate: int): BuyCost =
 
         result = cost + (rate * (lastPiecesSold - piecesSold))
 
-#TODO constraint
 const sell*: Power = Power(
     name: "Capitalism IV",
-    technicalName: "Capitalism: Sell",
+    technicalName: "Capitalism IV: Sell",
     tier: Uncommon,
     rarity: 0, #rarity 0 because it should only be gotten through synergy
     priority: 15,
-    description: """Who needs these pieces? AFUERA! You can sell a piece for 4 dollars. Each subsequent piece sold gives one less. """,
+    description: """Who needs these pieces? AFUERA! You can sell a piece for 4 dollars. Each subsequent piece gives one dollar less. """,
     icon: "usflag.svg",
     noColor: true,
     onStart:

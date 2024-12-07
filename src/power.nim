@@ -202,10 +202,10 @@ proc replaceAnySynergies*(powers: seq[Power]): seq[Power] =
 proc getAllPowers*(): Table[string, seq[Power]] = 
     result = initTable[string, seq[Power]]()
 
-    #since `powers`includes synergies, we have to create a list from the other `seq[Power]`
-    let allPowers = commonPowers & uncommonPowers & rarePowers & ultraRarePowers
+    let secretSecretPowers = secretSecretSynergies.mapIt(it.power)
 
-    for p in allPowers:
+    for p in powers:
+        if p in secretSecretPowers: continue
         if p.name in result:
             result[p.name].add(p)
         else:

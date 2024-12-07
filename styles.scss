@@ -50,6 +50,16 @@ img {
     width: 100%;
 }
 
+.width-70 {
+    min-width: 70%;
+    width: 70%;
+}
+
+#exit-practice {
+    height: 40px;
+    font-size: 20px;
+}
+
 .main {
     display: flex;
     flex-direction: row;
@@ -221,12 +231,17 @@ hr {
     gap: 0px;
 
     min-width: 100%;
+
     margin-top: -10px;
     height: auto;
 
     button {
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
+
+        &.selected-tab {
+            background-color: rows.$background-hover;
+        }
     }
 
     /*Moves every other element to the right
@@ -414,7 +429,7 @@ hr {
 
 
 .move-up {
-    transform: translateY(-25px);
+    transform: translateY(-35px);
 }
 
 .top-button {

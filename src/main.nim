@@ -28,7 +28,8 @@ for steam realease
 100 $
 show opponent powers when drafting / waiting
 --(mostly): fix css
-add screen to show all powers
+--add screen to show all powers
+    A cool animation for the more wins you have would be cool
 add sandbox mode
 add some more powers
 learn how to use electron
@@ -78,8 +79,8 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = SeePower
-const myDebugPowers: seq[Power] = @[alcoholism, steelGlass]
-const opponentDebugPowers: seq[Power] = @[developed]
+const myDebugPowers: seq[Power] = @[]
+const opponentDebugPowers: seq[Power] = @[]
 
 var 
     #state for coordination with other player
@@ -106,6 +107,8 @@ var
     possibleTakes: Moves = @[]
     lastMove: Moves = @[]
     piecesChecking: Moves = @[]
+
+    practiceMode: bool = false
 
     #settings decided by player
     showTechnicalNames: bool = false
@@ -193,12 +196,14 @@ proc endRound() =
 
     piecesChecking = theBoard.getPiecesChecking(side)
     if gameIsOver(theBoard):
-        echo side.alive(theBoard)
-        if side.alive(theBoard): 
-            addWins(myDrafts)
-        else:
-            addLosses(myDrafts)
         currentScreen = Results
+
+        if not practiceMode:
+            if side.alive(theBoard): 
+                addWins(myDrafts)
+            else:
+                addLosses(myDrafts)
+        
 
     #TODO remove after tests
     #ensuring that indexes are never duplicated
@@ -208,7 +213,7 @@ proc endRound() =
         test.add(theBoard[i][j].index)
 
 proc sendAction(data: string, `end`: bool) =
-    if not debug: #skip send whn debugging because peer is undefined
+    if not debug and not practiceMode: #skip send whn debugging because peer is undefined
         peer.send(fmt"action:{data}") 
         if `end`: 
             turn = false #I also want turn to be always true when in debug
@@ -224,7 +229,7 @@ proc updateActionStack() =
             for i, x in nextActionStack:
                 dec nextActionStack[i].turns
 
-        if not debug:
+        if not debug and not practiceMode:
             if toSend.len != 0:
                 for x in toSend:
                     x.send()
@@ -543,6 +548,10 @@ proc createLobby(): VNode =
                     text "See Powers"
                     proc onclick(ev: Event, _: VNode) =
                         currentScreen = SeePower
+                        #reset it
+                        for name, power in allPowers:
+                            if power.len != 0:
+                                selectedSubPower[name] = 0
 
             tdiv(class="start-column"):
                 button(class=menuButton): 
@@ -935,7 +944,15 @@ proc createGame(): VNode =
     let nextClass = if screenWidth > 1200: "tab-column" else: "tab-column long"
     buildHtml(tdiv(class=topClass)):
         tdiv(class=nextClass):
-            tdiv(class="tab-row"):
+            if practiceMode:
+                let class = if screenWidth  > 1200: "move-up width-70" else: "move-right"
+                button(class = class, id = "exit-practice"):
+                    text "Exit practice"
+                    proc onclick(_: Event, _: VNode) = 
+                        clear()
+                        practiceMode = false
+                        currentScreen = SeePower
+            tdiv(class="tab-row extra-right"):
                 if myDrafts.len != 0:
                     button:
                         text "Your Drafts"
@@ -955,15 +972,20 @@ proc createGame(): VNode =
                         text "Debug"
                         proc onclick(_: Event, _: VNode) =
                             currentTab = Debug
+                            #TODO find out why this crashes in practice mode
+                            #I'm actually so confused, why does changing a bool 
+                            #cause a enum to overflow
 
             tdiv(class="column-scroll"):
                 case currentTab
                 of My:
                     for p in myDrafts.replaceAnySynergies():
                         createPowerSummary(p, side)
-                    tdiv(class="debug"): #cheeky dev button
-                        proc onclick(_: Event, _: VNode) = 
-                            showDebug = true
+                    if not practiceMode: #since this crashes in practiceMode for some reasons
+                        tdiv(class="debug"): #cheeky dev button
+                            proc onclick(_: Event, _: VNode) = 
+                                showDebug = true
+
                 of Opponent:
                     for p in opponentDrafts.replaceAnySynergies():
                         createPowerSummary(p, otherSide(side))
@@ -1002,24 +1024,32 @@ proc createResults(): VNode =
             h1: 
                 text "You lost..."
         
-        button:
-            proc onclick(_: Event, _: VNode) = 
-                if side == black:
-                    joinLogic("", Rematch)
-                else:
-                    peer.send("rematch:please")
-                currentScreen = Rematch
-            text "Rematch"
+        if practiceMode:    
+            button:
+                proc onclick(_: Event, _: VNode) = 
+                    currentScreen = Lobby
+                    practiceMode = false #i think i do this twice, but redundancy is good
 
-        button: 
-            proc onclick(_: Event, _: VNode) = 
-                if side == white:
-                    hostLogic("", End)
-                elif side == black:
-                    joinLogic("", End)
-                currentScreen = Lobby
+                text "Back to Lobby"
+        else:
+            button:
+                proc onclick(_: Event, _: VNode) = 
+                    if side == black:
+                        joinLogic("", Rematch)
+                    else:
+                        peer.send("rematch:please")
+                    currentScreen = Rematch
+                text "Rematch"
 
-            text "Back to Lobby"
+            button: 
+                proc onclick(_: Event, _: VNode) = 
+                    if side == white:
+                        hostLogic("", End)
+                    elif side == black:
+                        joinLogic("", End)
+                    currentScreen = Lobby
+
+                text "Back to Lobby"
 
 proc createRematch(): VNode = 
     result = buildHtml(tdiv(class="main")):
@@ -1101,7 +1131,7 @@ proc createSettings(): VNode =
             proc onclick(_: Event, _: VNode) = 
                 currentScreen = Other
 
-proc createSeePower(p: Power): VNode =     
+proc createSeePowerDescription(p: Power): VNode =     
     var src = if p.noColor: p.icon else: $black & p.icon
     let record = getRecord(p.technicalName)
     let class = if record.wins > 0: "see-power has-won" else: "see-power"
@@ -1116,13 +1146,44 @@ proc createSeePower(p: Power): VNode =
             img(src = iconsPath & "blackbishop.svg") #placeholder
         p(class="win"):
             text fmt"Wins: {record.wins}, Losses: {record.losses}"
-        #TODO add practice mode which puts player into game with just the one power
-        #button:
-        #    text "Practice"
+        button:
+            text "Practice"
+            proc onclick(_: Event, _: VNode) = 
+                initGame()
+                side = black
+                turn = true
+                currentScreen = Game
+                practiceMode = true
+
+                theState.shared.randSeed = 0
+                
+                var alreadyAdded: seq[string] = @[]
+                for s in draftSynergies & secretSynergies:
+                    if p.index == s.power.index: #if synergy
+                        for name in s.requirements:
+                            if name in s.replacements: continue
+
+                            for reqPower in power.powers:
+                                if reqPower.name == name and p.name notin alreadyAdded:
+                                    myDrafts.add(reqPower)
+                                    alreadyAdded.add(reqPower.name)
+
+                        if s in draftSynergies: mydrafts.add(s.power)
+
+                if alreadyAdded.len == 0: myDrafts.add(p)
+
+
+                execute(myDrafts, opponentDrafts, side, theBoard, theState)
 
 proc createSeePowerOnclick(name: string, index: int): proc (_: Event, _: VNode)  = 
     result = proc (_: Event, _: VNode) = 
         selectedSubPower[name] = index
+
+proc getPowerTabLength(powers: seq[Power]): int = 
+    for p in powers:
+        result += p.technicalName.len * 15 #15 is font size
+
+    echo result
 
 proc createSeePower(): VNode = 
     result = buildHtml(tdiv(class = "tab-column")):
@@ -1136,29 +1197,20 @@ proc createSeePower(): VNode =
                 text "Search :"
             input(id = "search", onchange = validateNotEmpty("search"))
 
-        #TODO
-        #add another tab for synergies
-        #[
-        tdiv(class = "tab-row"):
-            button(class = "font-20"):
-                text "Powers"
-            button(class = "font-20"):
-                text "Synergies"
-        ]#
-
         let search = 
             try: getVNodeById("search").getInputText
             except: ""
         
         for _, powers in allPowers.values.toSeq.sortedByIt(editDistance(it[0].name, $search)):
             if powers.len == 1:
-                createSeePower(powers[0])
+                createSeePowerDescription(powers[0])
             else:
                 tdiv(class = "tab-row margin-t-20"):
                     for index, power in powers:
-                        button(class = "font-20", onclick = createSeePowerOnClick(power.name, index)):
-                            text if screenWidth < (powers.len * 400): $index else: power.technicalName
-                createSeePower(powers[selectedSubPower[powers[0].name]])
+                        let class = if index == selectedSubPower[powers[0].name]: "selected-tab font-20" else: "font-20"
+                        button(class = class, onclick = createSeePowerOnClick(power.name, index)):
+                            text if screenWidth < getPowerTabLength(powers): $(index + 1) else: power.technicalName
+                createSeePowerDescription(powers[selectedSubPower[powers[0].name]])
 
             hr()
 
@@ -1181,10 +1233,6 @@ proc main(): VNode =
 
 initStorage()
 onresize(resize)
-
-for name, power in allPowers:
-    if power.len != 0:
-        selectedSubPower[name] = 0
 
 
 if debug: 

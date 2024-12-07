@@ -21,6 +21,10 @@ as punishment for my sins.
     /*Don't ask*/
     transform: translateX(3%);
   }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(2.5%) !important;
+  }
 }
 @media only screen and (max-width: 2000px) {
   td {
@@ -49,13 +53,17 @@ as punishment for my sins.
     /*Don't ask*/
     transform: translateX(3%);
   }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(2.4%) !important;
+  }
 }
 @media only screen and (max-width: 1900px) {
   td {
-    min-width: 64px;
-    min-height: 64px;
-    width: 64px;
-    height: 64px;
+    min-width: 65.5px;
+    min-height: 65.5px;
+    width: 65.5px;
+    height: 65.5px;
     text-align: center;
     vertical-align: middle;
   }
@@ -77,13 +85,17 @@ as punishment for my sins.
     /*Don't ask*/
     transform: translateX(2.8%);
   }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(2.3%) !important;
+  }
 }
 @media only screen and (max-width: 1800px) {
   td {
-    min-width: 58px;
-    min-height: 58px;
-    width: 58px;
-    height: 58px;
+    min-width: 61px;
+    min-height: 61px;
+    width: 61px;
+    height: 61px;
     text-align: center;
     vertical-align: middle;
   }
@@ -105,13 +117,17 @@ as punishment for my sins.
     /*Don't ask*/
     transform: translateX(2.6%);
   }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(2.2%) !important;
+  }
 }
 @media only screen and (max-width: 1700px) {
   td {
-    min-width: 52px;
-    min-height: 52px;
-    width: 52px;
-    height: 52px;
+    min-width: 56.5px;
+    min-height: 56.5px;
+    width: 56.5px;
+    height: 56.5px;
     text-align: center;
     vertical-align: middle;
   }
@@ -133,13 +149,17 @@ as punishment for my sins.
     /*Don't ask*/
     transform: translateX(2.4%);
   }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(2.1%) !important;
+  }
 }
 @media only screen and (max-width: 1600px) {
   td {
-    min-width: 46px;
-    min-height: 46px;
-    width: 46px;
-    height: 46px;
+    min-width: 52px;
+    min-height: 52px;
+    width: 52px;
+    height: 52px;
     text-align: center;
     vertical-align: middle;
   }
@@ -161,13 +181,17 @@ as punishment for my sins.
     /*Don't ask*/
     transform: translateX(2.2%);
   }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(2%) !important;
+  }
 }
 @media only screen and (max-width: 1500px) {
   td {
-    min-width: 40px;
-    min-height: 40px;
-    width: 40px;
-    height: 40px;
+    min-width: 47.5px;
+    min-height: 47.5px;
+    width: 47.5px;
+    height: 47.5px;
     text-align: center;
     vertical-align: middle;
   }
@@ -189,13 +213,17 @@ as punishment for my sins.
     /*Don't ask*/
     transform: translateX(2%);
   }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(1.9%) !important;
+  }
 }
 @media only screen and (max-width: 1400px) {
   td {
-    min-width: 34px;
-    min-height: 34px;
-    width: 34px;
-    height: 34px;
+    min-width: 43px;
+    min-height: 43px;
+    width: 43px;
+    height: 43px;
     text-align: center;
     vertical-align: middle;
   }
@@ -217,13 +245,17 @@ as punishment for my sins.
     /*Don't ask*/
     transform: translateX(1.8%);
   }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(1.8%) !important;
+  }
 }
 @media only screen and (max-width: 1300px) {
   td {
-    min-width: 28px;
-    min-height: 28px;
-    width: 28px;
-    height: 28px;
+    min-width: 38.5px;
+    min-height: 38.5px;
+    width: 38.5px;
+    height: 38.5px;
     text-align: center;
     vertical-align: middle;
   }
@@ -245,13 +277,17 @@ as punishment for my sins.
     /*Don't ask*/
     transform: translateX(1.6%);
   }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(1.7%) !important;
+  }
 }
 @media only screen and (max-width: 1200px) {
   td {
-    min-width: 22px;
-    min-height: 22px;
-    width: 22px;
-    height: 22px;
+    min-width: 34px;
+    min-height: 34px;
+    width: 34px;
+    height: 34px;
     text-align: center;
     vertical-align: middle;
   }
@@ -272,6 +308,10 @@ as punishment for my sins.
   .tab-row {
     /*Don't ask*/
     transform: translateX(1.4%);
+  }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(1.6%) !important;
   }
 }
 @media only screen and (max-width: 1200px) {
@@ -299,6 +339,10 @@ as punishment for my sins.
     /*Don't ask*/
     transform: translateX(1.7%);
   }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(2.9%) !important;
+  }
 }
 @media only screen and (max-width: 1150px) {
   td {
@@ -324,6 +368,10 @@ as punishment for my sins.
   .tab-row {
     /*Don't ask*/
     transform: translateX(1.4%);
+  }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(2.8%) !important;
   }
 }
 @media only screen and (max-width: 1100px) {
@@ -351,6 +399,10 @@ as punishment for my sins.
     /*Don't ask*/
     transform: translateX(1.1%);
   }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(2.7%) !important;
+  }
 }
 @media only screen and (max-width: 1050px) {
   td {
@@ -376,6 +428,10 @@ as punishment for my sins.
   .tab-row {
     /*Don't ask*/
     transform: translateX(0.8%);
+  }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(2.6%) !important;
   }
 }
 @media only screen and (max-width: 1000px) {
@@ -403,6 +459,10 @@ as punishment for my sins.
     /*Don't ask*/
     transform: translateX(0.5%);
   }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(2.5%) !important;
+  }
 }
 @media only screen and (max-width: 950px) {
   td {
@@ -428,6 +488,10 @@ as punishment for my sins.
   .tab-row {
     /*Don't ask*/
     transform: translateX(0.2%);
+  }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(2.4%) !important;
   }
 }
 @media only screen and (max-width: 900px) {
@@ -455,6 +519,10 @@ as punishment for my sins.
     /*Don't ask*/
     transform: translateX(-0.1%);
   }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(2.3%) !important;
+  }
 }
 @media only screen and (max-width: 850px) {
   td {
@@ -480,6 +548,10 @@ as punishment for my sins.
   .tab-row {
     /*Don't ask*/
     transform: translateX(-0.4%);
+  }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(2.2%) !important;
   }
 }
 @media only screen and (max-width: 800px) {
@@ -507,6 +579,10 @@ as punishment for my sins.
     /*Don't ask*/
     transform: translateX(-0.7%);
   }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(2.1%) !important;
+  }
 }
 @media only screen and (max-width: 750px) {
   td {
@@ -532,6 +608,10 @@ as punishment for my sins.
   .tab-row {
     /*Don't ask*/
     transform: translateX(-1%);
+  }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(2%) !important;
   }
 }
 @media only screen and (max-width: 700px) {
@@ -559,6 +639,10 @@ as punishment for my sins.
     /*Don't ask*/
     transform: translateX(-1.3%);
   }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(1.9%) !important;
+  }
 }
 @media only screen and (max-width: 650px) {
   td {
@@ -584,6 +668,10 @@ as punishment for my sins.
   .tab-row {
     /*Don't ask*/
     transform: translateX(-1.6%);
+  }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(1.8%) !important;
   }
 }
 @media only screen and (max-width: 600px) {
@@ -611,6 +699,10 @@ as punishment for my sins.
     /*Don't ask*/
     transform: translateX(-1.9%);
   }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(1.7%) !important;
+  }
 }
 @media only screen and (max-width: 550px) {
   td {
@@ -636,6 +728,10 @@ as punishment for my sins.
   .tab-row {
     /*Don't ask*/
     transform: translateX(-2.2%);
+  }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(1.6%) !important;
   }
 }
 @media only screen and (max-width: 500px) {
@@ -663,6 +759,10 @@ as punishment for my sins.
     /*Don't ask*/
     transform: translateX(-2.5%);
   }
+  .extra-right {
+    /*Really Don't ask. I thought my css was pretty clean, up until now*/
+    transform: translateX(1.5%) !important;
+  }
 }
 .glass-menu {
   justify-content: center;
@@ -679,7 +779,7 @@ as punishment for my sins.
   padding-left: 10px;
   padding-right: 10px;
   min-width: 90%;
-  width: 90%;
+  width: 0px;
   max-width: 90%;
   min-height: fit-content;
   transition: ease-in-out all 0.5s;
@@ -772,7 +872,7 @@ as punishment for my sins.
   padding-left: 10px;
   padding-right: 10px;
   min-width: 90%;
-  width: 90%;
+  width: 0px;
   max-width: 90%;
   min-height: fit-content;
   transition: ease-in-out all 0.5s;
@@ -822,7 +922,7 @@ as punishment for my sins.
   padding-left: 10px;
   padding-right: 10px;
   min-width: 90%;
-  width: 90%;
+  width: 0px;
   max-width: 90%;
   min-height: fit-content;
   transition: ease-in-out all 0.5s;
@@ -837,8 +937,6 @@ as punishment for my sins.
   position: relative;
   max-height: 100px;
   min-height: 100px;
-  max-width: 100%;
-  max-height: 100%;
 }
 .power-grid h4 {
   margin-top: 0px;
@@ -865,12 +963,12 @@ as punishment for my sins.
   padding-left: 10px;
   padding-right: 10px;
   min-width: 90%;
-  width: 90%;
+  width: 0px;
   max-width: 90%;
   min-height: fit-content;
   transition: ease-in-out all 0.5s;
   background-color: #F8F7F7;
-  grid-template-areas: "title title title .     ." "desc  desc  desc  img   img" "desc  desc  desc  img   img" "desc  desc  desc  win   win";
+  grid-template-areas: "title title title .     ." "desc  desc  desc  img   img" "desc  desc  desc  img   img" "desc  desc  desc  win   but";
   padding-right: 30px;
   padding-left: 30px;
 }
@@ -966,6 +1064,16 @@ img {
 .width-100 {
   min-width: 100%;
   width: 100%;
+}
+
+.width-70 {
+  min-width: 70%;
+  width: 70%;
+}
+
+#exit-practice {
+  height: 40px;
+  font-size: 20px;
 }
 
 .main {
@@ -1123,6 +1231,9 @@ hr {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
+.tab-row button.selected-tab {
+  background-color: #DCDCDC;
+}
 .tab-row button:not(first-child) {
   margin-right: -6px;
 }
@@ -1196,9 +1307,9 @@ hr {
   outline-width: 1px;
   outline-color: #183dd1;
   outline-style: solid;
-  animation: animateOutlineuonhexs 2s ease infinite;
+  animation: animateOutlineuonhj6j 2s ease infinite;
 }
-@keyframes animateOutlineuonhexs {
+@keyframes animateOutlineuonhj6j {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1225,9 +1336,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-uonheys 4s ease-in-out infinite;
+  animation: castingAnimation-uonhj7i 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-uonheys {
+@keyframes castingAnimation-uonhj7i {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1244,9 +1355,9 @@ hr {
   outline-width: 1px;
   outline-color: #ea332d;
   outline-style: solid;
-  animation: animateOutlineuonhez0 2s ease infinite;
+  animation: animateOutlineuonhj7s 2s ease infinite;
 }
-@keyframes animateOutlineuonhez0 {
+@keyframes animateOutlineuonhj7s {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1273,9 +1384,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-uonhezd 4s ease-in-out infinite;
+  animation: castingAnimation-uonhj8a 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-uonhezd {
+@keyframes castingAnimation-uonhj8a {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1292,9 +1403,9 @@ hr {
   outline-width: 1px;
   outline-color: rgb(206, 206, 206);
   outline-style: solid;
-  animation: animateOutlineuonhf08 2s ease infinite;
+  animation: animateOutlineuonhj8b 2s ease infinite;
 }
-@keyframes animateOutlineuonhf08 {
+@keyframes animateOutlineuonhj8b {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1321,9 +1432,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-uonhf0f 4s ease-in-out infinite;
+  animation: castingAnimation-uonhj95 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-uonhf0f {
+@keyframes castingAnimation-uonhj95 {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1340,9 +1451,9 @@ hr {
   outline-width: 1px;
   outline-color: #424242;
   outline-style: solid;
-  animation: animateOutlineuonhf0t 2s ease infinite;
+  animation: animateOutlineuonhja2 2s ease infinite;
 }
-@keyframes animateOutlineuonhf0t {
+@keyframes animateOutlineuonhja2 {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1369,9 +1480,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-uonhf1d 4s ease-in-out infinite;
+  animation: castingAnimation-uonhjaw 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-uonhf1d {
+@keyframes castingAnimation-uonhjaw {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1420,7 +1531,7 @@ hr {
 }
 
 .move-up {
-  transform: translateY(-25px);
+  transform: translateY(-35px);
 }
 
 .top-button {
