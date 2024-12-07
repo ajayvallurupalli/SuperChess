@@ -547,11 +547,12 @@ proc createLobby(): VNode =
                 button(class=menuButton):
                     text "See Powers"
                     proc onclick(ev: Event, _: VNode) =
-                        currentScreen = SeePower
                         #reset it
                         for name, power in allPowers:
                             if power.len != 0:
                                 selectedSubPower[name] = 0
+                        currentScreen = SeePower
+
 
             tdiv(class="start-column"):
                 button(class=menuButton): 
