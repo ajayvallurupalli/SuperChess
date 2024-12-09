@@ -840,6 +840,9 @@ as punishment for my sins.
 .glass-menu .glasses .glass span.zero {
   background-color: #424242;
 }
+.glass-menu .glasses .glass span.daybreak {
+  background-color: rgb(201, 178, 65);
+}
 .glass-menu .glasses .glass span.empty {
   background-color: #fdfcfc !important;
 }
@@ -1307,9 +1310,9 @@ hr {
   outline-width: 1px;
   outline-color: #183dd1;
   outline-style: solid;
-  animation: animateOutlineuonhj6j 2s ease infinite;
+  animation: animateOutlineun52mf6 2s ease infinite;
 }
-@keyframes animateOutlineuonhj6j {
+@keyframes animateOutlineun52mf6 {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1336,9 +1339,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-uonhj7i 4s ease-in-out infinite;
+  animation: castingAnimation-un52mfy 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-uonhj7i {
+@keyframes castingAnimation-un52mfy {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1355,9 +1358,9 @@ hr {
   outline-width: 1px;
   outline-color: #ea332d;
   outline-style: solid;
-  animation: animateOutlineuonhj7s 2s ease infinite;
+  animation: animateOutlineun52mgh 2s ease infinite;
 }
-@keyframes animateOutlineuonhj7s {
+@keyframes animateOutlineun52mgh {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1384,9 +1387,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-uonhj8a 4s ease-in-out infinite;
+  animation: castingAnimation-un52mhb 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-uonhj8a {
+@keyframes castingAnimation-un52mhb {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1403,9 +1406,9 @@ hr {
   outline-width: 1px;
   outline-color: rgb(206, 206, 206);
   outline-style: solid;
-  animation: animateOutlineuonhj8b 2s ease infinite;
+  animation: animateOutlineun52mho 2s ease infinite;
 }
-@keyframes animateOutlineuonhj8b {
+@keyframes animateOutlineun52mho {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1432,9 +1435,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-uonhj95 4s ease-in-out infinite;
+  animation: castingAnimation-un52mhu 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-uonhj95 {
+@keyframes castingAnimation-un52mhu {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1451,9 +1454,9 @@ hr {
   outline-width: 1px;
   outline-color: #424242;
   outline-style: solid;
-  animation: animateOutlineuonhja2 2s ease infinite;
+  animation: animateOutlineun52mic 2s ease infinite;
 }
-@keyframes animateOutlineuonhja2 {
+@keyframes animateOutlineun52mic {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1480,13 +1483,61 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-uonhjaw 4s ease-in-out infinite;
+  animation: castingAnimation-un52mj0 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-uonhjaw {
+@keyframes castingAnimation-un52mj0 {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
     outline-color: #424242;
+  }
+  100% {
+    outline-width: 20px;
+    outline-offset: -25px;
+    outline-color: rgba(0, 0, 0, 0);
+  }
+}
+
+.casting-on-daybreak {
+  outline-width: 1px;
+  outline-color: rgb(201, 178, 65);
+  outline-style: solid;
+  animation: animateOutlineun52mjv 2s ease infinite;
+}
+@keyframes animateOutlineun52mjv {
+  0% {
+    outline-width: 2px;
+    outline-offset: 0px;
+    outline-color: rgb(201, 178, 65);
+  }
+  50% {
+    outline-width: 8px;
+    outline-offset: 0px;
+    outline-color: rgba(0, 0, 0, 0);
+  }
+  100% {
+    outline-width: 2px;
+    outline-offset: 0px;
+    outline-color: rgb(201, 178, 65);
+  }
+}
+
+.casting-daybreak::before {
+  content: "";
+  position: absolute;
+  min-width: inherit;
+  min-height: inherit;
+  padding-bottom: 5px;
+  border-radius: 50%;
+  outline-width: 2px;
+  outline-style: solid;
+  animation: castingAnimation-un52mkt 4s ease-in-out infinite;
+}
+@keyframes castingAnimation-un52mkt {
+  0% {
+    outline-width: 3px;
+    outline-offset: 50px;
+    outline-color: rgb(201, 178, 65);
   }
   100% {
     outline-width: 20px;

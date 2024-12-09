@@ -51,7 +51,7 @@ type
 
 
     GlassType* = enum 
-        Sky, Zero, Steel, Reverie
+        Sky, Zero, Steel, Reverie, Daybreak
     GlassMoves* = proc (side: Color, piece: Piece, b: ChessBoard, s: BoardState): Moves {.noSideEffect.}
     GlassTile* = proc (side: Color, piece: Piece, castedTile: Tile): Tile {.noSideEffect.}#I am the king of over engineering
     GlassAbility* = tuple

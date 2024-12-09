@@ -54,9 +54,9 @@ const
     width100 = " width-100 "
     settingItem = " setting-item "
     castingAnimations: array[GlassType, string] = 
-        [" casting-sky ", " casting-zero ", " casting-steel ", " casting-reverie "] #corresponding css classes for each type
+        [" casting-sky ", " casting-zero ", " casting-steel ", " casting-reverie ", " casting-daybreak "] #corresponding css classes for each type
     castingOnAnimations: array[GlassType, string] = 
-        [" casting-on-sky ", " casting-on-zero ", " casting-on-steel ", " casting-on-reverie "]#corresponding css classes for each type
+        [" casting-on-sky ", " casting-on-zero ", " casting-on-steel ", " casting-on-reverie ", " casting-on-daybreak "]#corresponding css classes for each type
 
 type 
     Screen {.pure.} = enum 
@@ -78,8 +78,8 @@ type
 
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
-const debugScreen: Screen = SeePower
-const myDebugPowers: seq[Power] = @[]
+const debugScreen: Screen = Game 
+const myDebugPowers: seq[Power] = @[daybreakGlass]
 const opponentDebugPowers: seq[Power] = @[]
 
 var 
@@ -1195,7 +1195,7 @@ proc createSeePower(): VNode =
 
         tdiv(class = "search move-up"):
             label(`for` = "search"):
-                text "Search :"
+                text "Search: "
             input(id = "search", onchange = validateNotEmpty("search"))
 
         let search = 

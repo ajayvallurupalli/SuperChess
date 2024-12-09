@@ -11,7 +11,8 @@ $sky: #183dd1;
 $zero: #424242;
 $steel: #ea332d;
 $reverie: rgb(206, 206, 206);
-$glasses: ("sky": $sky, "steel": $steel, "reverie": $reverie, "zero": $zero);
+$daybreak: rgb(201, 178, 65);
+$glasses: ("sky": $sky, "steel": $steel, "reverie": $reverie, "zero": $zero, "daybreak": $daybreak);
 
 @mixin row($col, $row){
     justify-content: center;

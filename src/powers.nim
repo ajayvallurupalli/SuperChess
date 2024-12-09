@@ -2126,7 +2126,7 @@ const reverieGlassAction: OnAction = proc (piece: var Piece, to: Tile, b: var Ch
 const reverieGlass*: Power = Power(
     name: "Glass: Reverie",
     tier: Common,
-    rarity: 6, #while new
+    rarity: 6, 
     priority: 0,
     description: """On your turn, instead of moving you can choose 3 pieces to each cast Reverie on 
                     an opponent tile. When the cast completes, 
@@ -2141,6 +2141,38 @@ const reverieGlass*: Power = Power(
                 strength: 3,
                 action: reverieGlassAction,
                 condition: canReverieGlass,
+            ))
+)
+
+const canDaybreakGlass: GlassMoves = 
+    func (side: Color, piece: Piece, b: ChessBoard, s: BoardState): Moves =
+        for i, j in b.rankAndFile:
+            if b[i][j].isColor(side) and
+                b[i][j].onPromote != @[defaultOnEndTurn] and
+                not b[i][j].promoted:
+                    result.add(b[i][j].tile)
+
+const daybreakAction: OnAction = proc (piece: var Piece, to: Tile, b: var ChessBoard, s: var BoardState) = 
+    if b[to].isAir or b[to].promoted: return
+    b[to].promote(b, s)
+
+
+const daybreakGlass*: Power = Power(
+    name: "Glass: Daybreak",
+    tier: Rare,
+    rarity: 6,
+    priority: 0,
+    description: """On your turn, instead of moving you can choose 1 pieces to cast Daybreak on 
+                    any tile. When the cast completes, the piece on that tile promotes. """ &
+                    createGlassDescription(),
+    icon: "daybreakglass.svg",
+    noColor: true,
+    onStart: 
+        proc (side: Color, _: Color, _: var ChessBoard, s: var BoardState) = 
+            s.side[side].glass[Daybreak] = some((
+                strength: 1,
+                action: daybreakAction,
+                condition: canDaybreakGlass,
             ))
 )
 
@@ -2191,6 +2223,7 @@ registerPower(zeroGlass)
 registerSynergy(bankruptcyGlass)
 registerPower(steelGlass)
 registerPower(reverieGlass)
+registerPower(daybreakGlass)
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)
@@ -2235,4 +2268,4 @@ registerSynergy(masochistAltEmpress, true, true)
 #All powers with rng involved
 #so user can disable them if they want
 const rngPowers* = @[alcoholism, drunkKnights, civilians, slumdogMillionaire, stupidPower, sleeperAgent, conversion]
-const experimentalPowers* = @[skyGlass, zeroGlass, steelGlass, reverieGlass]
+const experimentalPowers* = @[skyGlass, zeroGlass, steelGlass, reverieGlass, daybreakGlass]
