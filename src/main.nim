@@ -137,7 +137,6 @@ var
     picks: seq[Tile] = @[] 
     whenCollected: proc()
 
-    allPowers: Table[string, seq[Power]] = getAllPowers()
     selectedSubPower: Table[string, int]
 
 proc alert(s: cstring) {.importjs: "alert(#)".}
@@ -548,7 +547,7 @@ proc createLobby(): VNode =
                     text "See Powers"
                     proc onclick(ev: Event, _: VNode) =
                         #reset it
-                        for name, power in allPowers:
+                        for name, power in getAllPowers():
                             if power.len != 0:
                                 selectedSubPower[name] = 0
                         currentScreen = SeePower
@@ -1202,7 +1201,8 @@ proc createSeePower(): VNode =
             try: getVNodeById("search").getInputText
             except: ""
         
-        for _, powers in allPowers.values.toSeq.sortedByIt(editDistance(it[0].name, $search)):
+        #i'll fix the function later. I really need the clean code update
+        for _, powers in getAllPowers().values.toSeq.sortedByIt(editDistance(it[0].name, $search)):
             if powers.len == 1:
                 createSeePowerDescription(powers[0])
             else:
