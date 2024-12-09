@@ -4,7 +4,7 @@ var excHandler = 0;
 var lastJSError = null;
 var NTI134217747 = {size: 0, kind: 17, base: null, node: null, finalizer: null};
 var NTI1728054299 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
-var NTI553653447 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
+var NTI553653455 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
 var NTI553648261 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
 var NTI553648262 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
 var NTI553649917 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
@@ -15,7 +15,7 @@ var NTI553648142 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
 var NTI1476395018 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
 var NTI553648299 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
 var NTI1946157090 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
-var NTI553651869 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
+var NTI553651873 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
 var NTI1090519066 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
 var NTI553648231 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
 var NTI1728053651 = {size: 0, kind: 24, base: null, node: null, finalizer: null};
@@ -1319,7 +1319,7 @@ var NNI553648231 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{k
 {kind: 1, offset: "has", len: 0, typ: NTI33554466, name: "has", sons: null}]};
 NTI553648231.node = NNI553648231;
 NTI1090519066.base = NTI33554449;
-NTI553651869.base = NTI33554449;
+NTI553651873.base = NTI33554449;
 NTI1946157090.base = NTI1476395011;
 NTI553648299.base = NTI1476395011;
 NTI1476395018.base = NTI1476395011;
@@ -1336,7 +1336,7 @@ NTI553649917.base = NTI33554466;
 NTI553648262.base = NTI553648142;
 NTI553648261.base = NTI553648142;
 NTI1728054299.base = NTI1728053254;
-NTI553653447.base = NTI1728054299;
+NTI553653455.base = NTI1728054299;
 var NNI134217747 = {kind: 2, len: 0, offset: 0, typ: null, name: null, sons: []};
 NTI134217747.node = NNI134217747;
 NTI134217747.base = NTI134217746;
@@ -13781,6 +13781,7 @@ function HEX3Aanonymous_553651704(__553651705, __553651706) {
     
 function HEX3Aanonymous_553651707(ev_553651708, __553651709) {
         initSelectedSubPower_553648411();
+        rawEcho([115,101,116,116,105,110,103,32,115,99,114,101,101,110,32,116,111,32,83,101,101,32,80,111,119,101,114]);
         currentScreen_553648287[0] = 11;
 
       
@@ -15492,9 +15493,9 @@ function HEX3Aanonymous_553652892() {
           formatValue_553652527(fmtRes_553652603, 0, glass_553652516);
           fmtRes_553652603[0].push.apply(fmtRes_553652603[0], [32,111,110,46]);;
         };
-        promptStack_553648329[0] = nimCopy(null, reversed_553652636(cycle_553652610([nimCopy(null, fmtRes_553652592[0], NTI33554449), nimCopy(null, fmtRes_553652603[0], NTI33554449)], chckRange(strength_553652559, 0, 2147483647))), NTI553651869);
+        promptStack_553648329[0] = nimCopy(null, reversed_553652636(cycle_553652610([nimCopy(null, fmtRes_553652592[0], NTI33554449), nimCopy(null, fmtRes_553652603[0], NTI33554449)], chckRange(strength_553652559, 0, 2147483647))), NTI553651873);
         if (!(((promptStack_553648329[0]).length == picksLeft_553648330[0]))) {
-        failedAssertImpl_268435541([109,97,105,110,46,110,105,109,40,56,57,55,44,32,50,49,41,32,96,112,114,111,109,112,116,83,116,97,99,107,46,108,101,110,32,61,61,32,112,105,99,107,115,76,101,102,116,96,32]);
+        failedAssertImpl_268435541([109,97,105,110,46,110,105,109,40,56,57,56,44,32,50,49,41,32,96,112,114,111,109,112,116,83,116,97,99,107,46,108,101,110,32,61,61,32,112,105,99,107,115,76,101,102,116,96,32]);
         }
         
         whenCollected_553648340[0] = HEX3Aanonymous_553652661;
@@ -17357,7 +17358,7 @@ function sort_553654713(a_553654715, cmp_553654718, order_553654719) {
 function sorted_553654686(a_553654688, cmp_553654691, order_553654692) {
   var result_553654693 = [];
 
-    result_553654693 = nimCopy(null, newSeq_553654697(chckRange((a_553654688).length, 0, 2147483647)), NTI553653447);
+    result_553654693 = nimCopy(null, newSeq_553654697(chckRange((a_553654688).length, 0, 2147483647)), NTI553653455);
     Label1: {
       var i_553654712 = 0;
       var colontmp__553655805 = 0;
@@ -18729,6 +18730,7 @@ function HEX3Aanonymous_553654672(xHEX60gensym374_553654676, yHEX60gensym374_553
 
   var result_553654654 = null;
 
+    rawEcho([99,114,101,97,116,105,110,103,32,83,101,101,32,80,111,119,101,114]);
     var tmp_553654655 = tree_754975616(44, []);
     tmp_553654655.class = "tab-column";
     var tmp_553654656 = tree_754975616(195, []);

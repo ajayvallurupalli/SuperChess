@@ -551,6 +551,7 @@ proc createLobby(): VNode =
                     text "See Powers"
                     proc onclick(ev: Event, _: VNode) =
                         initSelectedSubPower()
+                        echo "setting screen to See Power"
                         currentScreen = SeePower
 
 
@@ -1187,6 +1188,7 @@ proc getPowerTabLength(powers: seq[Power]): int =
         result += p.technicalName.len * 15 #15 is font size
 
 proc createSeePower(): VNode = 
+    echo "creating See Power"
     result = buildHtml(tdiv(class = "tab-column")):
         button(class = "top-button"):
             text "Return to Lobby"
