@@ -1151,32 +1151,33 @@ proc createSeePowerDescription(p: Power): VNode =
         button:
             text "Practice"
             proc onclick(_: Event, _: VNode) = 
-                discard nil
-                discard """initGame()
+                initGame()
                 side = black
                 turn = true
-                currentScreen = Game
                 practiceMode = true
 
                 theState.shared.randSeed = 0
+
+                if p.synergy:
+                    var alreadyAdded: seq[string] = @[]
+                    let synergy = getSynergyOf(p.index)
+                    if synergy in draftSynergies: 
+                        mydrafts.add(synergy.power)
+                        alreadyAdded.add(synergy.power.name)
+                    for name in synergy.requirements:
+                        if name in synergy.replacements or
+                            name in alreadyAdded: continue
+
+                        for reqPower in power.powers:
+                            if reqPower.name == name:
+                                myDrafts.add(reqPower)
+                                alreadyAdded.add(reqPower.name)
+
+                else:
+                    myDrafts.add(p)
                 
-                var alreadyAdded: seq[string] = @[]
-                for s in draftSynergies & secretSynergies:
-                    if p.index == s.power.index: #if synergy
-                        for name in s.requirements:
-                            if name in s.replacements: continue
-
-                            for reqPower in power.powers:
-                                if reqPower.name == name and p.name notin alreadyAdded:
-                                    myDrafts.add(reqPower)
-                                    alreadyAdded.add(reqPower.name)
-
-                        if s in draftSynergies: mydrafts.add(s.power)
-
-                if alreadyAdded.len == 0: myDrafts.add(p)"""
-
-
                 execute(myDrafts, opponentDrafts, side, theBoard, theState)
+                currentScreen = Game
 
 proc createSeePowerOnclick(name: string, index: int): proc (_: Event, _: VNode)  = 
     result = proc (_: Event, _: VNode) = 

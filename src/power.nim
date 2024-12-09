@@ -14,7 +14,7 @@ type
     Power* = object
         name*: string
         technicalName*: string = ""
-        synergy*: bool = true #can i delete?
+        synergy*: bool = false #can i delete?
         tier*: Tier
         rarity*: int = 8
         description*: string = "NONE"
@@ -143,6 +143,7 @@ proc registerPower*(p: Power) =
     var x = p #temp var so that we can increment `Power.index`
     x.index = powers[powers.len - 1].index + 1
     if x.technicalName == "": x.technicalName = x.name
+    x.synergy = true
 
     powers.add(x)
     seqOf(x.tier).add(x)
@@ -197,10 +198,22 @@ proc execute*(myDrafts: seq[Power], opponentDrafts: seq[Power], mySide: Color, b
 proc replaceAnySynergies*(powers: seq[Power]): seq[Power] = 
     return powers.secretSynergize(secretSynergies)
 
+proc getSynergyOf*(index: int): Synergy = 
+    for s in draftSynergies & secretSynergies & secretSecretSynergies:
+        if s.power.index == index:
+            return s
+    
+    raise newException(IndexDefect, fmt"power of {$index} does not exist or is not of a synergy.")
+
+proc getPower*(name: string): Power = 
+    for p in powers:
+        if p.name == name:
+            return p
+
+    raise newException(IndexDefect, fmt"power named {name} does not exist.")
 
 proc getAllPowers*(): seq[seq[Power]] = 
     let secretSecretPowers = secretSecretSynergies.mapIt(it.power)
-
 
     for p in powers:
         if p in secretSecretPowers: continue
