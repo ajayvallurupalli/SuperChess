@@ -1134,9 +1134,8 @@ proc createSettings(): VNode =
                 currentScreen = Other
 
 proc createSeePowerDescription(p: Power): VNode =     
-    echo p
     var src = if p.noColor: p.icon else: $black & p.icon
-    let record = (wins: 0, losses: 0) #getRecord(p.technicalName)
+    let record = getRecord(p.technicalName)
     let class = if record.wins > 0: "see-power has-won" else: "see-power"
     result = buildHtml(tdiv(class=class)):
         h4:
