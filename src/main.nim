@@ -1160,11 +1160,8 @@ proc createSeePowerDescription(p: Power): VNode =
                 theState.shared.randSeed = 0
 
                 if p.synergy:
-                    var alreadyAdded: seq[string] = @[]
                     let synergy = getSynergyOf(p.index)
-                    if synergy in draftSynergies: 
-                        mydrafts.add(synergy.power)
-                        alreadyAdded.add(synergy.power.name)
+                    var alreadyAdded: seq[string] = @[synergy.power.name]
                     for name in synergy.requirements:
                         if name in synergy.replacements or
                             name in alreadyAdded: continue
@@ -1175,9 +1172,7 @@ proc createSeePowerDescription(p: Power): VNode =
                                 alreadyAdded.add(reqPower.name)
                                 break #stop searching
 
-                else:
-                    myDrafts.add(p)
-                
+                myDrafts.add(p)
                 execute(myDrafts, opponentDrafts, side, theBoard, theState)
                 currentScreen = Game
 
