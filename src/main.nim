@@ -547,14 +547,11 @@ proc createLobby(): VNode =
                 button(class=menuButton):
                     text "See Powers"
                     proc onclick(ev: Event, _: VNode) =
-                        alert "Unimplemented"
-
-                        #I actually have no clue why this doesn't work in brower only
-                        discard """#reset it
+                        #reset it
                         for name, power in allPowers:
                             if power.len != 0:
                                 selectedSubPower[name] = 0
-                        currentScreen = SeePower"""
+                        currentScreen = SeePower
 
 
             tdiv(class="start-column"):
