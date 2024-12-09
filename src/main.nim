@@ -4,7 +4,7 @@ import piece, basePieces, port, power, powers, store, capitalism #powers import 
 from board import tileAbove, tileBelow
 import extrapower/glass
 import std/dom, std/strformat #im not sure why dom stuff fails if I don't import the whole package
-import std/options, std/tables#try to expand use of this, instead of wierd tuple[has: bool stuff
+import std/options, std/tables #try to expand use of this, instead of wierd tuple[has: bool stuff
 from strutils import split, parseInt, join, toLower
 from std/editdistance import editDistance
 from sequtils import foldr, mapIt, cycle, filterIt, toSeq
@@ -138,6 +138,7 @@ var
     whenCollected: proc()
 
     selectedSubPower: Table[string, int]
+    allPowers = getAllPowers()
 
 proc alert(s: cstring) {.importjs: "alert(#)".}
 proc onresize(cb: proc()) {.importjs: "window.addEventListener('resize', #)".}
@@ -169,6 +170,9 @@ proc clear() =
     possibleMoves = @[]
     possibleTakes = @[]
 
+proc initSelectedSubPower() = 
+    for p in allpowers:
+        selectedSubPower[p[0].name] = 0
 
 proc endRound() = 
     inc theState.shared.turnNumber
@@ -546,6 +550,7 @@ proc createLobby(): VNode =
                 button(class=menuButton):
                     text "See Powers"
                     proc onclick(ev: Event, _: VNode) =
+                        initSelectedSubPower()
                         currentScreen = SeePower
 
 
@@ -1179,8 +1184,6 @@ proc getPowerTabLength(powers: seq[Power]): int =
     for p in powers:
         result += p.technicalName.len * 15 #15 is font size
 
-    echo result
-
 proc createSeePower(): VNode = 
     result = buildHtml(tdiv(class = "tab-column")):
         button(class = "top-button"):
@@ -1198,16 +1201,16 @@ proc createSeePower(): VNode =
             except: ""
         
         #i'll fix the function later. I really need the clean code update
-        for _, powers in getAllPowers().values.toSeq.sortedByIt(editDistance(it[0].name, $search)):
-            if powers.len == 1:
+        for subpowers in allPowers.sortedByIt(editDistance(it[0].name, $search)):
+            if subpowers.len == 1:
                 createSeePowerDescription(powers[0])
             else:
                 tdiv(class = "tab-row margin-t-20"):
-                    for index, power in powers:
-                        let class = if index == selectedSubPower[powers[0].name]: "selected-tab font-20" else: "font-20"
+                    for index, power in subpowers:
+                        let class = if index == selectedSubPower[subpowers[0].name]: "selected-tab font-20" else: "font-20"
                         button(class = class, onclick = createSeePowerOnClick(power.name, index)):
-                            text if screenWidth < getPowerTabLength(powers): $(index + 1) else: power.technicalName
-                createSeePowerDescription(powers[selectedSubPower[powers[0].name]])
+                            text if screenWidth < getPowerTabLength(subpowers): $(index + 1) else: power.technicalName
+                createSeePowerDescription(subpowers[selectedSubPower[subpowers[0].name]])
 
             hr()
 
@@ -1231,7 +1234,7 @@ proc main(): VNode =
 
 initStorage()
 onresize(resize)
-
+initSelectedSubPower()
 
 if debug: 
     case currentScreen

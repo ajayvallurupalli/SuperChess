@@ -3,7 +3,6 @@ from std/sequtils import foldr, mapIt, filterIt, concat
 from std/algorithm import sortedByIt
 from std/random import randomize, rand
 from std/strformat import fmt
-import std/tables
 
 type
     Tier* = enum
@@ -199,16 +198,16 @@ proc replaceAnySynergies*(powers: seq[Power]): seq[Power] =
     return powers.secretSynergize(secretSynergies)
 
 
-proc getAllPowers*(): Table[string, seq[Power]] = 
-    result = initTable[string, seq[Power]]()
-
+proc getAllPowers*(): seq[seq[Power]] = 
     let secretSecretPowers = secretSecretSynergies.mapIt(it.power)
+
 
     for p in powers:
         if p in secretSecretPowers: continue
-        if p.name in result:
-            result[p.name].add(p)
-        else:
-            result[p.name] = @[p]
+        for already in result.mitems:
+            if already[0].name == p.name:
+                already.add(p)
+                continue
+        result.add(@[p])
             
 registerPower(holy)
