@@ -546,10 +546,6 @@ proc createLobby(): VNode =
                 button(class=menuButton):
                     text "See Powers"
                     proc onclick(ev: Event, _: VNode) =
-                        #reset it
-                        for name, power in getAllPowers():
-                            if power.len != 0:
-                                selectedSubPower[name] = 0
                         currentScreen = SeePower
 
 
