@@ -1133,8 +1133,9 @@ proc createSettings(): VNode =
                 currentScreen = Other
 
 proc createSeePowerDescription(p: Power): VNode =     
+    echo p
     var src = if p.noColor: p.icon else: $black & p.icon
-    let record = getRecord(p.technicalName)
+    let record = (wins: 0, losses: 0) #getRecord(p.technicalName)
     let class = if record.wins > 0: "see-power has-won" else: "see-power"
     result = buildHtml(tdiv(class=class)):
         h4:
@@ -1150,7 +1151,8 @@ proc createSeePowerDescription(p: Power): VNode =
         button:
             text "Practice"
             proc onclick(_: Event, _: VNode) = 
-                initGame()
+                discard nil
+                discard """initGame()
                 side = black
                 turn = true
                 currentScreen = Game
@@ -1171,7 +1173,7 @@ proc createSeePowerDescription(p: Power): VNode =
 
                         if s in draftSynergies: mydrafts.add(s.power)
 
-                if alreadyAdded.len == 0: myDrafts.add(p)
+                if alreadyAdded.len == 0: myDrafts.add(p)"""
 
 
                 execute(myDrafts, opponentDrafts, side, theBoard, theState)
