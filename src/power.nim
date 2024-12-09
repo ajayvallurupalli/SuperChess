@@ -3,6 +3,7 @@ from std/sequtils import foldr, mapIt, filterIt, concat
 from std/algorithm import sortedByIt
 from std/random import randomize, rand
 from std/strformat import fmt
+import std/tables
 
 type
     Tier* = enum
@@ -88,7 +89,7 @@ proc registerSynergy*(s: Synergy, secret: bool = false, secretSecret = false) =
     
     x.power.rarity = x.rarity
     x.power.index = powers[powers.len - 1].index + 1
-    x.index = x.power.index
+    x.power.synergy = true
 
     let requirements = s.requirements.foldr(a & " + " & b)
 
@@ -117,10 +118,10 @@ proc synergize(pool: seq[Power], currentPowers: seq[Power], t: Tier): seq[Power]
     result = pool 
     for s in draftSynergies:
         if currentPowers.filterIt(it.name in s.requirements).len == s.requirements.len:
-                if s.replacements.len == 0:
-                    result &= powers[s.index]
-                else: 
-                    result = result.filterIt(it.name notin s.replacements) & powers[s.index]
+            if s.replacements.len == 0:
+                result &= powers[s.power.index]
+            else: 
+                result = result.filterIt(it.name notin s.replacements) & powers[s.power.index]
 
 proc secretSynergize(currentPowers: seq[Power], synergies: seq[Synergy]): seq[Power] = 
     result = currentPowers
@@ -128,9 +129,9 @@ proc secretSynergize(currentPowers: seq[Power], synergies: seq[Synergy]): seq[Po
     for s in synergies.sortedByIt(it.power.priority):
         if result.filterIt(it.name in s.requirements).len == s.requirements.len:
             if s.replacements.len == 0:
-                result &= powers[s.index]
+                result &= powers[s.power.index]
             else: 
-                result = result.filterIt(it.name != "Illegal Formation") & powers[s.index]
+                result = result.filterIt(it.name notin s.replacements) & powers[s.power.index]
 
 proc seqOf(t: Tier): var seq[Power] = 
     case t
@@ -143,7 +144,6 @@ proc registerPower*(p: Power) =
     var x = p #temp var so that we can increment `Power.index`
     x.index = powers[powers.len - 1].index + 1
     if x.technicalName == "": x.technicalName = x.name
-    x.synergy = true
 
     powers.add(x)
     seqOf(x.tier).add(x)
@@ -212,15 +212,14 @@ proc getPower*(name: string): Power =
 
     raise newException(IndexDefect, fmt"power named {name} does not exist.")
 
-proc getAllPowers*(): seq[seq[Power]] = 
+proc getAllPowers*(): Table[string, seq[Power]] = 
     let secretSecretPowers = secretSecretSynergies.mapIt(it.power)
 
     for p in powers:
         if p in secretSecretPowers: continue
-        for already in result.mitems:
-            if already[0].name == p.name:
-                already.add(p)
-                continue
-        result.add(@[p])
+        if result.hasKey(p.name):
+            result[p.name].add(p)
+        else:
+            result[p.name] = @[p]
             
 registerPower(holy)

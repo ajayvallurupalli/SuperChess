@@ -171,8 +171,9 @@ proc clear() =
     possibleTakes = @[]
 
 proc initSelectedSubPower() = 
-    for p in allpowers:
-        selectedSubPower[p[0].name] = 0
+    echo selectedSubPower
+    for name in allpowers.keys:
+        selectedSubPower[name] = 0
 
 proc endRound() = 
     inc theState.shared.turnNumber
@@ -1172,6 +1173,7 @@ proc createSeePowerDescription(p: Power): VNode =
                             if reqPower.name == name:
                                 myDrafts.add(reqPower)
                                 alreadyAdded.add(reqPower.name)
+                                break #stop searching
 
                 else:
                     myDrafts.add(p)
@@ -1205,9 +1207,9 @@ proc createSeePower(): VNode =
             except: ""
         
         #i'll fix the function later. I really need the clean code update
-        for subpowers in allPowers.sortedByIt(editDistance(it[0].name, $search)):
+        for subpowers in allPowers.values.toSeq.sortedByIt(editDistance(it[0].name, $search)):
             if subpowers.len == 1:
-                createSeePowerDescription(powers[0])
+                createSeePowerDescription(subpowers[0])
             else:
                 tdiv(class = "tab-row margin-t-20"):
                     for index, power in subpowers:
