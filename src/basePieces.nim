@@ -10,6 +10,7 @@ const rookWhenTaken*: WhenTaken = proc (taken: var Piece, taker: var Piece, boar
         taken.sameColor(taker) and
         taker.timesMoved == 1 and #one move from castling
         taken.timesMoved == 0: 
+            state.side[taken.color].hasCastled = true
             let kingTile = taker.tile
             if taken.tile.file == 0:
                 taker.pieceMove(kingTile.rank, kingTile.file - 2, board, state)

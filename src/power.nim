@@ -8,31 +8,41 @@ import std/tables
 type
     Tier* = enum
         Common, Uncommon, Rare, UltraRare
-    FilePath* = string
 
+    #`OnStart` is run once when the game starts
+    #`OnStart` is run in the order of `Power.priority`
+    #`drafterSide` is the side that the power should be applied to
+    #`viewerSide` is the side that is running `OnStart`. This means that `OnStart` can have different
+        #functionality if the client has the power, or the if the client's opponent has the power
+        #this is very dangerous, and can lead to diverging states, so it should only really be used for visual stuff
+        #in fact, it only exists so that specific shogi pieces can rotate to face the opponent, if they are owned by the opposite side
     OnStart* = proc (drafterSide: Color, viewerSide: Color, b: var ChessBoard, s: var BoardState)
 
     Power* = object
         name*: string
         technicalName*: string = ""
-        synergy*: bool = false #can i delete?
+        synergy: bool = false #can i delete? This is used for like one thing
         tier*: Tier
         rarity*: int = 8
         description*: string = "NONE"
-        icon*: FilePath = ""
+        icon*: string = ""
         rotatable*: bool = false
-        noColor*: bool = false
+        noColor*: bool = false #if noColor, it will not try to add white and back to icon path
         onStart*: OnStart
         index*: int = -1
-        priority*: int = 10
+        priority*: int = 10  #TODO find if I've been sorting priority wrong this entire time. No way right??
 
+    #This is a tuple instead becuase it only has like 4 things
+    #IDK if the performance matters, or if there's even a difference
+    #but it doesn't really need to be an object
     Synergy* = tuple
         power: Power
         rarity: int
         requirements: seq[string]
         replacements: seq[string]
-        index: int
     
+    #just used to decide the percent chances of getting certain tiers
+    #Contract: ```assert common + uncommon + rare + ultraRare == 100```
     TierWeights* = tuple
         common: int
         uncommon: int
@@ -58,7 +68,7 @@ const emptyPower*: Power = Power(
             discard nil
 )
 
-#holy is a special power used in `draftRandomPower`, so it's defined here instead
+#holy is a special power used directly in `draftRandomPower`, so it's defined here instead
 const holy*: Power = Power(
     name: "Holy",
     tier: Common,
@@ -127,6 +137,7 @@ proc secretSynergize(currentPowers: seq[Power], synergies: seq[Synergy]): seq[Po
     result = currentPowers
 
     for s in synergies.sortedByIt(it.power.priority):
+        if s.power in currentPowers: continue
         if result.filterIt(it.name in s.requirements).len == s.requirements.len:
             if s.replacements.len == 0:
                 result &= powers[s.power.index]
@@ -221,5 +232,6 @@ proc getAllPowers*(): Table[string, seq[Power]] =
             result[p.name].add(p)
         else:
             result[p.name] = @[p]
-            
+
+#`nothing` is not registered because it can only be drawn when a normal power cannot be gotten       
 registerPower(holy)

@@ -353,6 +353,7 @@ $glasses: ("sky": $sky, "steel": $steel, "reverie": $reverie, "zero": $zero, "da
         grid-area: win;
 
         font-size: 20px;
+        text-wrap: nowrap;
     }
     
     .desc {

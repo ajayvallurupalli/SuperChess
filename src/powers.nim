@@ -5,13 +5,13 @@ from strutils import contains
 from random import sample, rand, randomize, shuffle
 
 #[TODO
-create synergy constructor which automatically sets index to -1
-or maybe just make it an object, since I don't think performance has ever mattered for this
-or remove `Synergy.index`, since I'm honestly not sure what it does
+--(no)--create synergy constructor which automatically sets index to -1
+--(no)--or maybe just make it an object, since I don't think performance has ever mattered for this
+--or remove `Synergy.index`, since I'm honestly not sure what it does
 powers are exported for debug, so remove that eventually
 
 Create secret secret synergy for bombard + reinforcements
-Add alternative exodia for alternative empress
+--Add alternative exodia for alternative empress
 ]#
 
 #[prioity rules: 
@@ -25,27 +25,26 @@ Add alternative exodia for alternative empress
 #[Synergies:   
     
     There are three types of synergies, decided by flags in `addSynergy`
-    TLDR: Normal Synergies must be drafted seperately
+    TLDR: Normal / Draft Synergies must be drafted seperately
           Secret Synergies are automatically added when the game starts
           Secret Secret Synergies are like Secret Synergies, but they are completely hidden to the user
             These are meant to be used as bandages for when powers conflict
 
-    Normal Synergies - 
+    Normal / Draft Synergies - 
         if the drafter has all of its `Synergy.requirements`, then `Synergy.Power` become available.
-            with a rarity of `Synergy.rarity`. If picked, the users powers in `Synergy.requirements` are removed. 
+            with a rarity of `Synergy.rarity`. -- TODO: CHECK IF THIS IS TRUE: If picked, the users powers in `Synergy.requirements` are removed. 
         The drafter than has to find and draft it.
         The description of `Synergy.power` is automatically updated to say "Synergy (list of synergies)"
     Secret Synergies - 
-        if the drafter has all of its `Synergy.requirements`, then when the game starts, `Synergy.requirements` is 
+        if the drafter has all of its `Synergy.requirements`, then when the game starts, `Synergy.replacements` is 
             automatically replaced with `Synergy.power`
         The description of `Synergy.power` is automatically updated to say "Secret Synergy (list of synergies)"
     Secret Secret Synergies - 
-        if the drafter has all of its `Synergy.requirements`, then when the game starts, `Synergy.requirements` is 
+        if the drafter has all of its `Synergy.requirements`, then when the game starts, `Synergy.replacements` is 
             automatically replaced with `Synergy.power`
         The drafter has no choice, these are automatically added
 
     Synergies take the `Power.priority` of `Synergy.power`
-    Always set index to -1
 ]#
 
 #default paths for the main pieces
@@ -438,8 +437,7 @@ const samuraiSynergy: Synergy = (
     power: anime,
     rarity: 32,
     requirements: @[mysteriousSwordsmanLeft.name, wanderingRoninLeft.name],
-    replacements: @[mysteriousSwordsmanLeft.name, wanderingRoninLeft.name, mysteriousSwordsmanRight.name, wanderingRoninRight.name, anime.name],
-    index: -1
+    replacements: @[mysteriousSwordsmanLeft.name, wanderingRoninLeft.name, mysteriousSwordsmanRight.name, wanderingRoninRight.name, anime.name]
 )
 
 const masochistEmpressPower: Power = Power(
@@ -459,8 +457,7 @@ const masochistEmpress: Synergy = (
     power: masochistEmpressPower,
     rarity: 0,
     requirements: @[empress.name, stepOnMe.name],
-    replacements: @[],
-    index: -1
+    replacements: @[]
 )
 
 const masochistAltEmpressPower: Power = Power(
@@ -480,8 +477,7 @@ const masochistAltEmpress: Synergy = (
     power: masochistAltEmpressPower,
     rarity: 0,
     requirements: @[altEmpress.name, stepOnMe.name],
-    replacements: @[],
-    index: -1
+    replacements: @[]
 )
 
 const sacrificeWhenTaken*: WhenTaken = 
@@ -545,8 +541,7 @@ const exodia: Synergy = (
     power: exodiaPower,
     rarity: 0,
     requirements: @[empress.name, sacrifice.name],
-    replacements: @[sacrifice.name],
-    index: -1
+    replacements: @[sacrifice.name]
 )
 
 const sacrificeWhenTakenAltEmpress*: WhenTaken = 
@@ -583,8 +578,7 @@ const altExodia: Synergy = (
     power: altExodiaPower,
     rarity: 0,
     requirements: @[altEmpress.name, sacrifice.name],
-    replacements: @[sacrifice.name],
-    index: -1
+    replacements: @[sacrifice.name]
 )
 
 const backStep*: Power = Power(
@@ -656,8 +650,7 @@ const superPawn: Synergy = (
     power: superPawnPower,
     rarity: 0,
     requirements: @[backStep.name, headStart.name],
-    replacements: @[backStep.name, headStart.name],
-    index: -1    
+    replacements: @[backStep.name, headStart.name]    
 )
 
 const lesbianPride*: Power = Power(
@@ -725,24 +718,21 @@ const queensWrath: Synergy = (
     power: queensWrathPower,
     rarity: 0,
     requirements: @[lesbianPride.name, queenTrade.name],
-    replacements: @[lesbianPride.name],
-    index: -1    
+    replacements: @[lesbianPride.name]    
 )
 
 const queensWrath2: Synergy = (
     power: queensWrathPower,
     rarity: 0,
     requirements: @[lesbianPride.name, sacrifice.name],
-    replacements: @[lesbianPride.name, sacrifice.name],
-    index: -1    
+    replacements: @[lesbianPride.name, sacrifice.name]    
 )
 
 const queensWrathSuper: Synergy = (
     power: queensWrathSuperPower,
     rarity: 0,
     requirements: @[lesbianPride.name, queenTrade.name, sacrifice.name],
-    replacements: @[lesbianPride.name, sacrifice.name],
-    index: -1
+    replacements: @[lesbianPride.name, sacrifice.name]
 )
 
 const knightChargePower*: Power = Power(
@@ -765,8 +755,7 @@ const calvaryCharge: Synergy = (
     power: knightChargePower,
     rarity: 16,
     requirements: @[calvary.name],
-    replacements: @[],
-    index: -1    
+    replacements: @[]    
 )
 
 const battleFormationPower: Power = Power(
@@ -790,8 +779,7 @@ const battleFormation: Synergy = (
     power: battleFormationPower,
     rarity: 0,
     requirements: @[knightChargePower.name, developed.name],
-    replacements: @[developed.name],
-    index: -1
+    replacements: @[developed.name]
 )
 
 const differentGamePower*: Power = Power(
@@ -813,8 +801,7 @@ const differentGame: Synergy = (
     power: differentGamePower,
     rarity: 12,
     requirements: @[illegalFormationBR.name],
-    replacements: @[illegalFormationBR.name],
-    index: -1
+    replacements: @[illegalFormationBR.name]
 )
 
 const lineBackersPower: Power = Power(
@@ -839,8 +826,7 @@ const linebackers: Synergy = (
     power: lineBackersPower,
     rarity: 0,
     requirements: @[putInTheWork.name, headStart.name],
-    replacements: @[],
-    index: -1
+    replacements: @[]
 )
 
 const nightRider: Power = Power(
@@ -893,17 +879,17 @@ const holyBishop: Synergy = (
     power: holyBishopPower,
     rarity: 8,
     requirements: @[archBishops.name, holy.name],
-    replacements: @[archBishops.name],
-    index: -1
+    replacements: @[archBishops.name]
 )
 
-const concubineWhenTake = 
+const concubineWhenTaken = 
     proc (taken: var Piece, taker: var Piece, board: var ChessBoard, state: var BoardState): tuple[endTile: Tile, takeSuccess: bool] =
         if taker.item == King and 
             taken.item == Rook and
             taken.sameColor(taker) and
             taker.timesMoved == 1 and #one move from castling
             taken.timesMoved == 0: 
+                state.side[taken.color].hasCastled = true
                 taken.promote(board, state)
                 let kingTile = taker.tile
                 if taken.tile.file == 0:
@@ -945,7 +931,7 @@ const concubine*: Power = Power(
             for i, j in b.rankAndFile:
                 if b[i][j].item == Rook and b[i][j].isColor(side):
                     b[i][j].onPromote &= concubinePromote 
-                    b[i][j].whenTaken = concubineWhenTake
+                    b[i][j].whenTaken = concubineWhenTaken
 )
 
 const reinforcements*: Power = Power(
@@ -1034,8 +1020,7 @@ const bountyHunter: Synergy = (
     power: bountyHunterPower,
     rarity: 16,
     requirements: @[shotgunKing.name],
-    replacements: @[],
-    index: -1
+    replacements: @[]
 )
 
 const coward: Power = Power(
@@ -1269,16 +1254,14 @@ const drunkNightRider: Synergy = (
     power: drunkNightRiderPower,
     rarity: 0,
     requirements: @[drunkKnights.name, nightRider.name],
-    replacements: @[],
-    index: -1
+    replacements: @[]
 )
 
 const drunkNightRider2: Synergy = (
     power: drunkNightRiderPower,
     rarity: 0,
     requirements: @[alcoholism.name, nightRider.name],
-    replacements: @[],
-    index: -1
+    replacements: @[]
 )
 
 const virusPower*: Power = Power(
@@ -1302,56 +1285,49 @@ const virus: Synergy = (
     power: virusPower,
     rarity: 0,
     requirements: @[alcoholism.name, lanceLeft.name, headStart.name, mysteriousSwordsmanLeft.name],
-    replacements: @[alcoholism.name],
-    index: -1
+    replacements: @[alcoholism.name]
 )
 
 const virus2: Synergy = (
     power: virusPower,
     rarity: 0,
     requirements: @[alcoholism.name, backStep.name, knightChargePower.name, altEmpress.name],
-    replacements: @[alcoholism.name],
-    index: -1
+    replacements: @[alcoholism.name]
 )
 
 const virus3: Synergy = (
     power: virusPower,
     rarity: 0,
     requirements: @[alcoholism.name, wanderingRoninLeft.name, superPawnPower.name, empress.name],
-    replacements: @[alcoholism.name],
-    index: -1
+    replacements: @[alcoholism.name]
 )
 
 const virus4: Synergy = (
     power: virusPower,
     rarity: 0,
     requirements: @[alcoholism.name, stepOnMe.name, coward.name, shotgunKing.name],
-    replacements: @[alcoholism.name],
-    index: -1
+    replacements: @[alcoholism.name]
 )
 
 const virus5: Synergy = (
     power: virusPower,
     rarity: 0,
     requirements: @[alcoholism.name, reinforcements.name, empress.name, giraffe.name, werewolves.name],
-    replacements: @[alcoholism.name],
-    index: -1
+    replacements: @[alcoholism.name]
 )
 
 const virus6: Synergy = (
     power: virusPower,
     rarity: 0,
     requirements: @[alcoholism.name, anime.name, developed.name, sacrifice.name, illegalFormationBR.name],
-    replacements: @[alcoholism.name],
-    index: -1
+    replacements: @[alcoholism.name]
 )
 
 const virus7: Synergy = (
     power: virusPower,
     rarity: 0,
     requirements: @[alcoholism.name, linebackersPower.name, nightrider.name, desegregation.name, holy.name],
-    replacements: @[alcoholism.name],
-    index: -1
+    replacements: @[alcoholism.name]
 )
 
 #moves for civilian are put here so that it can't be moved normally
@@ -1425,8 +1401,7 @@ const calvaryGiraffe: Synergy = (
     power: calvaryGiraffePower,
     rarity: 0,
     requirements: @[knightChargePower.name, giraffe.name],
-    replacements: @[],
-    index: -1
+    replacements: @[]
 )
 
 const lesbianBountyHunterOnEndTurn*: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
@@ -1454,8 +1429,7 @@ const lesbianBountyHunter: Synergy = (
     power: lesbianBountyHunterPower,
     rarity: 0,
     requirements: @[lesbianPride.name, bountyHunterPower.name],
-    replacements: @[bountyHunterPower.name],
-    index: -1
+    replacements: @[bountyHunterPower.name]
 )
 
 proc createLottery(): OnPiece = 
@@ -1571,8 +1545,7 @@ const holyConversion: Synergy = (
     power: holyConversionPower,
     rarity: 16,
     requirements: @[conversion.name, holy.name],
-    replacements: @[conversion.name],
-    index: -1
+    replacements: @[conversion.name]
 )
 
 #since end turn stuff now runs at the end of every turn, we have new 
@@ -1696,8 +1669,7 @@ proc createCapitalism(power: Power, rarity: int = 24, requirements: seq[string] 
             power: power,
             rarity: rarity,
             requirements: @[capitalismPower.name] & requirements,
-            replacements: replacements,
-            index: -1
+            replacements: replacements
         )
 
 const whiteMoveUp: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
@@ -1907,8 +1879,7 @@ const capitalismTwoThousand: Synergy = (
     power: exponentialGrowth,
     rarity: 16,
     requirements: @[capitalismPower.name, capitalismTwo2.power.name, capitalismThree1.power.name, capitalismFour1.power.name],
-    replacements: @[],
-    index: -1
+    replacements: @[]
 )
 
 const canSkyGlass: GlassMoves = 
@@ -2053,8 +2024,7 @@ const divineWind: Synergy = (
     power: divineWindPower,
     rarity: 12,
     requirements: @[skyGlass.name, lanceLeft.name],
-    replacements: @[],
-    index: -1
+    replacements: @[]
 )
 
 const canBankruptGlass: GlassMoves = 
@@ -2092,8 +2062,7 @@ const bankruptcyGlass: Synergy = (
     power: bankruptGlassPower,
     rarity: 8,
     requirements: @[zeroGlass.name, capitalismPower.name],
-    replacements: @[zeroGlass.name],
-    index: -1
+    replacements: @[zeroGlass.name]
 )
 
 const canReverieGlass: GlassMoves = 
@@ -2176,6 +2145,41 @@ const daybreakGlass*: Power = Power(
             ))
 )
 
+proc createWithClarity(): OnPiece = 
+    var clarity: bool = false
+    result = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
+        if clarity:
+            #new strategy for removing
+            piece.moves.delete(piece.moves.find(clarityMoves))
+            piece.takes.delete(piece.takes.find(clarityTakes))
+        if state.side[piece.color].hasCastled and not clarity:
+            piece.moves.add(clarityMoves)
+            piece.takes.add(clarityTakes)
+            clarity = true #clarity will short circuit every turn after
+
+const clarityPower: Power = Power(
+    name: "Clarity",
+    tier: UltraRare,
+    rarity: 0,
+    priority: 15,
+    description: """You now see things in a whole new light. 
+                It's not regret as much as self-disappointment.""",
+    icon: kingIcon,
+    onStart: 
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            for i, j in b.rankAndFile:
+                if b[i][j].item == King and b[i][j].isColor(side):
+                    b[i][j].onEndTurn.add(createWithClarity())
+)
+
+const clarity: Synergy = (
+    power: clarityPower,
+    rarity: 0,
+    requirements: @[daybreakGlass.name, concubine.name],
+    replacements: @[]
+)
+
+
 registerPower(empress)
 registerPower(altEmpress)
 registerPower(mysteriousSwordsmanLeft)
@@ -2244,6 +2248,7 @@ registerSynergy(calvaryGiraffe, true) #both of these would be secret synergies
 registerSynergy(lesbianBountyHunter, true) #but flavor text is fun
 registerSynergy(drunkNightRider, true)
 registerSynergy(drunkNightRider2, true)
+registerSynergy(clarity, true)
 
 registerSynergy(capitalismTwo1)
 registerSynergy(capitalismTwo2)

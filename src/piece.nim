@@ -40,16 +40,21 @@ type
     #This is one of the sad truths of the code base, but I couldn't find anyway to change the board and not change the object given
     #`takeSuccess` also returns true if the `taken` piece is killed by `taker`
     WhenTaken* = proc (taken: var Piece, taker: var Piece, board: var ChessBoard, state: var BoardState): tuple[endTile: Tile, takeSuccess: bool]
+    #`OnPiece` is used for a transformtion directly on the picece itself
+    #TODO rewrite OnPiece or template to track index, so that it can't be hald done
     OnPiece* = proc (piece: var Piece, board: var ChessBoard, state: var BoardState)
+    #`BoardAction` is used to describe a transformation on the state itself, build from the current state
+    #it is the most general action
     BoardAction* = proc (board: var ChessBoard, state: var BoardState)
 
-    Casting* = tuple[on: Tile, group: int, glass: GlassType]
 
+    #Capitalism stuff
     BuyCondition* = proc (piece: Piece, board: ChessBoard, s: BoardState): bool {.noSideEffect.}
     BuyCost* = proc (piece: Piece, board: ChessBoard, s: BoardState): int {.noSideEffect.}
     BuyOption* = tuple[name: string, cost: BuyCost, action: OnPiece, condition: BuyCondition]
 
-
+    #Glass Stuff
+    Casting* = tuple[on: Tile, group: int, glass: GlassType]
     GlassType* = enum 
         Sky, Zero, Steel, Reverie, Daybreak
     GlassMoves* = proc (side: Color, piece: Piece, b: ChessBoard, s: BoardState): Moves {.noSideEffect.}
@@ -81,6 +86,9 @@ type
         drunk*: bool = false
         casts*: seq[Casting]
 
+    #`BoardState` is used for state common to all pieces
+    #`.shared` is used by both sides
+    #while `.side[white]` or `.side[black]` is for state unique to each side
     BoardState* = tuple[shared: SharedState, side: array[Color, SideState]]
 
     SharedState*  = object
@@ -91,14 +99,16 @@ type
 
     SideState* = object
         abilityTakes*: int = 0 #takes from ability. I could put on a piece, but it would cause issues with some powers
+        hasCastled*: bool = false #since this state is very easy to alter and still won't complicate namespace, I might as well go hogwild with variables 
 
+        #For capitalism powers
         wallet*: Option[int] = none(int)
         buys*: seq[BuyOption] = @[]
-        piecesSold*: int = 0
+        piecesSold*: int = 0 #Just for Capitalism Sell
 
         glass*: Glasses = arrayWith(none(GlassAbility), GlassType.high.ord.succ) #high.ord.succ finds length of enum. I could do high.ord + 1 but .succ looks cooler
 
-
+#I only learned how to do `default` recently, but I'm just going to stick with old implementation
 func startingState*(): BoardState = 
     result.shared = SharedState()
     result.side = [SideState(), SideState()]
@@ -114,6 +124,7 @@ iterator rankAndFile*(board: ChessBoard): Tile =
         for j in 0..<board[0].len:
             yield (i, j)
 
+#takes a sequence and zips it into pairs
 iterator byTwo*[T](s: seq[T]): tuple[a: T, b: T] {.inline.} = 
     assert s.len mod 2 == 0 #assert even number
     var index = 0
@@ -180,14 +191,17 @@ template takenBy*(taken: var Piece, taker: var Piece, b: var ChessBoard, state: 
 template takenBy*(taken: Tile, taker: var Piece, b: var ChessBoard, state: var BoardState): tuple[endTile: Tile, takeSuccess: bool] = 
     board[taken.rank][taken.file].whenTaken(board[taken.rank][taken.file], taker, b, state)
 
+#returns a new unique index for `Piece.index`. 
+#this ensures that each index given is unique by privately managing `state.shared.nextIndex`
 proc newIndex*(s: var BoardState): int = 
     inc s.shared.nextIndex
     return s.shared.nextIndex
     
+#returns a new unique group for `Casting.group`. 
+#this ensures that each group given is unique by privately managing `state.shared.nextGroup`
 proc newGroup*(s: var BoardState): int = 
     inc s.shared.nextGroup
     return s.shared.nextGroup
-
 
 func getTakesOn*(p: Piece, board: ChessBoard): Moves = 
     for x in p.takes:
@@ -207,11 +221,17 @@ func getMovesOn*(p: Piece, board: ChessBoard): Moves =
         if x in result: debugEcho $x, " is a take and a move"
     result = result.filterIt(it notin takes)
 
+#handles movement of `Piece p` from `p.tile` to `(rank: rank, file: file)`
+#after moving `Piece p`, it kills its past location by setting it to air
+#and kills its goal location by replacing it
+#this proc mutates `p`, so any effects must happen before or `p` must be found again
+#`BoardState` is needed to ensure the new air has a new unique `Piece.index`
 proc pieceMove*(p: var Piece, rank: int, file: int, board: var ChessBoard, state: var BoardState) = 
     board[rank][file] = board[p.tile.rank][p.tile.file]
     board[p.tile.rank][p.tile.file] = Piece(index: newIndex(state), item: None, tile: p.tile)
     board[rank][file].tile = (file: file, rank: rank)
 
+#overloads for piece move
 proc pieceMove*(p: var Piece, t: Tile, board: var ChessBoard, state: var BoardState) = 
     pieceMove(p, t.rank, t.file, board, state)
 
@@ -221,6 +241,8 @@ proc pieceMove*(p: Tile, t: Tile, board: var ChessBoard, state: var BoardState) 
 proc pieceMove*(p: var Piece, t: Piece, board: var ChessBoard, state: var BoardState) = 
     pieceMove(p, t.tile.rank, t.tile.file, board, state)
 
+#like `pieceMove`, but swaps `p1.tile` and `p2.tile` instead of killing `p2.tile`
+#it does not need `BoardState` because `Piece.index`s are preserved in swap
 proc pieceSwap*(p1: Piece, p2: Piece, board: var ChessBoard) = 
     let temp = p1
 
@@ -229,6 +251,8 @@ proc pieceSwap*(p1: Piece, p2: Piece, board: var ChessBoard) =
     board[p1.tile.rank][p1.tile.file].tile = (file: p1.tile.file, rank: p1.tile.rank)
     board[temp.tile.rank][temp.tile.file].tile = (file: temp.tile.file, rank: temp.tile.rank)
 
+#default values for some of `Piece`
+#TODO: MOVE THESE TO `basePieces.nim`
 const defaultWhenTaken*: WhenTaken = proc(taken: var Piece, taker: var Piece, board: var ChessBoard, state: var BoardState): tuple[endTile: Tile, takeSuccess: bool] = 
     taker.pieceMove(taken, board, state)
     return (taken.tile, true)
@@ -243,6 +267,9 @@ const defaultOnTake*: OnAction = proc (piece: var Piece, taking: Tile, board: va
     if takeResult.takeSuccess:
         board[takeResult.endTile.rank][takeResult.endTile.file].piecesTaken += 1
 
+#Very bulky function that creates a new `Piece` using the values of a  `initial Piece`
+#it also requires an index so that the user can decide how the new piece is related to the old piece
+#I'm sure there is some nim function to do this, but I don't know what. Maybe deepCopy?
 func pieceCopy*(initial: Piece, index: int, #index is required so I don't mess up
                 item: PieceType = initial.item, 
                 color: Color = initial.color,

@@ -41,6 +41,26 @@ const leftRightMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
     discard result.addIfFree(board, p.tile, tileLeft)
     discard result.addIfFree(board, p.tile, tileRight)
 
+const leftTwiceMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
+    let next = result.addIfFree(board, p.tile, tileLeft)
+    if next:
+        discard result.addIfFree(board, p.tile.tileLeft, tileLeft)
+
+const rightTwiceMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
+    let next = result.addIfFree(board, p.tile, tileRight)
+    if next:
+        discard result.addIfFree(board, p.tile.tileRight, tileRight)
+
+const leftTwiceTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
+    let next = result.addIfTake(board, p, p.tile, tileLeft)
+    if next:
+        discard result.addIfTake(board, p, p.tile.tileLeft, tileLeft)
+
+const rightTwiceTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
+    let next = result.addIfTake(board, p, p.tile, tileRight)
+    if next:
+        discard result.addIfTake(board, p, p.tile.tileRight, tileRight)
+
 const leftRightTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
     discard result.addIfTake(board, p, p.tile, tileLeft)
     discard result.addIfTake(board, p, p.tile, tileRight)
@@ -209,3 +229,15 @@ const whiteLanceTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves =
 
 const blackLanceTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
     result.add(lineTakes(board, p, tileBelow))
+
+const clarityMoves*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
+    result.add(leftTwiceMoves(board, p))
+    result.add(rightTwiceMoves(board, p))
+    result.add(whiteForwardTwiceMoves(board, p))
+    result.add(blackForwardTwiceMoves(board, p))
+
+const clarityTakes*: MoveProc = func (board: ChessBoard, p: Piece): Moves = 
+    result.add(leftTwiceTakes(board, p))
+    result.add(rightTwiceTakes(board, p))
+    result.add(whiteForwardTwiceTakes(board, p))
+    result.add(blackForwardTwiceTakes(board, p))
