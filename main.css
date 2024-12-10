@@ -28,10 +28,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 2000px) {
   td {
-    min-width: 70px;
-    min-height: 70px;
-    width: 70px;
-    height: 70px;
+    min-width: 65px;
+    min-height: 65px;
+    width: 65px;
+    height: 65px;
     text-align: center;
     vertical-align: middle;
   }
@@ -60,10 +60,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 1900px) {
   td {
-    min-width: 65.5px;
-    min-height: 65.5px;
-    width: 65.5px;
-    height: 65.5px;
+    min-width: 60.5px;
+    min-height: 60.5px;
+    width: 60.5px;
+    height: 60.5px;
     text-align: center;
     vertical-align: middle;
   }
@@ -92,10 +92,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 1800px) {
   td {
-    min-width: 61px;
-    min-height: 61px;
-    width: 61px;
-    height: 61px;
+    min-width: 56px;
+    min-height: 56px;
+    width: 56px;
+    height: 56px;
     text-align: center;
     vertical-align: middle;
   }
@@ -124,10 +124,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 1700px) {
   td {
-    min-width: 56.5px;
-    min-height: 56.5px;
-    width: 56.5px;
-    height: 56.5px;
+    min-width: 51.5px;
+    min-height: 51.5px;
+    width: 51.5px;
+    height: 51.5px;
     text-align: center;
     vertical-align: middle;
   }
@@ -156,10 +156,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 1600px) {
   td {
-    min-width: 52px;
-    min-height: 52px;
-    width: 52px;
-    height: 52px;
+    min-width: 47px;
+    min-height: 47px;
+    width: 47px;
+    height: 47px;
     text-align: center;
     vertical-align: middle;
   }
@@ -188,10 +188,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 1500px) {
   td {
-    min-width: 47.5px;
-    min-height: 47.5px;
-    width: 47.5px;
-    height: 47.5px;
+    min-width: 42.5px;
+    min-height: 42.5px;
+    width: 42.5px;
+    height: 42.5px;
     text-align: center;
     vertical-align: middle;
   }
@@ -220,10 +220,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 1400px) {
   td {
-    min-width: 43px;
-    min-height: 43px;
-    width: 43px;
-    height: 43px;
+    min-width: 38px;
+    min-height: 38px;
+    width: 38px;
+    height: 38px;
     text-align: center;
     vertical-align: middle;
   }
@@ -252,10 +252,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 1300px) {
   td {
-    min-width: 38.5px;
-    min-height: 38.5px;
-    width: 38.5px;
-    height: 38.5px;
+    min-width: 33.5px;
+    min-height: 33.5px;
+    width: 33.5px;
+    height: 33.5px;
     text-align: center;
     vertical-align: middle;
   }
@@ -284,10 +284,10 @@ as punishment for my sins.
 }
 @media only screen and (max-width: 1200px) {
   td {
-    min-width: 34px;
-    min-height: 34px;
-    width: 34px;
-    height: 34px;
+    min-width: 29px;
+    min-height: 29px;
+    width: 29px;
+    height: 29px;
     text-align: center;
     vertical-align: middle;
   }
@@ -1311,9 +1311,9 @@ hr {
   outline-width: 1px;
   outline-color: #183dd1;
   outline-style: solid;
-  animation: animateOutlineun52mqq 2s ease infinite;
+  animation: animateOutlineuxyf8o6 2s ease infinite;
 }
-@keyframes animateOutlineun52mqq {
+@keyframes animateOutlineuxyf8o6 {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1340,9 +1340,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-un52mr2 4s ease-in-out infinite;
+  animation: castingAnimation-uxyf8ob 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-un52mr2 {
+@keyframes castingAnimation-uxyf8ob {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1359,9 +1359,9 @@ hr {
   outline-width: 1px;
   outline-color: #ea332d;
   outline-style: solid;
-  animation: animateOutlineun52mrr 2s ease infinite;
+  animation: animateOutlineuxyf8os 2s ease infinite;
 }
-@keyframes animateOutlineun52mrr {
+@keyframes animateOutlineuxyf8os {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1388,9 +1388,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-un52msr 4s ease-in-out infinite;
+  animation: castingAnimation-uxyf8pc 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-un52msr {
+@keyframes castingAnimation-uxyf8pc {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1407,9 +1407,9 @@ hr {
   outline-width: 1px;
   outline-color: rgb(206, 206, 206);
   outline-style: solid;
-  animation: animateOutlineun52mt5 2s ease infinite;
+  animation: animateOutlineuxyf8px 2s ease infinite;
 }
-@keyframes animateOutlineun52mt5 {
+@keyframes animateOutlineuxyf8px {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1436,9 +1436,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-un52mt9 4s ease-in-out infinite;
+  animation: castingAnimation-uxyf8qj 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-un52mt9 {
+@keyframes castingAnimation-uxyf8qj {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1455,9 +1455,9 @@ hr {
   outline-width: 1px;
   outline-color: #424242;
   outline-style: solid;
-  animation: animateOutlineun52mtk 2s ease infinite;
+  animation: animateOutlineuxyf8qs 2s ease infinite;
 }
-@keyframes animateOutlineun52mtk {
+@keyframes animateOutlineuxyf8qs {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1484,9 +1484,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-un52mtl 4s ease-in-out infinite;
+  animation: castingAnimation-uxyf8rf 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-un52mtl {
+@keyframes castingAnimation-uxyf8rf {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1503,9 +1503,9 @@ hr {
   outline-width: 1px;
   outline-color: rgb(201, 178, 65);
   outline-style: solid;
-  animation: animateOutlineun52mtw 2s ease infinite;
+  animation: animateOutlineuxyf8rk 2s ease infinite;
 }
-@keyframes animateOutlineun52mtw {
+@keyframes animateOutlineuxyf8rk {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1532,9 +1532,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-un52mun 4s ease-in-out infinite;
+  animation: castingAnimation-uxyf8rn 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-un52mun {
+@keyframes castingAnimation-uxyf8rn {
   0% {
     outline-width: 3px;
     outline-offset: 50px;

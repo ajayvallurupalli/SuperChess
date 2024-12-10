@@ -60,14 +60,15 @@ const
     air*: Piece = Piece(item: None, color: white)
 
 const onPawnPromote*: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
-    piece = blackQueen.pieceCopy(
+    piece = state.side[piece.color].dna[Queen].pieceCopy(
         index = piece.index,
         piecesTaken = piece.piecesTaken, 
         timesMoved = piece.timesMoved,
-        tile=piece.tile, 
+        tile = piece.tile, 
         promoted = true, 
-        color = piece.color, 
-        filePath = "queen.svg")
+        color = piece.color, #this is unncesscary, but I might as well keep it
+        filePath = "queen.svg"
+    )
 
 const onPawnEnd*: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
     if piece.isAtEnd() and not piece.promoted:
@@ -97,6 +98,7 @@ proc startingBoard*(state: var BoardState): ChessBoard =
         for j, x in r:
             result[i][j] = x.pieceCopy(index = newIndex(state), tile = (j, i))
 
+
 proc startingMiniBoard*(state: var BoardState): MiniChessBoard = 
     result = [[air,      air,            air,         air,          air],
               [air,      blackPawn,     blackPawn,    blackPawn,    air],
@@ -107,6 +109,35 @@ proc startingMiniBoard*(state: var BoardState): MiniChessBoard =
     for i, r in result:
         for j, x in r:
             result[i][j] = x.pieceCopy(index = newIndex(state), tile = (j, i))
+
+#I only learned how to do `default` recently, but I'm just going to stick with old implementation
+func startingState*(): BoardState = 
+    result.shared = SharedState()
+    result.side = [SideState(), SideState()]
+
+    result.side[white].dna = [
+        King: whiteKing,
+        Queen: whiteQueen,
+        Bishop: whiteBishop,
+        Pawn: whitePawn,
+        Rook: whiteRook,
+        Knight: whiteRook,
+        None: air,
+        Fairy: air
+    ]
+
+    result.side[black].dna = [
+        King: blackKing,
+        Queen: blackQueen,
+        Bishop: blackBishop,
+        Pawn: blackPawn,
+        Rook: blackRook,
+        Knight: blackRook,
+        None: air,
+        Fairy: air
+    ]
+
+
 #TESTS
 when isMainModule:
     assert blackKnight.moves.typeof() is seq[MoveProc]

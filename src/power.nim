@@ -21,7 +21,7 @@ type
     Power* = object
         name*: string
         technicalName*: string = ""
-        synergy: bool = false #can i delete? This is used for like one thing
+        synergy*: bool = false #can i delete? This is used for like one thing
         tier*: Tier
         rarity*: int = 8
         description*: string = "NONE"

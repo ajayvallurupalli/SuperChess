@@ -79,7 +79,7 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = Game 
-const myDebugPowers: seq[Power] = @[daybreakGlass]
+const myDebugPowers: seq[Power] = @[daybreakGlass, empress]
 const opponentDebugPowers: seq[Power] = @[]
 
 var 
@@ -164,6 +164,13 @@ proc initGame() =
     opponentDrafts = @[]
     lastMove = @[]
     piecesChecking = @[]
+    actionStack = @[]
+    nextActionStack = @[]
+    toSend = @[]
+    promptHistory = @[]
+    promptStack = @[]
+    picksLeft = 0
+    picks = @[]
 
 proc clear() =
     selectedTile = (-1, -1)
@@ -1134,6 +1141,25 @@ proc createSettings(): VNode =
             proc onclick(_: Event, _: VNode) = 
                 currentScreen = Other
 
+#recursively searches for all power requirements for p, if p is a synergy, and all of the power requirements for those requirements
+proc getLinkedPowers(p: Power, alreadyAdded: seq[string] = @[]): tuple[pows: seq[Power], addedNames: seq[string]] = 
+    result.addedNames = alreadyAdded
+    result.pows.add(p)
+    result.addedNames.add(p.name)
+
+    if p.synergy:
+        let synergy = getSynergyOf(p.index)
+        for name in synergy.requirements:
+            if name in synergy.replacements or
+                name in result.addedNames: continue
+
+            for reqPower in power.powers:
+                if reqPower.name == name:
+                    var next = getLinkedPowers(reqPower, result.addedNames)
+                    result.pows.add(next.pows)
+                    result.addedNames.add(next.addedNames)
+                    break #stop searching
+
 proc createSeePowerDescription(p: Power): VNode =     
     var src = if p.noColor: p.icon else: $black & p.icon
     let record = (wins: 0, losses: 0)#getRecord(p.technicalName)
@@ -1159,20 +1185,7 @@ proc createSeePowerDescription(p: Power): VNode =
 
                 theState.shared.randSeed = 0
 
-                if p.synergy:
-                    let synergy = getSynergyOf(p.index)
-                    var alreadyAdded: seq[string] = @[synergy.power.name]
-                    for name in synergy.requirements:
-                        if name in synergy.replacements or
-                            name in alreadyAdded: continue
-
-                        for reqPower in power.powers:
-                            if reqPower.name == name:
-                                myDrafts.add(reqPower)
-                                alreadyAdded.add(reqPower.name)
-                                break #stop searching
-
-                myDrafts.add(p)
+                myDrafts = getLinkedPowers(p).pows
                 execute(myDrafts, opponentDrafts, side, theBoard, theState)
                 currentScreen = Game
 

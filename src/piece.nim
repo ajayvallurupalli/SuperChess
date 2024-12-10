@@ -101,17 +101,17 @@ type
         abilityTakes*: int = 0 #takes from ability. I could put on a piece, but it would cause issues with some powers
         hasCastled*: bool = false #since this state is very easy to alter and still won't complicate namespace, I might as well go hogwild with variables 
 
+        #used as prototypes for the pieces. When a piece is buffed, its dna should be buffed too
+        #I don't know how to slice PieceType to exclude air and fairy, so just don't use them
+        dna*:  array[PieceType, Piece]
+        transforms*: array[PieceType, seq[OnPiece]]
+
         #For capitalism powers
         wallet*: Option[int] = none(int)
         buys*: seq[BuyOption] = @[]
         piecesSold*: int = 0 #Just for Capitalism Sell
 
         glass*: Glasses = arrayWith(none(GlassAbility), GlassType.high.ord.succ) #high.ord.succ finds length of enum. I could do high.ord + 1 but .succ looks cooler
-
-#I only learned how to do `default` recently, but I'm just going to stick with old implementation
-func startingState*(): BoardState = 
-    result.shared = SharedState()
-    result.side = [SideState(), SideState()]
 
 #returns a tuple for each rank file pair of the board
 #so this 
@@ -293,6 +293,10 @@ func pieceCopy*(initial: Piece, index: int, #index is required so I don't mess u
                 whenTaken: whenTaken, onEndTurn: onEndTurn, onPromote: onPromote,promoted: promoted, filePath: filePath, rotate: rotate,
                 drunk: drunk, colorable: colorable)
 
+proc applyTransforms*(piece: var Piece, board: var ChessBoard, state: var BoardState) = 
+    for t in state.side[piece.color].transforms[piece.item]:
+        t(piece, board, state)
+
 func isAir*(p: Piece): bool = 
     return p.item == None
 
@@ -354,3 +358,4 @@ func getKingPiece*(side: Color, board: ChessBoard): Piece =
     for i, j in board.rankAndFile:
         if board[i][j].item == King and board[i][j].color == side:
             return board[i][j]
+

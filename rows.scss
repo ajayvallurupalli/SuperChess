@@ -76,10 +76,10 @@ $glasses: ("sky": $sky, "steel": $steel, "reverie": $reverie, "zero": $zero, "da
 @for $i from 0 through 8 {
     @media only screen and (max-width:(2000px - ($i * 100))) {
         td {
-            min-width: (70px - ($i * 4.5));
-            min-height: (70px - ($i * 4.5));
-            width: (70px - ($i * 4.5));
-            height: (70px - ($i * 4.5));
+            min-width: (65px - ($i * 4.5));
+            min-height: (65px - ($i * 4.5));
+            width: (65px - ($i * 4.5));
+            height: (65px - ($i * 4.5));
             text-align: center;
             vertical-align: middle;
         }    
