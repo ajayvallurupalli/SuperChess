@@ -1215,7 +1215,10 @@ proc createSeePower(): VNode =
             except: ""
         
         #i'll fix the function later. I really need the clean code update
-        for subpowers in allPowers.values.toSeq.sortedByIt(editDistance(it[0].name, $search)):
+        let sortedPowers = 
+            if search == "": allPowers.values.toSeq
+            else: allPowers.values.toSeq.sortedByIt(editDistance(it[0].name, $search))
+        for subpowers in sortedPowers:
             if subpowers.len == 1:
                 createSeePowerDescription(subpowers[0])
             else:
