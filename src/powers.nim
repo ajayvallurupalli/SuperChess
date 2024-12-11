@@ -1592,7 +1592,7 @@ proc moneyForTake(): OnPiece =
         allPiecesTaken += state.side[piece.color].abilityTakes #includes takes which are not by any piece
 
         if allPiecesTaken > lastPiecesTaken:
-            addMoney(piece.color, 3, state)
+            addMoney(piece.color, (allPiecesTaken - lastPiecesTaken) * 3, state)
         lastPiecesTaken = allPiecesTaken
 
 const capitalismPower*: Power = Power(
@@ -1754,8 +1754,8 @@ proc createPieceMarket(cost: int, rate: int): BuyCost =
         result = cost + (rate * (s.side[piece.color].piecesSoldThisTurn))
 
 const sell*: Power = Power(
-    name: "Capitalism IV",
-    technicalName: "Capitalism IV: Sell",
+    name: "Capitalism V",
+    technicalName: "Capitalism V: Sell",
     tier: Uncommon,
     rarity: 0, #rarity 0 because it should only be gotten through synergy
     priority: 15,
@@ -1770,7 +1770,84 @@ const sell*: Power = Power(
             )
 )
 
-const capitalismFour1: Synergy = createCapitalism(sell)
+const capitalismFive1: Synergy = createCapitalism(sell)
+
+proc createTaxes(rate: float): OnPiece = 
+    result = proc (piece: var Piece, b: var ChessBoard, state: var BoardState) =
+        var tax: int = int(float(getMoney(piece.color, state)) * rate)
+        if tax == 0: inc tax #so that it always takes something
+        addMoney(piece.color, -tax, state)
+
+const taxes*: Power = Power(
+    name: "Capitalism V",
+    technicalName: "Capitalism V: Taxes",
+    tier: Rare,
+    rarity: 0, #rarity 0 because it should only be gotten through synergy
+    priority: 15,
+    description: """Nothing in the world is certain except for Taxes and one other thing. 
+                    You gain 6 more dollars for taking a piece, but you lose 15% every turn.""",
+    icon: "usflag.svg",
+    noColor: true,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            #We just add two more `moneyForTake`s
+            King.addOnEndTurnTransform(side, b, s, moneyForTake)
+            King.addOnEndTurnTransform(side, b, s, moneyForTake)
+            King.buff(side, b, s, 
+                onEndTurn = @[createTaxes(0.15)]
+            )
+)
+
+const capitalismFive2: Synergy = createCapitalism(taxes)
+
+const inflation*: Power = Power(
+    name: "Capitalism IV",
+    technicalName: """Capitalism IV: "Inflation"""",
+    tier: Uncommon,
+    rarity: 0,
+    priority: 15,
+    description: """More money equals more money! You get 3 more dollars for taking a piece. """,
+    icon: "usflag.svg",
+    noColor: true,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            #We just add 1 more `moneyForTake`s
+            King.addOnEndTurnTransform(side, b, s, moneyForTake)
+)
+
+const capitalismFour1: Synergy = createCapitalism(inflation)
+
+proc moneyForMove(): OnPiece = 
+    var lastTimesMoved = 0
+    #closure is used to hold state
+    #this is preferable when state does not need to interact with the rest of the game's systems
+    #to better modularize the power's state, I think
+    result = proc (piece: var Piece, b: var ChessBoard, state: var BoardState) =
+        var allTimesMoved = 0
+        for i, j in b.rankAndFile:
+            if b[i][j].sameColor(piece):
+                allTimesMoved += b[i][j].timesMoved
+
+        if allTimesMoved > lastTimesMoved:
+            addMoney(piece.color, (allTimesMoved - lastTimesMoved) * 1, state)
+        lastTimesMoved = allTimesMoved
+
+const handouts*: Power = Power(
+    name: "Capitalism IV",
+    technicalName: """Capitalism IV: Handouts""",
+    tier: Uncommon,
+    rarity: 0,
+    priority: 15,
+    description: """What if everyone had money? Then everyone would have money! You get 1 dollar for taking a piece.""",
+    icon: "usflag.svg",
+    noColor: true,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            #We just add two more `moneyForTake`s
+            King.addOnEndTurnTransform(side, b, s, moneyForMove)
+)
+
+const capitalismFour2: Synergy = createCapitalism(handouts)
 
 #altered `createLottery()`, but also adds 10 dollars to wallet
 proc createSuperLottery(): OnPiece = 
@@ -1828,7 +1905,7 @@ const exponentialGrowth*: Power = Power(
 const capitalismTwoThousand: Synergy = (
     power: exponentialGrowth,
     rarity: 16,
-    requirements: @[capitalismPower.name, capitalismTwo2.power.name, capitalismThree1.power.name, capitalismFour1.power.name],
+    requirements: @[capitalismPower.name, capitalismTwo2.power.name, capitalismThree1.power.name, capitalismFour1.power.name, capitalismFive1.power.name],
     replacements: @[]
 )
 
@@ -2233,6 +2310,9 @@ registerSynergy(capitalismTwo3)
 registerSynergy(capitalismThree1)
 registerSynergy(capitalismThree2)
 registerSynergy(capitalismFour1)
+registerSynergy(capitalismFour2)
+registerSynergy(capitalismFive1)
+registerSynergy(capitalismFive2)
 registerSynergy(capitalismTwoThousand, true)
 registerSynergy(slumdogBillionaire, true)
 
