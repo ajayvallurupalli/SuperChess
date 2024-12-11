@@ -110,6 +110,7 @@ type
         wallet*: Option[int] = none(int)
         buys*: seq[BuyOption] = @[]
         piecesSold*: int = 0 #Just for Capitalism Sell
+        piecesSoldThisTurn*: int = 0
 
         glass*: Glasses = arrayWith(none(GlassAbility), GlassType.high.ord.succ) #high.ord.succ finds length of enum. I could do high.ord + 1 but .succ looks cooler
 

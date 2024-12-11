@@ -1737,23 +1737,21 @@ const capitalismThree2: Synergy = createCapitalism(upgrade2)
 
 
 const sellPiece: OnPiece = proc (piece: var Piece, b: var ChessBoard, state: var BoardState) =
-    b[piece.tile.rank][piece.tile.file] = air.pieceCopy(index = b[piece.tile.rank][piece.tile.file].index, tile = piece.tile)
     inc state.side[piece.color].piecesSold
+    inc state.side[piece.color].piecesSoldThisTurn
+    echo state.side[piece.color]
+    b[piece.tile.rank][piece.tile.file] = air.pieceCopy(index = b[piece.tile.rank][piece.tile.file].index, tile = piece.tile)
+
+const updatePiecesSold: OnPiece = proc (piece: var Piece, b: var ChessBoard, state: var BoardState) =
+    state.side[white].piecesSoldThisTurn = 0
+    state.side[black].piecesSoldThisTurn = 0
 
 const notKing: BuyCondition = func (piece: Piece, board: ChessBoard, s: BoardState): bool = 
     return piece.item != King
 
 proc createPieceMarket(cost: int, rate: int): BuyCost =
-    var lastTurnSold = -1
-    var lastPiecesSold = 0
-
     result = func (piece: Piece, b: ChessBoard, s: BoardState): int =
-        let piecesSold = s.side[piece.color].piecesSold
-        if s.shared.turnNumber != lastTurnSold:
-            lastTurnSold = s.shared.turnNumber
-            lastPiecesSold = piecesSold
-
-        result = cost + (rate * (lastPiecesSold - piecesSold))
+        result = cost + (rate * (s.side[piece.color].piecesSoldThisTurn))
 
 const sell*: Power = Power(
     name: "Capitalism IV",
@@ -1766,7 +1764,10 @@ const sell*: Power = Power(
     noColor: true,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            s.side[side].buys &= (name: "Sell", cost: createPieceMarket(-4, -1), action: sellPiece, condition: notKing)
+            s.side[side].buys &= (name: "Sell", cost: createPieceMarket(-4, 1), action: sellPiece, condition: notKing)
+            King.buff(side, b, s, 
+                onEndTurn = @[updatePiecesSold]
+            )
 )
 
 const capitalismFour1: Synergy = createCapitalism(sell)
