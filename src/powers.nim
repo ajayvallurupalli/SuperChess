@@ -194,19 +194,20 @@ const mysteriousSwordsmanLeft*: Power = Power(
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard, _: var BoardState) = 
             let rank = if side == black: 1 else: 6
-            assert b[rank][1].color == side
+            let file = if side == black: 6 else: 1
+            assert b[rank][file].color == side
             if side == black:
-                b[rank][1].moves = @[diagnalMoves, blackForwardMoves]
-                b[rank][1].takes = @[diagnalTakes, blackForwardTakes]
+                b[rank][file].moves = @[diagnalMoves, blackForwardMoves]
+                b[rank][file].takes = @[diagnalTakes, blackForwardTakes]
             else:
-                b[rank][1].moves = @[diagnalMoves, whiteForwardMoves]
-                b[rank][1].takes = @[diagnalTakes, whiteForwardTakes]
-            b[rank][1].onEndTurn = @[silverGeneralPromoteConditions]
-            b[rank][1].onPromote = @[silverGeneralPromote]
-            b[rank][1].item = Fairy
-            b[rank][1].filePath = "silvergeneral.svg"
-            b[rank][1].colorable = false
-            if side != viewSide: b[rank][1].rotate = true
+                b[rank][file].moves = @[diagnalMoves, whiteForwardMoves]
+                b[rank][file].takes = @[diagnalTakes, whiteForwardTakes]
+            b[rank][file].onEndTurn = @[silverGeneralPromoteConditions]
+            b[rank][file].onPromote = @[silverGeneralPromote]
+            b[rank][file].item = Fairy
+            b[rank][file].filePath = "silvergeneral.svg"
+            b[rank][file].colorable = false
+            if side != viewSide: b[rank][file].rotate = true
 )
 
 const mysteriousSwordsmanRight*: Power = Power(
@@ -224,19 +225,20 @@ const mysteriousSwordsmanRight*: Power = Power(
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard, _: var BoardState) = 
             let rank = if side == black: 1 else: 6
-            assert b[rank][6].color == side
+            let file = if side == black: 1 else: 6
+            assert b[rank][file].color == side
             if side == black:
-                b[rank][6].moves = @[diagnalMoves, blackForwardMoves]
-                b[rank][6].takes = @[diagnalTakes, blackForwardTakes]
+                b[rank][file].moves = @[diagnalMoves, blackForwardMoves]
+                b[rank][file].takes = @[diagnalTakes, blackForwardTakes]
             else:
-                b[rank][6].moves = @[diagnalMoves, whiteForwardMoves]
-                b[rank][6].takes = @[diagnalTakes, whiteForwardTakes]
-            b[rank][6].onEndTurn = @[silverGeneralPromoteConditions]
-            b[rank][6].onPromote = @[silverGeneralPromote]
-            b[rank][6].item = Fairy
-            b[rank][6].filePath = "silvergeneral.svg"
-            b[rank][6].colorable = false
-            if side != viewSide: b[rank][6].rotate = true
+                b[rank][file].moves = @[diagnalMoves, whiteForwardMoves]
+                b[rank][file].takes = @[diagnalTakes, whiteForwardTakes]
+            b[rank][file].onEndTurn = @[silverGeneralPromoteConditions]
+            b[rank][file].onPromote = @[silverGeneralPromote]
+            b[rank][file].item = Fairy
+            b[rank][file].filePath = "silvergeneral.svg"
+            b[rank][file].colorable = false
+            if side != viewSide: b[rank][file].rotate = true
 )
 
 const developed*: Power = Power(
@@ -369,18 +371,19 @@ const wanderingRoninLeft*: Power = Power(
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard, _: var BoardState) =
             let rank = if side == black: 1 else: 6
-            assert b[rank][2].color == side
+            let file = if side == black: 5 else: 2
+            assert b[rank][file].color == side
             if side == black:
-                b[rank][2].moves = @[diagnalMoves, blackForwardMoves, leftRightMoves]
-                b[rank][2].takes = @[diagnalTakes, blackForwardTakes, leftRightTakes]
+                b[rank][file].moves = @[diagnalMoves, blackForwardMoves, leftRightMoves]
+                b[rank][file].takes = @[diagnalTakes, blackForwardTakes, leftRightTakes]
             else:
-                b[rank][2].moves = @[diagnalMoves, whiteForwardMoves, leftRightMoves]
-                b[rank][2].takes = @[diagnalTakes, whiteForwardTakes, leftRightTakes]             
-            b[rank][2].onPromote = @[defaultOnEndTurn]    #Gold generals do not promote
-            b[rank][2].item = Fairy
-            b[rank][2].filePath = "goldgeneral.svg"
-            b[rank][2].colorable = false
-            if side != viewSide: b[rank][2].rotate = true
+                b[rank][file].moves = @[diagnalMoves, whiteForwardMoves, leftRightMoves]
+                b[rank][file].takes = @[diagnalTakes, whiteForwardTakes, leftRightTakes]             
+            b[rank][file].onPromote = @[defaultOnEndTurn]    #Gold generals do not promote
+            b[rank][file].item = Fairy
+            b[rank][file].filePath = "goldgeneral.svg"
+            b[rank][file].colorable = false
+            if side != viewSide: b[rank][file].rotate = true
 )
 
 const wanderingRoninRight*: Power = Power(
@@ -398,19 +401,19 @@ const wanderingRoninRight*: Power = Power(
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard, _: var BoardState) = 
             let rank = if side == black: 1 else: 6
-            assert b[rank][5].color == side
+            let file = if side == black: 2 else: 5
+            assert b[rank][file].color == side
             if side == black:
-                b[rank][5].moves = @[diagnalMoves, blackForwardMoves, leftRightMoves]
-                b[rank][5].takes = @[diagnalTakes, blackForwardTakes, leftRightTakes]
+                b[rank][file].moves = @[diagnalMoves, blackForwardMoves, leftRightMoves]
+                b[rank][file].takes = @[diagnalTakes, blackForwardTakes, leftRightTakes]
             else:
-                b[rank][5].moves = @[diagnalMoves, whiteForwardMoves, leftRightMoves]
-                b[rank][5].takes = @[diagnalTakes, whiteForwardTakes, leftRightTakes]  
-            b[rank][5].onPromote = @[defaultOnEndTurn]    #Gold generals do not promote
-            b[rank][5].item = Fairy
-            b[rank][5].filePath = "goldgeneral.svg"
-            b[rank][5].colorable = false
-            if side != viewSide: b[rank][5].rotate = true
-
+                b[rank][file].moves = @[diagnalMoves, whiteForwardMoves, leftRightMoves]
+                b[rank][file].takes = @[diagnalTakes, whiteForwardTakes, leftRightTakes]             
+            b[rank][file].onPromote = @[defaultOnEndTurn]    #Gold generals do not promote
+            b[rank][file].item = Fairy
+            b[rank][file].filePath = "goldgeneral.svg"
+            b[rank][file].colorable = false
+            if side != viewSide: b[rank][file].rotate = true
 )
 
 #this is different than a normal promote, using clojure for transform state
@@ -1061,36 +1064,6 @@ const lancePromoteConditions*: OnPiece = proc (piece: var Piece, board: var Ches
     if piece.isAtEnd() and not piece.promoted:  
         piece.promote(board, state)
 
-const lanceLeft*: Power = Power(
-    name: "Kamikaze", 
-    technicalName: "Kamikaze Left",
-    tier: Uncommon,
-    priority: 5, 
-    rarity: 4, 
-    description: 
-        """The divine wind is behind you. 
-        Your left pawn is replaced with a lance from Shogi.""",
-    icon: "lance.svg",
-    rotatable: true,
-    noColor: true,
-    onStart: 
-        proc (side: Color, viewSide: Color, b: var ChessBoard, _: var BoardState) = 
-            let rank = if side == black: 1 else: 6
-            assert b[rank][0].color == side
-            if side == black:
-                b[rank][0].moves = @[blackLanceMoves]
-                b[rank][0].takes = @[blackLanceTakes]
-            else:
-                b[rank][0].moves = @[whiteLanceMoves]
-                b[rank][0].takes = @[whiteLanceTakes]
-            b[rank][0].onEndTurn = @[lancePromoteConditions]
-            b[rank][0].onPromote = @[lancePromote]
-            b[rank][0].item = Fairy
-            b[rank][0].filePath = "lance.svg"
-            b[rank][0].colorable = false
-            if side != viewSide: b[rank][0].rotate = true
-)
-
 const lanceRight*: Power = Power(
     name: "Kamikaze", 
     technicalName: "Kamikaze Right",
@@ -1106,19 +1079,51 @@ const lanceRight*: Power = Power(
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard, _: var BoardState) = 
             let rank = if side == black: 1 else: 6
+            let file = if side == black: 0 else: 7
             assert b[rank][7].color == side
             if side == black:
-                b[rank][7].moves = @[blackLanceMoves]
-                b[rank][7].takes = @[blackLanceTakes]
+                b[rank][file].moves = @[blackLanceMoves]
+                b[rank][file].takes = @[blackLanceTakes]
             else:
-                b[rank][7].moves = @[whiteLanceMoves]
-                b[rank][7].takes = @[whiteLanceTakes]
-            b[rank][7].onEndTurn = @[lancePromoteConditions]
-            b[rank][7].onPromote = @[lancePromote]
-            b[rank][7].item = Fairy
-            b[rank][7].filePath = "lance.svg"
-            b[rank][7].colorable = false
-            if side != viewSide: b[rank][7].rotate = true
+                b[rank][file].moves = @[whiteLanceMoves]
+                b[rank][file].takes = @[whiteLanceTakes]
+            b[rank][file].onEndTurn = @[lancePromoteConditions]
+            b[rank][file].onPromote = @[lancePromote]
+            b[rank][file].item = Fairy
+            b[rank][file].filePath = "lance.svg"
+            b[rank][file].colorable = false
+            if side != viewSide: b[rank][file].rotate = true
+)
+
+const lanceLeft*: Power = Power(
+    name: "Kamikaze", 
+    technicalName: "Kamikaze Left",
+    tier: Uncommon,
+    priority: 5, 
+    rarity: 4, 
+    description: 
+        """The divine wind is behind you. 
+        Your left pawn is replaced with a lance from Shogi.""",
+    icon: "lance.svg",
+    rotatable: true,
+    noColor: true,
+    onStart: 
+        proc (side: Color, viewSide: Color, b: var ChessBoard, _: var BoardState) = 
+            let rank = if side == black: 1 else: 6
+            let file = if side == black: 7 else: 0
+            assert b[rank][7].color == side
+            if side == black:
+                b[rank][file].moves = @[blackLanceMoves]
+                b[rank][file].takes = @[blackLanceTakes]
+            else:
+                b[rank][file].moves = @[whiteLanceMoves]
+                b[rank][file].takes = @[whiteLanceTakes]
+            b[rank][file].onEndTurn = @[lancePromoteConditions]
+            b[rank][file].onPromote = @[lancePromote]
+            b[rank][file].item = Fairy
+            b[rank][file].filePath = "lance.svg"
+            b[rank][file].colorable = false
+            if side != viewSide: b[rank][file].rotate = true
 )
 
 
