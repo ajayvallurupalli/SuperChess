@@ -201,6 +201,7 @@ proc execute*(myDrafts: seq[Power], opponentDrafts: seq[Power], mySide: Color, b
     let opponentSynergizedDrafts = opponentDrafts.secretSynergize(secretSynergies & secretSecretSynergies)
 
     for d in concat(mySynergizedDrafts, opponentSynergizedDrafts).sortedByIt(it.priority):
+        echo fmt"Executing {d.name} with prio of {d.priority}"
         if d in mySynergizedDrafts:
             d.onStart(mySide, mySide, board, state)
         else:

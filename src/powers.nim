@@ -59,7 +59,7 @@ const pawnIcon: string = "pawn.svg"
 #it also buffs dna prototype for cleaner code.
 proc buff(piece: PieceType, side: Color, b: var ChessBoard, s: var BoardState, 
     moves: seq[MoveProc] = @[], takes: seq[MoveProc] = @[], onEndturn: seq[OnPiece] = @[],
-    rotate: bool = false,
+    rotate: bool = false, promoted: bool = false,
     onPromote: seq[OnPiece] = @[], whenTaken: WhenTaken = nil, onTake: OnAction = nil,
     onMove: OnAction = nil,
     all: bool = false) = 
@@ -73,12 +73,14 @@ proc buff(piece: PieceType, side: Color, b: var ChessBoard, s: var BoardState,
                 if not onTake.isNil: b[i][j].onTake = onTake
                 if not onMove.isNil: b[i][j].onMove = onMove
                 if rotate: b[i][j].rotate = true
+                if promoted: b[i][j].promoted = true
 
         s.side[side].dna[piece].moves &= moves
         s.side[side].dna[piece].takes &= takes
         s.side[side].dna[piece].onEndTurn &= onEndTurn
         s.side[side].dna[piece].onPromote &= onPromote
         if rotate: s.side[side].dna[piece].rotate = true
+        if promoted: s.side[side].dna[piece].promoted = true
         if not whenTaken.isNil: s.side[side].dna[piece].whenTaken = whenTaken
         if not onTake.isNil: s.side[side].dna[piece].onTake = onTake
         if not onMove.isNil: s.side[side].dna[piece].onMove = onMove
@@ -87,7 +89,7 @@ proc buff(piece: PieceType, side: Color, b: var ChessBoard, s: var BoardState,
 #it overwrites previous moves
 proc change(piece: PieceType, side: Color, b: var ChessBoard, s: var BoardState, 
     moves: seq[MoveProc] = @[], takes: seq[MoveProc] = @[], onEndturn: seq[OnPiece] = @[],
-    rotate: bool = false, #I'm just going to make it that you can only set this to true
+    rotate: bool = false, promoted: bool = true, #I'm just going to make it that you can only set this to true
     onPromote: seq[OnPiece] = @[], whenTaken: WhenTaken = nil, onTake: OnAction = nil,
     onMove: OnAction = nil, filePath: string = "",
     all: bool = false) = 
@@ -102,6 +104,7 @@ proc change(piece: PieceType, side: Color, b: var ChessBoard, s: var BoardState,
                 if not onMove.isNil: b[i][j].onMove = onMove
                 if filePath != "": b[i][j].filePath = filePath
                 if rotate: b[i][j].rotate = true
+                if promoted: b[i][j].promoted = true
 
         if moves.len != 0: s.side[side].dna[piece].moves = moves
         if takes.len != 0: s.side[side].dna[piece].takes = takes
@@ -109,6 +112,7 @@ proc change(piece: PieceType, side: Color, b: var ChessBoard, s: var BoardState,
         if onPromote.len != 0: s.side[side].dna[piece].onPromote = onPromote
         if filePath != "": s.side[side].dna[piece].filePath = filePath
         if rotate: s.side[side].dna[piece].rotate = true
+        if promoted: s.side[side].dna[piece].promoted = true
         if not whenTaken.isNil: s.side[side].dna[piece].whenTaken = whenTaken
         if not onTake.isNil: s.side[side].dna[piece].onTake = onTake
         if not onMove.isNil: s.side[side].dna[piece].onMove = onMove
@@ -992,7 +996,7 @@ const coward: Power = Power(
                         inc b[i][j].timesMoved
                         pieceSwap(b[i][j], b[i][j + 2], b)      
 )
-
+discard """
 const bombardOnTake*: OnAction = proc (piece: var Piece, to: Tile, board: var ChessBoard, state: var BoardState) = 
     let originalTile = piece.tile
     let takeResult = rookWhenTaken(piece, board[to.rank][to.file], board, state)
@@ -1046,7 +1050,7 @@ const bombardWithReinforcements: Power = Power(
                 if b[i][j].item == Rook and b[i][j].isColor(side):
                     b[i][j].onTake = reinforcementsOntake
 )
-
+"""
 const lancePromote*: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
     piece.moves = @[leftRightMoves, diagnalMoves, blackForwardMoves, whiteForwardMoves]
     piece.takes = @[leftRightTakes, diagnalTakes, blackForwardTakes, whiteForwardTakes]
@@ -1991,7 +1995,7 @@ proc createGlassDescription(): string =
 const skyGlass*: Power = Power(
     name: "Glass: Sky",
     tier: Uncommon,
-    rarity: 6, 
+    rarity: 8, 
     priority: 15,
     description: """On your turn, instead of moving, you can choose 2 pieces to each cast Sky on any 
                     open tile. These pieces teleport to their selected tile when the cast completes. 
@@ -2010,7 +2014,7 @@ const skyGlass*: Power = Power(
 const zeroGlass*: Power = Power(
     name: "Glass: Zero",
     tier: Rare,
-    rarity: 6,
+    rarity: 8,
     priority: 15,
     description: """On your turn, instead of moving, you can choose 2 pieces to each cast Zero on  
                     any non-king tile. Any piece on these tiles will die if the cast completes. Zero cannot be cast turn one. """ &
@@ -2029,7 +2033,7 @@ const zeroGlass*: Power = Power(
 const steelGlass*: Power = Power(
     name: "Glass: Steel",
     tier: Common,
-    rarity: 6,
+    rarity: 8,
     priority: 15,
     description: """On your turn, instead of moving, you can choose 5 pieces to each cast Steel. 
                     If there is an enemy one tile in front of them when the cast completes, they take forward. """ &
@@ -2088,7 +2092,7 @@ const canBankruptGlass: GlassMoves =
 const bankruptGlassPower*: Power = Power(
     name: "Glass: Bankruptcy",
     tier: Rare,
-    rarity: 6, #while new
+    rarity: 8, #while new
     priority: 0,
     description: """On your turn, if you have only 0 dollars, instead of moving you can choose 3 pieces to each cast Bankruptcy on  
                     any non-king tiles. Any piece on these tiles will die if the cast completes. Bankruptcy cannot be cast turn one. """ &
@@ -2141,7 +2145,7 @@ const reverieGlassAction: OnAction = proc (piece: var Piece, to: Tile, b: var Ch
 const reverieGlass*: Power = Power(
     name: "Glass: Reverie",
     tier: Common,
-    rarity: 6, 
+    rarity: 8, 
     priority: 0,
     description: """On your turn, instead of moving you can choose 3 pieces to each cast Reverie on 
                     an opponent tile. When the cast completes, 
@@ -2175,7 +2179,7 @@ const daybreakAction: OnAction = proc (piece: var Piece, to: Tile, b: var ChessB
 const daybreakGlass*: Power = Power(
     name: "Glass: Daybreak",
     tier: Rare,
-    rarity: 6,
+    rarity: 8,
     priority: 0,
     description: """On your turn, instead of moving you can choose 1 pieces to cast Daybreak on 
                     any tile. When the cast completes, the piece on that tile promotes. """ &
@@ -2258,6 +2262,69 @@ const masterGlass2: Synergy = (
 )
 
 
+const communism*: Power = Power(
+    name: "Comunism",
+    tier: UltraRare,
+    rarity: 1,
+    priority: 50,
+    description: """The proletariat must revolt to escape the continued shackles subjugation by the bourgeoisie. 
+                    We shall create a utopia of equality. """,
+    icon: "sickleandhammer.svg",
+    noColor: true,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            Pawn.change(side, b, s, 
+                promoted = true #so that it can never promote
+            )
+            for i, j in b.rankAndFile:
+                if b[i][j].isColor(side):
+                    b[i][j] = s.side[side].dna[Pawn].pieceCopy(index = b[i][j].index, tile = b[i][j].tile)
+            s.side[side].communist = true
+
+)
+
+#just does nothing
+const comucapitalNull*: Power = Power(
+    name: "Nothing. Nothing...",
+    tier: Common,
+    description: """The tautotology is empty. 
+                    The river flows. 
+                    Take off thy mask and feel the world. 
+                    Where is man? 
+                    Where is his kin? 
+                    When sight is white,
+                    when does it begin?
+                    Golden glimpses sunder position. 
+                    Beauty discovers in ebb and in flow. 
+                    Falling is height, Loss is full.
+                    The table must be full for the feast.
+                    Capture, take, collapse these pieces. 
+                    Destroy it, destroy thyself, destroy thy world.
+                    Feel it. 
+                    """,
+    index: 0,
+    onStart:
+        proc (_: Color, _: Color, _: var ChessBoard, _: var BoardState) = 
+            discard nil
+)
+
+const comucapital: Synergy = (
+    power: comucapitalNull,
+    rarity: 0,
+    requirements: @[capitalismPower.name, communism.name],
+    replacements: @[communism.name, #needs to remove all money related powers
+                        capitalismPower.name, 
+                        capitalismTwo1.power.name,
+                        capitalismThree1.power.name, 
+                        capitalismFour1.power.name,
+                        capitalismFive1.power.name,
+                        capitalismTwoThousand.power.name,
+                        slumdogBillionaire.power.name,
+                        bankruptGlassPower.name,
+                        bounty.power.name
+                    ],
+)
+
 registerPower(empress)
 registerPower(altEmpress)
 registerPower(mysteriousSwordsmanLeft)
@@ -2299,6 +2366,7 @@ registerPower(conversion)
 registerPower(americanDream)
 registerPower(sleeperAgent)
 registerPower(capitalismPower)
+registerPower(communism)
 
 registerPower(skyGlass)
 registerPower(zeroGlass)
@@ -2327,8 +2395,7 @@ registerSynergy(drunkNightRider2, true)
 registerSynergy(clarity, true)
 registerSynergy(masterGlass, true)
 registerSynergy(masterGlass2, true)
-registerSynergy(bounty, true)
-registerSynergy(bounty2, true)
+registerSynergy(comucapital, true)
 
 registerSynergy(capitalismTwo1)
 registerSynergy(capitalismTwo2)
@@ -2341,6 +2408,8 @@ registerSynergy(capitalismFive1)
 registerSynergy(capitalismFive2)
 registerSynergy(capitalismTwoThousand, true)
 registerSynergy(slumdogBillionaire, true)
+registerSynergy(bounty, true)
+registerSynergy(bounty2, true)
 
 registerSynergy(virus, true)
 registerSynergy(virus2, true)

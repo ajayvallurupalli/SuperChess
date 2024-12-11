@@ -79,8 +79,8 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = Game 
-const myDebugPowers: seq[Power] = @[zeroGlass, capitalismPower]
-const opponentDebugPowers: seq[Power] = @[]
+const myDebugPowers: seq[Power] = @[]
+const opponentDebugPowers: seq[Power] = @[communism]
 
 var 
     #state for coordination with other player
@@ -206,11 +206,11 @@ proc endRound() =
         theBoard[i][j].drunk = false
 
     piecesChecking = theBoard.getPiecesChecking(side)
-    if gameIsOver(theBoard):
+    if gameIsOver(theBoard, theState):
         currentScreen = Results
 
         if not practiceMode:
-            if side.alive(theBoard): 
+            if side.alive(theBoard, theState): 
                 addWins(myDrafts)
             else:
                 addLosses(myDrafts)
@@ -1007,18 +1007,18 @@ proc createGame(): VNode =
                     if side.hasGlass(theState):
                         createGlassMenu()
                 of Debug:
-                    tdiv(class="main"):
+                    tdiv:
                         text fmt"Shared: {$theState.shared}"
-                    tdiv(class="main"):
+                    tdiv:
                         text fmt"White: {$theState.side[white]}"
-                    tdiv(class="main"):
+                    tdiv:
                         text fmt"Black: {$theState.side[black]}"
                     if not isSelected(-1, -1):
-                        tdiv(class="main"):
+                        tdiv:
                             text fmt"Selected piece: {$pieceOf(selectedTile)}"
-                    tdiv(class="main"):
+                    tdiv:
                         text fmt"Action Stack: {actionStack}"
-                    tdiv(class="main"):
+                    tdiv:
                         text fmt"Next ActionStack: {nextActionStack}"
 
         tdiv(class="column"):
@@ -1027,7 +1027,7 @@ proc createGame(): VNode =
 
 proc createResults(): VNode = 
     result = buildHtml(tdiv(class="start-column")):
-        if side.alive(theBoard):
+        if side.alive(theBoard, theState):
             h1:
                 text "You won!"
         else:

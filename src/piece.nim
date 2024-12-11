@@ -100,6 +100,7 @@ type
     SideState* = object
         abilityTakes*: int = 0 #takes from ability. I could put on a piece, but it would cause issues with some powers
         hasCastled*: bool = false #since this state is very easy to alter and still won't complicate namespace, I might as well go hogwild with variables 
+        communist*: bool = false
 
         #used as prototypes for the pieces. When a piece is buffed, its dna should be buffed too
         #I don't know how to slice PieceType to exclude air and fairy, so just don't use them
@@ -271,12 +272,11 @@ const defaultOnTake*: OnAction = proc (piece: var Piece, taking: Tile, board: va
 #Very bulky function that creates a new `Piece` using the values of a  `initial Piece`
 #it also requires an index so that the user can decide how the new piece is related to the old piece
 #I'm sure there is some nim function to do this, but I don't know what. Maybe deepCopy?
-func pieceCopy*(initial: Piece, index: int, #index is required so I don't mess up
+func pieceCopy*(initial: Piece, index: int, tile: Tile, #index and tile are required so I don't mess up
                 item: PieceType = initial.item, 
                 color: Color = initial.color,
                 timesMoved: int = initial.timesMoved, 
                 piecesTaken: int = initial.piecesTaken,
-                tile: Tile = initial.tile,
                 moves: seq[MoveProc] = initial.moves,
                 takes: seq[MoveProc] = initial.takes,
                 onMove: OnAction = initial.onMove,
@@ -310,7 +310,8 @@ func isColor*(a: Piece, b: Color): bool =
 func otherSide*(a: Color): Color = 
     return if a == white: black else: white
 
-func alive*(c: Color, b: ChessBoard): bool = 
+func alive*(c: Color, b: ChessBoard, s: BoardState): bool = 
+    if s.side[c].communist: return true
     for row in b:
         for p in row:
             if p.item == King and p.isColor(c):
@@ -318,13 +319,21 @@ func alive*(c: Color, b: ChessBoard): bool =
 
     return false
 
-func gameIsOver*(b: ChessBoard): bool = 
-    var kings: int = 0
+func gameIsOver*(b: ChessBoard, s: BoardState): bool = 
+    var whiteAlive: bool = false
+    var blackAlive: bool = false
     for row in b:
         for p in row:
-            if p.item == King: inc kings
+            if p.isColor(white):
+                if p.item == King or s.side[white].communist:
+                    whiteAlive = true
+                    break
+            elif p.isColor(black):
+                if p.item == King or s.side[black].communist:
+                    blackAlive = true
+                    break
 
-    return kings != 2
+    return not (whiteAlive and blackAlive)
 
 func getPiecesChecking*(b: ChessBoard, c: Color): seq[Tile] = 
     var kingTile: Tile = (-1, -1)
