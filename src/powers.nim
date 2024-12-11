@@ -1638,7 +1638,7 @@ const bounty2: Synergy = (
 )
 
 #helper function to create capitalism powers, since they need to be synergies to ensure use has money
-proc createCapitalism(power: Power, rarity: int = 24, requirements: seq[string] = @[], replacements: seq[string] = @[]): Synergy =
+proc createCapitalism(power: Power, rarity: int = 16, requirements: seq[string] = @[], replacements: seq[string] = @[]): Synergy =
         return (
             power: power,
             rarity: rarity,
