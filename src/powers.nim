@@ -2285,7 +2285,7 @@ const communism*: Power = Power(
 
 #just does nothing
 const comucapitalNull*: Power = Power(
-    name: "Nothing. Nothing...",
+    name: "Null",
     tier: Common,
     description: """The tautotology is empty. 
                     The river flows. 
