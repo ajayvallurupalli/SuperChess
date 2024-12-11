@@ -1442,19 +1442,22 @@ const stupidPower*: Power = Power(
             )
 )
 
-const convertingTake: OnAction = proc (piece: var Piece, taking: Tile, board: var ChessBoard, state: var BoardState) = 
-    randomize(10 * piece.tile.rank + 100 * piece.tile.file + state.shared.randSeed)
-    let dice = rand(20)
+proc createConvertingTake(odds: float): OnAction = 
+    assert odds <= 1
 
-    inc piece.timesMoved
-    if dice <= 3 and board[taking].item != King: #creates odds of 3/20 or 15%
-        board[taking].color = piece.color
-        board[taking].index = newIndex(state) #it is a new piece when it switches
-        pieceSwap(piece, board[taking], board)
-    else:
-        let takeResult = taking.takenBy(piece, board, state)
-        if takeResult.takeSuccess:
-            board[takeResult.endTile].piecesTaken += 1
+    result = proc (piece: var Piece, taking: Tile, board: var ChessBoard, state: var BoardState) = 
+        randomize(10 * piece.tile.rank + 100 * piece.tile.file + state.shared.randSeed)
+        let dice = rand(100)
+
+        inc piece.timesMoved
+        if dice <= int(odds * 100) and board[taking].item != King: 
+            board[taking].color = piece.color
+            board[taking].index = newIndex(state) #it is a new piece when it switches
+            pieceSwap(piece, board[taking], board)
+        else:
+            let takeResult = taking.takenBy(piece, board, state)
+            if takeResult.takeSuccess:
+                board[takeResult.endTile].piecesTaken += 1
 
 const conversion: Power = Power(
     name: "Conversion",
@@ -1466,23 +1469,9 @@ const conversion: Power = Power(
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             Bishop.buff(side, b, s, 
-                onTake = convertingTake
+                onTake = createConvertingTake(0.15)
             )
 )
-
-const holyConvertingTake: OnAction = proc (piece: var Piece, taking: Tile, board: var ChessBoard, state: var BoardState) = 
-    randomize(10 * piece.tile.rank + 100 * piece.tile.file + state.shared.randSeed)
-    let dice = rand(20)
-
-    inc piece.timesMoved
-    if dice <= 6  and board[taking].item != King: #creates odds of 6/20 or 30%
-        board[taking].color = piece.color
-        board[taking].index = newIndex(state)
-        pieceSwap(piece, board[taking], board)
-    else:
-        let takeResult = taking.takenBy(piece, board, state)
-        if takeResult.takeSuccess:
-            board[takeResult.endTile].piecesTaken += 1
 
 const holyConversionPower: Power = Power(
     name: "God's Disciple",
@@ -1494,7 +1483,7 @@ const holyConversionPower: Power = Power(
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             Bishop.buff(side, b, s, 
-                onTake = holyConvertingTake
+                onTake = createConvertingTake(0.3)
             )
 )
 
@@ -1578,7 +1567,7 @@ const promoteBuyingCondition: BuyCondition = func (piece: Piece, board: ChessBoa
 
 #this is attatched to the King, which tracks all piecesTaken
 #I originally had it on each piece, but then I would have to add it to each new piece
-proc moneyForTake(): OnPiece = 
+proc moneyForTakeAll(): OnPiece = 
     var lastPiecesTaken = 0
     #closure is used to hold state
     #this is preferable when state does not need to interact with the rest of the game's systems
@@ -1595,6 +1584,14 @@ proc moneyForTake(): OnPiece =
             addMoney(piece.color, (allPiecesTaken - lastPiecesTaken) * 3, state)
         lastPiecesTaken = allPiecesTaken
 
+#just tracks one piece
+proc moneyForTakeSingle(): OnPiece = 
+    var lastPiecesTaken = 0
+    result = proc (piece: var Piece, b: var ChessBoard, state: var BoardState) =
+        if piece.piecesTaken > lastPiecesTaken:
+            addMoney(piece.color, (piece.piecesTaken - lastPiecesTaken) * 3, state)
+        lastPiecesTaken = piece.piecesTaken
+
 const capitalismPower*: Power = Power(
     name: "Capitalism",
     tier: Uncommon,
@@ -1610,7 +1607,34 @@ const capitalismPower*: Power = Power(
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             s.side[side].buys &= (name: "Promote", cost: alwaysCost(30), action: promoteBuying, condition: promoteBuyingCondition)
             side.initWallet(s)
-            King.addOnEndTurnTransform(side, b, s, moneyForTake)
+            King.addOnEndTurnTransform(side, b, s, moneyForTakeAll)
+)
+
+const bountyPower*: Power = Power(
+    name: "Bounty",
+    tier: UltraRare, 
+    rarity: 0,
+    priority: 15,
+    description: "Pieces Wanted: Dead or Alive. Bounty: 6 dollars.",
+    icon: kingIcon,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            King.addOnEndTurnTransform(side, b, s, moneyForTakeSingle)
+            King.addOnEndTurnTransform(side, b, s, moneyForTakeSingle)
+)
+
+const bounty: Synergy = (
+    power: bountyPower,
+    rarity: 0,
+    requirements: @[bountyHunterPower.name, capitalismPower.name],
+    replacements: @[]
+)
+
+const bounty2: Synergy = (
+    power: bountyPower,
+    rarity: 0,
+    requirements: @[lesbianBountyHunterPower.name, capitalismPower.name],
+    replacements: @[]
 )
 
 #helper function to create capitalism powers, since they need to be synergies to ensure use has money
@@ -1790,9 +1814,9 @@ const taxes*: Power = Power(
     noColor: true,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            #We just add two more `moneyForTake`s
-            King.addOnEndTurnTransform(side, b, s, moneyForTake)
-            King.addOnEndTurnTransform(side, b, s, moneyForTake)
+            #We just add two more `moneyForTakeAll`s
+            King.addOnEndTurnTransform(side, b, s, moneyForTakeAll)
+            King.addOnEndTurnTransform(side, b, s, moneyForTakeAll)
             King.buff(side, b, s, 
                 onEndTurn = @[createTaxes(0.15)]
             )
@@ -1811,8 +1835,8 @@ const inflation*: Power = Power(
     noColor: true,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            #We just add 1 more `moneyForTake`s
-            King.addOnEndTurnTransform(side, b, s, moneyForTake)
+            #We just add 1 more `moneyForTakeAll`s
+            King.addOnEndTurnTransform(side, b, s, moneyForTakeAll)
 )
 
 const capitalismFour1: Synergy = createCapitalism(inflation)
@@ -1843,7 +1867,7 @@ const handouts*: Power = Power(
     noColor: true,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            #We just add two more `moneyForTake`s
+            #We just add two more `moneyForTakeAll`s
             King.addOnEndTurnTransform(side, b, s, moneyForMove)
 )
 
@@ -2303,6 +2327,8 @@ registerSynergy(drunkNightRider2, true)
 registerSynergy(clarity, true)
 registerSynergy(masterGlass, true)
 registerSynergy(masterGlass2, true)
+registerSynergy(bounty, true)
+registerSynergy(bounty2, true)
 
 registerSynergy(capitalismTwo1)
 registerSynergy(capitalismTwo2)
