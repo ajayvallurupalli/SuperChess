@@ -1486,7 +1486,7 @@ const holyConversionPower: Power = Power(
     name: "God's Disciple",
     tier: Uncommon,
     priority: 15,
-    description: """Your bishop has now seen god. When it takes, it has a 30% chance to convert it to your color. 
+    description: """Your bishop has now seen God. When it takes, it has a 30% chance to convert it to your color. 
                     When this happens, your bishop swaps places with it instead of taking it.""",
     icon: bishopIcon,
     onStart: 
@@ -1503,25 +1503,23 @@ const holyConversion: Synergy = (
     replacements: @[conversion.name]
 )
 
-#since end turn stuff now runs at the end of every turn, we have new 
-#tech like global powers
-const killPromoted: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) =
-    for i, j in board.rankAndFile:
-        if board[i][j].promoted:
-                board[i][j] = air.pieceCopy(index = newIndex(state), tile = board[i][j].tile)
-
 const americanDream: Power = Power(
     name: "American Dream",
     tier: Rare,
     priority: 30, 
-    description: "All pieces, you and your opponent, are killed when they promote. It's not real.",
+    description: "All pieces, you and your opponent's, cannot promote. It's not real.",
     icon: "usflag.svg",
     noColor: true,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            King.buff(side, b, s, 
-                onEndTurn = @[killPromoted]
+            Pawn.buff(side, b, s, 
+                promoted = true
             )
+
+            Pawn.buff(otherSide(side), b, s, 
+                promoted = true
+            )
+            
 )
 
 const sleeperAgent*: Power = Power(
