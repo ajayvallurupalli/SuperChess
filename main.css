@@ -1006,6 +1006,37 @@ as punishment for my sins.
   font-size: 23px;
 }
 
+.nuke {
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  text-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  column-gap: 10%;
+  row-gap: 20px;
+  padding-top: -20px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  min-width: 90%;
+  width: 0px;
+  max-width: 90%;
+  min-height: fit-content;
+  transition: ease-in-out all 0.5s;
+  background-color: #F8F7F7;
+  grid-template-areas: "nuke";
+  padding-top: 20px !important;
+}
+.nuke:hover {
+  background-color: #DCDCDC;
+}
+.nuke button {
+  grid-area: nuke;
+  font-size: 30px;
+}
+
 .has-won {
   outline: yellow;
   outline-width: 5px;
@@ -1311,9 +1342,9 @@ hr {
   outline-width: 1px;
   outline-color: #183dd1;
   outline-style: solid;
-  animation: animateOutlineuxyf8o6 2s ease infinite;
+  animation: animateOutlineuud2i7o 2s ease infinite;
 }
-@keyframes animateOutlineuxyf8o6 {
+@keyframes animateOutlineuud2i7o {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1340,9 +1371,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-uxyf8ob 4s ease-in-out infinite;
+  animation: castingAnimation-uud2i80 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-uxyf8ob {
+@keyframes castingAnimation-uud2i80 {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1359,9 +1390,9 @@ hr {
   outline-width: 1px;
   outline-color: #ea332d;
   outline-style: solid;
-  animation: animateOutlineuxyf8os 2s ease infinite;
+  animation: animateOutlineuud2i8c 2s ease infinite;
 }
-@keyframes animateOutlineuxyf8os {
+@keyframes animateOutlineuud2i8c {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1388,9 +1419,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-uxyf8pc 4s ease-in-out infinite;
+  animation: castingAnimation-uud2i8j 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-uxyf8pc {
+@keyframes castingAnimation-uud2i8j {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1407,9 +1438,9 @@ hr {
   outline-width: 1px;
   outline-color: rgb(206, 206, 206);
   outline-style: solid;
-  animation: animateOutlineuxyf8px 2s ease infinite;
+  animation: animateOutlineuud2i9b 2s ease infinite;
 }
-@keyframes animateOutlineuxyf8px {
+@keyframes animateOutlineuud2i9b {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1436,9 +1467,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-uxyf8qj 4s ease-in-out infinite;
+  animation: castingAnimation-uud2ia7 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-uxyf8qj {
+@keyframes castingAnimation-uud2ia7 {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1455,9 +1486,9 @@ hr {
   outline-width: 1px;
   outline-color: #424242;
   outline-style: solid;
-  animation: animateOutlineuxyf8qs 2s ease infinite;
+  animation: animateOutlineuud2iag 2s ease infinite;
 }
-@keyframes animateOutlineuxyf8qs {
+@keyframes animateOutlineuud2iag {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1484,9 +1515,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-uxyf8rf 4s ease-in-out infinite;
+  animation: castingAnimation-uud2iax 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-uxyf8rf {
+@keyframes castingAnimation-uud2iax {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1503,9 +1534,9 @@ hr {
   outline-width: 1px;
   outline-color: rgb(201, 178, 65);
   outline-style: solid;
-  animation: animateOutlineuxyf8rk 2s ease infinite;
+  animation: animateOutlineuud2iba 2s ease infinite;
 }
-@keyframes animateOutlineuxyf8rk {
+@keyframes animateOutlineuud2iba {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1532,9 +1563,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-uxyf8rn 4s ease-in-out infinite;
+  animation: castingAnimation-uud2ibj 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-uxyf8rn {
+@keyframes castingAnimation-uud2ibj {
   0% {
     outline-width: 3px;
     outline-offset: 50px;

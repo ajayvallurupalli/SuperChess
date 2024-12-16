@@ -363,6 +363,19 @@ $glasses: ("sky": $sky, "steel": $steel, "reverie": $reverie, "zero": $zero, "da
     }
 }
 
+.nuke {
+    @include row(1, 1);
+    grid-template-areas: 'nuke';
+    padding-top: 20px !important;
+
+
+    button {
+        grid-area: nuke;
+        font-size: 30px;
+    }
+
+}
+
 .has-won {
     outline: yellow;
     outline-width: 5px;

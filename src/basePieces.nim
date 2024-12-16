@@ -65,7 +65,6 @@ const onPawnPromote*: OnPiece = proc (piece: var Piece, board: var ChessBoard, s
         piecesTaken = piece.piecesTaken, 
         timesMoved = piece.timesMoved,
         tile = piece.tile, 
-        promoted = true, 
         color = piece.color, #this is unncesscary, but I might as well keep it
         filePath = "queen.svg"
     )

@@ -97,6 +97,8 @@ type
         randSeed*: int = 0
         turnNumber*: int = 0
 
+        mutuallyAssuredDestruction*: bool = false
+
     SideState* = object
         abilityTakes*: int = 0 #takes from ability. I could put on a piece, but it would cause issues with some powers
         hasCastled*: bool = false #since this state is very easy to alter and still won't complicate namespace, I might as well go hogwild with variables 
@@ -179,9 +181,11 @@ template take* (p: var Piece, to: Tile, b: var ChessBoard, s: var BoardState): u
     p.onTake(p, to, b, s)
 
 template promote* (p: var Piece, b: var ChessBoard, s: var BoardState): untyped = 
-    for x in p.onPromote:
+    let promotes = p.onPromote #we copy promotes so that the piece can change without promotes changing mid loop
+    for x in promotes:
         x(p, b, s)
-        if p.promoted: break
+
+    p.promoted = true
 
 template endTurn* (p: var Piece, b: var ChessBoard, s: var BoardState): untyped = 
     for x in p.onEndTurn:

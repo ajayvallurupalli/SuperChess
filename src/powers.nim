@@ -172,7 +172,6 @@ const silverGeneralPromote: OnPiece = proc (piece: var Piece, board: var ChessBo
     else:
         piece.moves &= @[whiteForwardMoves, blackDiagnalMoves, leftRightMoves]
         piece.takes &= @[whiteForwardTakes, blackDiagnalTakes, leftRightTakes]
-    piece.promoted = true
     piece.filePath = "promotedsilvergeneral.svg"
 
 const silverGeneralPromoteConditions*: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
@@ -253,10 +252,10 @@ const developed*: Power = Power(
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             #TODO: fix hard coded moves to prevent conflict. 
             #fix would just stop move attempt if it would kill a piece
-            if side == black:
+            if side == black and b[1][3].item == Pawn and b[1][4].item == Pawn:
                 b[1][3].pieceMove(2, 3, b, s)
                 b[1][4].pieceMove(2, 4, b, s)
-            else:
+            elif side == white and b[6][3].item == Pawn and b[6][4].item == Pawn:
                 b[6][3].pieceMove(5, 3, b, s)
                 b[6][4].pieceMove(5, 4, b, s)         
 )
@@ -287,7 +286,8 @@ const illegalFormationRL: Power = Power(
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, _: var BoardState) = 
             let rank = if side == black: 0 else: 6
-            pieceSwap(b[rank][0], b[rank + 1][0], b)
+            let file = if side == black: 7 else: 0
+            pieceSwap(b[rank][file], b[rank + 1][file], b)
 )
 
 const illegalFormationRR: Power = Power(
@@ -302,7 +302,9 @@ const illegalFormationRR: Power = Power(
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, _: var BoardState) = 
             let rank = if side == black: 0 else: 6
-            pieceSwap(b[rank][7], b[rank + 1][7], b)
+            let file = if side == black: 0 else: 7
+            pieceSwap(b[rank][file], b[rank + 1][file], b)
+
 )
 
 const illegalFormationBL*: Power = Power(
@@ -317,7 +319,8 @@ const illegalFormationBL*: Power = Power(
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, _: var BoardState) = 
             let rank = if side == black: 0 else: 6
-            pieceSwap(b[rank][2], b[rank + 1][2], b)
+            let file = if side == black: 5 else: 2
+            pieceSwap(b[rank][file], b[rank + 1][file], b)
 )
 
 const illegalFormationBR: Power = Power(
@@ -332,7 +335,8 @@ const illegalFormationBR: Power = Power(
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, _: var BoardState) = 
             let rank = if side == black: 0 else: 6
-            pieceSwap(b[rank][5], b[rank + 1][5], b)
+            let file = if side == black: 2 else: 5
+            pieceSwap(b[rank][file], b[rank + 1][file], b)
 )
 
 const putInTheWorkCondition: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) =
@@ -1057,7 +1061,6 @@ const bombardWithReinforcements: Power = Power(
 const lancePromote*: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
     piece.moves = @[leftRightMoves, diagnalMoves, blackForwardMoves, whiteForwardMoves]
     piece.takes = @[leftRightTakes, diagnalTakes, blackForwardTakes, whiteForwardTakes]
-    piece.promoted = true
     piece.filePath = "promotedlance.svg"
 
 const lancePromoteConditions*: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
@@ -1560,7 +1563,6 @@ const promoteBuying: OnPiece = proc (piece: var Piece, b: var ChessBoard, s: var
     var release = false
     piece.moves = @[]
     piece.takes = @[]
-    piece.promoted = true
 
     piece.onEndTurn &= 
         proc (piece: var Piece, board: var ChessBoard, state: var BoardState) =
@@ -1645,7 +1647,7 @@ const bounty2: Synergy = (
 )
 
 #helper function to create capitalism powers, since they need to be synergies to ensure use has money
-proc createCapitalism(power: Power, rarity: int = 16, requirements: seq[string] = @[], replacements: seq[string] = @[]): Synergy =
+proc createCapitalism(power: Power, rarity: int = 10, requirements: seq[string] = @[], replacements: seq[string] = @[]): Synergy =
         return (
             power: power,
             rarity: rarity,
@@ -1831,9 +1833,9 @@ const taxes*: Power = Power(
 
 const capitalismFive2: Synergy = createCapitalism(taxes)
 
-const inflation*: Power = Power(
+const monopoly*: Power = Power(
     name: "Capitalism IV",
-    technicalName: """Capitalism IV: "Inflation"""",
+    technicalName: "Capitalism IV: Monopoly",
     tier: Uncommon,
     rarity: 0,
     priority: 15,
@@ -1846,7 +1848,7 @@ const inflation*: Power = Power(
             King.addOnEndTurnTransform(side, b, s, moneyForTakeAll)
 )
 
-const capitalismFour1: Synergy = createCapitalism(inflation)
+const capitalismFour1: Synergy = createCapitalism(monopoly)
 
 proc moneyForMove(): OnPiece = 
     var lastTimesMoved = 0
@@ -2264,7 +2266,6 @@ const masterGlass2: Synergy = (
     replacements: @[]
 )
 
-
 const communism*: Power = Power(
     name: "Comunism",
     tier: UltraRare,
@@ -2305,7 +2306,7 @@ const comucapitalNull*: Power = Power(
                     Destroy it, destroy thyself, destroy thy world.
                     Feel it. 
                     """,
-    index: 0,
+    icon: "",
     onStart:
         proc (_: Color, _: Color, _: var ChessBoard, _: var BoardState) = 
             discard nil
@@ -2326,6 +2327,92 @@ const comucapital: Synergy = (
                         bankruptGlassPower.name,
                         bounty.power.name
                     ],
+)
+
+#TODO 
+#This is going to be for the fture anyisynergy update
+#Rbut I first need to do a show power menu while drating
+const undevelopedPower*: Power = Power(
+    name: "Un-Developed",
+    tier: Common,
+    priority: 21, #after developed 
+    description: """Undevelop your opponent's board. Their 2 center pawns move back to their normal starting place. 
+                    It's not even useful, but it is annoying. """,
+    antiDescription: "You've been undeveloped.",
+    icon: pawnIcon,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            #TODO: fix hard coded moves to prevent conflict. 
+            #fix would just stop move attempt if it would kill a piece
+            if side == black and b[2][3].item == Pawn and b[2][4].item == Pawn:
+                b[2][3].pieceMove(1, 3, b, s)
+                b[2][4].pieceMove(1, 4, b, s)
+            elif side == white and b[5][3].item == Pawn and b[5][4].item == Pawn:
+                b[5][3].pieceMove(6, 3, b, s)
+                b[5][4].pieceMove(6, 4, b, s)         
+)
+
+const undeveloped: AntiSynergy = (
+    power: undevelopedPower,
+    rarity: 10,
+    drafterRequirements: @[],
+    opponentRequirements: @[developed.name]
+)
+
+const coldWarPower*: Power = Power(
+    name: "Cold War",
+    tier: UltraRare,
+    priority: 20,
+    description: "Do not press the button.",
+    icon: " ",
+    noColor: true,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            s.shared.mutuallyAssuredDestruction = true
+)
+
+const coldWar1: AntiSynergy = (
+    power: coldWarPower,
+    rarity: 0,
+    drafterRequirements: @[capitalismPower.name],
+    opponentRequirements: @[communism.name]
+)
+
+const coldWar2: AntiSynergy = (
+    power: coldWarPower,
+    rarity: 0,
+    drafterRequirements: @[communism.name],
+    opponentRequirements: @[capitalismPower.name]
+)
+
+const inflate: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
+    let oldBuy = state.side[otherSide(piece.color)].buys
+    for index, buy in oldBuy:
+        state.side[otherSide(piece.color)].buys[index].cost
+            = func (piece: Piece, board: ChessBoard, s: BoardState): int = 
+                buy.cost(piece, board, s) + 1
+
+const inflationPower*: Power = Power(
+    name: "Inflation",
+    tier: Uncommon,
+    priority: 25,
+    description: "",
+    antiDescription: "",
+    icon: "americanflag.svg",
+    noColor: true,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            King.buff(side, b, s, 
+                onEndturn = @[inflate]
+            )
+
+)
+
+const inflation*: AntiSynergy = (
+    power: inflationPower,
+    rarity: 12,
+    drafterRequirements: @[],
+    opponentRequirements: @[capitalismPower.name]
 )
 
 registerPower(empress)
@@ -2424,6 +2511,10 @@ registerSynergy(virus7, true)
 
 registerSynergy(masochistEmpress, true, true)
 registerSynergy(masochistAltEmpress, true, true)
+
+registerAntiSynergy(undeveloped)
+registerAntiSynergy(coldWar1, true)
+registerAntiSynergy(coldWar2, true)
 
 #All powers with rng involved
 #so user can disable them if they want

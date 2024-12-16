@@ -79,8 +79,8 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = Game 
-const myDebugPowers: seq[Power] = @[wanderingRoninLeft]
-const opponentDebugPowers: seq[Power] = @[communism]
+const myDebugPowers: seq[Power] = @[capitalismPower]
+const opponentDebugPowers: seq[Power] = @[inflationPower]
 
 var 
     #state for coordination with other player
@@ -335,6 +335,12 @@ proc otherAction(d: string) =
         endRound()
     elif data[0].contains("casting"):
         otherGlass(d)
+    elif data[0] == "nuke":
+        for i, j in theBoard.rankAndFile:
+            theBoard[i][j] = air.pieceCopy(index = newIndex(theState), tile = theBoard[i][j].tile)
+        turn = true
+        echo "otheraction of nuke: turn equals true"
+        endRound()
     elif data[0] == "pass":
         turn = true
         echo "otheraction of pass: turn equals true"
@@ -364,7 +370,7 @@ proc cancelAllPicks() =
 proc cancelAllPicks(_: Event, _: VNode) =
     cancelAllPicks()
     
-proc draft(allDrafts: seq[Power] = @[], drafter: seq[Power] = @[]) = 
+proc draft(drafter: seq[Power] = @[], opponentDrafts: seq[Power] = @[]) = 
     var disabled: seq[Power] = @[]
 
     if disableRNGPowers:
@@ -373,12 +379,31 @@ proc draft(allDrafts: seq[Power] = @[], drafter: seq[Power] = @[]) =
         disabled &= experimentalPowers
 
     if gameMode == TrueRandom:
-        draftOptions = draftRandomPower(allDrafts & disabled, drafter, draftChoices)
+        draftOptions = draftRandomPower(
+            drafterSelected = drafter,  #nameing first two so it looks nice
+            opponentSelected = opponentDrafts, 
+            disabled = disabled, 
+            options = draftChoices
+        )
     elif gameMode == RandomTier:
         #doesn't allow holy to be drafted in tierDraft because luck is consistent here
-        draftOptions = draftRandomPowerTier(draftTier, allDrafts & holy & disabled, drafter, draftChoices)
+        draftOptions = draftRandomPowerTier(
+            tier = draftTier, 
+            drafterSelected = drafter, 
+            opponentSelected = 
+            opponentDrafts, 
+            disabled = holy & disabled, 
+            options = draftChoices
+        )
     elif gameMode == SuperRandom:
-        draftOptions = draftRandomPower(allDrafts & disabled, drafter, draftChoices, insaneWeights, buffedInsaneWeights)
+        draftOptions = draftRandomPower(
+            drafterSelected = drafter,  #nameing first two so it looks nice
+            opponentSelected = opponentDrafts, 
+            disabled = disabled, 
+            options = draftChoices, 
+            normalWeights = insaneWeights, 
+            buffedWeights = buffedInsaneWeights
+        )
 
 proc hostLogic(d: string, m: MessageType) = 
     echo $m, " of ", d, "\n"
@@ -396,11 +421,15 @@ proc hostLogic(d: string, m: MessageType) =
         var x = d.split(",")
         if x[0] == "my":
             turn = true
-            opponentDrafts.add(powers[parseInt(x[1])])
+            let addedPower = powers[parseInt(x[1])]
+            if addedPower.anti:
+                myDrafts.add(addedPower)
+            else:
+                opponentDrafts.add(powers[parseInt(x[1])])
             if draftsLeft >= 1:
                 dec draftsLeft
                 draftTier = randomTier(defaultBuffedWeights)
-                draft(myDrafts & opponentDrafts, myDrafts)
+                draft(myDrafts, opponentDrafts)
             else:
                 execute(myDrafts, opponentDrafts, side, theBoard, theState)
                 peer.send("handshake:gamestart")
@@ -438,7 +467,11 @@ proc joinLogic(d: string, m: MessageType) =
         if d == "start":
             currentScreen = Draft
         elif x[0] == "my":
-            opponentDrafts.add(powers[parseInt(x[1])])
+            let addedPower = powers[parseInt(x[1])]
+            if addedPower.anti:
+                myDrafts.add(addedPower)
+            else:
+                opponentDrafts.add(addedPower)
         elif x[0] == "go":
             draftOptions = @[]
             for i in x[1..^1]:
@@ -730,10 +763,13 @@ proc createPowerMenu(p: Power): VNode =
         
         proc onclick(_: Event, _: VNode) = 
             peer.send("draft:my," & $p.index)
-            myDrafts.add(p)
+            if p.anti:
+                opponentDrafts.add(p)
+            else:
+                myDrafts.add(p)
             turn = false
             if side == white:
-                draft(myDrafts & opponentDrafts, opponentDrafts)
+                draft(opponentDrafts, myDrafts)
                 peer.send("draft:go" &  draftOptions.mapIt("," & $it.index).foldr(a & b))
 
 proc createDraftMenu(): VNode = 
@@ -756,7 +792,7 @@ proc createPowerSummary(p: Power, ofSide: Color): VNode =
         h4(class = "title"):
             text if showTechnicalNames and p.technicalName != "": p.technicalName else: p.name
         p(class="desc"):
-            text p.description
+            text if p.antiDescription == "": p.description else: p.antiDescription
         if p.icon != "":
             img(class = class, src = src & p.icon)
         else:
@@ -949,6 +985,15 @@ proc createGlassMenu(): VNode =
                     pickOptions = getPickOptions() #we run once so that there are intitial options
                     clear()
 
+proc createNukeMenu(): VNode = 
+    result = buildHtml(tdiv(class="nuke")):
+        button:
+            text "Launch Nuclear Missles"
+            proc onclick(_: Event, _: VNode) = 
+                sendAction("nuke", true)
+                for i, j in theBoard.rankAndFile:
+                    theBoard[i][j] = air.pieceCopy(index = newIndex(theState), tile = theBoard[i][j].tile)
+
 proc createGame(): VNode = 
     let topClass = if screenWidth > 1200: "main" else: "column height-100"
     let nextClass = if screenWidth > 1200: "tab-column" else: "tab-column long"
@@ -989,7 +1034,7 @@ proc createGame(): VNode =
             tdiv(class="column-scroll"):
                 case currentTab
                 of My:
-                    for p in myDrafts.replaceAnySynergies():
+                    for p in myDrafts.replaceAnySynergies(opponentDrafts):
                         createPowerSummary(p, side)
                     if not practiceMode: #since this crashes in practiceMode for some reasons
                         tdiv(class="debug"): #cheeky dev button
@@ -997,7 +1042,7 @@ proc createGame(): VNode =
                                 showDebug = true
 
                 of Opponent:
-                    for p in opponentDrafts.replaceAnySynergies():
+                    for p in opponentDrafts.replaceAnySynergies(myDrafts):
                         createPowerSummary(p, otherSide(side))
                 of Control:
                     if isSelected(-1, -1) or theBoard[selectedTile].isAir():
@@ -1006,6 +1051,9 @@ proc createGame(): VNode =
                         createPieceProfile(pieceOf(selectedTile))
                     if side.hasGlass(theState):
                         createGlassMenu()
+                    if theState.shared.mutuallyAssuredDestruction:
+                        createNukeMenu()
+
                 of Debug:
                     tdiv:
                         text fmt"Shared: {$theState.shared}"

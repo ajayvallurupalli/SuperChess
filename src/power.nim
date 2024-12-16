@@ -22,9 +22,11 @@ type
         name*: string
         technicalName*: string = ""
         synergy*: bool = false #can i delete? This is used for like one thing
+        anti*: bool = false
         tier*: Tier
         rarity*: int = 8
         description*: string = "NONE"
+        antiDescription*: string = ""
         icon*: string = ""
         rotatable*: bool = false
         noColor*: bool = false #if noColor, it will not try to add white and back to icon path
@@ -32,14 +34,17 @@ type
         index*: int = -1
         priority*: int = 10  #TODO find if I've been sorting priority wrong this entire time. No way right??
 
-    #This is a tuple instead becuase it only has like 4 things
-    #IDK if the performance matters, or if there's even a difference
-    #but it doesn't really need to be an object
     Synergy* = tuple
         power: Power
         rarity: int
         requirements: seq[string]
         replacements: seq[string]
+
+    AntiSynergy* = tuple
+        power: Power
+        rarity: int
+        drafterRequirements: seq[string]
+        opponentRequirements: seq[string]
     
     #just used to decide the percent chances of getting certain tiers
     #Contract: ```assert common + uncommon + rare + ultraRare == 100```
@@ -84,9 +89,15 @@ const holy*: Power = Power(
 
 var 
     powers*: seq[Power] = @[emptyPower]
+
     draftSynergies*: seq[Synergy]
     secretSynergies*: seq[Synergy]
     secretSecretSynergies*: seq[Synergy]
+
+    antiSynergies*: seq[AntiSynergy]
+    secretAntiSynergies*: seq[AntiSynergy]
+    secretSecretAntiSynergies*: seq[AntiSynergy]
+
     commonPowers: seq[Power]
     uncommonPowers: seq[Power]
     rarePowers: seq[Power]
@@ -95,7 +106,7 @@ var
 #I know I should use an enum instead of secret and secretSecret, but I think this is funner
 proc registerSynergy*(s: Synergy, secret: bool = false, secretSecret = false) = 
     assert secret or not secretSecret #ensures that secretSecret is true if and only if secret is true
-    var x = s
+    var x = s #to edit
     
     x.power.rarity = x.rarity
     x.power.index = powers[powers.len - 1].index + 1
@@ -104,45 +115,83 @@ proc registerSynergy*(s: Synergy, secret: bool = false, secretSecret = false) =
     let requirements = s.requirements.foldr(a & " + " & b)
 
     #updating techincal name and description of added power
-    if secret and not secretSecret: #Secret Synergies
-        x.power.description = fmt"Secret Synergy! ({requirements}) -- {x.power.description}"
-        x.power.technicalName = 
-            if x.power.technicalName == "": fmt"{x.power.name} (Secret Synergy of {requirements})"
-            else: fmt"{x.power.technicalName} (Secret Synergy of {requirements})"
-    elif not secret: #Normal Synergies
-        x.power.description = fmt"Synergy! ({requirements}) -- {x.power.description}" 
-        x.power.technicalName = 
-            if x.power.technicalName == "": fmt"{x.power.name} (Synergy of {requirements})"
-            else: fmt"{x.power.technicalName} (Synergy of {requirements})"
-    else: #Secret Secret Synergies
-        x.power.technicalName = 
-            if x.power.technicalName == "": fmt"{x.power.name} (Secret Secret Synergy of {requirements})"
-            else: fmt"{x.power.technicalName} (Secret Secret Synergy of {requirements})"
+    let synergyName = 
+        if secretSecret: "Secret Secret Synergy"
+        elif secret: "Secret Synergy"
+        else: "Synergy"
+    
+    x.power.description = fmt"{synergyName}! ({requirements}) -- {x.power.description}"
+    x.power.technicalName = 
+        if x.power.technicalName == "": fmt"{x.power.name} ({synergyName} of {requirements})"
+        else: fmt"{x.power.technicalName} ({synergyName} of {requirements})"
 
     powers.add(x.power)
     if secretSecret: secretSecretSynergies.add(x) 
     elif secret: secretSynergies.add(x)
     else: draftSynergies.add(x)
 
-proc synergize(pool: seq[Power], currentPowers: seq[Power], t: Tier): seq[Power] =
+proc registerAntiSynergy*(s: AntiSynergy, secret: bool = false, secretSecret: bool = false) = 
+    assert secret or not secretSecret #assert secret implies secretSecret
+    var x = s #to edit
+
+    x.power.rarity = x.rarity
+    x.power.index = powers[powers.len - 1].index + 1
+    x.power.synergy = true
+    x.power.anti = true
+
+    let opponentReqs = s.opponentRequirements.foldr(a & " + " & b)
+    let requirements =
+        if s.drafterRequirements.len != 0:
+            block: #needed to make drafterReqs
+                let drafterReqs = s.drafterRequirements.foldr(a & " + " & b)
+                fmt"{drafterReqs} vs {opponentReqs}"
+        else: opponentReqs
+    let synergyName = 
+        if secretSecret: "Secret Secret Anti-Synergy"
+        elif secret: "Secret Anti-Synergy"
+        else: "Anti-Synergy"
+    
+    x.power.description = fmt"{synergyName}! ({requirements}) -- {x.power.description}"
+    x.power.technicalName = 
+        if x.power.technicalName == "": fmt"{x.power.name} ({synergyName} of {requirements})"
+        else: fmt"{x.power.technicalName} ({synergyName} of {requirements})"
+
+    powers.add(x.power)
+    if secretSecret: secretSecretAntiSynergies.add(x) 
+    elif secret: secretAntiSynergies.add(x)
+    else: antiSynergies.add(x)
+
+
+proc synergize(pool: seq[Power], currentPowers: seq[Power], synergies: seq[Synergy], t: Tier, allTier: bool = false): seq[Power] =
     result = pool 
-    for s in draftSynergies:
-        if currentPowers.filterIt(it.name in s.requirements).len == s.requirements.len:
-            if s.replacements.len == 0:
+    for s in synergies:
+        if currentPowers.filterIt(it.name in s.requirements).len == s.requirements.len and 
+            (s.power.tier == t or allTier):
                 result &= powers[s.power.index]
-            else: 
-                result = result.filterIt(it.name notin s.replacements) & powers[s.power.index]
 
-proc secretSynergize(currentPowers: seq[Power], synergies: seq[Synergy]): seq[Power] = 
-    result = currentPowers
+                if s.replacements.len != 0:
+                    result = result.filterIt(it.name notin s.replacements)
 
-    for s in synergies.sortedByIt(it.power.priority):
-        if s.power in currentPowers: continue
-        if result.filterIt(it.name in s.requirements).len == s.requirements.len:
-            if s.replacements.len == 0:
-                result &= powers[s.power.index]
-            else: 
-                result = result.filterIt(it.name notin s.replacements) & powers[s.power.index]
+proc secretSynergize(drafterPowers: seq[Power], synergies: seq[Synergy]): seq[Power] = 
+    #we still need to pass a tier for types. I want tier to be required to avoid default errors
+    #and I don't want two functions, so this is the best option
+    return synergize(drafterPowers, drafterPowers, synergies, Common, allTier = true)
+
+proc antiSynergize(pool: seq[Power], currentPowers: seq[Power], opponentPowers: seq[Power], synergies: seq[AntiSynergy],
+                    t: Tier, allTier: bool = false): seq[Power] = 
+        result = pool
+
+        for s in synergies: 
+            if currentPowers.filterIt(it.name in s.drafterRequirements).len == s.drafterRequirements.len and
+                opponentPowers.filterIt(it.name in s.opponentRequirements).len == s.opponentRequirements.len and 
+                (s.power.tier == t or allTier):
+                    result &= powers[s.power.index]
+
+proc secretAntiSynergize(drafterPowers: seq[Power], opponentPowers: seq[Power], synergies: seq[AntiSynergy]): seq[Power] = 
+    echo "drafterPowers: ", drafterPowers, "opponent: ", opponentPowers, "synergies: ", synergies
+    echo antiSynergize(drafterPowers, drafterPowers, opponentPowers, synergies, Common, true)
+    return antiSynergize(drafterPowers, drafterPowers, opponentPowers, synergies, Common, true)
+
 
 proc seqOf(t: Tier): var seq[Power] = 
     case t
@@ -159,8 +208,11 @@ proc registerPower*(p: Power) =
     powers.add(x)
     seqOf(x.tier).add(x)
 
-proc randomPower(t: Tier, currentPowers: seq[Power], alreadySelected: seq[Power] = @[]): Power = 
-    let search = seqOf(t).synergize(currentPowers, t).filterIt(it.name notin alreadySelected.mapIt(it.name))
+proc randomPower(t: Tier, currentPowers: seq[Power], opponentPowers: seq[Power], alreadySelected: seq[Power] = @[]): Power = 
+    let search = seqOf(t)
+        .synergize(currentPowers, draftSynergies, t)
+        .antiSynergize(currentPowers, opponentPowers, antiSynergies, t)
+        .filterIt(it.name notin alreadySelected.mapIt(it.name))
     if search.len == 0: return emptyPower
 
     let sum = foldr(search.mapIt(it.rarity), a + b)
@@ -183,32 +235,40 @@ proc randomTier*(w: TierWeights = defaultWeight): Tier =
     else:
         return UltraRare
 
-proc draftRandomPowerTier*(t: Tier, allSelected: seq[Power], drafterSelected: seq[Power], options: int = 1, normalWeights: TierWeights = defaultWeight, buffedWeights: TierWeights = defaultBuffedWeights): seq[Power] = 
-    for x in 0..options - 1:
-        result.add(randomPower(t, drafterSelected, allSelected & result))
+proc draftRandomPowerTier*(tier: Tier, drafterSelected: seq[Power], opponentSelected: seq[Power],
+                            disabled: seq[Power] = @[], options: int = 1): seq[Power] = 
+        for x in 0..options - 1:
+            result.add(randomPower(tier, drafterSelected, opponentSelected, drafterSelected & opponentSelected & result & disabled))
 
-proc draftRandomPower*(allSelected: seq[Power], drafterSelected: seq[Power], options: int = 1, normalWeights: TierWeights = defaultWeight, buffedWeights: TierWeights = defaultBuffedWeights): seq[Power] = 
+proc draftRandomPower*(drafterSelected: seq[Power], opponentSelected: seq[Power], 
+                        disabled: seq[Power] = @[], options: int = 1, normalWeights: TierWeights = defaultWeight, buffedWeights: TierWeights = defaultBuffedWeights): seq[Power] = 
     let weights = if holy in drafterSelected: buffedWeights else: normalWeights
     for x in 0..options - 1:
-        result.add(randomPower(randomTier(weights), drafterSelected, allSelected & result))
+        result.add(randomPower(randomTier(weights), drafterSelected, opponentSelected, drafterSelected & opponentSelected & result & disabled))
 
 #assumes that there is no intersection between myDrafts and opponentDrafts
 proc execute*(myDrafts: seq[Power], opponentDrafts: seq[Power], mySide: Color, board: var ChessBoard, state: var BoardState) = 
     for x in myDrafts:
-        assert x notin opponentDrafts and x.name != emptyPower.name, x.name & " is somehow in both pools"
+        assert x notin opponentDrafts or x == emptyPower, x.name & " is somehow in both pools"
 
-    let mySynergizedDrafts = myDrafts.secretSynergize(secretSynergies & secretSecretSynergies)
-    let opponentSynergizedDrafts = opponentDrafts.secretSynergize(secretSynergies & secretSecretSynergies)
+    let mySynergizedDrafts = myDrafts
+                                .secretSynergize(secretSynergies & secretSecretSynergies)
+                                .secretAntiSynergize(opponentDrafts, secretAntiSynergies & secretSecretAntiSynergies)
+    let opponentSynergizedDrafts = opponentDrafts
+                                .secretSynergize(secretSynergies & secretSecretSynergies)
+                                .secretAntiSynergize(myDrafts, secretAntiSynergies & secretSecretAntiSynergies)
 
     for d in concat(mySynergizedDrafts, opponentSynergizedDrafts).sortedByIt(it.priority):
         echo fmt"Executing {d.name} with prio of {d.priority}"
-        if d in mySynergizedDrafts:
-            d.onStart(mySide, mySide, board, state)
-        else:
-            d.onStart(otherSide(mySide), mySide, board, state)
 
-proc replaceAnySynergies*(powers: seq[Power]): seq[Power] = 
-    return powers.secretSynergize(secretSynergies)
+
+        var side = mySide
+        if d notin mySynergizedDrafts: side = otherSide(side)
+        d.onStart(side, mySide, board, state) 
+
+
+proc replaceAnySynergies*(drafterPowers: seq[Power], opponentPowers: seq[Power]): seq[Power] = 
+    return drafterPowers.secretSynergize(secretSynergies).secretAntiSynergize(opponentPowers, secretAntiSynergies)
 
 proc getSynergyOf*(index: int): Synergy = 
     for s in draftSynergies & secretSynergies & secretSecretSynergies:
