@@ -27,7 +27,7 @@ func hasGlass*(side: Color, state: BoardState): bool =
 #and return a function which handles if the piece disappears or moves
 func packageGlass*(pieces: seq[Piece], tiles: seq[Tile], action: OnAction): BoardAction =
         let indexes = pieces.mapIt(it.index)
-        result = proc (board: var ChessBoard, state: var BoardState) =
+        result = proc (_: Color, board: var ChessBoard, state: var BoardState) =
             for i, j in board.rankAndFile:
                 for indexIndex, index in indexes:
                     if index == board[i][j].index:

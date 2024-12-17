@@ -137,7 +137,6 @@ proc registerAntiSynergy*(s: AntiSynergy, secret: bool = false, secretSecret: bo
     x.power.rarity = x.rarity
     x.power.index = powers[powers.len - 1].index + 1
     x.power.synergy = true
-    x.power.anti = true
 
     let opponentReqs = s.opponentRequirements.foldr(a & " + " & b)
     let requirements =
@@ -188,8 +187,6 @@ proc antiSynergize(pool: seq[Power], currentPowers: seq[Power], opponentPowers: 
                     result &= powers[s.power.index]
 
 proc secretAntiSynergize(drafterPowers: seq[Power], opponentPowers: seq[Power], synergies: seq[AntiSynergy]): seq[Power] = 
-    echo "drafterPowers: ", drafterPowers, "opponent: ", opponentPowers, "synergies: ", synergies
-    echo antiSynergize(drafterPowers, drafterPowers, opponentPowers, synergies, Common, true)
     return antiSynergize(drafterPowers, drafterPowers, opponentPowers, synergies, Common, true)
 
 

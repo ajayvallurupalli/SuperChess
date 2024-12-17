@@ -79,7 +79,7 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = Game 
-const myDebugPowers: seq[Power] = @[capitalismPower]
+const myDebugPowers: seq[Power] = @[capitalismPower, upgrade]
 const opponentDebugPowers: seq[Power] = @[inflationPower]
 
 var 
@@ -188,6 +188,11 @@ proc endRound() =
     for i, j in rankAndFile(theBoard):
         theBoard[i][j].endTurn(theBoard, theState)
 
+    for a in theState.side[white].onEndTurn:
+        a(white, theBoard, theState)
+    for a in theState.side[black].onEndTurn:
+        a(black, theBoard, theState)
+
     #this is needed by the random move powers to prevent double moves
     #It needs to happen after so that all drunkness is cleared after end turn stuff
     for i, j in rankAndFile(theBoard): 
@@ -197,12 +202,12 @@ proc endRound() =
         #this isn't the most important
         #but I could do something with indexes
         #though indexes still kind of suck
-        for ic, c in theBoard[i][j].casts:
+        for c in theBoard[i][j].casts.mitems:
             if c.glass == Steel:
                 if theBoard[i][j].isColor(white):
-                    theBoard[i][j].casts[ic].on = theBoard[i][j].tile.tileAbove()
+                    c.on = theBoard[i][j].tile.tileAbove()
                 else:
-                    theBoard[i][j].casts[ic].on = theBoard[i][j].tile.tileBelow()
+                    c.on = theBoard[i][j].tile.tileBelow()
         theBoard[i][j].drunk = false
 
     piecesChecking = theBoard.getPiecesChecking(side)
@@ -846,7 +851,7 @@ proc createInfo(): VNode =
                 button:
                     text "Execute!"
                 proc onclick(_: Event, _: VNode) =
-                    actionStack[^1].action(theBoard, theState)
+                    actionStack[^1].action(side, theBoard, theState)
                     echo "action complete"
                     for i, j in theBoard.rankAndFile:
                         theBoard[i][j].casts = theBoard[i][j].casts.filterIt(it.group != actionStack[^1].group)

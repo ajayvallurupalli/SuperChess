@@ -117,18 +117,6 @@ proc change(piece: PieceType, side: Color, b: var ChessBoard, s: var BoardState,
         if not onTake.isNil: s.side[side].dna[piece].onTake = onTake
         if not onMove.isNil: s.side[side].dna[piece].onMove = onMove
 
-proc addOnEndTurnTransform(piece: PieceType, side: Color, board: var ChessBoard, state: var BoardState,
-    create: proc(): OnPiece,
-    all: bool = false) = 
-        for i, j in board.rankAndFile:
-            if (board[i][j].item == piece or all) and board[i][j].isColor(side):
-                board[i][j].onEndTurn.add(create())
-
-        let transform: OnPiece = proc (p: var Piece, b: var ChessBoard, s: var BoardState) =
-            p.onEndTurn.add(create())
-
-        state.side[side].transforms[piece].add(transform)
-
 const empress*: Power = Power(
     name: "Empress",
     tier: Uncommon,
@@ -252,12 +240,16 @@ const developed*: Power = Power(
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             #TODO: fix hard coded moves to prevent conflict. 
             #fix would just stop move attempt if it would kill a piece
-            if side == black and b[1][3].item == Pawn and b[1][4].item == Pawn:
-                b[1][3].pieceMove(2, 3, b, s)
-                b[1][4].pieceMove(2, 4, b, s)
-            elif side == white and b[6][3].item == Pawn and b[6][4].item == Pawn:
-                b[6][3].pieceMove(5, 3, b, s)
-                b[6][4].pieceMove(5, 4, b, s)         
+            if side == black:
+                if b[1][3].item == Pawn and b[2][3].item == None:
+                    b[1][3].pieceMove(2, 3, b, s)
+                if b[1][4].item == Pawn and b[2][4].item == None:
+                    b[1][4].pieceMove(2, 4, b, s)
+            elif side == white:
+                if b[6][3].item == Pawn and b[5][3].item == None:
+                    b[6][3].pieceMove(5, 3, b, s)
+                if b[6][4].item == Pawn and b[5][4].item == None:
+                    b[6][4].pieceMove(5, 4, b, s)         
 )
 
 const stepOnMe*: Power = Power(
@@ -919,7 +911,6 @@ const reinforcementsOntake: OnAction = proc (piece: var Piece, to: Tile, board: 
         if board[takeResults.endTile].piecesTaken mod 2 == 0:
             board[originalRookTile] = 
                 state.side[piece.color].dna[Pawn].pieceCopy(index = newIndex(state), tile = originalRookTile)
-            board[originalRookTile].applyTransforms(board, state)
 
 const reinforcements*: Power = Power(
     name: "Reinforcements",
@@ -1403,21 +1394,22 @@ const lesbianBountyHunter: Synergy = (
     replacements: @[bountyHunterPower.name]
 )
 
-proc createLottery(): OnPiece = 
-    var lastTimesMoved = 0
+proc createLottery(): BoardAction = 
+    var lastTimesMoved: array[0..ChessRow.len, array[0..ChessBoard.len,int]] 
     #closure is used to hold state
     #this is preferable when state does not need to interact with the rest of the game's systems
     #to better modularize the power's state, I think
     #`Piece.rand` powers can't do this because it needs the seed, and a global clear of drunkenness
     #which has to happen after all `Piece.onEndTurn` stuff, not during
-    result = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) =
-        if piece.timesMoved != lastTimesMoved:
-            randomize(10 * piece.tile.rank + 100 * piece.tile.file + state.shared.randSeed)
-            let ticket = rand(100)
-            if ticket == 42: #arbitrary
-                piece.promote(board, state)
-        lastTimesMoved = piece.timesMoved
-    
+    result = proc (side: Color, board: var ChessBoard, state: var BoardState) =
+        for i, j in board.rankAndFile:
+            if board[i][j].timesMoved != lastTimesMoved[i][j]:
+                randomize(10 * j + 100 * i + state.shared.randSeed)
+                let ticket = rand(100)
+                if ticket == 42: #arbitrary
+                    board[i][j].promote(board, state)
+            lastTimesMoved[i][j] = board[i][j].timesMoved
+        
 
 const slumdogMillionaire*: Power = Power(
     name: "Slumdog Millionaire",
@@ -1428,17 +1420,17 @@ const slumdogMillionaire*: Power = Power(
     icon: pawnIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            Pawn.addOnEndTurnTransform(side, b, s, createLottery)
+            s.side[side].onEndTurn.add(createLottery())
 )
 
 
-const stupidOnEndTurn: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) =
-    randomize(10 * piece.tile.rank + 100 * piece.tile.file + state.shared.randSeed)
+const stupidOnEndTurn: BoardAction = proc (side: Color, board: var ChessBoard, state: var BoardState) =
+    randomize(state.shared.randSeed)
     let ticket = rand(1000)
     if ticket == 42: #arbitrary
         for i, j in board.rankAndFile:
             if board[i][j].item == King and 
-                board[i][j].isColor(piece.color.otherSide()):
+                board[i][j].isColor(side):
                     board[i][j].item = None #kills king
 
 const stupidPower*: Power = Power(
@@ -1449,9 +1441,7 @@ const stupidPower*: Power = Power(
     icon: kingIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            King.buff(side, b, s, 
-                onEndTurn = @[stupidOnEndTurn]
-            )
+            s.side[side].onEndTurn.add(stupidOnEndTurn)
 )
 
 proc createConvertingTake(odds: float): OnAction = 
@@ -1576,21 +1566,21 @@ const promoteBuyingCondition: BuyCondition = func (piece: Piece, board: ChessBoa
 
 #this is attatched to the King, which tracks all piecesTaken
 #I originally had it on each piece, but then I would have to add it to each new piece
-proc moneyForTakeAll(): OnPiece = 
+proc moneyForTakeAll(): BoardAction = 
     var lastPiecesTaken = 0
     #closure is used to hold state
     #this is preferable when state does not need to interact with the rest of the game's systems
     #to better modularize the power's state, I think
-    result = proc (piece: var Piece, b: var ChessBoard, state: var BoardState) =
+    result = proc (side: Color, b: var ChessBoard, state: var BoardState) =
         var allPiecesTaken = 0
         for i, j in b.rankAndFile:
-            if b[i][j].sameColor(piece):
+            if b[i][j].isColor(side):
                 allPiecesTaken += b[i][j].piecesTaken
 
-        allPiecesTaken += state.side[piece.color].abilityTakes #includes takes which are not by any piece
+        allPiecesTaken += state.side[side].abilityTakes #includes takes which are not by any piece
 
         if allPiecesTaken > lastPiecesTaken:
-            addMoney(piece.color, (allPiecesTaken - lastPiecesTaken) * 3, state)
+            addMoney(side, (allPiecesTaken - lastPiecesTaken) * 3, state)
         lastPiecesTaken = allPiecesTaken
 
 #just tracks one piece
@@ -1616,7 +1606,7 @@ const capitalismPower*: Power = Power(
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             s.side[side].buys &= (name: "Promote", cost: alwaysCost(30), action: promoteBuying, condition: promoteBuyingCondition)
             side.initWallet(s)
-            King.addOnEndTurnTransform(side, b, s, moneyForTakeAll)
+            s.side[side].onEndTurn.add(moneyForTakeAll())
 )
 
 const bountyPower*: Power = Power(
@@ -1628,8 +1618,8 @@ const bountyPower*: Power = Power(
     icon: kingIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            King.addOnEndTurnTransform(side, b, s, moneyForTakeSingle)
-            King.addOnEndTurnTransform(side, b, s, moneyForTakeSingle)
+            King.buff(side, b, s, onEndTurn = @[moneyForTakeSingle()])
+            King.buff(side, b, s, onEndTurn = @[moneyForTakeSingle()])
 )
 
 const bounty: Synergy = (
@@ -1775,7 +1765,7 @@ const sellPiece: OnPiece = proc (piece: var Piece, b: var ChessBoard, state: var
     echo state.side[piece.color]
     b[piece.tile.rank][piece.tile.file] = air.pieceCopy(index = b[piece.tile.rank][piece.tile.file].index, tile = piece.tile)
 
-const updatePiecesSold: OnPiece = proc (piece: var Piece, b: var ChessBoard, state: var BoardState) =
+const updatePiecesSold: BoardAction = proc (_: Color, b: var ChessBoard, state: var BoardState) =
     state.side[white].piecesSoldThisTurn = 0
     state.side[black].piecesSoldThisTurn = 0
 
@@ -1798,18 +1788,16 @@ const sell*: Power = Power(
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             s.side[side].buys &= (name: "Sell", cost: createPieceMarket(-4, 1), action: sellPiece, condition: notKing)
-            King.buff(side, b, s, 
-                onEndTurn = @[updatePiecesSold]
-            )
+            s.side[side].onEndTurn.add(updatePiecesSold)
 )
 
 const capitalismFive1: Synergy = createCapitalism(sell)
 
-proc createTaxes(rate: float): OnPiece = 
-    result = proc (piece: var Piece, b: var ChessBoard, state: var BoardState) =
-        var tax: int = int(float(getMoney(piece.color, state)) * rate)
+proc createTaxes(rate: float): BoardAction = 
+    result = proc (side: Color, b: var ChessBoard, state: var BoardState) =
+        var tax: int = int(float(getMoney(side, state)) * rate)
         if tax == 0: inc tax #so that it always takes something
-        addMoney(piece.color, -tax, state)
+        addMoney(side, -tax, state)
 
 const taxes*: Power = Power(
     name: "Capitalism V",
@@ -1824,11 +1812,9 @@ const taxes*: Power = Power(
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             #We just add two more `moneyForTakeAll`s
-            King.addOnEndTurnTransform(side, b, s, moneyForTakeAll)
-            King.addOnEndTurnTransform(side, b, s, moneyForTakeAll)
-            King.buff(side, b, s, 
-                onEndTurn = @[createTaxes(0.15)]
-            )
+            s.side[side].onEndTurn.add(moneyForTakeAll())
+            s.side[side].onEndTurn.add(moneyForTakeAll())
+            s.side[side].onEndTurn.add(createTaxes(0.15))
 )
 
 const capitalismFive2: Synergy = createCapitalism(taxes)
@@ -1845,24 +1831,24 @@ const monopoly*: Power = Power(
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             #We just add 1 more `moneyForTakeAll`s
-            King.addOnEndTurnTransform(side, b, s, moneyForTakeAll)
+            s.side[side].onEndTurn.add(moneyForTakeAll())
 )
 
 const capitalismFour1: Synergy = createCapitalism(monopoly)
 
-proc moneyForMove(): OnPiece = 
+proc moneyForMove(): BoardAction = 
     var lastTimesMoved = 0
     #closure is used to hold state
     #this is preferable when state does not need to interact with the rest of the game's systems
     #to better modularize the power's state, I think
-    result = proc (piece: var Piece, b: var ChessBoard, state: var BoardState) =
+    result = proc (side: Color, b: var ChessBoard, state: var BoardState) =
         var allTimesMoved = 0
         for i, j in b.rankAndFile:
-            if b[i][j].sameColor(piece):
+            if b[i][j].isColor(side):
                 allTimesMoved += b[i][j].timesMoved
 
         if allTimesMoved > lastTimesMoved:
-            addMoney(piece.color, (allTimesMoved - lastTimesMoved) * 1, state)
+            addMoney(side, (allTimesMoved - lastTimesMoved) * 1, state)
         lastTimesMoved = allTimesMoved
 
 const handouts*: Power = Power(
@@ -1877,28 +1863,28 @@ const handouts*: Power = Power(
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             #We just add two more `moneyForTakeAll`s
-            King.addOnEndTurnTransform(side, b, s, moneyForMove)
+            s.side[side].onEndTurn.add(moneyForMove())
 )
 
 const capitalismFour2: Synergy = createCapitalism(handouts)
 
 #altered `createLottery()`, but also adds 10 dollars to wallet
-proc createSuperLottery(): OnPiece = 
-    var lastTimesMoved = 0
+proc createSuperLottery(): BoardAction = 
+    var lastTimesMoved: array[0..ChessRow.len, array[0..ChessBoard.len,int]] 
     #closure is used to hold state
     #this is preferable when state does not need to interact with the rest of the game's systems
     #to better modularize the power's state, I think
     #`Piece.rand` powers can't do this because it needs the seed, and a global clear of drunkenness
     #which has to happen after all `Piece.onEndTurn` stuff, not during
-    result = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) =
-        if piece.timesMoved != lastTimesMoved:
-            randomize(10 * piece.tile.rank + 100 * piece.tile.file + state.shared.randSeed)
-            let ticket = rand(100)
-            if ticket == 42: #arbitrary
-                addMoney(piece.color, 10, state)
-                piece.promote(board, state)
-        lastTimesMoved = piece.timesMoved
-
+    result = proc (side: Color, board: var ChessBoard, state: var BoardState) =
+        for i, j in board.rankAndFile:
+            if board[i][j].timesMoved != lastTimesMoved[i][j]:
+                randomize(10 * j + 100 * i + state.shared.randSeed)
+                let ticket = rand(100)
+                if ticket == 42: #arbitrary
+                    addMoney(side, 10, state)
+                    board[i][j].promote(board, state)
+            lastTimesMoved[i][j] = board[i][j].timesMoved
 const slumdogBillionairePower*: Power = Power(
     name: "Slumdog Billionaire",
     tier: Common,
@@ -1909,16 +1895,16 @@ const slumdogBillionairePower*: Power = Power(
     icon: pawnIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            Pawn.addOnEndTurnTransform(side, b, s, createSuperLottery)
+            s.side[side].onEndTurn.add(createSuperLottery())
 
 )
 
 const slumdogBillionaire: Synergy = createCapitalism(slumdogBillionairePower, 8, @[slumdogMillionaire.name], @[slumdogMillionaire.name])
 
-const exponentialGrowthOnEndTurn: OnPiece = proc (piece: var Piece, _: var ChessBoard, state: var BoardState) =
-    let currentMoney = getMoney(piece.color, state)
+const exponentialGrowthOnEndTurn: BoardAction = proc (side: Color, _: var ChessBoard, state: var BoardState) =
+    let currentMoney = getMoney(side, state)
     let next = currentMoney * 2 - currentMoney #I want it to double, but not sum of doubling. 
-    addMoney(piece.color, next, state)
+    addMoney(side, next, state)
 
 const exponentialGrowth*: Power = Power(
     name: "Capitalism MM",
@@ -1930,9 +1916,7 @@ const exponentialGrowth*: Power = Power(
     noColor: true,
     onStart:  
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            King.buff(side, b, s, 
-                onEndTurn = @[exponentialGrowthOnEndTurn]
-            )
+            s.side[side].onEndTurn.add(exponentialGrowthOnEndTurn)
 )
 
 const capitalismTwoThousand: Synergy = (
@@ -2222,8 +2206,7 @@ const clarityPower: Power = Power(
     icon: kingIcon,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            King.addOnEndTurnTransform(side, b, s, createWithClarity)
-
+            King.buff(side, b, s, onEndTurn = @[createWithClarity()])
 )
 
 const clarity: Synergy = (
@@ -2340,16 +2323,21 @@ const undevelopedPower*: Power = Power(
                     It's not even useful, but it is annoying. """,
     antiDescription: "You've been undeveloped.",
     icon: pawnIcon,
+    anti: true,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             #TODO: fix hard coded moves to prevent conflict. 
             #fix would just stop move attempt if it would kill a piece
-            if side == black and b[2][3].item == Pawn and b[2][4].item == Pawn:
-                b[2][3].pieceMove(1, 3, b, s)
-                b[2][4].pieceMove(1, 4, b, s)
-            elif side == white and b[5][3].item == Pawn and b[5][4].item == Pawn:
-                b[5][3].pieceMove(6, 3, b, s)
-                b[5][4].pieceMove(6, 4, b, s)         
+            if side == black:
+                if b[2][3].item == Pawn and b[1][3].item == None:
+                    b[2][3].pieceMove(1, 3, b, s)
+                if b[2][4].item == Pawn and b[1][4].item == None: 
+                    b[2][4].pieceMove(1, 4, b, s)
+            elif side == white:
+                if b[5][3].item == Pawn and b[6][3].item == None:
+                    b[5][3].pieceMove(6, 3, b, s)
+                if b[5][4].item == Pawn and b[6][4].item == None:
+                    b[5][4].pieceMove(6, 4, b, s)         
 )
 
 const undeveloped: AntiSynergy = (
@@ -2364,7 +2352,7 @@ const coldWarPower*: Power = Power(
     tier: UltraRare,
     priority: 20,
     description: "Do not press the button.",
-    icon: " ",
+    icon: "nuclear.svg",
     noColor: true,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -2385,27 +2373,29 @@ const coldWar2: AntiSynergy = (
     opponentRequirements: @[capitalismPower.name]
 )
 
-const inflate: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
-    let oldBuy = state.side[otherSide(piece.color)].buys
-    for index, buy in oldBuy:
-        state.side[otherSide(piece.color)].buys[index].cost
-            = func (piece: Piece, board: ChessBoard, s: BoardState): int = 
-                buy.cost(piece, board, s) + 1
+proc inflateBy(buy: BuyCost, rate: float): BuyCost = 
+    result = proc (piece: Piece, board: ChessBoard, state: BoardState): int = 
+        int(float(buy(piece, board, state)) * rate) + 1
+
+#this is an OnPiece action because it needs to add a BoardAction. If it was a BoardAction, it would add to seq while iterating over it
+#so I'm using kingOnPiece as a type of queue, especially since I don't mind when moneyTakeForAll activates
+const inflateAction: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
+    state.side[piece.color].onEndTurn.add(moneyForTakeAll())
+    for buy in state.side[piece.color].buys.mitems:
+        buy.cost = buy.cost.inflateBy(1.25)
 
 const inflationPower*: Power = Power(
     name: "Inflation",
-    tier: Uncommon,
+    tier: Rare,
     priority: 25,
-    description: "",
-    antiDescription: "",
+    description: "It inflates, what else can be said?",
+    antiDescription: "Maybe you should print more money?",
     icon: "americanflag.svg",
     noColor: true,
+    anti: true,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            King.buff(side, b, s, 
-                onEndturn = @[inflate]
-            )
-
+            King.buff(side, b, s, onEndTurn = @[inflateAction])
 )
 
 const inflation*: AntiSynergy = (
@@ -2413,6 +2403,37 @@ const inflation*: AntiSynergy = (
     rarity: 12,
     drafterRequirements: @[],
     opponentRequirements: @[capitalismPower.name]
+)
+
+const phalanxPower*: Power = Power(
+    name: "Phalanx",
+    rarity: 0,
+    tier: Uncommon,
+    priority: 20,
+    description: """Your left and right pawns start one tile forward. 
+                    It's a classic defense to the lance opening, you can find more information 
+                    in your local library. """,
+    antiDescription: "You've studied chess openings right? ",
+    icon: pawnIcon,
+    onStart: 
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            if side == black:
+                if b[2][0].item == None:
+                    b[1][0].pieceMove(2, 0, b, s)
+                if b[2][7].item == None:
+                    b[1][7].pieceMove(2, 7, b, s)
+            elif side == white:
+                if b[5][0].item == None:
+                    b[6][0].pieceMove(5, 0, b, s)
+                if b[5][7].item == None:
+                    b[6][7].pieceMove(5, 7, b, s)    
+)
+
+const phalanx: AntiSynergy = (
+    power: phalanxPower,
+    rarity: 8,
+    drafterRequirements: @[],
+    opponentRequirements: @[lanceLeft.name],
 )
 
 registerPower(empress)
@@ -2513,6 +2534,7 @@ registerSynergy(masochistEmpress, true, true)
 registerSynergy(masochistAltEmpress, true, true)
 
 registerAntiSynergy(undeveloped)
+registerAntiSynergy(phalanx)
 registerAntiSynergy(coldWar1, true)
 registerAntiSynergy(coldWar2, true)
 

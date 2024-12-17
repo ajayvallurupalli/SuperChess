@@ -45,7 +45,7 @@ type
     OnPiece* = proc (piece: var Piece, board: var ChessBoard, state: var BoardState)
     #`BoardAction` is used to describe a transformation on the state itself, build from the current state
     #it is the most general action
-    BoardAction* = proc (board: var ChessBoard, state: var BoardState)
+    BoardAction* = proc (side: Color, board: var ChessBoard, state: var BoardState)
 
 
     #Capitalism stuff
@@ -107,7 +107,7 @@ type
         #used as prototypes for the pieces. When a piece is buffed, its dna should be buffed too
         #I don't know how to slice PieceType to exclude air and fairy, so just don't use them
         dna*:  array[PieceType, Piece]
-        transforms*: array[PieceType, seq[OnPiece]]
+        onEndTurn*: seq[BoardAction]
 
         #For capitalism powers
         wallet*: Option[int] = none(int)
@@ -297,10 +297,6 @@ func pieceCopy*(initial: Piece, index: int, tile: Tile, #index and tile are requ
                 tile: tile, moves: moves, takes: takes, onMove: onMove, onTake: onTake,
                 whenTaken: whenTaken, onEndTurn: onEndTurn, onPromote: onPromote,promoted: promoted, filePath: filePath, rotate: rotate,
                 drunk: drunk, colorable: colorable)
-
-proc applyTransforms*(piece: var Piece, board: var ChessBoard, state: var BoardState) = 
-    for t in state.side[piece.color].transforms[piece.item]:
-        t(piece, board, state)
 
 func isAir*(p: Piece): bool = 
     return p.item == None
