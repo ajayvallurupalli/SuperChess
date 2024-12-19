@@ -1,4 +1,5 @@
 import power, moves, piece, basePieces, extraMoves, board, capitalism
+from extrapower / glass import isCasting
 import std/options
 from sequtils import filterIt, mapIt, concat
 from strutils import contains
@@ -61,10 +62,9 @@ proc buff(piece: PieceType, side: Color, b: var ChessBoard, s: var BoardState,
     moves: seq[MoveProc] = @[], takes: seq[MoveProc] = @[], onEndturn: seq[OnPiece] = @[],
     rotate: bool = false, promoted: bool = false,
     onPromote: seq[OnPiece] = @[], whenTaken: WhenTaken = nil, onTake: OnAction = nil,
-    onMove: OnAction = nil,
-    all: bool = false) = 
+    onMove: OnAction = nil) = 
         for i, j in b.rankAndFile:
-            if (b[i][j].item == piece or all) and b[i][j].isColor(side):
+            if b[i][j].item == piece and b[i][j].isColor(side):
                 b[i][j].moves &= moves
                 b[i][j].takes &= takes
                 b[i][j].onEndTurn &= onEndTurn
@@ -91,10 +91,9 @@ proc change(piece: PieceType, side: Color, b: var ChessBoard, s: var BoardState,
     moves: seq[MoveProc] = @[], takes: seq[MoveProc] = @[], onEndturn: seq[OnPiece] = @[],
     rotate: bool = false, promoted: bool = true, #I'm just going to make it that you can only set this to true
     onPromote: seq[OnPiece] = @[], whenTaken: WhenTaken = nil, onTake: OnAction = nil,
-    onMove: OnAction = nil, filePath: string = "",
-    all: bool = false) = 
+    onMove: OnAction = nil, filePath: string = "") = 
         for i, j in b.rankAndFile:
-            if (b[i][j].item == piece or all) and b[i][j].isColor(side):
+            if b[i][j].item == piece and b[i][j].isColor(side):
                 if moves.len != 0: b[i][j].moves = moves
                 if takes.len != 0: b[i][j].takes = takes
                 if onEndturn.len != 0: b[i][j].onEndTurn = onEndturn
@@ -645,7 +644,7 @@ const lesbianPride*: Power = Power(
     name: "Lesbian Pride",
     tier: UltraRare,
     rarity: 1,
-    priority: 1,
+    priority: 2,
     description: "🧡🤍🩷",
     icon: "lesbianprideflag.svg",
     noColor: true,
@@ -664,7 +663,7 @@ const queensWrathPower: Power = Power(
     name: "Queen's Wrath",
     tier: UltraRare,
     rarity: 0,
-    priority: 1,
+    priority: 2,
     description: "Why must she die?",
     icon: queenIcon,
     onStart:
@@ -817,7 +816,7 @@ const linebackers: Synergy = (
 const nightRider: Power = Power(
     name: "Nightrider",
     tier: UltraRare,
-    priority: 3,
+    priority: 4,
     description: "Nightrider.",
     icon: "nightrider.svg",
     onStart: 
@@ -1120,46 +1119,40 @@ const lanceLeft*: Power = Power(
             if side != viewSide: b[rank][file].rotate = true
 )
 
+proc drunkMove(predicate: proc(p: Piece): bool {.noSideEffect.}): BoardAction = 
+    result = proc (side: Color, board: var ChessBoard, state: var BoardState) =  
+        randomize(state.shared.randSeed)
+        var drankIndexes: seq[int] = @[]
 
-const drunkOnEndTurn*: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
-    if not piece.drunk:
-        piece.drunk = true #after move, piece is different, so we drunk now
-        #random seed is linked to location and `Piece.rand.seed`, which is made from id
-        #this ensures that both sides generate same move, even though they do it seperately
-        #it would be ideal to just send move over, but it's too late to add such a system
-        #also maybe research if the location *10 *100 is nesscary
-        randomize(10 * piece.tile.rank + 100 * piece.tile.file + state.shared.randSeed)
-        let takes = piece.getTakesOn(board)
-        let moves = piece.getMovesOn(board)
-        if len(moves) == 0: return # I don't really like how this looks
+        for i, j in board.rankAndFile:
+            if board[i][j].predicate() and board[i][j].index notin drankIndexes:
+                drankIndexes.add(board[i][j].index)
+                let moves = board[i][j].getMovesOn(board)
+                if len(moves) == 0: continue
 
+                var attempt = moves.sample()
+                assert attempt notin board[i][j].getTakesOn(board)
+                
+                board[i][j].move(attempt, board, state)
 
-        var attempt = moves.filterIt(it notin takes).sample()
+proc drunkVirus(predicate: proc(p: Piece): bool {.noSideEffect.}, onlyTake: bool = false): BoardAction = 
+    result = proc (side: Color, board: var ChessBoard, state: var BoardState) =  
+        randomize(state.shared.randSeed)
+        var drankIndexes: seq[int] = @[]
 
-        #it prioritizes takes to avoid potentially moving into another piece
-        if attempt in moves:
-            piece.move(attempt, board, state)
+        for i, j in board.rankAndFile:
+            if board[i][j].predicate() and board[i][j].index notin drankIndexes:
+                drankIndexes.add(board[i][j].index)
+                let moves = if onlyTake: @[] else: board[i][j].getMovesOn(board) #exclude moves if `onlyTake` flag is true
+                let takes = board[i][j].getTakesOn(board)
+                if len(moves & takes) == 0: continue
 
-const drunkVirus*: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
-    if not piece.drunk:
-        piece.drunk = true #after move, piece is different, so we drunk now
-        #random seed is linked to location and `Piece.rand.seed`, which is made from id
-        #this ensures that both sides generate same move, even though they do it seperately
-        #it would be ideal to just send move over, but it's too late to add such a system
-        #also maybe research if the location *10 *100 is nesscary
-        randomize(10 * piece.tile.rank + 100 * piece.tile.file + state.shared.randSeed)
-        let takes = piece.getTakesOn(board)
-        let moves = piece.getMovesOn(board)
-        if len(moves & takes) == 0: return # I don't really like how this looks
-
-
-        let randomAction = sample(moves & takes)
-
-        #it prioritizes takes to avoid potentially moving into another piece
-        if randomAction in takes:
-            piece.take(randomAction, board, state)
-        elif randomAction in moves:
-            piece.move(randomAction, board, state)
+                var attempt = sample(moves & takes)
+                
+                if attempt in takes:
+                    board[i][j].take(attempt, board, state)
+                elif attempt in moves:
+                    board[i][j].move(attempt, board, state)
 
 const drunkKnights: Power = Power(
     name: "Drunk Knights",
@@ -1171,10 +1164,13 @@ const drunkKnights: Power = Power(
     icon: knightIcon,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            Knight.buff(side, b, s,
-                onEndTurn = @[drunkOnEndTurn],
-                rotate = true
+            s.side[side].onEndTurn.add(
+                drunkMove(proc(p: Piece): bool = 
+                    (p.isColor(side) or (p.isColor(otherSide(side)) and p.converted)) and p.item == Knight    
+                )
             )
+
+            Knight.buff(side, b, s, rotate = true)
 )
 
 const alcoholism*: Power = Power(
@@ -1186,12 +1182,14 @@ const alcoholism*: Power = Power(
     icon: pawnIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            #Piece doesn't matter because of all flag is true, so I just used None
-            None.buff(side, b, s,
-                onEndTurn = @[drunkOnEndTurn],
-                rotate = true,
-                all = true
+            s.side[side].onEndTurn.add(drunkMove(
+                proc(p: Piece): bool = 
+                    (p.isColor(side) or (p.isColor(otherSide(side)) and p.converted))
+                )
             )
+
+            for p in PieceType:
+                p.buff(side, b, s, rotate = true)
 )
 
 const drunkNightRiderPower: Power = Power(
@@ -1202,13 +1200,16 @@ const drunkNightRiderPower: Power = Power(
     description: "nighetriedder.?",
     icon: "nightrider.svg",
     onStart: 
-        proc (side: Color, _: Color, b: var ChessBoard, _: var BoardState) = 
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            let condition = #we split this so onlyTake flag is not uglified
+                proc(p: Piece): bool = 
+                    (p.isColor(side) or (p.isColor(otherSide(side)) and p.converted)) and p.filePath.contains("nightrider")
+                
+            s.side[side].onEndTurn.add(drunkVirus(condition, onlyTake = true))
+
             for i, j in b.rankAndFile:
-                if b[i][j].filePath.contains("nightrider") and b[i][j].isColor(side):
-                    #I usually try to avoid this filtering, I'm not sure why
-                    #it works fine, and performance has never been an issue
-                    b[i][j].onEndTurn = b[i][j].onEndTurn.filterIt(it != drunkOnEndTurn)
-                    b[i][j].onEndTurn &= drunkVirus
+                if b[i][j].filePath.contains("nightrider"):
+                    b[i][j].rotate = true
 )
 
 const drunkNightRider: Synergy = (
@@ -1234,11 +1235,14 @@ const virusPower*: Power = Power(
     icon: "",
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) =
-            None.buff(side, b, s,
-                onEndTurn = @[drunkVirus],
-                rotate = true,
-                all = true
+            s.side[side].onEndTurn.add(drunkVirus(
+                proc(p: Piece): bool = 
+                    (p.isColor(side) or (p.isColor(otherSide(side)) and p.converted))
+                )
             )
+
+            for p in PieceType:
+                p.buff(side, b, s, rotate = true)
 )  
 
 #virus powers just have random stuff
@@ -1292,20 +1296,6 @@ const virus7: Synergy = (
     replacements: @[alcoholism.name]
 )
 
-#moves for civilian are put here so that it can't be moved normally
-const randomCivilianEndTurn*: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
-    if not piece.drunk:
-        piece.drunk = true
-        randomize(10 * piece.tile.rank + 100 * piece.tile.file + state.shared.randSeed)
-
-        piece.moves &= kingMoves
-        let moves = kingMoves(board, piece)
-        let takes = kingTakes(board, piece)
-        var attempt = moves.filterIt(it notin takes) #remove takes to prevent conflict
-
-        if attempt.len == 0: return
-        else: piece.move(attempt.sample(), board, state)
-
 #TODO: SEE IF I CAN KILL THE PIECE WHEN THIS HAPPENS. WHY CAPS LOCK
 const attemptedWarCrimes*: WhenTaken = proc (taken: var Piece, taker: var Piece, board: var ChessBoard, state: var BoardState): tuple[endTile: Tile, takeSuccess: bool] = 
     return (taker.tile, false)
@@ -1318,12 +1308,17 @@ const civilians*: Power = Power(
                     3 civillians spawn on the enemy side. They randomly move and cannot be taken.""",
     icon: "civilian.svg",
     onStart:
-        proc (side: Color, _: Color, b: var ChessBoard, state: var BoardState) =
-            randomize(state.shared.randSeed)
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) =
+            randomize(s.shared.randSeed)
             let rank: int = if side == black: 5 else: 2
             let commoner = Piece(item: Fairy, color: side, moves: @[kingMoves], takes: @[], onMove: defaultOnMove, onTake: defaultOnTake, 
-                                whenTaken: attemptedWarCrimes, onEndTurn: @[randomCivilianEndTurn], onPromote: @[defaultOnEndTurn],
+                                whenTaken: attemptedWarCrimes, onEndTurn: @[], onPromote: @[],
                                 filePath: "civilian.svg")
+
+            s.side[side].onEndTurn.add(drunkMove(
+                proc(p: Piece): bool = 
+                    p.filePath.contains("civilian")
+            ))
 
             var spawns = 0
             var failsafe = 20
@@ -1331,7 +1326,7 @@ const civilians*: Power = Power(
             while spawns != 3 and failSafe != 0:
                 if b[rank][attempt].isAir:
                     let tile = b[rank][attempt].tile
-                    b[rank][attempt] = commoner.pieceCopy(index = newIndex(state), tile = tile)
+                    b[rank][attempt] = commoner.pieceCopy(index = newIndex(s), tile = tile)
                     inc spawns
                 else:
                     dec failSafe
@@ -1343,7 +1338,7 @@ const calvaryGiraffePower: Power = Power(
     name: "Bandaid",
     tier: UltraRare,
     rarity: 0,
-    priority: 26, #after calvary charge
+    priority: 27, #after calvary charge
     description: """It turns out that calvary plus giraffe is an automatic checkmate for white, 
                     so I'm making the giraffes start one tile back. Sorry.""",
     icon: "giraffe.svg",
@@ -1496,7 +1491,7 @@ const holyConversion: Synergy = (
     replacements: @[conversion.name]
 )
 
-const americanDream: Power = Power(
+const americanDream*: Power = Power(
     name: "American Dream",
     tier: Rare,
     priority: 30, 
@@ -1796,7 +1791,7 @@ const capitalismFive1: Synergy = createCapitalism(sell)
 proc createTaxes(rate: float): BoardAction = 
     result = proc (side: Color, b: var ChessBoard, state: var BoardState) =
         var tax: int = int(float(getMoney(side, state)) * rate)
-        if tax == 0: inc tax #so that it always takes something
+        if tax == 0 and getMoney(side, state) > 0: inc tax #so that it always takes something
         addMoney(side, -tax, state)
 
 const taxes*: Power = Power(
@@ -2038,25 +2033,22 @@ const steelGlass*: Power = Power(
             ))
 )
 
-const divineMove: OnPiece = proc (piece: var Piece, b: var ChessBoard, state: var BoardState) = 
-    #I split this in two to avoid insane tabbing
-    for i, j in b.rankAndFile:
-        for c in b[i][j].casts:
-            if c.glass == Sky:
-                piece.take(piece.getTakesOn(b)[0], b, state)
-        
 const divineWindPower*: Power = Power(
     name: "Divine Wind",
     tier: Uncommon,
     priority: 15,
-    description: """The divine wind briskly brushes your back. Your lances will take forward while sky is casting.""",
+    description: """The divine wind briskly brushes your back. Your lances will attack while sky is casting.""",
     icon: "lance.svg",
     noColor: true,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            for i, j in b.rankAndFile:
-                if b[i][j].isColor(side) and b[i][j].filePath.contains("lance"): #since namesystem is not done yet, this is a cheeky way to find lances
-                    b[i][j].onEndTurn &= divineMove
+            let condition =                 
+                proc(p: Piece): bool = 
+                    (p.isColor(side) or (p.isColor(otherSide(side)) and p.converted)) and 
+                    p.filePath.contains("lance") and
+                    Sky.isCasting(b)
+
+            s.side[side].onEndTurn.add(drunkVirus(condition, onlyTake = true))
 )
 
 const divineWind: Synergy = (
@@ -2111,7 +2103,7 @@ const canReverieGlass: GlassMoves =
                 result.add(b[i][j].tile)
 
 const reverieGlassAction: OnAction = proc (piece: var Piece, to: Tile, b: var ChessBoard, s: var BoardState) = 
-    if b[to].isAir or b[to].item == King or piece.item == King: return
+    if b[to].isAir or b[to].item == King and piece.item == King: return
 
     randomize(s.shared.randSeed + piece.tile.rank * 10 + piece.tile.file * 100)
 
@@ -2318,7 +2310,7 @@ const comucapital: Synergy = (
 const undevelopedPower*: Power = Power(
     name: "Un-Developed",
     tier: Common,
-    priority: 21, #after developed 
+    priority: 22, #after developed 
     description: """Undevelop your opponent's board. Their 2 center pawns move back to their normal starting place. 
                     It's not even useful, but it is annoying. """,
     antiDescription: "You've been undeveloped.",
@@ -2407,25 +2399,24 @@ const inflation*: AntiSynergy = (
 
 const phalanxPower*: Power = Power(
     name: "Phalanx",
-    rarity: 0,
     tier: Uncommon,
+    rarity: 0,
     priority: 20,
-    description: """Your left and right pawns start one tile forward. 
+    description: """Your leftmost and rightmost pawns start one tile forward. 
                     It's a classic defense to the lance opening, you can find more information 
                     in your local library. """,
-    antiDescription: "You've studied chess openings right? ",
     icon: pawnIcon,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             if side == black:
-                if b[2][0].item == None:
+                if b[1][0].item == Pawn and b[2][0].item == None:
                     b[1][0].pieceMove(2, 0, b, s)
-                if b[2][7].item == None:
+                if b[1][7].item == Pawn and b[2][7].item == None:
                     b[1][7].pieceMove(2, 7, b, s)
             elif side == white:
-                if b[5][0].item == None:
+                if b[6][0].item == Pawn and b[5][0].item == None:
                     b[6][0].pieceMove(5, 0, b, s)
-                if b[5][7].item == None:
+                if b[6][7].item == Pawn and b[5][7].item == None:
                     b[6][7].pieceMove(5, 7, b, s)    
 )
 
@@ -2434,6 +2425,62 @@ const phalanx: AntiSynergy = (
     rarity: 8,
     drafterRequirements: @[],
     opponentRequirements: @[lanceLeft.name],
+)
+
+#Insane new ref technology, see propagandaPower for more
+proc createPropagandaCondition(promotedIndexes: ref seq[int]): BuyCondition = 
+    result = 
+        func (piece: Piece, board: ChessBoard, s: BoardState): bool =
+            return piece.index notin promotedIndexes[] and (piece.onPromote != @[defaultOnEndTurn] and piece.onPromote != @[])
+
+func createPropagandaPromoteBuying(promotedIndexes: var seq[int]): OnPiece = 
+    result = proc (piece: var Piece, b: var ChessBoard, s: var BoardState) =
+        promotedIndexes.add(piece.index)
+        piece.promote(b, s)
+        let captureMove = piece.moves
+        let captureTake = piece.takes
+        let turnOfPromote = s.shared.turnNumber
+        var release = false
+        piece.moves = @[]
+        piece.takes = @[]
+
+        piece.onEndTurn &= 
+            proc (piece: var Piece, board: var ChessBoard, state: var BoardState) =
+                if state.shared.turnNumber != turnOfPromote and not release:
+                    piece.moves &= captureMove
+                    piece.takes &= captureTake
+                    release = true
+
+const propagandaPower*: Power = Power(
+    name: "Propaganda",
+    tier: Rare,
+    rarity: 0,
+    priority: 35,
+    description: "Liberty. Freedom. The Pursuit of Happiness. We are righteous.",
+    icon: "unclesam.jpg",
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            #Both buying and condition need the same data, as extra state
+            #I could put it under BoardState, but it is too specific since it is only used by this power
+            #So I used super advanced reference technology
+            #propaganda is allocated as a seq of integers
+            #the variable is passed to createPropagandaPromoteBuying
+            #and a reference to it is passed to createPropagandaCondition
+            #I could pass a variable to both, however this better establishes how they work
+            #and ensures that createPropagandaCondition does not alter the propaganda variable, only looks at it
+
+            var propaganda = seq[int].new
+            for buy in s.side[side].buys.mitems:
+                if buy.name == "Promote":
+                    buy.action = createPropagandaPromoteBuying(propaganda[])
+                    buy.condition = createPropagandaCondition(propaganda)
+)
+
+const propaganda: AntiSynergy = (
+    power: propagandaPower,
+    rarity: 12,
+    drafterRequirements: @[capitalismPower.name],
+    opponentRequirements: @[americanDream.name]
 )
 
 registerPower(empress)
@@ -2537,6 +2584,7 @@ registerAntiSynergy(undeveloped)
 registerAntiSynergy(phalanx)
 registerAntiSynergy(coldWar1, true)
 registerAntiSynergy(coldWar2, true)
+registerAntiSynergy(propaganda)
 
 #All powers with rng involved
 #so user can disable them if they want

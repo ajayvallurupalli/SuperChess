@@ -83,7 +83,7 @@ type
         filePath*: string = ""
         colorable*: bool = true
         rotate*: bool = false
-        drunk*: bool = false
+        converted*: bool = false
         casts*: seq[Casting]
 
     #`BoardState` is used for state common to all pieces
@@ -292,11 +292,11 @@ func pieceCopy*(initial: Piece, index: int, tile: Tile, #index and tile are requ
                 filePath: string = initial.filePath,
                 colorable: bool = initial.colorable,
                 rotate: bool = initial.rotate,
-                drunk: bool= initial.drunk): Piece = 
+                converted: bool= initial.converted): Piece = 
     return Piece(index: index, item: item, color: color, timesMoved: timesMoved, piecesTaken: piecesTaken,
                 tile: tile, moves: moves, takes: takes, onMove: onMove, onTake: onTake,
                 whenTaken: whenTaken, onEndTurn: onEndTurn, onPromote: onPromote,promoted: promoted, filePath: filePath, rotate: rotate,
-                drunk: drunk, colorable: colorable)
+                converted: converted, colorable: colorable)
 
 func isAir*(p: Piece): bool = 
     return p.item == None

@@ -79,8 +79,8 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = Game 
-const myDebugPowers: seq[Power] = @[capitalismPower, upgrade]
-const opponentDebugPowers: seq[Power] = @[inflationPower]
+const myDebugPowers: seq[Power] = @[capitalismPower, exponentialGrowth, income, propagandaPower]
+const opponentDebugPowers: seq[Power] = @[americanDream]
 
 var 
     #state for coordination with other player
@@ -208,7 +208,6 @@ proc endRound() =
                     c.on = theBoard[i][j].tile.tileAbove()
                 else:
                     c.on = theBoard[i][j].tile.tileBelow()
-        theBoard[i][j].drunk = false
 
     piecesChecking = theBoard.getPiecesChecking(side)
     if gameIsOver(theBoard, theState):
@@ -219,14 +218,6 @@ proc endRound() =
                 addWins(myDrafts)
             else:
                 addLosses(myDrafts)
-        
-
-    #TODO remove after tests
-    #ensuring that indexes are never duplicated
-    var test: seq[int] = @[]
-    for i, j in theBoard.rankAndFile:
-        assert theBoard[i][j].index notin test, fmt"{theBoard[i][j]} has some issues"
-        test.add(theBoard[i][j].index)
 
 proc sendAction(data: string, `end`: bool) =
     if not debug and not practiceMode: #skip send whn debugging because peer is undefined
@@ -237,9 +228,6 @@ proc sendAction(data: string, `end`: bool) =
     if `end`: endRound() 
 
 proc updateActionStack() = 
-    echo "as", actionStack
-    echo "nas", nextActionStack
-    echo "s", toSend
     if actionStack.len == 0:
         if nextActionStack.len != 0:
             for i, x in nextActionStack:
@@ -249,7 +237,6 @@ proc updateActionStack() =
             if toSend.len != 0:
                 for x in toSend:
                     x.send()
-                    echo "send, this ends turn if .send does"
             else:
                 #if all of them are not passThough, then pass
                 if nextActionStack.len != 0 and not nextActionStack.mapIt(it.passthrough).foldr(a and b):
@@ -273,7 +260,7 @@ proc createCancelGlass(group: int): proc () =
     result = proc () =
         for i, j in theBoard.rankAndFile:
             theBoard[i][j].casts = theBoard[i][j].casts.filterIt(it.group != group)
-        sendAction(fmt"castingcancel,{group}", true)
+        sendAction(fmt"castingcancel,{group}", false)
 
 proc otherBuy(d: string) = 
     let data = d.split(",")
@@ -311,8 +298,6 @@ proc otherGlass(d: string) =
         discard newGroup(theState) #this ensures that group is properly incremented
         #it does it more than needed, but that shouldn't be an issue
     elif data[0] == "castingcancel":
-        turn = true
-        echo "turn equals true: otherglass cancel"
         for i, j in theBoard.rankAndFile:
             theBoard[i][j].casts = theBoard[i][j].casts.filterIt(it.group != parseInt(data[1]))
     elif data[0] == "castingcomplete": #TODO clean code
@@ -757,7 +742,9 @@ proc createPowerMenu(p: Power): VNode =
             text if showTechnicalNames and p.technicalName != "": p.technicalName else: p.name
         if p.icon != "":
             var src = iconsPath
-            if not p.noColor: src &= $side
+            if not p.noColor: 
+                if p.anti: src &= $otherSide(side)
+                else: src &= $side
             img(src=src & p.icon)
         else:
             img(src="./icons/blackbishop.svg") #placeholder, delete when images are found
@@ -1215,7 +1202,7 @@ proc getLinkedPowers(p: Power, alreadyAdded: seq[string] = @[]): tuple[pows: seq
 
 proc createSeePowerDescription(p: Power): VNode =     
     var src = if p.noColor: p.icon else: $black & p.icon
-    let record = (wins: 0, losses: 0)#getRecord(p.technicalName)
+    let record = getRecord(p.technicalName)
     let class = if record.wins > 0: "see-power has-won" else: "see-power"
     result = buildHtml(tdiv(class=class)):
         h4:

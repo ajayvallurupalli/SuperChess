@@ -22,6 +22,13 @@ func hasGlass*(side: Color, state: BoardState): bool =
         if state.side[side].glass[g].isSome(): return true #kind of ugly, maybe I should rename glass to glasses?
     return false
 
+func isCasting*(glass: GlassType, b: ChessBoard): bool = 
+    for i, j in b.rankAndFile:
+        for c in b[i][j].casts:
+            if c.glass == glass: return true
+
+    return false
+
 #TODO clean this function, it's so ugly
 #It should take pieces, corresponsingTiles, and a GlassAction (which is just OnAction)
 #and return a function which handles if the piece disappears or moves

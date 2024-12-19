@@ -243,6 +243,14 @@ proc draftRandomPower*(drafterSelected: seq[Power], opponentSelected: seq[Power]
     for x in 0..options - 1:
         result.add(randomPower(randomTier(weights), drafterSelected, opponentSelected, drafterSelected & opponentSelected & result & disabled))
 
+#used to increment the prio of white, so that prio is always consistent
+proc incrementWhite(ps: seq[Power], side: Color): seq[Power] = 
+    if side == black: return ps
+    else:
+        result = ps
+        for p in result.mitems:
+            inc p.priority
+
 #assumes that there is no intersection between myDrafts and opponentDrafts
 proc execute*(myDrafts: seq[Power], opponentDrafts: seq[Power], mySide: Color, board: var ChessBoard, state: var BoardState) = 
     for x in myDrafts:
@@ -251,9 +259,12 @@ proc execute*(myDrafts: seq[Power], opponentDrafts: seq[Power], mySide: Color, b
     let mySynergizedDrafts = myDrafts
                                 .secretSynergize(secretSynergies & secretSecretSynergies)
                                 .secretAntiSynergize(opponentDrafts, secretAntiSynergies & secretSecretAntiSynergies)
+                                .incrementWhite(mySide)
+
     let opponentSynergizedDrafts = opponentDrafts
                                 .secretSynergize(secretSynergies & secretSecretSynergies)
                                 .secretAntiSynergize(myDrafts, secretAntiSynergies & secretSecretAntiSynergies)
+                                .incrementWhite(otherSide(mySide))
 
     for d in concat(mySynergizedDrafts, opponentSynergizedDrafts).sortedByIt(it.priority):
         echo fmt"Executing {d.name} with prio of {d.priority}"
