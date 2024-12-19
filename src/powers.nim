@@ -13,6 +13,18 @@ powers are exported for debug, so remove that eventually
 
 Create secret secret synergy for bombard + reinforcements
 --Add alternative exodia for alternative empress
+
+Vampires - can only be taken by bishop
+Headless Horseman - 
+Rodeo Knights - pawn spawn when knight is killed
+Devil Pawns - cannot be promoted
+Holy war - 15% to convert when taken
+Gremlins - split 
+famine - kills 50% of pawns
+pawnpacalps - kills pieces besides pawn, spawns 2 every turn
+
+
+
 ]#
 
 #[prioity rules: 
@@ -2483,6 +2495,36 @@ const propaganda: AntiSynergy = (
     opponentRequirements: @[americanDream.name]
 )
 
+const faminePower*: Power = Power(
+    name: "Famine",
+    tier: Rare,
+    rarity: 0,
+    priority: 55,
+    description: "Secret Operation: Famine. If they die they can't be communist.",
+    antiDescription: "The communes are struggling to meet our quotas. Too bad.",
+    icon: "sickleandhammer.svg",
+    noColor: true,
+    anti: true,
+    onStart: 
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            randomize(s.shared.randSeed)
+
+            for i, j in b.rankAndFile:
+                if b[i][j].isColor(side) and b[i][j].item == Pawn:
+                    let dice = rand(6)
+                    if dice == 1:
+                        b[i][j] = air.pieceCopy(index = b[i][j].index, tile = b[i][j].tile)
+                    
+
+)
+
+const famine: AntiSynergy = (
+    power: faminePower,
+    rarity: 12,
+    drafterRequirements: @[],
+    opponentRequirements: @[faminePower.name]
+)
+
 registerPower(empress)
 registerPower(altEmpress)
 registerPower(mysteriousSwordsmanLeft)
@@ -2585,6 +2627,7 @@ registerAntiSynergy(phalanx)
 registerAntiSynergy(coldWar1, true)
 registerAntiSynergy(coldWar2, true)
 registerAntiSynergy(propaganda)
+registerAntiSynergy(famine)
 
 #All powers with rng involved
 #so user can disable them if they want

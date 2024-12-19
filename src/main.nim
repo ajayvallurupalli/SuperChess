@@ -9,6 +9,9 @@ from strutils import split, parseInt, join, toLower
 from std/editdistance import editDistance
 from sequtils import foldr, mapIt, cycle, filterIt, toSeq
 from std/algorithm import reversed, sortedByIt
+from random import randomize, rand
+
+randomize()
 
 {.warning[CStringConv]: off.} 
 #fixing the issue makes the code look bad, so I'm turning it off. Genius, I know
@@ -79,7 +82,7 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = Game 
-const myDebugPowers: seq[Power] = @[capitalismPower, exponentialGrowth, income, propagandaPower]
+const myDebugPowers: seq[Power] = @[communism, faminePower]
 const opponentDebugPowers: seq[Power] = @[americanDream]
 
 var 
@@ -1223,7 +1226,7 @@ proc createSeePowerDescription(p: Power): VNode =
                 turn = true
                 practiceMode = true
 
-                theState.shared.randSeed = 0
+                theState.shared.randSeed = rand(10000)
 
                 myDrafts = getLinkedPowers(p).pows
                 execute(myDrafts, opponentDrafts, side, theBoard, theState)
@@ -1297,7 +1300,7 @@ if debug:
     case currentScreen
     of Game:
         initGame()
-        theState.shared.randSeed = 0
+        theState.shared.randSeed = rand(10000)
         myDrafts = myDebugPowers
         opponentDrafts = opponentDebugPowers
         execute(myDrafts, opponentDrafts, side, theBoard, theState)
