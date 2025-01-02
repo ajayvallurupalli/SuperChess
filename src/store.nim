@@ -14,9 +14,14 @@ import power
         last.losses += 1;
         localStorage.setItem(item, JSON.stringify(last));
     }
-""".}
 
-proc storeHas(item: cstring): bool {.importjs: "localStorage.getItem(#) !== null".}
+    function isItem(item) {
+        return localStorage.getItem(item) !== null && typeof(localStorage.getItem(item) === 'object')
+    }
+"""
+.}
+
+proc storeHas(item: cstring): bool {.importjs: "isItem(#)".}
 proc addItem(item: cstring) {.importjs: "localStorage.setItem(#, JSON.stringify({wins: 0, losses: 0}))".}
 proc incrItemWins(item: cstring) {.importjs: "incrementWins(#)".}
 proc incrItemLosses(item: cstring) {.importjs: "incrementLosses(#)".}

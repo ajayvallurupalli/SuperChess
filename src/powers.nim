@@ -1459,7 +1459,7 @@ proc createConvertingTake(odds: float): OnAction =
         let dice = rand(100)
 
         inc piece.timesMoved
-        if dice <= int(odds * 100) and board[taking].item != King: 
+        if dice <= int(odds * 100) and board[taking].item != King and board[taking].filePath.contains("vampire"): 
             board[taking].color = piece.color
             board[taking].index = newIndex(state) #it is a new piece when it switches
             pieceSwap(piece, board[taking], board)
@@ -1892,6 +1892,7 @@ proc createSuperLottery(): BoardAction =
                     addMoney(side, 10, state)
                     board[i][j].promote(board, state)
             lastTimesMoved[i][j] = board[i][j].timesMoved
+
 const slumdogBillionairePower*: Power = Power(
     name: "Slumdog Billionaire",
     tier: Common,
@@ -1906,7 +1907,7 @@ const slumdogBillionairePower*: Power = Power(
 
 )
 
-const slumdogBillionaire: Synergy = createCapitalism(slumdogBillionairePower, 8, @[slumdogMillionaire.name], @[slumdogMillionaire.name])
+const slumdogBillionaire: Synergy = createCapitalism(slumdogBillionairePower, 0, @[slumdogMillionaire.name], @[slumdogMillionaire.name])
 
 const exponentialGrowthOnEndTurn: BoardAction = proc (side: Color, _: var ChessBoard, state: var BoardState) =
     let currentMoney = getMoney(side, state)
@@ -1928,7 +1929,7 @@ const exponentialGrowth*: Power = Power(
 
 const capitalismTwoThousand: Synergy = (
     power: exponentialGrowth,
-    rarity: 16,
+    rarity: 0,
     requirements: @[capitalismPower.name, capitalismTwo2.power.name, capitalismThree1.power.name, capitalismFour1.power.name, capitalismFive1.power.name],
     replacements: @[]
 )
@@ -2511,11 +2512,9 @@ const faminePower*: Power = Power(
 
             for i, j in b.rankAndFile:
                 if b[i][j].isColor(side) and b[i][j].item == Pawn:
-                    let dice = rand(6)
-                    if dice == 1:
+                    let dice = rand(7)
+                    if dice <= 2:
                         b[i][j] = air.pieceCopy(index = b[i][j].index, tile = b[i][j].tile)
-                    
-
 )
 
 const famine: AntiSynergy = (
@@ -2523,6 +2522,84 @@ const famine: AntiSynergy = (
     rarity: 12,
     drafterRequirements: @[],
     opponentRequirements: @[faminePower.name]
+)
+
+#default values for some of `Piece`
+#TODO: MOVE THESE TO `basePieces.nim`
+const vampireWhenTaken*: WhenTaken = proc(taken: var Piece, taker: var Piece, board: var ChessBoard, state: var BoardState): tuple[endTile: Tile, takeSuccess: bool] = 
+    if taker.item == Bishop:
+        taker.pieceMove(taken, board, state)
+        return (taken.tile, true)
+    else:
+        return (taker.tile, false)
+
+const vampires*: Power = Power(
+    name: "Vampires",
+    tier: Uncommon,
+    priority: 5,
+    description: "Muahahaha. Your middle two pawns become vampires. Only God can kill them now. Muahaha.",
+    icon: "vampire.svg",
+    onStart: 
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            if side == black:
+                if b[1][3].item == Pawn:
+                    b[1][3].whenTaken = vampireWhenTaken
+                    b[1][3].filePath = "vampire.svg"
+                if b[1][4].item == Pawn:
+                    b[1][4].whenTaken = vampireWhenTaken
+                    b[1][4].filePath = "vampire.svg"
+            elif side == white:
+                if b[6][3].item == Pawn:
+                    b[6][3].whenTaken = vampireWhenTaken
+                    b[6][3].filePath = "vampire.svg"
+                if b[6][4].item == Pawn:
+                    b[6][4].whenTaken = vampireWhenTaken   
+                    b[6][4].filePath = "vampire.svg"     
+)
+
+const godPower*: Power = Power(
+    name: "God",
+    tier: UltraRare,
+    priority: 7,
+    antiDescription: "Well, I guess He's here. ",
+    icon: "cross.svg",
+    noColor: true,
+    anti: true,
+    onStart: 
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            if side == black:
+                if b[1][3].item == Pawn:
+                    b[1][3].whenTaken = defaultWhenTaken
+                if b[1][4].item == Pawn:
+                    b[1][4].whenTaken = defaultWhenTaken
+            elif side == white:
+                if b[6][3].item == Pawn:
+                    b[6][3].whenTaken = defaultWhenTaken
+                if b[6][4].item == Pawn:
+                    b[6][4].whenTaken = defaultWhenTaken   
+)
+
+const god: AntiSynergy = (
+    power: godPower,
+    rarity: 0,
+    drafterRequirements: @["Holy"],
+    opponentRequirements: @[vampires.name]
+)
+
+#Unfinished. 
+const stampede*: Power = Power(
+    name: "Stampede",
+    tier: UltraRare,
+    priority: 50,
+    description: "RUN!",
+    icon: knightIcon,
+    onStart: 
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            for i, j in b.rankAndFile:
+                if b[i][j].item == Pawn and b[i][j].isColor(side):
+                    b[i][j] = s.side[side].dna[Knight].pieceCopy(index = newIndex(s), tile = b[i][j].tile)
+                elif b[i][j].item notin [King, Knight] and b[i][j].isColor(side):
+                    b[i][j] = air.pieceCopy(index = newIndex(s), tile = b[i][j].tile)            
 )
 
 registerPower(empress)
@@ -2567,6 +2644,7 @@ registerPower(americanDream)
 registerPower(sleeperAgent)
 registerPower(capitalismPower)
 registerPower(communism)
+registerPower(vampires)
 
 registerPower(skyGlass)
 registerPower(zeroGlass)
@@ -2574,6 +2652,7 @@ registerSynergy(bankruptcyGlass)
 registerPower(steelGlass)
 registerPower(reverieGlass)
 registerPower(daybreakGlass)
+
 
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)
@@ -2628,6 +2707,7 @@ registerAntiSynergy(coldWar1, true)
 registerAntiSynergy(coldWar2, true)
 registerAntiSynergy(propaganda)
 registerAntiSynergy(famine)
+registerAntiSynergy(god)
 
 #All powers with rng involved
 #so user can disable them if they want

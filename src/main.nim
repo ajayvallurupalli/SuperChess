@@ -82,8 +82,8 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = Game 
-const myDebugPowers: seq[Power] = @[communism, faminePower]
-const opponentDebugPowers: seq[Power] = @[americanDream]
+const myDebugPowers: seq[Power] = @[holy]
+const opponentDebugPowers: seq[Power] = @[vampires]
 
 var 
     #state for coordination with other player
@@ -181,7 +181,6 @@ proc clear() =
     possibleTakes = @[]
 
 proc initSelectedSubPower() = 
-    echo selectedSubPower
     for name in allpowers.keys:
         selectedSubPower[name] = 0
 
@@ -529,16 +528,12 @@ proc createTile(p: Piece, m: int, n: int): VNode =
                     pickOptions = getPickOptions()
                     clear()
                     if picksLeft == 0: 
-                        echo "when collected start"
                         whenCollected()
-                        echo "When Collected"
                         cancelAllPicks()
-                        echo "Cancel All"
                 elif possibleMoves.contains(p.tile) and 
                     pieceOf(selectedTile).isColor(side) and not busy(): #picksLeft == 0 stops moves during pick
                         pieceOf(selectedTile).move(p.tile, theBoard, theState)
                         sendMove("move", selectedTile, p.tile)
-                        echo "send"
                         clear()
                 elif possibleTakes.contains(p.tile) and 
                     pieceOf(selectedTile).isColor(side) and not busy(): #picksLeft == 0 stops moves during pick:
@@ -585,7 +580,6 @@ proc createLobby(): VNode =
                     text "See Powers"
                     proc onclick(ev: Event, _: VNode) =
                         initSelectedSubPower()
-                        echo "setting screen to See Power"
                         currentScreen = SeePower
 
 
@@ -842,11 +836,9 @@ proc createInfo(): VNode =
                     text "Execute!"
                 proc onclick(_: Event, _: VNode) =
                     actionStack[^1].action(side, theBoard, theState)
-                    echo "action complete"
                     for i, j in theBoard.rankAndFile:
                         theBoard[i][j].casts = theBoard[i][j].casts.filterIt(it.group != actionStack[^1].group)
                     toSend.add(actionStack.pop())
-                    echo "sent"
                     updateActionStack()
             elif actionStack[^1].cancelable:
                 h3:
@@ -937,7 +929,6 @@ proc createGlassMenu(): VNode =
                     assert promptStack.len == picksLeft
                     whenCollected = proc () =
                         for piece, tile in byTwo(picks):
-                            echo "piecetile", piece, "tile, ", tile
                             pieces.add(theBoard[piece])
                             tiles.add(tile)
                             newCasting.add(( 
@@ -955,7 +946,6 @@ proc createGlassMenu(): VNode =
                             sendAction(fmt"""castingstart,{piece.rank},{piece.file},{tile.rank},{tile.file},{group},{glass}""", false)
                             discard newGroup(theState) #this ensures that group is properly incremented
                             #it does it more than needed, but that shouldn't be an issue
-                        echo "adding actionStack"
                         actionStack.add((
                             name: "Casting " & $glass,
                             turns: 1,
@@ -966,7 +956,6 @@ proc createGlassMenu(): VNode =
                             send: createSendGlass(group),
                             cancel: createCancelGlass(group)
                         ))
-                        echo "avtionstack added"
                         sendAction("pass", true)
                     getPickOptions = proc (): Moves =
                         if picksLeft mod 2 == 0: #picking piece
@@ -1241,7 +1230,6 @@ proc getPowerTabLength(powers: seq[Power]): int =
         result += p.technicalName.len * 15 #15 is font size
 
 proc createSeePower(): VNode = 
-    echo "creating See Power"
     result = buildHtml(tdiv(class = "tab-column")):
         button(class = "top-button"):
             text "Return to Lobby"

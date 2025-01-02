@@ -106,6 +106,7 @@ var
 #I know I should use an enum instead of secret and secretSecret, but I think this is funner
 proc registerSynergy*(s: Synergy, secret: bool = false, secretSecret = false) = 
     assert secret or not secretSecret #ensures that secretSecret is true if and only if secret is true
+    assert s.rarity == 0 or not secret, $s #ensures that rarity is 0 when secret
     var x = s #to edit
     
     x.power.rarity = x.rarity
