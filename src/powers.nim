@@ -1,5 +1,6 @@
-import power, moves, piece, basePieces, extraMoves, board, capitalism
+import power, moves, piece, basePieces, extraMoves, board
 from extrapower / glass import isCasting
+import extrapower/capitalism
 import std/options
 from sequtils import filterIt, mapIt, concat
 from strutils import contains

@@ -1,4 +1,4 @@
-import piece, std/options
+import ../piece, std/options
 from sugar import `=>`
 
 #I put this into a new folder because I don't like tons of files in main src

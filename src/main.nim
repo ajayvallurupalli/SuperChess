@@ -1,8 +1,8 @@
 include karax / prelude
 import karax/errors
-import piece, basePieces, port, power, powers, store, capitalism #powers import for debug
+import piece, basePieces, port, power, powers, store #powers import for debug
 from board import tileAbove, tileBelow
-import extrapower/glass
+import extrapower / [glass, capitalism]
 import std/dom, std/strformat #im not sure why dom stuff fails if I don't import the whole package
 import std/options, std/tables #try to expand use of this, instead of wierd tuple[has: bool stuff
 from strutils import split, parseInt, join, toLower
@@ -11,7 +11,7 @@ from sequtils import foldr, mapIt, cycle, filterIt, toSeq
 from std/algorithm import reversed, sortedByIt
 from random import randomize, rand
 
-randomize()
+randomize() #for debug
 
 {.warning[CStringConv]: off.} 
 #fixing the issue makes the code look bad, so I'm turning it off. Genius, I know
@@ -60,6 +60,7 @@ const
         [" casting-sky ", " casting-zero ", " casting-steel ", " casting-reverie ", " casting-daybreak "] #corresponding css classes for each type
     castingOnAnimations: array[GlassType, string] = 
         [" casting-on-sky ", " casting-on-zero ", " casting-on-steel ", " casting-on-reverie ", " casting-on-daybreak "]#corresponding css classes for each type
+    emptySrc = "data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E" #used as an empty image
 
 type 
     Screen {.pure.} = enum 
@@ -115,7 +116,7 @@ var
 
     #settings decided by player
     showTechnicalNames: bool = false
-    disableRNGPowers: bool = false
+    disableRNGPowers: bool = true #I'm going to disable it for a bit until I finish fixing. TODO
     showDebug: bool = false
     enableExperimental: bool = true
 
@@ -548,7 +549,7 @@ proc createTile(p: Piece, m: int, n: int): VNode =
                     clear()
 
             if p.filePath == "":
-                text ""
+                img(src = emptySrc) #we use an empty so it has the same structure
             else:
                 let class = if p.rotate: "rotate" else: ""
                 let color = if p.colorable: $p.color else: ""
