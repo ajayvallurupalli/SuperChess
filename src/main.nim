@@ -81,8 +81,8 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = Game 
-const myDebugPowers: seq[Power] = @[]
-const opponentDebugPowers: seq[Power] = @[rider, knightChargePower]
+const myDebugPowers: seq[Power] = @[rider, knightChargePower, stepOnMe]
+const opponentDebugPowers: seq[Power] = @[]
 
 var 
     #state for coordination with other player

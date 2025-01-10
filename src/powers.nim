@@ -2618,6 +2618,37 @@ const rider*: Power = Power(
             )
 )
 
+const huhBuck: WhenTaken = proc (taken: var Piece, taker: var Piece, board: var ChessBoard, state: var BoardState): tuple[endTile: Tile, takeSuccess: bool] = 
+    if taker.item == Queen and taker.sameColor(taken):
+        for i in -1..1:
+            for j in -1..1:
+                let shoot = shooterFactory(i, j)
+                if board[taken.tile.shoot].isAir():
+                    board[taken.tile.shoot] = state.side[taken.color].dna[Pawn].pieceCopy(index = newIndex(state), tile = taken.tile.shoot)
+    
+    return buck(taken, taker, board, state)
+
+const huhPower*: Power = Power(
+    name: "HUH",
+    tier: UltraRare,
+    rarity: 0,
+    priority: 7,
+    description: "HUH.",
+    icon: knightIcon,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            Knight.change(side, b, s,
+                whenTaken = huhbuck
+            )
+)
+
+const huh: Synergy = (
+    power: huhPower,
+    rarity: 0,
+    requirements: @[stepOnMe.name, rider.name],
+    replacements: @[]
+)
+
 registerPower(empress)
 registerPower(altEmpress)
 registerPower(mysteriousSwordsmanLeft)
@@ -2705,6 +2736,7 @@ registerSynergy(capitalismTwoThousand, true)
 registerSynergy(slumdogBillionaire, true)
 registerSynergy(bounty, true)
 registerSynergy(bounty2, true)
+registerSynergy(huh, true)
 
 registerSynergy(virus, true)
 registerSynergy(virus2, true)
