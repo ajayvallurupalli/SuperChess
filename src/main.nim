@@ -53,19 +53,17 @@ const
     menuButton = " menu-button "
     pieceRow = " piece-row "
     glassMenu = " glass-menu "
-    height100 = " height-100 "
-    width100 = " width-100 "
     settingItem = " setting-item "
     castingAnimations: array[GlassType, string] = 
         [" casting-sky ", " casting-zero ", " casting-steel ", " casting-reverie ", " casting-daybreak "] #corresponding css classes for each type
     castingOnAnimations: array[GlassType, string] = 
         [" casting-on-sky ", " casting-on-zero ", " casting-on-steel ", " casting-on-reverie ", " casting-on-daybreak "]#corresponding css classes for each type
-    emptySrc = "data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E" #used as an empty image
+    emptySrc = "data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E" #data for an empty image
 
 type 
     Screen {.pure.} = enum 
         Lobby, CreateRoom, JoinRoom, Game, Options, Draft, 
-        Results, Rematch, Disconnect, Settings, Other, SeePower, Test
+        Results, Rematch, Disconnect, Settings, Other, SeePower
     Gamemode {.pure.} = enum 
         Normal, RandomTier, TrueRandom, SuperRandom
     Tab {.pure.} = enum
@@ -83,8 +81,8 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = Game 
-const myDebugPowers: seq[Power] = @[holy]
-const opponentDebugPowers: seq[Power] = @[vampires]
+const myDebugPowers: seq[Power] = @[]
+const opponentDebugPowers: seq[Power] = @[rider, knightChargePower]
 
 var 
     #state for coordination with other player
@@ -191,10 +189,10 @@ proc endRound() =
     for i, j in rankAndFile(theBoard):
         theBoard[i][j].endTurn(theBoard, theState)
 
-    for a in theState.side[white].onEndTurn:
-        a(white, theBoard, theState)
+    for a in theState.side[white].onEndTurn.sortedByIt(it.priority):
+        a.action(white, theBoard, theState)
     for a in theState.side[black].onEndTurn:
-        a(black, theBoard, theState)
+        a.action(black, theBoard, theState)
 
     #this is needed by the random move powers to prevent double moves
     #It needs to happen after so that all drunkness is cleared after end turn stuff
@@ -836,7 +834,7 @@ proc createInfo(): VNode =
                 button:
                     text "Execute!"
                 proc onclick(_: Event, _: VNode) =
-                    actionStack[^1].action(side, theBoard, theState)
+                    actionStack[^1].action.action(side, theBoard, theState)
                     for i, j in theBoard.rankAndFile:
                         theBoard[i][j].casts = theBoard[i][j].casts.filterIt(it.group != actionStack[^1].group)
                     toSend.add(actionStack.pop())
@@ -1270,6 +1268,7 @@ proc main(): VNode =
         of CreateRoom: createRoomMenu()
         of JoinRoom: createJoinMenu()
         of Options: createOptionsMenu()
+        of SeePower: createSeePower()
         of Draft: createDraftMenu()
         of Game: createGame()
         of Results: createResults()
@@ -1277,9 +1276,6 @@ proc main(): VNode =
         of Disconnect: createDisconnect()
         of Other: createOther()
         of Settings: createSettings()
-        of SeePower: createSeePower()
-        of Test: tdiv()
-
 
 initStorage()
 onresize(resize)

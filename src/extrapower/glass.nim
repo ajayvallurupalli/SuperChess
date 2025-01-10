@@ -34,7 +34,8 @@ func isCasting*(glass: GlassType, b: ChessBoard): bool =
 #and return a function which handles if the piece disappears or moves
 func packageGlass*(pieces: seq[Piece], tiles: seq[Tile], action: OnAction): BoardAction =
         let indexes = pieces.mapIt(it.index)
-        result = proc (_: Color, board: var ChessBoard, state: var BoardState) =
+        result.priority = 10
+        result.action = proc (_: Color, board: var ChessBoard, state: var BoardState) =
             for i, j in board.rankAndFile:
                 for indexIndex, index in indexes:
                     if index == board[i][j].index:

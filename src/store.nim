@@ -1,4 +1,3 @@
-import std/jsffi
 import power
 
 

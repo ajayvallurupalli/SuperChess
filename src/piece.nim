@@ -45,7 +45,8 @@ type
     OnPiece* = proc (piece: var Piece, board: var ChessBoard, state: var BoardState)
     #`BoardAction` is used to describe a transformation on the state itself, build from the current state
     #it is the most general action
-    BoardAction* = proc (side: Color, board: var ChessBoard, state: var BoardState)
+    BoardActionAction* = proc (side: Color, board: var ChessBoard, state: var BoardState) #awesome name
+    BoardAction* = tuple[action: BoardActionAction, priority: int]
 
 
     #Capitalism stuff
@@ -114,6 +115,7 @@ type
         buys*: seq[BuyOption] = @[]
         piecesSold*: int = 0 #Just for Capitalism Sell
         piecesSoldThisTurn*: int = 0
+
 
         glass*: Glasses = arrayWith(none(GlassAbility), GlassType.high.ord.succ) #high.ord.succ finds length of enum. I could do high.ord + 1 but .succ looks cooler
 
