@@ -2275,13 +2275,16 @@ const communism*: Power = Power(
     icon: "sickleandhammer.svg",
     noColor: true,
     onStart:
-        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            Pawn.change(side, b, s, 
-                promoted = true #so that it can never promote
-            )
+        proc (side: Color, viewSide: Color, b: var ChessBoard, s: var BoardState) = 
             for i, j in b.rankAndFile:
                 if b[i][j].isColor(side):
                     b[i][j] = s.side[side].dna[Pawn].pieceCopy(index = b[i][j].index, tile = b[i][j].tile)
+
+            Pawn.change(side, b, s, 
+                promoted = true #so that it can never promote
+            )
+            backStep.onStart(side, viewSide, b, s) #to fix any issues of them moving backwards
+            headStart.onStart(side, viewSide, b, s)
             s.side[side].communist = true
 
 )

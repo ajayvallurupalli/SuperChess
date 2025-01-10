@@ -12,6 +12,7 @@ var document* {.importc, nodecl.}: JsObject
 
 #prefix for id, so that the id can still be really long while allowing for a simple extension to be tacked on
 const baseId: cstring = "9e4ada91-c493-4fd4-881d-3e05db99e100"
+const selfId: cstring = "98660184-4e83-41a2-f461-63aa65d358bb"
 
 #creates an id automatically
 proc newPeer(): Peer {.importjs:"""
@@ -66,11 +67,23 @@ proc newHost*(cb: proc(data: string, messageType: MessageType)): tuple[send: pro
     let roomId: int = rand(10000..99999)
     var peer: Peer = newPeer(baseId & cstring($roomId))
     var conn: Connection
+    var connected: bool = false
 
     peer.on("open", ((id: cstring) => cb($roomId, Id)))
     peer.on("connection", proc (c: Connection) =
-        conn = c
-        conn.on("data", (data: cstring) => cb(cutMessage(data), messageType(data))))
+        if not connected:
+            conn = c
+            connected = true
+            conn.on("data", proc (data: cstring) = 
+                cb(cutMessage(data), messageType(data))
+            )
+        else:
+            var turnDown = c
+            turnDown.on("open", () => conn.send("inuse"))
+            turnDown.close())
+
+
+
     peer.on("disconnect", proc () =
         echo "DISCONNECT DISCONNECT DISCONNECT"
         peer.id = baseId & cstring($roomId)
@@ -86,14 +99,23 @@ proc newHost*(cb: proc(data: string, messageType: MessageType)): tuple[send: pro
 proc newJoin*(id: cstring, cb: proc(data: string, messageType: MessageType)): tuple[send: proc(data: cstring), destroy: proc()] =
     var peer: Peer = newPeer()
     var conn: Connection
+    var connected: bool = false
+
     peer.on("open", proc () = 
-        conn = peer.connect(baseId & id)
-        conn.on("open", () => conn.send("handshake:hello"))
-        conn.on("data", (data: cstring) => cb(cutMessage(data), messageType(data))))
+        if not connected:
+            conn = peer.connect(baseId & id)
+            conn.on("open", proc () = 
+                connected = true
+                conn.send("handshake:hello")
+            )
+            conn.on("data", (data: cstring) => cb(cutMessage(data), messageType(data)))
+        )
+
     peer.on("disconnect", proc () =
         echo "DISCONNECT DISCONNECT DISCONNECT"
         peer.id = baseId & id
-        peer.reconnect())
+        peer.reconnect()
+    )
     
     result.destroy = proc () = 
         peer.destroy()
