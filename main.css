@@ -1080,6 +1080,14 @@ img {
   object-fit: contain;
 }
 
+a:visited {
+  color: rgb(25, 25, 230);
+}
+
+.move-up-alot {
+  transform: translateY(-340px);
+}
+
 ::-webkit-scrollbar {
   -webkit-appearance: none;
   height: 0px;
@@ -1342,9 +1350,9 @@ hr {
   outline-width: 1px;
   outline-color: #183dd1;
   outline-style: solid;
-  animation: animateOutlineumtj2v7 2s ease infinite;
+  animation: animateOutlineui73uks 2s ease infinite;
 }
-@keyframes animateOutlineumtj2v7 {
+@keyframes animateOutlineui73uks {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1371,9 +1379,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-umtj2v8 4s ease-in-out infinite;
+  animation: castingAnimation-ui73ulm 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-umtj2v8 {
+@keyframes castingAnimation-ui73ulm {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1390,9 +1398,9 @@ hr {
   outline-width: 1px;
   outline-color: #ea332d;
   outline-style: solid;
-  animation: animateOutlineumtj2vo 2s ease infinite;
+  animation: animateOutlineui73um6 2s ease infinite;
 }
-@keyframes animateOutlineumtj2vo {
+@keyframes animateOutlineui73um6 {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1419,9 +1427,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-umtj2wg 4s ease-in-out infinite;
+  animation: castingAnimation-ui73umk 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-umtj2wg {
+@keyframes castingAnimation-ui73umk {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1438,9 +1446,9 @@ hr {
   outline-width: 1px;
   outline-color: rgb(206, 206, 206);
   outline-style: solid;
-  animation: animateOutlineumtj2xd 2s ease infinite;
+  animation: animateOutlineui73unj 2s ease infinite;
 }
-@keyframes animateOutlineumtj2xd {
+@keyframes animateOutlineui73unj {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1467,9 +1475,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-umtj2xv 4s ease-in-out infinite;
+  animation: castingAnimation-ui73uno 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-umtj2xv {
+@keyframes castingAnimation-ui73uno {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1486,9 +1494,9 @@ hr {
   outline-width: 1px;
   outline-color: #424242;
   outline-style: solid;
-  animation: animateOutlineumtj2y4 2s ease infinite;
+  animation: animateOutlineui73uo0 2s ease infinite;
 }
-@keyframes animateOutlineumtj2y4 {
+@keyframes animateOutlineui73uo0 {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1515,9 +1523,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-umtj2yb 4s ease-in-out infinite;
+  animation: castingAnimation-ui73uoe 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-umtj2yb {
+@keyframes castingAnimation-ui73uoe {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1534,9 +1542,9 @@ hr {
   outline-width: 1px;
   outline-color: rgb(201, 178, 65);
   outline-style: solid;
-  animation: animateOutlineumtj2z7 2s ease infinite;
+  animation: animateOutlineui73uol 2s ease infinite;
 }
-@keyframes animateOutlineumtj2z7 {
+@keyframes animateOutlineui73uol {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1563,9 +1571,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-umtj2za 4s ease-in-out infinite;
+  animation: castingAnimation-ui73up1 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-umtj2za {
+@keyframes castingAnimation-ui73up1 {
   0% {
     outline-width: 3px;
     outline-offset: 50px;

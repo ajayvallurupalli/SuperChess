@@ -1,11 +1,12 @@
 include karax / prelude
 import karax/errors
 import piece, basePieces, port, power, powers, store #powers import for debug
+import changelog
 from board import tileAbove, tileBelow
 import extrapower / [glass, capitalism]
 import std/dom, std/strformat #im not sure why dom stuff fails if I don't import the whole package
 import std/options, std/tables #try to expand use of this, instead of wierd tuple[has: bool stuff
-from strutils import split, parseInt, join, toLower
+from strutils import split, parseInt, join, toLower, replace, strip
 from std/editdistance import editDistance
 from sequtils import foldr, mapIt, cycle, filterIt, toSeq
 from std/algorithm import reversed, sortedByIt
@@ -63,7 +64,7 @@ const
 type 
     Screen {.pure.} = enum 
         Lobby, CreateRoom, JoinRoom, Game, Options, Draft, 
-        Results, Rematch, Disconnect, Settings, Other, SeePower
+        Results, Rematch, Disconnect, Settings, Other, SeePower, ChangeLog
     Gamemode {.pure.} = enum 
         Normal, RandomTier, TrueRandom, SuperRandom
     Tab {.pure.} = enum
@@ -81,7 +82,7 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = Game 
-const myDebugPowers: seq[Power] = @[rider, knightChargePower, stepOnMe]
+const myDebugPowers: seq[Power] = @[bountyHunterPower]
 const opponentDebugPowers: seq[Power] = @[]
 
 var 
@@ -141,6 +142,8 @@ var
 
     selectedSubPower: Table[string, int]
     allPowers = getAllPowers()
+
+    changeLogs: Table[cstring, cstring]
 
 proc alert(s: cstring) {.importjs: "alert(#)".}
 proc onresize(cb: proc()) {.importjs: "window.addEventListener('resize', #)".}
@@ -596,6 +599,9 @@ proc createLobby(): VNode =
                     text "Other"
                     proc onclick(ev: Event, _: VNode) =
                         currentScreen = Other
+            
+        a(href = "https://docs.google.com/forms/d/e/1FAIpQLScSidB_dbpKlsWopscLZZn4ZJP_5U9gqb0WyMJ4-bN_yAruSg/viewform?usp=sf_link", class = "move-up-alot"):
+            text "SuperChess Feedback Form!"
                         
 proc createRoomMenu(): VNode = 
     result = buildHtml(tdiv(class="main")):
@@ -1120,7 +1126,7 @@ proc createOther(): VNode =
             button(class=menuButton):
                 text "Change Log"
                 proc onclick(ev: Event, _: VNode) =
-                    alert("Unimplemented")
+                    currentScreen = ChangeLog
 
         button(class="width-100"):
             text "Credits"
@@ -1162,11 +1168,11 @@ proc createSettings(): VNode =
             "Removes RNG based powers, like civilians, from the draft pool. Only works when you are the host.",
             true
         )
-        createSetting(
+        #[createSetting(
             enableExperimental,
             "Include Experimental Powers",
             "Adds the cutting edge of SuperChess. It is likely to break or be unbalanced.",
-        )
+        )]# #uncomment when new wave of experimental comes
         button(class="width-100"):
             text "Return to Other"
             proc onclick(_: Event, _: VNode) = 
@@ -1261,6 +1267,22 @@ proc createSeePower(): VNode =
 
             hr()
 
+proc createChangeLog(): VNode = 
+    result = buildHtml(tdiv(class = "tab-column")):
+        for date, text in changeLogs:
+            h3:
+                text replace($date, '.', '/').replace("/txt")
+            p:
+                text text #hehe
+            hr()
+
+        br()
+        br()
+        button(class="width-100"):
+            text "Return to Other"
+            proc onclick(_: Event, _: VNode) = 
+                currentScreen = Other
+
 proc main(): VNode = 
     result = buildHtml(tdiv(class="main scroll")):
         case currentScreen
@@ -1269,6 +1291,7 @@ proc main(): VNode =
         of JoinRoom: createJoinMenu()
         of Options: createOptionsMenu()
         of SeePower: createSeePower()
+        of ChangeLog: createChangeLog()
         of Draft: createDraftMenu()
         of Game: createGame()
         of Results: createResults()
@@ -1280,6 +1303,7 @@ proc main(): VNode =
 initStorage()
 onresize(resize)
 initSelectedSubPower()
+getChangeLogs(changeLogs)
 
 if debug: 
     case currentScreen

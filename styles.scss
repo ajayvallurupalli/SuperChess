@@ -29,6 +29,14 @@ img {
     object-fit: contain;
 }
 
+a:visited {
+    color: rgb(25, 25, 230)
+}
+
+.move-up-alot {
+    transform: translateY(-340px);
+}
+
 ::-webkit-scrollbar {
     -webkit-appearance: none;
     height: 0px;

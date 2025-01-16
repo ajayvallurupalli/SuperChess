@@ -970,6 +970,7 @@ const bountyHunterOnEndTurn*: OnPiece = proc (piece: var Piece, board: var Chess
                 #searches for enemy king and deletes is
                 if board[i][j].item == King and not board[i][j].sameColor(piece):
                     board[i][j] = air.pieceCopy(index = board[i][j].index, tile = board[i][j].tile)
+                    echo "King has been killed by Bounty Hunter"
 
 const bountyHunterPower*: Power = Power(
     name: "Bounty Hunter",
@@ -1377,11 +1378,13 @@ const calvaryGiraffe: Synergy = (
 )
 
 const lesbianBountyHunterOnEndTurn*: OnPiece = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) = 
-        if piece.piecesTaken == 7:
-            for i, j in board.rankAndFile:
-                #searches for enemy king and deletes is
-                if board[i][j].item == King and not board[i][j].sameColor(piece):
-                    board[i][j] = air.pieceCopy(index = board[i][j].index, tile = board[i][j].tile)
+    echo "Lesbian Bounty Hunter Active"
+    if piece.piecesTaken == 7:
+        for i, j in board.rankAndFile:
+            #searches for enemy king and deletes is
+            if board[i][j].item == King and not board[i][j].sameColor(piece):
+                board[i][j] = air.pieceCopy(index = board[i][j].index, tile = board[i][j].tile)
+                echo "King has been killed by Lesbian Bounty Hunter"
 
 const lesbianBountyHunterPower*: Power = Power(
     name: "Bounty Hunter Nerf",
@@ -2551,7 +2554,7 @@ const vampires*: Power = Power(
     name: "Vampires",
     tier: Uncommon,
     priority: 5,
-    description: "Muahahaha. Your middle two pawns become vampires. Only God can kill them now. Muahaha.",
+    description: "Muahahaha. Your middle two pawns become vampires. Only God and His Bishops can kill them now. Muahaha.",
     icon: "vampire.svg",
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -2703,7 +2706,6 @@ registerPower(steelGlass)
 registerPower(reverieGlass)
 registerPower(daybreakGlass)
 
-
 registerSynergy(samuraiSynergy)
 registerSynergy(calvaryCharge)
 registerSynergy(differentGame)
@@ -2725,6 +2727,7 @@ registerSynergy(clarity, true)
 registerSynergy(masterGlass, true)
 registerSynergy(masterGlass2, true)
 registerSynergy(comucapital, true)
+registerSynergy(huh, true)
 
 registerSynergy(capitalismTwo1)
 registerSynergy(capitalismTwo2)
@@ -2739,7 +2742,6 @@ registerSynergy(capitalismTwoThousand, true)
 registerSynergy(slumdogBillionaire, true)
 registerSynergy(bounty, true)
 registerSynergy(bounty2, true)
-registerSynergy(huh, true)
 
 registerSynergy(virus, true)
 registerSynergy(virus2, true)

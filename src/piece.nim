@@ -326,15 +326,14 @@ func gameIsOver*(b: ChessBoard, s: BoardState): bool =
     var blackAlive: bool = false
     for row in b:
         for p in row:
-            if p.isColor(white):
+            if p.isColor(white) and not whiteAlive:
                 if p.item == King or s.side[white].communist:
                     whiteAlive = true
-                    break
-            elif p.isColor(black):
+            elif p.isColor(black) and not blackAlive:
                 if p.item == King or s.side[black].communist:
                     blackAlive = true
-                    break
 
+    debugEcho "white: ", whiteAlive, "black: ", blackAlive
     return not (whiteAlive and blackAlive)
 
 func getPiecesChecking*(b: ChessBoard, c: Color): seq[Tile] = 

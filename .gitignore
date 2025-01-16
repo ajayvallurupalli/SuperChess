@@ -1,2 +1,6 @@
 karun
 /app
+.firebaserc
+firebase.json
+/public
+.firebase
