@@ -5,9 +5,9 @@ import std/options
 
 # a frozen pieces will lose some amount of their moves every turn
 #it will be different moves taken every turn
-proc frozenAction(state: BoardState): StatusAction = 
+proc frozenAction(): StatusAction = 
     var capturedActions: Table[int, seq[MoveProc]] #indexed by `Piece.index` (which is an int)
-    var noise = state.shared.randSeed
+    var noise = 42
 
     result.action = proc (_: Color, b: var ChessBoard, s: var BoardState) = 
         #first we return previously captured actions
@@ -70,7 +70,7 @@ const decStatuses: BoardActionAction = proc (_: Color, b: var ChessBoard, s: var
 
 proc initStatusConditions*(s: var BoardState) =
     let poison = poisonAction()
-    let frozen = frozenAction(s)
+    let frozen = frozenAction()
 
     s.shared.cures[Poisoned] = poison.cure 
     s.shared.cures[Frozen] = frozen.cure 

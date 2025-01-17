@@ -164,7 +164,9 @@ proc busy(): bool =
 proc initGame() = 
     theState = startingState()
     theBoard = startingBoard(theState)
-    if not debug: theState.shared.randSeed = roomId.value.parseInt()
+    theState.shared.randSeed = 
+        if not debug and not practiceMode: roomId.value.parseInt()
+        else: 0
     myDrafts = @[]
     opponentDrafts = @[]
     lastMove = @[]
