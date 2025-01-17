@@ -59,12 +59,24 @@ type
     GlassType* = enum 
         Sky, Zero, Steel, Reverie, Daybreak
     GlassMoves* = proc (side: Color, piece: Piece, b: ChessBoard, s: BoardState): Moves {.noSideEffect.}
-    GlassTile* = proc (side: Color, piece: Piece, castedTile: Tile): Tile {.noSideEffect.}#I am the king of over engineering
+    GlassTile* = proc (side: Color, piece: Piece, castedTile: Tile): Tile {.noSideEffect.} #I am the king of over engineering
     GlassAbility* = tuple
         strength: int
         action: OnAction
         condition: GlassMoves
     Glasses* = array[GlassType, Option[GlassAbility]]
+
+    StatusType* = enum
+        Frozen, Poisoned
+
+    StatusData* = tuple
+        strength: int
+        turnsLeft: int
+        afflicter: Color
+
+    StatusAction* = tuple
+        action: BoardActionAction
+        cure: OnPiece
 
     Piece* = object
         item*: Piecetype
@@ -86,6 +98,7 @@ type
         rotate*: bool = false
         converted*: bool = false
         casts*: seq[Casting]
+        status*: array[StatusType, Option[StatusData]]
 
     #`BoardState` is used for state common to all pieces
     #`.shared` is used by both sides
@@ -99,6 +112,11 @@ type
         turnNumber*: int = 0
 
         mutuallyAssuredDestruction*: bool = false
+
+        statusStrength*: array[StatusType, int]
+        cures*: array[StatusType, OnPiece]
+
+        onEndTurn*: seq[BoardAction]
 
     SideState* = object
         abilityTakes*: int = 0 #takes from ability. I could put on a piece, but it would cause issues with some powers
@@ -115,7 +133,6 @@ type
         buys*: seq[BuyOption] = @[]
         piecesSold*: int = 0 #Just for Capitalism Sell
         piecesSoldThisTurn*: int = 0
-
 
         glass*: Glasses = arrayWith(none(GlassAbility), GlassType.high.ord.succ) #high.ord.succ finds length of enum. I could do high.ord + 1 but .succ looks cooler
 

@@ -5,4 +5,7 @@ I've added a ton of new powers, just so the game can be more dumb.
 I've added tons of synergies related to capitalism, glasses, and just random ideas I've had. 
 I've also introduced a new anti-synergy system, where you can get synergies based on the opponents powers. 
 I think the anti-synergies are really cool, but I don't have many ideas for them, so there's only like 10.
+
+And a few days later: I've added status conditions. Currently there are only poison and frost, but I want to add stone and fire soon.
+
 Lastly, I've realized that the whole random thing doesn't work, I believe because of bad coding. I have them diabled for now, but to be honest I don't know what to do. 

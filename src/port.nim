@@ -12,7 +12,7 @@ var document* {.importc, nodecl.}: JsObject
 
 #prefix for id, so that the id can still be really long while allowing for a simple extension to be tacked on
 const baseId: cstring = "9e4ada91-c493-4fd4-881d-3e05db99e100"
-const selfId: cstring = "98660184-4e83-41a2-f461-63aa65d358bb"
+#const selfId: cstring = "98660184-4e83-41a2-f461-63aa65d358bb"
 
 #creates an id automatically
 proc newPeer(): Peer {.importjs:"""

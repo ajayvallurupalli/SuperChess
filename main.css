@@ -867,7 +867,7 @@ as punishment for my sins.
   text-wrap: wrap;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   column-gap: 10%;
   row-gap: 20px;
   padding-top: -20px;
@@ -880,7 +880,7 @@ as punishment for my sins.
   min-height: fit-content;
   transition: ease-in-out all 0.5s;
   background-color: #F8F7F7;
-  grid-template-areas: "name   .     row" "img    .     row" "take   .     row";
+  grid-template-areas: "name   .     row" "img    .     row" "take   .     row" "stat   .     row";
 }
 .piece-row:hover {
   background-color: #DCDCDC;
@@ -908,6 +908,9 @@ as punishment for my sins.
 }
 .piece-row .take {
   grid-area: take;
+}
+.piece-row .stat {
+  grid-area: stat;
 }
 
 .power-grid {
@@ -1350,9 +1353,9 @@ hr {
   outline-width: 1px;
   outline-color: #183dd1;
   outline-style: solid;
-  animation: animateOutlineui73uks 2s ease infinite;
+  animation: animateOutlineulmu59x 2s ease infinite;
 }
-@keyframes animateOutlineui73uks {
+@keyframes animateOutlineulmu59x {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1379,9 +1382,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-ui73ulm 4s ease-in-out infinite;
+  animation: castingAnimation-ulmu5a7 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-ui73ulm {
+@keyframes castingAnimation-ulmu5a7 {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1398,9 +1401,9 @@ hr {
   outline-width: 1px;
   outline-color: #ea332d;
   outline-style: solid;
-  animation: animateOutlineui73um6 2s ease infinite;
+  animation: animateOutlineulmu5an 2s ease infinite;
 }
-@keyframes animateOutlineui73um6 {
+@keyframes animateOutlineulmu5an {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1427,9 +1430,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-ui73umk 4s ease-in-out infinite;
+  animation: castingAnimation-ulmu5aq 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-ui73umk {
+@keyframes castingAnimation-ulmu5aq {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1446,9 +1449,9 @@ hr {
   outline-width: 1px;
   outline-color: rgb(206, 206, 206);
   outline-style: solid;
-  animation: animateOutlineui73unj 2s ease infinite;
+  animation: animateOutlineulmu5as 2s ease infinite;
 }
-@keyframes animateOutlineui73unj {
+@keyframes animateOutlineulmu5as {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1475,9 +1478,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-ui73uno 4s ease-in-out infinite;
+  animation: castingAnimation-ulmu5bi 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-ui73uno {
+@keyframes castingAnimation-ulmu5bi {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1494,9 +1497,9 @@ hr {
   outline-width: 1px;
   outline-color: #424242;
   outline-style: solid;
-  animation: animateOutlineui73uo0 2s ease infinite;
+  animation: animateOutlineulmu5c7 2s ease infinite;
 }
-@keyframes animateOutlineui73uo0 {
+@keyframes animateOutlineulmu5c7 {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1523,9 +1526,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-ui73uoe 4s ease-in-out infinite;
+  animation: castingAnimation-ulmu5cy 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-ui73uoe {
+@keyframes castingAnimation-ulmu5cy {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1542,9 +1545,9 @@ hr {
   outline-width: 1px;
   outline-color: rgb(201, 178, 65);
   outline-style: solid;
-  animation: animateOutlineui73uol 2s ease infinite;
+  animation: animateOutlineulmu5dl 2s ease infinite;
 }
-@keyframes animateOutlineui73uol {
+@keyframes animateOutlineulmu5dl {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1571,9 +1574,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-ui73up1 4s ease-in-out infinite;
+  animation: castingAnimation-ulmu5e6 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-ui73up1 {
+@keyframes castingAnimation-ulmu5e6 {
   0% {
     outline-width: 3px;
     outline-offset: 50px;

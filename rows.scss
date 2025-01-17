@@ -247,12 +247,13 @@ $glasses: ("sky": $sky, "steel": $steel, "reverie": $reverie, "zero": $zero, "da
 
 
 .piece-row {
-    @include row(3, 3);
+    @include row(3, 4);
 
     grid-template-areas:
         'name   .     row'
         'img    .     row'
-        'take   .     row';
+        'take   .     row'
+        'stat   .     row';
 
     h4 {
         grid-area: name;
@@ -281,6 +282,10 @@ $glasses: ("sky": $sky, "steel": $steel, "reverie": $reverie, "zero": $zero, "da
     
     .take {
         grid-area: take;
+    }
+
+    .stat {
+        grid-area: stat;
     }
 
 }

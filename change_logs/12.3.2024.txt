@@ -1,4 +1,4 @@
-12/3/2024 Changelog
+12/3/2024 Changelog:
 
 I added new glass powers, which take one turn to cast. Currently, there are only 3:
 Sky - teleport 2 pieces

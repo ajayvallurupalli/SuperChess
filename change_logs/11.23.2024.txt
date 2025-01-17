@@ -1,4 +1,4 @@
-11/23/24 Changelog
+11/23/24 Changelog:
 
 This is the first changelog I've written. I still haven't implemented showing the changelogs, but I figured I might as well write one for the future.
 Today I mainly worked on fixing the formatting and making the game work on mobile devices. I haven't tested a mobile game yet, but it should work.

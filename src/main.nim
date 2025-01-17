@@ -3,12 +3,12 @@ import karax/errors
 import piece, basePieces, port, power, powers, store #powers import for debug
 import changelog
 from board import tileAbove, tileBelow
-import extrapower / [glass, capitalism]
+import extrapower / [glass, capitalism, status]
 import std/dom, std/strformat #im not sure why dom stuff fails if I don't import the whole package
 import std/options, std/tables #try to expand use of this, instead of wierd tuple[has: bool stuff
 from strutils import split, parseInt, join, toLower, replace, strip
 from std/editdistance import editDistance
-from sequtils import foldr, mapIt, cycle, filterIt, toSeq
+from sequtils import foldr, mapIt, cycle, filterIt, toSeq, concat
 from std/algorithm import reversed, sortedByIt
 from random import randomize, rand
 
@@ -82,7 +82,7 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = Game 
-const myDebugPowers: seq[Power] = @[bountyHunterPower]
+const myDebugPowers: seq[Power] = @[kingClaudius]
 const opponentDebugPowers: seq[Power] = @[]
 
 var 
@@ -176,6 +176,7 @@ proc initGame() =
     promptStack = @[]
     picksLeft = 0
     picks = @[]
+    initStatusConditions(theState)
 
 proc clear() =
     selectedTile = (-1, -1)
@@ -192,10 +193,10 @@ proc endRound() =
     for i, j in rankAndFile(theBoard):
         theBoard[i][j].endTurn(theBoard, theState)
 
-    for a in theState.side[white].onEndTurn.sortedByIt(it.priority):
-        a.action(white, theBoard, theState)
-    for a in theState.side[black].onEndTurn:
-        a.action(black, theBoard, theState)
+    for a in theState.side[white].onEndTurn
+        .concat(theState.side[black].onEndTurn, theState.shared.onEndTurn)
+        .sortedByIt(it.priority):
+            a.action(white, theBoard, theState)
 
     #this is needed by the random move powers to prevent double moves
     #It needs to happen after so that all drunkness is cleared after end turn stuff
@@ -827,6 +828,11 @@ proc createPieceProfile(p: var Piece): VNode =
             tdiv(class="row"):
                 for option in theState.side[p.color].buys:
                     createBuyButton(option, p)
+        ul(class="stat"):
+            for name, stat in p.status.pairs:
+                if stat.isSome():
+                    li:
+                        text fmt"{$name} {stat.get().strength}"
 
 proc createInfo(): VNode = 
     result = buildHtml(tdiv(class="bottom-info")):

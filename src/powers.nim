@@ -1,6 +1,7 @@
 import power, moves, piece, basePieces, extraMoves, board
 from extrapower / glass import isCasting
 import extrapower/capitalism
+from extrapower/status import freeze
 import std/options
 from sequtils import filterIt, mapIt, concat
 from strutils import contains
@@ -2655,6 +2656,52 @@ const huh: Synergy = (
     replacements: @[]
 )
 
+const frostTake: OnAction = proc (piece: var Piece, taking: Tile, board: var ChessBoard, state: var BoardState) = 
+    inc piece.timesMoved
+    let takeResult = taking.takenBy(piece, board, state)
+    if takeResult.takeSuccess:
+        board[takeResult.endTile.rank][takeResult.endTile.file].piecesTaken += 1
+
+        for transform in [tileAbove, tileBelow, tileRight, tileLeft]:
+            if board.boardRef(takeResult.endTile.transform).isSome() and not board[takeResult.endTile.transform].isAir(): #if the piece at that location exists
+                echo takeResult.endTile.transform
+                freeze(takeResult.endTile.transform, 1, piece.color, board)
+
+const frostQueen*: Power = Power(
+    name: "Ice Queen",
+    tier: Uncommon,
+    priority: 15,
+    description: 
+        """She's a real ice queen. When you queen takes a piece, she applies Frozen 1 to all neighboring pieces (yours and your opponents). 
+            Frozen X reduces takes X moves (not takes) from a piece. It lasts 5 turns.""",
+    icon: queenIcon,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            Queen.change(side, b, s, 
+                onTake = frostTake    
+            )
+)
+
+const kingClaudius*: Power = Power(
+    name: "King Claudius",
+    tier: Common,
+    rarity: 2,
+    priority: 40,
+    description:
+        """The serpent that did sting thy father’s life
+            Now wears his crown.""",
+    icon: kingIcon,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            for i, j in b.rankAndFile:
+                if b[i][j].item == King and b[i][j].isColor(otherSide(side)):
+                    b[i][j].status[Poisoned] = some((
+                        strength: 120,
+                        turnsLeft: 120,
+                        afflicter: side
+                    ))
+)
+
 registerPower(empress)
 registerPower(altEmpress)
 registerPower(mysteriousSwordsmanLeft)
@@ -2698,6 +2745,8 @@ registerPower(sleeperAgent)
 registerPower(capitalismPower)
 registerPower(communism)
 registerPower(vampires)
+registerPower(frostQueen)
+registerPower(kingClaudius)
 
 registerPower(skyGlass)
 registerPower(zeroGlass)
