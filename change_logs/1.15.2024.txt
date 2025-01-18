@@ -1,4 +1,4 @@
-1/15/24 Changelog:
+1/15/25 Changelog:
 
 I haven't done a change log in a long time, so I thought I would update with the recent progress.
 I've added a ton of new powers, just so the game can be more dumb.

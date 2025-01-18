@@ -1284,12 +1284,15 @@ proc createChangeLog(): VNode =
                 text text #hehe
             hr()
 
-        br()
+        br() #i don't know if break works
         br()
         button(class="width-100"):
             text "Return to Other"
             proc onclick(_: Event, _: VNode) = 
                 currentScreen = Other
+
+        br()
+        br()
 
 proc main(): VNode = 
     result = buildHtml(tdiv(class="main scroll")):

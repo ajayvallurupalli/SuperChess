@@ -18,6 +18,12 @@ type
         #in fact, it only exists so that specific shogi pieces can rotate to face the opponent, if they are owned by the opposite side
     OnStart* = proc (drafterSide: Color, viewerSide: Color, b: var ChessBoard, s: var BoardState)
 
+    Tag* = enum
+        Knight, Pawn, Bishop, Rook, Queen, King, 
+        Develop, Push, Control, Promote, Move, Take,
+        Special, Trade, Holy, UnHoly, NightRider, Glass, Status,
+        Virus
+
     Power* = object
         name*: string
         technicalName*: string = ""
@@ -27,6 +33,7 @@ type
         rarity*: int = 8
         description*: string = "NONE"
         antiDescription*: string = ""
+        tags*: seq[Tag]
         icon*: string = ""
         rotatable*: bool = false
         noColor*: bool = false #if noColor, it will not try to add white and back to icon path
@@ -80,6 +87,7 @@ const holy*: Power = Power(
     priority: 20,
     rarity: 12,
     description: "You are favored slightly more by god. Your next powers are more likely to be uncommon, rare, and ultra rare",
+    tags: @[Virus, Holy, Holy],
     icon: "cross.svg",
     noColor: true,
     onStart: 
@@ -216,8 +224,19 @@ proc randomPower(t: Tier, currentPowers: seq[Power], opponentPowers: seq[Power],
     let sum = foldr(search.mapIt(it.rarity), a + b)
     var x: int = rand(sum)
 
+    let tags = foldr(currentPowers.mapIt(it.tags), a & b)
+
     for p in search:
         x -= p.rarity
+
+        let connectedTags = tags.filterIt(it in p.tags).len
+
+        if connectedTags >= 3:
+            x -= 5
+        elif connectedTags >= 1:
+            x -= 3
+
+
         if x <= 0: return p
 
 proc randomTier*(w: TierWeights = defaultWeight): Tier = 

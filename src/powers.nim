@@ -135,6 +135,7 @@ const empress*: Power = Power(
     tier: Uncommon,
     priority: 15,
     description: "Your queen ascends, gaining the movement of a standard knight. ",
+    tags: @[Queen, Virus],
     icon: queenIcon,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -151,6 +152,7 @@ const altEmpress*: Power = Power(
     priority: 15,
     rarity: 4, #slightly less common, cuz
     description: "Your queen ascends, gaining the movement of a giraffe. ",
+    tags: @[Queen, Virus],
     icon: queenIcon,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -188,6 +190,7 @@ const mysteriousSwordsmanLeft*: Power = Power(
     description: 
         """A mysterious swordsman joins your rank. 
         Your second pawn from the left is replaced with a silver general from Shogi.""",
+    tags: @[Control, Virus],
     icon: "silvergeneral.svg",
     rotatable: true,
     noColor: true,
@@ -219,6 +222,7 @@ const mysteriousSwordsmanRight*: Power = Power(
     description: 
         """A mysterious swordsman joins your rank. 
         Your second pawn from the right is replaced with a silver general from Shogi.""",
+    tags: @[Control],
     icon: "silvergeneral.svg",
     rotatable: true,
     noColor: true,
@@ -248,6 +252,7 @@ const developed*: Power = Power(
     description: 
         """Your board arrives a little developed. Your 2 center pawns start one tile forward. 
         They can still move up 2 for their first move.""",
+    tags: @[Develop, Virus],
     icon: pawnIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -271,6 +276,7 @@ const stepOnMe*: Power = Power(
     priority: 15, 
     description:
         """Your Queen can take your own pieces. It's literally useless, but if that's your thing...""",
+    tags: @[Take, Queen, Push, Virus],
     icon: queenIcon,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -287,6 +293,7 @@ const illegalFormationRL: Power = Power(
     priority: 20,
     description: 
         """ILLEGAL FORMATION: YOUR PAWN ABOVE YOUR LEFT ROOK SWAPS PLACES WITH YOUR LEFT ROOK""",
+    tags: @[Develop, Rook],
     icon: rookIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, _: var BoardState) = 
@@ -303,6 +310,7 @@ const illegalFormationRR: Power = Power(
     priority: 20,
     description: 
         """ILLEGAL FORMATION: YOUR PAWN ABOVE YOUR RIGHT ROOK SWAPS PLACES WITH YOUR RIGHT ROOK""",
+    tags: @[Develop, Rook],
     icon: rookIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, _: var BoardState) = 
@@ -320,6 +328,7 @@ const illegalFormationBL*: Power = Power(
     priority: 20,
     description: 
         """ILLEGAL FORMATION: YOUR PAWN ABOVE YOUR LEFT BISHOP SWAPS PLACES WITH YOUR LEFT BISHOP""",
+    tags: @[Develop, Bishop],
     icon: bishopIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, _: var BoardState) = 
@@ -336,6 +345,7 @@ const illegalFormationBR: Power = Power(
     priority: 20,
     description: 
         """ILLEGAL FORMATION: YOUR PAWN ABOVE YOUR RIGHT BISHOP SWAPS PLACES WITH YOUR RIGHT BISHOP""",
+    tags: @[Develop, Bishop, Virus],
     icon: bishopIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, _: var BoardState) = 
@@ -356,6 +366,7 @@ const putInTheWork*: Power = Power(
     priority: 10, 
     description:
         """Get to work son. If any of your pawns take 3 pieces, they automatically promote.""",
+    tags: @[Pawn, Promote],
     icon: pawnIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -374,6 +385,7 @@ const wanderingRoninLeft*: Power = Power(
     description: 
         """A wandering Ronin joins your rank. 
         Your third pawn from the left is replaced with a gold general from Shogi.""",
+    tags: @[Control],
     icon: "goldgeneral.svg",
     rotatable: true,
     noColor: true,
@@ -404,6 +416,7 @@ const wanderingRoninRight*: Power = Power(
     description: 
         """A wandering Ronin joins your rank. 
         Your third pawn from the right is replaced with a gold general from Shogi.""",
+    tags: @[Control],
     icon: "goldgeneral.svg",
     rotatable: true,
     noColor: true,
@@ -443,6 +456,7 @@ const werewolves*: Power = Power(
     priority: 15, 
     description: 
         """Your leftmost and rightmost pawns are secretly werewolves! When they take a piece, they eat it and gain the ability to jump like a knight and giraffe. They can still promote.""",
+    tags: @[Pawn, Push, Virus],
     icon: pawnIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, _: var BoardState) = 
@@ -457,6 +471,7 @@ const archBishops: Power = Power(
     priority: 15, 
     description:
         """Your bishops ascend to archbishops, gaining the movement of a knight.""",
+    tags: @[Bishop],
     icon: bishopIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -472,6 +487,7 @@ const giraffe*: Power = Power(
     priority: 5, 
     description:
         """Your knights try riding giraffes. It works surprisingly well. Their leap is improved, moving 3 across instead of 2 across.""",
+    tags: @[Knight, Push, Virus],
     icon: "giraffe.svg",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -489,6 +505,7 @@ const calvary*: Power = Power(
     description: 
         """Your knights learn to ride forward. They aren't very good at it, but they're trying their best. 
             They can charge forward up to 2 tiles, but only to take a piece. They cannot jump for this move.""",
+    tags: @[Knight, Push],
     icon: knightIcon,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -505,6 +522,7 @@ const anime*: Power = Power(
     rarity: 0,
     description:
         """Your board is imbued with the power of anime. You feel a odd sense of regret. Or is it guilt?""",
+    tags: @[Control, Control, Virus],
     icon: "goldgeneral.svg",
     rotatable: true,
     noColor: true,
@@ -579,6 +597,7 @@ const sacrifice*: Power = Power(
     rarity: 1,
     priority: 25,
     description: """SACRIFICE THY MAIDENS TO THE BLOOD GOD""",
+    tags: @[Special, Virus],
     icon: queenIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard, s: var BoardState) =
@@ -593,6 +612,7 @@ const backStep*: Power = Power(
     tier: Rare,
     priority: 15,
     description: "Your pawns receive some training. They can move one tile back. They cannot take this way.",
+    tags: @[Pawn, Control, Virus],
     icon: pawnIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard, s: var BoardState) = 
@@ -607,6 +627,7 @@ const headStart*: Power = Power(
     tier: Uncommon,
     priority: 15,
     description: "Your pawns can always move 2 forward. They still take like normal. It's kind of boring, don't you think?",
+    tags: @[Pawn, Push, Virus],
     icon: pawnIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard, s: var BoardState) = 
@@ -621,6 +642,7 @@ const queenTrade*: Power = Power(
     tier: Rare,
     priority: 20,
     description: "The patriarchy continues. Both queens mysteriously die.",
+    tags: @[Trade, Trade],
     icon: queenIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard, _: var BoardState) = 
@@ -657,9 +679,10 @@ const superPawn: Synergy = (
 const lesbianPride*: Power = Power(
     name: "Lesbian Pride",
     tier: UltraRare,
-    rarity: 1,
+    rarity: 2,
     priority: 2,
     description: "🧡🤍🩷",
+    tags: @[Queen, Special],
     icon: "lesbianprideflag.svg",
     noColor: true,
     onStart: 
@@ -742,6 +765,7 @@ const knightChargePower*: Power = Power(
     rarity: 4,
     priority: 20,
     description: "CHARGE! Your knights start 3 tiles ahead.",
+    tags: @[Develop, Push, Virus],
     icon: knightIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard, s: var BoardState) =   
@@ -789,6 +813,7 @@ const differentGamePower*: Power = Power(
     rarity: 0,
     priority: 20,
     description: "I guess the rules didn't get to you. Your pawns above both knights and both rooks swap places with those pieces.",
+    tags: @[Develop, Develop, Develop],
     icon: pawnIcon,
     onStart:
         proc (side: Color, viewSide: Color, b: var ChessBoard, state: var BoardState) =
@@ -800,7 +825,7 @@ const differentGamePower*: Power = Power(
 
 const differentGame: Synergy = (
     power: differentGamePower,
-    rarity: 12,
+    rarity: 13,
     requirements: @[illegalFormationBR.name],
     replacements: @[illegalFormationBR.name]
 )
@@ -832,6 +857,7 @@ const nightRider: Power = Power(
     tier: UltraRare,
     priority: 4,
     description: "Nightrider.",
+    tags: @[NightRider],
     icon: "nightrider.svg",
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard, _: var BoardState) = 
@@ -848,6 +874,7 @@ const desegregation: Power = Power(
     tier: Uncommon,
     priority: 15,
     description: "Your bishops learn to accept their differences. They can move left and right.",
+    tags: @[Move, Bishop, Virus],
     icon: bishopIcon,
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard, s: var BoardState) = 
@@ -862,6 +889,7 @@ const holyBishopPower*: Power = Power(
     tier: Rare,
     priority: 15,
     description: "God has blessed your bishops. ",
+    tags: @[Move, Bishop, Bishop, Holy],
     icon: "cross.svg",
     noColor: true,
     onStart: 
@@ -905,6 +933,7 @@ const concubine*: Power = Power(
     tier: Rare,
     priority: 15,
     description: "Your rook becomes a queen when it castles.... You're sick.",
+    tags: @[Queen, UnHoly],
     icon: rookIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -930,6 +959,7 @@ const reinforcements*: Power = Power(
     tier: Uncommon,
     priority: 25,
     description: "Do you really need more than 8 pawns? Your rooks spawn a pawn for every 2 pieces they takes.",
+    tags: @[Take, Rook, Virus],
     icon: rookIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -956,6 +986,7 @@ const shotgunKing*: Power = Power(
     priority: 5,
     description: """Your king knows its 2nd ammendment rights. It can take pieces two ahead or two behind. 
                     If it does this take, it does not move from its initial tile.""",
+    tags: @[King, Virus],
     icon: kingIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -979,6 +1010,7 @@ const bountyHunterPower*: Power = Power(
     rarity: 0,
     priority: 15,
     description: "It's hard to make a living these days. If your king takes 3 pieces, you automatically win.",
+    tags: @[King, Special],
     icon: kingIcon,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -999,6 +1031,7 @@ const coward: Power = Power(
     tier: Common,
     priority: 25,
     description: "You coward. Your king swaps pieces with the king's side knight.",
+    tags: @[King, Develop, Virus],
     icon: kingIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, _: var BoardState) = 
@@ -1081,6 +1114,7 @@ const lanceRight*: Power = Power(
     description: 
         """The divine wind is behind you. 
         Your right pawn is replaced with a lance from Shogi.""",
+    tags: @[Push, Trade],
     icon: "lance.svg",
     rotatable: true,
     noColor: true,
@@ -1112,6 +1146,7 @@ const lanceLeft*: Power = Power(
     description: 
         """The divine wind is behind you. 
         Your left pawn is replaced with a lance from Shogi.""",
+    tags: @[Push, Trade, Virus],
     icon: "lance.svg",
     rotatable: true,
     noColor: true,
@@ -1178,6 +1213,7 @@ const drunkKnights: Power = Power(
     description: 
         """Drunk riding is dangerous, your knights should be ashamed of themselves. 
         After every other turn, they randomly move.""",
+    tags: @[Special, Knight, UnHoly, NightRider],
     icon: knightIcon,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -1196,6 +1232,7 @@ const alcoholism*: Power = Power(
     rarity: 4,
     priority: 15,
     description: """You're families and friends miss you. The real you.""",
+    tags: @[Special, UnHoly, Virus],
     icon: pawnIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -1288,7 +1325,7 @@ const virus3: Synergy = (
 const virus4: Synergy = (
     power: virusPower,
     rarity: 0,
-    requirements: @[alcoholism.name, stepOnMe.name, coward.name, shotgunKing.name],
+    requirements: @[alcoholism.name, stepOnMe.name, coward.name, shotgunKing.name, "Vampires"],#i just don't feel like moving the definition up
     replacements: @[alcoholism.name]
 )
 
@@ -1323,6 +1360,7 @@ const civilians*: Power = Power(
     priority: 30,
     description: """Of course, a battle will have its civillians. And of course, the enemy won't kill them.
                     3 civillians spawn on the enemy side. They randomly move and cannot be taken.""",
+    tags: @[Move, Control],
     icon: "civilian.svg",
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) =
@@ -1432,6 +1470,7 @@ const slumdogMillionaire*: Power = Power(
     priority: 15,
     description: """Have you seen the movie Slumdog Millionaire? It's kind of like that. 
                     Your pawns have a 1% chance of promoting whenever they move.""",
+    tags: @[UnHoly, Move],
     icon: pawnIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -1453,6 +1492,7 @@ const stupidPower*: Power = Power(
     tier: Common,
     priority: 15,
     description: """You have a 0.1% chance to automatically win each turn. Yeah, I'm out of ideas. I'm sorry.""",
+    tags: @[UnHoly, UnHoly],
     icon: kingIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -1485,6 +1525,7 @@ const conversion: Power = Power(
     priority: 15,
     description: """When your bishop takes a piece, it has a 15% chance to convert it to your color. 
                     When this happens, your bishop swaps places with it instead of taking it.""",
+    tags: @[Holy, Bishop],
     icon: bishopIcon,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -1496,6 +1537,7 @@ const conversion: Power = Power(
 const holyConversionPower: Power = Power(
     name: "God's Disciple",
     tier: Uncommon,
+    rarity: 0, #normal synergy
     priority: 15,
     description: """Your bishop has now seen God. When it takes, it has a 30% chance to convert it to your color. 
                     When this happens, your bishop swaps places with it instead of taking it.""",
@@ -1519,6 +1561,7 @@ const americanDream*: Power = Power(
     tier: Rare,
     priority: 30, 
     description: "All pieces, you and your opponent's, cannot promote. It's not real.",
+    tags: @[Trade, Trade],
     icon: "usflag.svg",
     noColor: true,
     onStart: 
@@ -1536,9 +1579,11 @@ const americanDream*: Power = Power(
 const sleeperAgent*: Power = Power(
     name: "Sleeper Agent",
     tier: Common,
+    rarity: 7, #idk why but im feeling it
     priority: 30,
     description: """The silent river collapses in pieces. 
                     One of your pawns is a sleeper agent. They can take forward.""",
+    tags: @[Pawn, Take],
     icon: pawnIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, state: var BoardState) =
@@ -1619,6 +1664,7 @@ const capitalismPower*: Power = Power(
                     All of your pieces get the ability to buy upgrades. 
                     You get 3 dollars for taking a piece.
                     With 30 dollars, you can promote one piece. The promoted piece cannot move on the turn it is promoted.""",
+    tags: @[UnHoly],
     icon: "usflag.svg",
     noColor: true,
     onStart:
@@ -2012,6 +2058,7 @@ const skyGlass*: Power = Power(
     description: """On your turn, instead of moving, you can choose 2 pieces to each cast Sky on any 
                     open tile. These pieces teleport to their selected tile when the cast completes. 
                     Pieces cannot try to teleport to a tile where they would check the king. """ & createGlassDescription(),
+    tags: @[Develop, Push],
     icon: "skyglass.svg",
     noColor: true,
     onStart: 
@@ -2031,6 +2078,7 @@ const zeroGlass*: Power = Power(
     description: """On your turn, instead of moving, you can choose 2 pieces to each cast Zero on  
                     any non-king tile. Any piece on these tiles will die if the cast completes. Zero cannot be cast turn one. """ &
                     createGlassDescription(),
+    tags: @[Take, Push],
     icon: "zeroglass.svg",
     noColor: true,
     onStart: 
@@ -2042,14 +2090,16 @@ const zeroGlass*: Power = Power(
             ))
 )
 
+
 const steelGlass*: Power = Power(
     name: "Glass: Steel",
     tier: Common,
-    rarity: 8,
+    rarity: 0, #TODO: rebalance steel glass. for now im just disabling it
     priority: 15,
     description: """On your turn, instead of moving, you can choose 5 pieces to each cast Steel. 
                     If there is an enemy one tile in front of them when the cast completes, they take forward. """ &
                     createGlassDescription(),
+    tags: @[Take, Push, Glass, Glass],
     icon: "steelglass.svg",
     noColor: true,
     onStart: 
@@ -2066,6 +2116,7 @@ const divineWindPower*: Power = Power(
     tier: Uncommon,
     priority: 15,
     description: """The divine wind briskly brushes your back. Your lances will attack while sky is casting.""",
+    tags: @[Take, Push, Glass, Glass, Trade],
     icon: "lance.svg",
     noColor: true,
     onStart:
@@ -2106,6 +2157,7 @@ const bankruptGlassPower*: Power = Power(
     description: """On your turn, if you have only 0 dollars, instead of moving you can choose 3 pieces to each cast Bankruptcy on  
                     any non-king tiles. Any piece on these tiles will die if the cast completes. Bankruptcy cannot be cast turn one. """ &
                     createGlassDescription(),
+    tags: @[Take, Push, Glass, Glass],
     icon: "zeroglass.svg",
     noColor: true,
     onStart: 
@@ -2161,6 +2213,7 @@ const reverieGlass*: Power = Power(
                     they swap moves and takes with whatever piece is on that tile. If that piece 
                     is a king, the cast fails. """ &
                     createGlassDescription(),
+    tags: @[Move, Take, Glass, Glass],
     icon: "reverieglass.svg",
     noColor: true,
     onStart: 
@@ -2193,6 +2246,7 @@ const daybreakGlass*: Power = Power(
     description: """On your turn, instead of moving you can choose 1 pieces to cast Daybreak on 
                     any tile. When the cast completes, the piece on that tile promotes. """ &
                     createGlassDescription(),
+    tags: @[Promote, Promote, Glass, Glass],
     icon: "daybreakglass.svg",
     noColor: true,
     onStart: 
@@ -2276,6 +2330,7 @@ const communism*: Power = Power(
     priority: 50,
     description: """The proletariat must revolt to escape the continued shackles subjugation by the bourgeoisie. 
                     We shall create a utopia of equality. """,
+    tags: @[Pawn, Pawn, Pawn, Pawn, Pawn],
     icon: "sickleandhammer.svg",
     noColor: true,
     onStart:
@@ -2345,6 +2400,7 @@ const undevelopedPower*: Power = Power(
     description: """Undevelop your opponent's board. Their 2 center pawns move back to their normal starting place. 
                     It's not even useful, but it is annoying. """,
     antiDescription: "You've been undeveloped.",
+    tags: @[Develop, Develop],
     icon: pawnIcon,
     anti: true,
     onStart:
@@ -2413,6 +2469,7 @@ const inflationPower*: Power = Power(
     priority: 25,
     description: "It inflates, what else can be said?",
     antiDescription: "Maybe you should print more money?",
+    tags: @[UnHoly, UnHoly],
     icon: "americanflag.svg",
     noColor: true,
     anti: true,
@@ -2436,6 +2493,7 @@ const phalanxPower*: Power = Power(
     description: """Your leftmost and rightmost pawns start one tile forward. 
                     It's a classic defense to the lance opening, you can find more information 
                     in your local library. """,
+    tags: @[Develop, Develop],
     icon: pawnIcon,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -2488,7 +2546,9 @@ const propagandaPower*: Power = Power(
     rarity: 0,
     priority: 35,
     description: "Liberty. Freedom. The Pursuit of Happiness. We are righteous.",
+    tags: @[UnHoly, Special, Promote, Promote],
     icon: "unclesam.jpg",
+    noColor: true,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             #Both buying and condition need the same data, as extra state
@@ -2521,6 +2581,7 @@ const faminePower*: Power = Power(
     priority: 55,
     description: "Secret Operation: Famine. If they die they can't be communist.",
     antiDescription: "The communes are struggling to meet our quotas. Too bad.",
+    tags: @[UnHoly, UnHoly],
     icon: "sickleandhammer.svg",
     noColor: true,
     anti: true,
@@ -2556,6 +2617,7 @@ const vampires*: Power = Power(
     tier: Uncommon,
     priority: 5,
     description: "Muahahaha. Your middle two pawns become vampires. Only God and His Bishops can kill them now. Muahaha.",
+    tags: @[UnHoly, Virus],
     icon: "vampire.svg",
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -2617,6 +2679,7 @@ const rider*: Power = Power(
     tier: Uncommon,
     priority: 5,
     description: "Someone has to be riding the horse right? A pawn spawns behind your knights when they die, if the space is free.",
+    tags: @[Knight, Pawn],
     icon: knightIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -2674,6 +2737,7 @@ const frostQueen*: Power = Power(
     description: 
         """She's a real ice queen. When you queen takes a piece, she applies Frozen 1 to all neighboring pieces (yours and your opponents). 
             Frozen X reduces takes X moves (not takes) from a piece. It lasts 5 turns.""",
+    tags: @[Queen, Status, Take],
     icon: queenIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
@@ -2690,6 +2754,7 @@ const kingClaudius*: Power = Power(
     description:
         """The serpent that did sting thy father’s life
             Now wears his crown.""",
+    tags: @[Status, Status],
     icon: kingIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
