@@ -970,10 +970,10 @@ const reinforcements*: Power = Power(
 
 const shotgunKingOnTake*: OnAction = proc (piece: var Piece, to: Tile, board: var ChessBoard, state: var BoardState) = 
     let originalKingTile = piece.tile
+    inc piece.timesMoved
     let takeResult = to.takenBy(piece, board, state)
-    piece.timesMoved += 1
     if takeResult.takeSuccess:
-        piece.piecesTaken += 1
+        inc board[takeResult.endTile.rank][takeResult.endTile.file].piecesTaken
 
         if (originalKingTile.rank + 2 == takeResult.endTile.rank):
             takeResult.endTile.pieceMove(originalKingTile, board, state)
@@ -2752,7 +2752,7 @@ const kingClaudius*: Power = Power(
     rarity: 2,
     priority: 40,
     description:
-        """The serpent that did sting thy father’s life
+        """The serpent that did sting thy father’s life /
             Now wears his crown.""",
     tags: @[Status, Status],
     icon: kingIcon,
@@ -2762,7 +2762,7 @@ const kingClaudius*: Power = Power(
                 if b[i][j].item == King and b[i][j].isColor(otherSide(side)):
                     b[i][j].status[Poisoned] = some((
                         strength: 120,
-                        turnsLeft: 120,
+                        turnsLeft: 120, #i dont think this matters, but still
                         afflicter: side
                     ))
 )

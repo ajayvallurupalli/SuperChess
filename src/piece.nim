@@ -290,7 +290,7 @@ const defaultOnTake*: OnAction = proc (piece: var Piece, taking: Tile, board: va
     inc piece.timesMoved
     let takeResult = taking.takenBy(piece, board, state)
     if takeResult.takeSuccess:
-        board[takeResult.endTile.rank][takeResult.endTile.file].piecesTaken += 1
+        inc board[takeResult.endTile.rank][takeResult.endTile.file].piecesTaken
 
 #Very bulky function that creates a new `Piece` using the values of a  `initial Piece`
 #it also requires an index so that the user can decide how the new piece is related to the old piece
