@@ -2767,6 +2767,25 @@ const kingClaudius*: Power = Power(
                     ))
 )
 
+const millerTypeAPlusB*: Power = Power(
+    name: "Miller Type A + B Snowstorm",
+    tier: Uncommon,
+    rarity: 2,
+    priority: 30,
+    description: 
+        """Due to the harmonization of the polar vortexes, a Miller Type A + B Snowstorm is likely. 
+            Expect your opponent's middle 4 pawns to be Frozen 12 inches deep. It should clear in 5 turns, but until then, 
+            effected areas may not be able to move. """,
+    tags: @[Status, Develop],
+    icon: pawnIcon, #TODO make a better icon
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            let rank = if side == white: 1 else: 6
+            for i in 2..5:
+                if not b[rank][i].isAir():
+                    b[rank][i].tile.freeze(12, side, b) #since freeze needs the tile and i don't feel like writing another version
+)
+
 registerPower(empress)
 registerPower(altEmpress)
 registerPower(mysteriousSwordsmanLeft)
