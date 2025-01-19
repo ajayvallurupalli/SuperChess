@@ -224,7 +224,9 @@ proc randomPower(t: Tier, currentPowers: seq[Power], opponentPowers: seq[Power],
     let sum = foldr(search.mapIt(it.rarity), a + b)
     var x: int = rand(sum)
 
-    let tags = foldr(currentPowers.mapIt(it.tags), a & b)
+    let tags = 
+        if currentPowers.len == 0: @[]
+        else: foldr(currentPowers.mapIt(it.tags), a & b)
 
     for p in search:
         x -= p.rarity
