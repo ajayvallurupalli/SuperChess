@@ -2788,11 +2788,11 @@ const millerTypeAPlusB*: Power = Power(
 
 const terminalIllnessPower*: Power = Power(
     name: "Terminal Illness",
-    tier: Common,
+    tier: Uncommon,
     rarity: 0,
     priority: 40,
     description:
-        """It's a little cruel, but all's fair in love and war. Give your opponent's queen Poison 11. 
+        """It's a little cruel, but all's fair in love and war. Give your opponent's queen Poison 17. 
             Poison decrements by 1 each turn, and at Poison 0 the unit dies.""",
     antiDescription: "Better make a last stand...",
     tags: @[Status, UnHoly],
@@ -2802,8 +2802,8 @@ const terminalIllnessPower*: Power = Power(
             for i, j in b.rankAndFile:
                 if b[i][j].item == Queen and b[i][j].isColor(otherSide(side)):
                     b[i][j].status[Poisoned] = some((
-                        strength: 11,
-                        turnsLeft: 11, #i dont think this matters, but still
+                        strength: 17,
+                        turnsLeft: 17, #i dont think this matters, but still
                         afflicter: side
                     ))
 )
