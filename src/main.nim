@@ -82,7 +82,7 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = Game 
-const myDebugPowers: seq[Power] = @[shotgunKing]
+const myDebugPowers: seq[Power] = @[lastStandPower]
 const opponentDebugPowers: seq[Power] = @[]
 
 var 

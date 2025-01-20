@@ -2786,6 +2786,72 @@ const millerTypeAPlusB*: Power = Power(
                     b[rank][i].tile.freeze(12, side, b) #since freeze needs the tile and i don't feel like writing another version
 )
 
+const terminalIllnessPower*: Power = Power(
+    name: "Terminal Illness",
+    tier: Common,
+    rarity: 0,
+    priority: 40,
+    description:
+        """It's a little cruel, but all's fair in love and war. Give your opponent's queen Poison 11. 
+            Poison decrements by 1 each turn, and at Poison 0 the unit dies.""",
+    antiDescription: "Better make a last stand...",
+    tags: @[Status, UnHoly],
+    icon: queenIcon,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            for i, j in b.rankAndFile:
+                if b[i][j].item == Queen and b[i][j].isColor(otherSide(side)):
+                    b[i][j].status[Poisoned] = some((
+                        strength: 11,
+                        turnsLeft: 11, #i dont think this matters, but still
+                        afflicter: side
+                    ))
+)
+
+const terminalIllness: AntiSynergy = (
+    power: terminalIllnessPower,
+    rarity: 2,
+    drafterRequirements: @[],
+    opponentRequirements: @[empress.name]
+)
+
+const terminalIllness2: AntiSynergy = (
+    power: terminalIllnessPower,
+    rarity: 2,
+    drafterRequirements: @[],
+    opponentRequirements: @[altEmpress.name]
+)
+
+const lastStandPower*: Power = Power(
+    name: "Last Stand",
+    tier: UltraRare,
+    rarity: 0,
+    priority: 17,
+    description: "Take it all.",
+    tags: @[Special],
+    icon: queenIcon,
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            Queen.buff(side, b, s, 
+                moves = @[whiteDiagnalMoves, blackDiagnalMoves, leftTwiceMoves, rightTwiceMoves, 
+                            giraffeMoves, knightMoves, nightriderMoves, blackForwardTwiceJumpMove,
+                            whiteForwardTwiceJumpMove
+                        ],
+                takes = @[whiteDiagnalTakes, blackDiagnalTakes, leftTwiceTakes, rightTwiceTakes, 
+                            cannibalKnightTakes, cannibalGiraffeTakes, blackForwardTwiceJumpTake,
+                            whiteForwardTwiceJumpTake, rookBombard
+                        ]
+            )
+
+)
+
+const lastStand: AntiSynergy = (
+    power: lastStandPower,
+    rarity: 12,
+    drafterRequirements: @[],
+    opponentRequirements: @[terminalIllness.power.name]
+)
+
 registerPower(empress)
 registerPower(altEmpress)
 registerPower(mysteriousSwordsmanLeft)
@@ -2831,6 +2897,7 @@ registerPower(communism)
 registerPower(vampires)
 registerPower(frostQueen)
 registerPower(kingClaudius)
+registerPower(millerTypeAPlusB)
 
 registerPower(skyGlass)
 registerPower(zeroGlass)
@@ -2894,6 +2961,9 @@ registerAntiSynergy(coldWar2, true)
 registerAntiSynergy(propaganda)
 registerAntiSynergy(famine)
 registerAntiSynergy(god)
+registerAntiSynergy(lastStand)
+registerAntiSynergy(terminalIllness)
+registerAntiSynergy(terminalIllness2)
 
 #All powers with rng involved
 #so user can disable them if they want
