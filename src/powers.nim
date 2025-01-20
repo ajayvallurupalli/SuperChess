@@ -752,12 +752,27 @@ const queensWrath2: Synergy = (
     replacements: @[lesbianPride.name, sacrifice.name]    
 )
 
+const queensWrathAnti: AntiSynergy = (
+    power: queensWrathPower,
+    rarity: 0,
+    drafterRequirements: @[lesbianPride.name],
+    opponentRequirements: @[queenTrade.name] 
+)
+
 const queensWrathSuper: Synergy = (
     power: queensWrathSuperPower,
     rarity: 0,
     requirements: @[lesbianPride.name, queenTrade.name, sacrifice.name],
     replacements: @[lesbianPride.name, sacrifice.name]
 )
+
+const queensWrathSuperAnti: AntiSynergy = (
+    power: queensWrathSuperPower,
+    rarity: 0,
+    drafterRequirements: @[lesbianPride.name, sacrifice.name],
+    opponentRequirements: @[queenTrade.name] 
+)
+
 
 const knightChargePower*: Power = Power(
     name: "Knight's Charge",
@@ -2964,6 +2979,8 @@ registerAntiSynergy(god)
 registerAntiSynergy(lastStand)
 registerAntiSynergy(terminalIllness)
 registerAntiSynergy(terminalIllness2)
+registerAntiSynergy(queensWrathAnti)
+registerAntiSynergy(queensWrathSuperAnti)
 
 #All powers with rng involved
 #so user can disable them if they want
