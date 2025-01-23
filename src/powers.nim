@@ -2615,7 +2615,7 @@ const famine: AntiSynergy = (
     power: faminePower,
     rarity: 12,
     drafterRequirements: @[],
-    opponentRequirements: @[faminePower.name]
+    opponentRequirements: @[communism.name]
 )
 
 #default values for some of `Piece`
@@ -2631,7 +2631,7 @@ const vampires*: Power = Power(
     name: "Vampires",
     tier: Uncommon,
     priority: 5,
-    description: "Muahahaha. Your middle two pawns become vampires. Only God and His Bishops can kill them now. Muahaha.",
+    description: "Muahahaha. Your middle two pawns become vampires. Only God and His bishops can kill them now. Muahaha.",
     tags: @[UnHoly, Virus],
     icon: "vampire.svg",
     onStart: 
@@ -2656,6 +2656,7 @@ const godPower*: Power = Power(
     name: "God",
     tier: UltraRare,
     priority: 7,
+    description: "Well, I guess He's here. ",
     antiDescription: "Well, I guess He's here. ",
     icon: "cross.svg",
     noColor: true,
@@ -2910,6 +2911,7 @@ registerPower(sleeperAgent)
 registerPower(capitalismPower)
 registerPower(communism)
 registerPower(vampires)
+registerPower(rider)
 registerPower(frostQueen)
 registerPower(kingClaudius)
 registerPower(millerTypeAPlusB)
@@ -2934,7 +2936,7 @@ registerSynergy(queensWrath, true)
 registerSynergy(queensWrath2, true)
 registerSynergy(battleFormation, true)
 registerSynergy(queensWrathSuper, true)
-registerSynergy(calvaryGiraffe, true) #both of these would be secret synergies
+registerSynergy(calvaryGiraffe, true) #both of these would be secret secret synergies
 registerSynergy(lesbianBountyHunter, true) #but flavor text is fun
 registerSynergy(drunkNightRider, true)
 registerSynergy(drunkNightRider2, true)
@@ -2975,7 +2977,7 @@ registerAntiSynergy(coldWar1, true)
 registerAntiSynergy(coldWar2, true)
 registerAntiSynergy(propaganda)
 registerAntiSynergy(famine)
-registerAntiSynergy(god)
+registerAntiSynergy(god, true)
 registerAntiSynergy(lastStand)
 registerAntiSynergy(terminalIllness)
 registerAntiSynergy(terminalIllness2)
@@ -2984,5 +2986,5 @@ registerAntiSynergy(queensWrathSuperAnti)
 
 #All powers with rng involved
 #so user can disable them if they want
-const rngPowers* = @[alcoholism, drunkKnights, civilians, slumdogMillionaire, stupidPower, sleeperAgent, conversion]
+const rngPowers* = @[alcoholism, drunkKnights, civilians, slumdogMillionaire, stupidPower, sleeperAgent, conversion, faminePower]
 const experimentalPowers* = @[skyGlass, zeroGlass, steelGlass, reverieGlass, daybreakGlass]

@@ -227,7 +227,7 @@ proc endRound() =
                 addLosses(myDrafts)
 
 proc sendAction(data: string, `end`: bool) =
-    if not debug and not practiceMode: #skip send whn debugging because peer is undefined
+    if not (debug or practiceMode): #skip send whn debugging because peer is undefined
         peer.send(fmt"action:{data}") 
         if `end`: 
             turn = false #I also want turn to be always true when in debug
@@ -987,9 +987,9 @@ proc createNukeMenu(): VNode =
         button:
             text "Launch Nuclear Missles"
             proc onclick(_: Event, _: VNode) = 
-                sendAction("nuke", true)
                 for i, j in theBoard.rankAndFile:
                     theBoard[i][j] = air.pieceCopy(index = newIndex(theState), tile = theBoard[i][j].tile)
+                sendAction("nuke", true)
 
 proc createGame(): VNode = 
     let topClass = if screenWidth > 1200: "main" else: "column height-100"
@@ -1186,25 +1186,6 @@ proc createSettings(): VNode =
             proc onclick(_: Event, _: VNode) = 
                 currentScreen = Other
 
-#recursively searches for all power requirements for p, if p is a synergy, and all of the power requirements for those requirements
-proc getLinkedPowers(p: Power, alreadyAdded: seq[string] = @[]): tuple[pows: seq[Power], addedNames: seq[string]] = 
-    result.addedNames = alreadyAdded
-    result.pows.add(p)
-    result.addedNames.add(p.name)
-
-    if p.synergy:
-        let synergy = getSynergyOf(p.index)
-        for name in synergy.requirements:
-            if name in synergy.replacements or
-                name in result.addedNames: continue
-
-            for reqPower in power.powers:
-                if reqPower.name == name:
-                    var next = getLinkedPowers(reqPower, result.addedNames)
-                    result.pows.add(next.pows)
-                    result.addedNames.add(next.addedNames)
-                    break #stop searching
-
 proc createSeePowerDescription(p: Power): VNode =     
     var src = if p.noColor: p.icon else: $black & p.icon
     let record = getRecord(p.technicalName)
@@ -1230,7 +1211,9 @@ proc createSeePowerDescription(p: Power): VNode =
 
                 theState.shared.randSeed = rand(10000)
 
-                myDrafts = getLinkedPowers(p).pows
+                let powersToAdd = getLinkedPowers(p)
+                myDrafts = powersToAdd.drafterPows
+                opponentDrafts = powersToAdd.opponentPows
                 execute(myDrafts, opponentDrafts, side, theBoard, theState)
                 currentScreen = Game
 

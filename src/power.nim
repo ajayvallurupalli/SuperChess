@@ -24,11 +24,15 @@ type
         Special, Trade, Holy, UnHoly, NightRider, Glass, Status,
         Virus
 
+    PowerType* = enum
+        SyneryPower, AntiSynergyPower, NormalPower
+
     Power* = object
         name*: string
         technicalName*: string = ""
-        synergy*: bool = false #can i delete? This is used for like one thing
+        item*: PowerType = NormalPower #can i delete? This is used for like one thing
         anti*: bool = false
+        secret*: bool = false
         tier*: Tier
         rarity*: int = 8
         description*: string = "NONE"
@@ -119,7 +123,9 @@ proc registerSynergy*(s: Synergy, secret: bool = false, secretSecret = false) =
     
     x.power.rarity = x.rarity
     x.power.index = powers[powers.len - 1].index + 1
-    x.power.synergy = true
+    x.power.item = SyneryPower
+
+    if secret: x.power.secret = true
 
     let requirements = s.requirements.foldr(a & " + " & b)
 
@@ -145,7 +151,9 @@ proc registerAntiSynergy*(s: AntiSynergy, secret: bool = false, secretSecret: bo
 
     x.power.rarity = x.rarity
     x.power.index = powers[powers.len - 1].index + 1
-    x.power.synergy = true
+    x.power.item = AntiSynergyPower
+
+    if secret: x.power.secret = true
 
     let opponentReqs = s.opponentRequirements.foldr(a & " + " & b)
     let requirements =
@@ -197,7 +205,6 @@ proc antiSynergize(pool: seq[Power], currentPowers: seq[Power], opponentPowers: 
 
 proc secretAntiSynergize(drafterPowers: seq[Power], opponentPowers: seq[Power], synergies: seq[AntiSynergy]): seq[Power] = 
     return antiSynergize(drafterPowers, drafterPowers, opponentPowers, synergies, Common, true)
-
 
 proc seqOf(t: Tier): var seq[Power] = 
     case t
@@ -307,6 +314,13 @@ proc getSynergyOf*(index: int): Synergy =
     
     raise newException(IndexDefect, fmt"power of {$index} does not exist or is not of a synergy.")
 
+proc getAntiSynergyOf*(index: int): AntiSynergy = 
+    for s in antiSynergies & secretAntiSynergies & secretSecretAntiSynergies:
+        if s.power.index == index:
+            return s
+    
+    raise newException(IndexDefect, fmt"power of {$index} does not exist or is not of a synergy.")
+
 proc getPower*(name: string): Power = 
     for p in powers:
         if p.name == name:
@@ -323,6 +337,66 @@ proc getAllPowers*(): Table[string, seq[Power]] =
             result[p.name].add(p)
         else:
             result[p.name] = @[p]
+
+#recursively searches for all power requirements for p, if p is a synergy, and all of the power requirements for those requirements
+proc getLinkedPowers*(p: Power, alreadyAdded: seq[string] = @[], drafter: bool = true): 
+    tuple[drafterPows: seq[Power], opponentPows: seq[Power], addedNames: seq[string]] = 
+
+        if p.item == NormalPower or not p.secret:
+            if drafter and not p.anti: 
+                result.drafterPows.add(p)
+                echo fmt"{p.name} added to drafter"
+            else:
+                result.opponentPows.add(p)
+                echo fmt"{p.name} added to opponent"
+
+        result.addedNames = alreadyAdded
+        result.addedNames.add(p.name)
+
+        if p.item == SyneryPower:
+            let synergy = getSynergyOf(p.index)
+            for name in synergy.requirements:
+                echo name
+                if name in synergy.replacements or
+                    name in result.addedNames: continue
+
+                for reqPower in power.powers:
+                    if reqPower.name == name:
+                        var next = getLinkedPowers(reqPower, result.addedNames, drafter)
+                        result.drafterPows.add(next.drafterPows)
+                        result.addedNames.add(next.addedNames)
+
+        elif p.item == AntiSynergyPower:
+            let anti = getAntiSynergyOf(p.index)
+
+            for name in anti.drafterRequirements:
+                if name in result.addedNames: continue
+
+                for reqPower in power.powers:
+                    if reqPower.name == name:
+                        echo "searching ", reqPower, " for drafter req"
+                        var next = getLinkedPowers(reqPower, result.addedNames, drafter)
+                        echo "next from drafter req: ", next
+                        result.drafterPows.add(next.drafterPows)
+                        result.opponentPows.add(next.opponentPows)
+                        result.addedNames.add(next.addedNames)
+                        echo "new result from drafter req: ", result
+            
+            for name in anti.opponentRequirements:
+                if name in result.addedNames: continue
+                
+                for reqPower in power.powers:
+                    if reqPower.name == name:
+                        echo "searching ", reqPower, " for opponent req"
+                        var next = getLinkedPowers(reqPower, result.addedNames, not drafter)
+                        echo "next from opponent req: ", next
+                        result.drafterPows.add(next.drafterPows)
+                        result.opponentPows.add(next.opponentPows)
+                        result.addedNames.add(next.addedNames)
+                        echo "new result from opponent req: ", result
+
+
+
 
 #`nothing` is not registered because it can only be drawn when a normal power cannot be gotten       
 registerPower(holy)
