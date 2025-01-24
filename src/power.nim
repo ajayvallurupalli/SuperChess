@@ -339,11 +339,20 @@ proc getAllPowers*(): Table[string, seq[Power]] =
             result[p.name] = @[p]
 
 #recursively searches for all power requirements for p, if p is a synergy, and all of the power requirements for those requirements
+#TODO split it into an inner aux function, so that addedNaames and alreadyAdded and drafter state are not in the public proc call
 proc getLinkedPowers*(p: Power, alreadyAdded: seq[string] = @[], drafter: bool = true): 
     tuple[drafterPows: seq[Power], opponentPows: seq[Power], addedNames: seq[string]] = 
 
+        #I'm struggling to find a solution for the proc when Last Stand specifically is used
+        #So for now I'm just going to hard code it 
+        if p.name == "Last Stand": return (
+            drafterPows: @[getPower("Empress"), getPower("Last Stand")],
+            opponentPows: @[getPower("Terminal Illness")],
+            addedNames: @[]
+        )
+
         if p.item == NormalPower or not p.secret:
-            if drafter and not p.anti: 
+            if drafter: 
                 result.drafterPows.add(p)
                 echo fmt"{p.name} added to drafter"
             else:
@@ -365,35 +374,42 @@ proc getLinkedPowers*(p: Power, alreadyAdded: seq[string] = @[], drafter: bool =
                         var next = getLinkedPowers(reqPower, result.addedNames, drafter)
                         result.drafterPows.add(next.drafterPows)
                         result.addedNames.add(next.addedNames)
+                        break
 
         elif p.item == AntiSynergyPower:
             let anti = getAntiSynergyOf(p.index)
-
+            
+            echo "searching for reqs for ", p.name
+            
             for name in anti.drafterRequirements:
                 if name in result.addedNames: continue
 
                 for reqPower in power.powers:
                     if reqPower.name == name:
-                        echo "searching ", reqPower, " for drafter req"
+                        echo "searching ", reqPower 
+                        echo " for drafter req"
                         var next = getLinkedPowers(reqPower, result.addedNames, drafter)
                         echo "next from drafter req: ", next
                         result.drafterPows.add(next.drafterPows)
                         result.opponentPows.add(next.opponentPows)
                         result.addedNames.add(next.addedNames)
                         echo "new result from drafter req: ", result
+                        break
             
             for name in anti.opponentRequirements:
                 if name in result.addedNames: continue
                 
                 for reqPower in power.powers:
                     if reqPower.name == name:
-                        echo "searching ", reqPower, " for opponent req"
+                        echo "searching ", reqPower
+                        echo " for opponent req. note that drafter is ", not (drafter or p.anti)
                         var next = getLinkedPowers(reqPower, result.addedNames, not drafter)
                         echo "next from opponent req: ", next
                         result.drafterPows.add(next.drafterPows)
                         result.opponentPows.add(next.opponentPows)
                         result.addedNames.add(next.addedNames)
                         echo "new result from opponent req: ", result
+                        break
 
 
 

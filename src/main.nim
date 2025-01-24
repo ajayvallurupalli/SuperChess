@@ -180,6 +180,9 @@ proc initGame() =
     picks = @[]
     initStatusConditions(theState)
 
+    currentTab = 
+        if myDrafts.len != 0: My else: Control
+
 proc clear() =
     selectedTile = (-1, -1)
     possibleMoves = @[]
@@ -1212,8 +1215,15 @@ proc createSeePowerDescription(p: Power): VNode =
                 theState.shared.randSeed = rand(10000)
 
                 let powersToAdd = getLinkedPowers(p)
-                myDrafts = powersToAdd.drafterPows
-                opponentDrafts = powersToAdd.opponentPows
+
+                for p in powersToAdd.drafterPows:
+                    if p.anti: opponentDrafts.add(p)
+                    else: myDrafts.add(p)
+
+                for p in powersToAdd.opponentPows:
+                    if p.anti: myDrafts.add(p)
+                    else: opponentDrafts.add(p)
+
                 execute(myDrafts, opponentDrafts, side, theBoard, theState)
                 currentScreen = Game
 

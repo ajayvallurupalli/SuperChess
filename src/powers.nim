@@ -2811,12 +2811,13 @@ const terminalIllnessPower*: Power = Power(
         """It's a little cruel, but all's fair in love and war. Give your opponent's queen Poison 17. 
             Poison decrements by 1 each turn, and at Poison 0 the unit dies.""",
     antiDescription: "Better make a last stand...",
+    anti: true,
     tags: @[Status, UnHoly],
     icon: queenIcon,
     onStart:
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             for i, j in b.rankAndFile:
-                if b[i][j].item == Queen and b[i][j].isColor(otherSide(side)):
+                if b[i][j].item == Queen and b[i][j].isColor(side):
                     b[i][j].status[Poisoned] = some((
                         strength: 17,
                         turnsLeft: 17, #i dont think this matters, but still
@@ -2829,13 +2830,6 @@ const terminalIllness: AntiSynergy = (
     rarity: 2,
     drafterRequirements: @[],
     opponentRequirements: @[empress.name]
-)
-
-const terminalIllness2: AntiSynergy = (
-    power: terminalIllnessPower,
-    rarity: 2,
-    drafterRequirements: @[],
-    opponentRequirements: @[altEmpress.name]
 )
 
 const lastStandPower*: Power = Power(
@@ -2861,11 +2855,11 @@ const lastStandPower*: Power = Power(
 
 )
 
-const lastStand: AntiSynergy = (
+const lastStand: Synergy = (
     power: lastStandPower,
     rarity: 12,
-    drafterRequirements: @[],
-    opponentRequirements: @[terminalIllness.power.name]
+    requirements: @[terminalIllness.power.name],
+    replacements: @[]
 )
 
 registerPower(empress)
@@ -2945,6 +2939,7 @@ registerSynergy(masterGlass, true)
 registerSynergy(masterGlass2, true)
 registerSynergy(comucapital, true)
 registerSynergy(huh, true)
+registerSynergy(lastStand)
 
 registerSynergy(capitalismTwo1)
 registerSynergy(capitalismTwo2)
@@ -2978,9 +2973,7 @@ registerAntiSynergy(coldWar2, true)
 registerAntiSynergy(propaganda)
 registerAntiSynergy(famine)
 registerAntiSynergy(god, true)
-registerAntiSynergy(lastStand)
 registerAntiSynergy(terminalIllness)
-registerAntiSynergy(terminalIllness2)
 registerAntiSynergy(queensWrathAnti)
 registerAntiSynergy(queensWrathSuperAnti)
 
