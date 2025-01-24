@@ -22,4 +22,5 @@ proc getLogs(json: JsObject, place: var Table[cstring, cstring]): void {.async.}
 proc getChangeLogs*(place: var Table[cstring, cstring]): void {.async.} = 
     await(fetch(logLocation)
         .then((response: Response) => response.json())
-        .then((json: JsObject) => getLogs(json, place)))
+        .then((json: JsObject) => getLogs(json, place))
+        .catch((_: Error) => (place["Error"] = "Logs cannot be found. Maybe check your internet?")))

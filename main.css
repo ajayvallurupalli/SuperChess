@@ -1088,7 +1088,7 @@ a:visited {
 }
 
 .move-up-alot {
-  transform: translateY(-340px);
+  transform: translateY(-300px);
 }
 
 ::-webkit-scrollbar {
@@ -1353,9 +1353,9 @@ hr {
   outline-width: 1px;
   outline-color: #183dd1;
   outline-style: solid;
-  animation: animateOutlineulmu59x 2s ease infinite;
+  animation: animateOutlineu4k33b7 2s ease infinite;
 }
-@keyframes animateOutlineulmu59x {
+@keyframes animateOutlineu4k33b7 {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1382,9 +1382,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-ulmu5a7 4s ease-in-out infinite;
+  animation: castingAnimation-u4k33bg 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-ulmu5a7 {
+@keyframes castingAnimation-u4k33bg {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1401,9 +1401,9 @@ hr {
   outline-width: 1px;
   outline-color: #ea332d;
   outline-style: solid;
-  animation: animateOutlineulmu5an 2s ease infinite;
+  animation: animateOutlineu4k33ce 2s ease infinite;
 }
-@keyframes animateOutlineulmu5an {
+@keyframes animateOutlineu4k33ce {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1430,9 +1430,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-ulmu5aq 4s ease-in-out infinite;
+  animation: castingAnimation-u4k33ch 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-ulmu5aq {
+@keyframes castingAnimation-u4k33ch {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1449,9 +1449,9 @@ hr {
   outline-width: 1px;
   outline-color: rgb(206, 206, 206);
   outline-style: solid;
-  animation: animateOutlineulmu5as 2s ease infinite;
+  animation: animateOutlineu4k33cm 2s ease infinite;
 }
-@keyframes animateOutlineulmu5as {
+@keyframes animateOutlineu4k33cm {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1478,9 +1478,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-ulmu5bi 4s ease-in-out infinite;
+  animation: castingAnimation-u4k33dd 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-ulmu5bi {
+@keyframes castingAnimation-u4k33dd {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1497,9 +1497,9 @@ hr {
   outline-width: 1px;
   outline-color: #424242;
   outline-style: solid;
-  animation: animateOutlineulmu5c7 2s ease infinite;
+  animation: animateOutlineu4k33dq 2s ease infinite;
 }
-@keyframes animateOutlineulmu5c7 {
+@keyframes animateOutlineu4k33dq {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1526,9 +1526,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-ulmu5cy 4s ease-in-out infinite;
+  animation: castingAnimation-u4k33ei 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-ulmu5cy {
+@keyframes castingAnimation-u4k33ei {
   0% {
     outline-width: 3px;
     outline-offset: 50px;
@@ -1545,9 +1545,9 @@ hr {
   outline-width: 1px;
   outline-color: rgb(201, 178, 65);
   outline-style: solid;
-  animation: animateOutlineulmu5dl 2s ease infinite;
+  animation: animateOutlineu4k33fe 2s ease infinite;
 }
-@keyframes animateOutlineulmu5dl {
+@keyframes animateOutlineu4k33fe {
   0% {
     outline-width: 2px;
     outline-offset: 0px;
@@ -1574,9 +1574,9 @@ hr {
   border-radius: 50%;
   outline-width: 2px;
   outline-style: solid;
-  animation: castingAnimation-ulmu5e6 4s ease-in-out infinite;
+  animation: castingAnimation-u4k33fw 4s ease-in-out infinite;
 }
-@keyframes castingAnimation-ulmu5e6 {
+@keyframes castingAnimation-u4k33fw {
   0% {
     outline-width: 3px;
     outline-offset: 50px;

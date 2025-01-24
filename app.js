@@ -12389,6 +12389,15 @@ function initSelectedSubPower_570425707() {
   
 }
 
+function catch_2013267501(future_2013267503, onReject_2013267504) {
+  var result_2013267505 = null;
+
+    result_2013267505 = future_2013267503.catch(onReject_2013267504)
+
+  return result_2013267505;
+
+}
+
 function then_2013267433(future_2013267436, onSuccess_2013267437, onReject_2013267438) {
   var result_2013267439 = null;
 
@@ -12644,8 +12653,14 @@ function HEX3Aanonymous_2013267430(json_2013267431) {
 
       
     }
+    
+function HEX3Aanonymous_2013267456(__2013267457) {
+        HEX5BHEX5DHEX3D_2013266090(place_2013267360, "Error", "Logs cannot be found. Maybe check your internet?");
 
-    (await then_2013267433(then_2013267393(fetch("https://api.github.com/repos/ajayvallurupalli/SuperChess/contents/change_logs"), HEX3Aanonymous_2013267374, null), HEX3Aanonymous_2013267430, null));
+      
+    }
+
+    (await catch_2013267501(then_2013267433(then_2013267393(fetch("https://api.github.com/repos/ajayvallurupalli/SuperChess/contents/change_logs"), HEX3Aanonymous_2013267374, null), HEX3Aanonymous_2013267430, null), HEX3Aanonymous_2013267456));
 
   
 }

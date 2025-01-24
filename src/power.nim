@@ -344,6 +344,7 @@ proc getLinkedPowers*(p: Power, alreadyAdded: seq[string] = @[], drafter: bool =
     tuple[drafterPows: seq[Power], opponentPows: seq[Power], addedNames: seq[string]] = 
 
         #I'm struggling to find a solution for the proc when Last Stand specifically is used
+        #Since it is a synergy with an anti synergy
         #So for now I'm just going to hard code it 
         if p.name == "Last Stand": return (
             drafterPows: @[getPower("Empress"), getPower("Last Stand")],
