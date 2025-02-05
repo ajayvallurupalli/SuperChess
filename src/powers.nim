@@ -1926,7 +1926,7 @@ const handouts*: Power = Power(
     tier: Uncommon,
     rarity: 0,
     priority: 15,
-    description: """What if everyone had money? Then everyone would have money! You get 1 dollar for taking a piece.""",
+    description: """What if everyone had money? Then everyone would have money! You get 1 dollar for moving a piece.""",
     icon: "usflag.svg",
     noColor: true,
     onStart:
