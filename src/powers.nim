@@ -548,35 +548,21 @@ const masochistEmpressPower: Power = Power(
     priority: 15,
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard, s: var BoardState) = 
-            Queen.buff(side, b, s, 
-                takes = @[cannibalKnightTakes]
-            )
-                        
+            let takes = s.side[side].dna[Queen].takes
+            if knightTakes in takes:
+                Queen.buff(side, b, s, 
+                    takes = @[cannibalKnightTakes]
+                )
+            elif giraffeTakes in takes:
+                Queen.buff(side, b, s, 
+                    takes = @[cannibalGiraffeTakes]
+                )
 )
 
 const masochistEmpress: Synergy = (
     power: masochistEmpressPower,
     rarity: 0,
     requirements: @[empress.name, stepOnMe.name],
-    replacements: @[]
-)
-
-const masochistAltEmpressPower: Power = Power(
-    name: "Masochist Empress",
-    tier: UltraRare,
-    rarity: 0,
-    priority: 15,
-    onStart: 
-        proc (side: Color, viewSide: Color, b: var ChessBoard, s: var BoardState) = 
-            Queen.buff(side, b, s, 
-                takes = @[cannibalGiraffeTakes]
-            )
-)
-
-const masochistAltEmpress: Synergy = (
-    power: masochistAltEmpressPower,
-    rarity: 0,
-    requirements: @[altEmpress.name, stepOnMe.name],
     replacements: @[]
 )
 
@@ -1658,6 +1644,7 @@ proc moneyForTakeAll(): BoardAction =
 
         allPiecesTaken += state.side[side].abilityTakes #includes takes which are not by any piece
 
+        echo "all", allPiecesTaken, "last", lastPiecesTaken, "side", side
         if allPiecesTaken > lastPiecesTaken:
             addMoney(side, (allPiecesTaken - lastPiecesTaken) * 3, state)
         lastPiecesTaken = allPiecesTaken
@@ -2782,6 +2769,60 @@ const kingClaudius*: Power = Power(
                         afflicter: side
                     ))
 )
+#[
+const frostyWind*: Power = Power(
+    name: "Frosty Wind",
+    tier: Uncommon,
+    rarity: 2,
+    priority: 30,
+    description: 
+        """It's surprisngly chilly. Your opponent's middle 4 pawns start with Frozen 12. 
+            Frozen impedes the movment, not taking ability, of pieces for a 5 turns.""",
+    tags: @[Status, Develop],
+    icon: pawnIcon, #TODO make a better icon
+    onStart:
+        proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
+            let rank = if side == white: 1 else: 6
+            for i in 2..5:
+                if not b[rank][i].isAir():
+                    b[rank][i].tile.freeze(12, side, b) #since freeze needs the tile and i don't feel like writing another version
+)
+
+#helper function to give a new tile one off depending on the seed
+#I know that its technically uneven, but its a game so who cares
+#really it gives it personality
+func randTileStep(tile: Tile, seed: int): Tile = 
+    if seed <= 2:
+        return tile.tileAbove
+    elif seed <= 5:
+        return tile.tileAbove
+    elif seed <= 7:
+        return tile.tileLeft
+    else:
+        return tile.tileRight
+
+proc createBlizzardAction*(seed: int): BoardAction =
+    var path: seq[int]
+
+    var counter = 1
+    while seed div counter != 0:
+        path.add((seed div counter) mod 10)
+        counter *= 10
+
+
+    var location: Tile = (file: 3, rank: 3)
+    counter = 0 #Reusing if for the closure
+    result.priority = 25
+    result.action = proc (side: Color, board: var ChessBoard, state: var BoardState) =  
+        let step = path[counter mod path.len]
+        location = location.randTileStep(step)
+        inc counter
+
+        for i in -1..1:
+            for j in -1..1:
+                discard nil]#
+                
+
 
 const millerTypeAPlusB*: Power = Power(
     name: "Miller Type A + B Snowstorm",
@@ -2790,8 +2831,7 @@ const millerTypeAPlusB*: Power = Power(
     priority: 30,
     description: 
         """Due to the harmonization of the polar vortexes, a Miller Type A + B Snowstorm is likely. 
-            Expect your opponent's middle 4 pawns to be Frozen 12 inches deep. It should clear in 5 turns, but until then, 
-            effected areas may not be able to move. """,
+            The snowstorm is currently in the middle of the board, though it appears to be moving.""",
     tags: @[Status, Develop],
     icon: pawnIcon, #TODO make a better icon
     onStart:
@@ -2861,6 +2901,7 @@ const lastStand: Synergy = (
     requirements: @[terminalIllness.power.name],
     replacements: @[]
 )
+
 
 registerPower(empress)
 registerPower(altEmpress)
@@ -2964,7 +3005,6 @@ registerSynergy(virus6, true)
 registerSynergy(virus7, true)
 
 registerSynergy(masochistEmpress, true, true)
-registerSynergy(masochistAltEmpress, true, true)
 
 registerAntiSynergy(undeveloped)
 registerAntiSynergy(phalanx)

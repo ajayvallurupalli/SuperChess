@@ -46,7 +46,9 @@ type
     #`BoardAction` is used to describe a transformation on the state itself, build from the current state
     #it is the most general action
     BoardActionAction* = proc (side: Color, board: var ChessBoard, state: var BoardState) #awesome name
+    UncolorBoardActionAction* = proc (board: var ChessBoard, state: var BoardState) #even awesomer name
     BoardAction* = tuple[action: BoardActionAction, priority: int]
+    UncolorBoardAction* = tuple[action: UncolorBoardActionAction, priority: int]
 
 
     #Capitalism stuff
@@ -75,8 +77,11 @@ type
         afflicter: Color
 
     StatusAction* = tuple
-        action: BoardActionAction
+        action: UncolorBoardActionAction
         cure: OnPiece
+
+    GraphicEffect* = enum
+        Frozen
 
     Piece* = object
         item*: Piecetype
@@ -116,7 +121,9 @@ type
         statusStrength*: array[StatusType, int]
         cures*: array[StatusType, OnPiece]
 
-        onEndTurn*: seq[BoardAction]
+        onEndTurn*: seq[UncolorBoardAction]
+
+        effects*: seq[tuple[effect: GraphicEffect, tile: Tile, turnsLeft: int]]
 
     SideState* = object
         abilityTakes*: int = 0 #takes from ability. I could put on a piece, but it would cause issues with some powers

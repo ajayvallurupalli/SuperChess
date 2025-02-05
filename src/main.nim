@@ -40,6 +40,7 @@ learn how to use electron
 try steam servers?
 I want a change log which gets text files, stored in a change_logs directory on github, decodes them from base64, and loads them in
 so that it is up to date whenever a new file is added to this folder
+Merge glass and graphic effect
 ]#
 
 const iconsPath: string  = "./icons/"
@@ -60,6 +61,8 @@ const
     castingOnAnimations: array[GlassType, string] = 
         [" casting-on-sky ", " casting-on-zero ", " casting-on-steel ", " casting-on-reverie ", " casting-on-daybreak "]#corresponding css classes for each type
     emptySrc = "data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E" #data for an empty image
+    effectCSS: array[GraphicEffect, string] = 
+        [" casting-on-sky "]
 
 type 
     Screen {.pure.} = enum 
@@ -82,7 +85,7 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = Game 
-const myDebugPowers: seq[Power] = @[lastStandPower]
+const myDebugPowers: seq[Power] = @[capitalismPower]
 const opponentDebugPowers: seq[Power] = @[]
 
 var 
@@ -198,10 +201,12 @@ proc endRound() =
     for i, j in rankAndFile(theBoard):
         theBoard[i][j].endTurn(theBoard, theState)
 
-    for a in theState.side[white].onEndTurn
-        .concat(theState.side[black].onEndTurn, theState.shared.onEndTurn)
-        .sortedByIt(it.priority):
-            a.action(white, theBoard, theState)
+    for a in theState.side[white].onEndTurn:
+        a.action(white, theBoard, theState)
+    for a in theState.side[black].onEndTurn:
+        a.action(black, theBoard, theState)
+    for a in theState.shared.onEndTurn:
+        a.action(theBoard, theState)
 
     #this is needed by the random move powers to prevent double moves
     #It needs to happen after so that all drunkness is cleared after end turn stuff
@@ -243,7 +248,7 @@ proc updateActionStack() =
             for i, x in nextActionStack:
                 dec nextActionStack[i].turns
 
-        if not debug and not practiceMode:
+        if not (debug or practiceMode):
             if toSend.len != 0:
                 for x in toSend:
                     x.send()
@@ -506,6 +511,10 @@ proc createTile(p: Piece, m: int, n: int): VNode =
 
     for c in p.casts:
         class &= castingAnimations[c.glass]
+
+    for e in theState.shared.effects:
+        if p.tile == e.tile:
+            class &= effectCSS[e.effect]
 
     if isSelected(m, n) and possibleTakes.contains(p.tile):
         class &= " can-take"
@@ -1056,7 +1065,7 @@ proc createGame(): VNode =
 
                 of Debug:
                     tdiv:
-                        text fmt"Shared: {$theState.shared}"
+                        text fmt"Turn: {$theState.shared.turnNumber}"
                     tdiv:
                         text fmt"White: {$theState.side[white]}"
                     tdiv:

@@ -9,7 +9,7 @@ proc frozenAction(): StatusAction =
     var capturedActions: Table[int, seq[MoveProc]] #indexed by `Piece.index` (which is an int)
     var noise = 42
 
-    result.action = proc (_: Color, b: var ChessBoard, s: var BoardState) = 
+    result.action = proc (b: var ChessBoard, s: var BoardState) = 
         #first we return previously captured actions
         for i, j in b.rankAndFile:
             if capturedActions.hasKey(b[i][j].index):
@@ -41,7 +41,7 @@ proc frozenAction(): StatusAction =
 
 #a poisoned piece will die in some amount of turns turns, no matter what happens
 proc poisonAction(): StatusAction = 
-    result.action = proc (_: Color, b: var ChessBoard, s: var BoardState) = 
+    result.action = proc (b: var ChessBoard, s: var BoardState) = 
         for i, j in b.rankAndFile:
             if b[i][j].status[Poisoned].isSome(): 
                     var previous = b[i][j].status[Poisoned].get()
@@ -56,7 +56,7 @@ proc poisonAction(): StatusAction =
     result.cure = proc (piece: var Piece, board: var ChessBoard, state: var BoardState) =
         piece.status[Poisoned] = none(StatusData)
 
-const decStatuses: BoardActionAction = proc (_: Color, b: var ChessBoard, s: var BoardState) = 
+const decStatuses: UncolorBoardActionAction = proc (b: var ChessBoard, s: var BoardState) = 
     for i, j in b.rankAndFile:
         for name, data in b[i][j].status.pairs:
             if data.isSome():
