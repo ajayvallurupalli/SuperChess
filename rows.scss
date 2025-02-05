@@ -181,7 +181,7 @@ $glasses: ("sky": $sky, "steel": $steel, "reverie": $reverie, "zero": $zero, "da
         flex-wrap: wrap;
         grid-area: glasses;
         justify-content: center;
-        gap: 50px;
+        gap: 10px;
 
         .glass {
             display: grid;
