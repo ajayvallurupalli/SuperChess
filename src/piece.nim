@@ -129,6 +129,7 @@ type
         abilityTakes*: int = 0 #takes from ability. I could put on a piece, but it would cause issues with some powers
         hasCastled*: bool = false #since this state is very easy to alter and still won't complicate namespace, I might as well go hogwild with variables 
         communist*: bool = false
+        piecesChecking*: seq[Tile] = @[]
 
         #used as prototypes for the pieces. When a piece is buffed, its dna should be buffed too
         #I don't know how to slice PieceType to exclude air and fairy, so just don't use them
@@ -372,14 +373,14 @@ func getPiecesChecking*(b: ChessBoard, c: Color): seq[Tile] =
             if not p.isColor(c) and kingTile in p.getTakesOn(b):
                 result.add(p.tile)
 
-func wouldCheckAt*(p: Piece, at: Tile, b: ChessBoard): bool = 
+func wouldCheckAt*(p: Piece, at: Tile, b: ChessBoard, s: BoardState): bool = 
     #we make copies to avoid ruining original state
     var testboard = b
     var testpiece = p
     var emptyState: BoardState #sets to default, since we don't really need indexing
     pieceMove(testpiece, at, testboard, emptyState)
     #if the move would cause for more pieces to be checking, then we know that it would cause a check
-    return getPiecesChecking(testBoard, otherSide(p.color)).len > getPiecesChecking(b, otherSide(p.color)).len
+    return getPiecesChecking(testBoard, otherSide(p.color)).len > s.side[otherSide(p.color)].piecesChecking.len
 
 func isAtEnd*(piece: Piece): bool = 
     return (piece.tile.rank == 7 and piece.color == black) or (piece.tile.rank == 0 and piece.color == white)

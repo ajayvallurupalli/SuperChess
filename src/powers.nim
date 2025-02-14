@@ -24,6 +24,7 @@ Holy war - 15% to convert when taken
 Gremlins - split 
 famine - kills 50% of pawns
 pawnpacalps - kills pieces besides pawn, spawns 2 every turn
+Make move up and move down cost more if doing so would put the king into checkmate
 
 
 
@@ -519,7 +520,7 @@ const anime*: Power = Power(
     name: "Anime Battle",
     tier: Rare,
     priority: 5, 
-    rarity: 0,
+    rarity: -999,
     description:
         """Your board is imbued with the power of anime. You feel a odd sense of regret. Or is it guilt?""",
     tags: @[Control, Control, Virus],
@@ -544,7 +545,7 @@ const samuraiSynergy: Synergy = (
 const masochistEmpressPower: Power = Power(
     name: "Masochist Empress",
     tier: UltraRare,
-    rarity: 0,
+    rarity: -999,
     priority: 15,
     onStart: 
         proc (side: Color, viewSide: Color, b: var ChessBoard, s: var BoardState) = 
@@ -561,7 +562,7 @@ const masochistEmpressPower: Power = Power(
 
 const masochistEmpress: Synergy = (
     power: masochistEmpressPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[empress.name, stepOnMe.name],
     replacements: @[]
 )
@@ -580,7 +581,7 @@ const sacrificeWhenTaken*: WhenTaken =
 const sacrifice*: Power = Power(
     name: "Sacrificial Maiden",
     tier: UltraRare,
-    rarity: 1,
+    rarity: -999, #get through tags instead, to make rarer
     priority: 25,
     description: """SACRIFICE THY MAIDENS TO THE BLOOD GOD""",
     tags: @[Special, Virus],
@@ -640,7 +641,7 @@ const queenTrade*: Power = Power(
 const superPawnPower: Power = Power(
     name: "Super Pawn",
     tier: UltraRare,
-    rarity: 0,
+    rarity: -999,
     priority: 15,
     description: "You have insane pawns. Please don't sacrifice them.",
     icon: pawnIcon,
@@ -657,7 +658,7 @@ const superPawnPower: Power = Power(
 
 const superPawn: Synergy = (
     power: superPawnPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[backStep.name, headStart.name],
     replacements: @[backStep.name, headStart.name]    
 )
@@ -685,7 +686,7 @@ const lesbianPride*: Power = Power(
 const queensWrathPower: Power = Power(
     name: "Queen's Wrath",
     tier: UltraRare,
-    rarity: 0,
+    rarity: -999,
     priority: 2,
     description: "Why must she die?",
     icon: queenIcon,
@@ -704,7 +705,7 @@ const queensWrathPower: Power = Power(
 const queensWrathSuperPower: Power = Power(
     name: "Fallen Queen's Wrath",
     tier: UltraRare,
-    rarity: 0,
+    rarity: -999,
     priority: 0,
     description: """Why must she die? They will suffer. They will suffer. They will suffer. 
                     They will suffer. They will suffer. They will suffer. They will suffer. 
@@ -726,35 +727,35 @@ const queensWrathSuperPower: Power = Power(
 
 const queensWrath: Synergy = (
     power: queensWrathPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[lesbianPride.name, queenTrade.name],
     replacements: @[lesbianPride.name]    
 )
 
 const queensWrath2: Synergy = (
     power: queensWrathPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[lesbianPride.name, sacrifice.name],
     replacements: @[lesbianPride.name, sacrifice.name]    
 )
 
 const queensWrathAnti: AntiSynergy = (
     power: queensWrathPower,
-    rarity: 0,
+    rarity: -999,
     drafterRequirements: @[lesbianPride.name],
     opponentRequirements: @[queenTrade.name] 
 )
 
 const queensWrathSuper: Synergy = (
     power: queensWrathSuperPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[lesbianPride.name, queenTrade.name, sacrifice.name],
     replacements: @[lesbianPride.name, sacrifice.name]
 )
 
 const queensWrathSuperAnti: AntiSynergy = (
     power: queensWrathSuperPower,
-    rarity: 0,
+    rarity: -999,
     drafterRequirements: @[lesbianPride.name, sacrifice.name],
     opponentRequirements: @[queenTrade.name] 
 )
@@ -787,7 +788,7 @@ const calvaryCharge: Synergy = (
 const battleFormationPower: Power = Power(
     name: "Battle Formation!",
     tier: UltraRare,
-    rarity: 0,
+    rarity: -999,
     priority: 20,
     description: "Real Estate is going crazy with how developed the board is.",
     icon: knightIcon,
@@ -803,7 +804,7 @@ const battleFormationPower: Power = Power(
 
 const battleFormation: Synergy = (
     power: battleFormationPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[knightChargePower.name, developed.name],
     replacements: @[developed.name]
 )
@@ -811,7 +812,7 @@ const battleFormation: Synergy = (
 const differentGamePower*: Power = Power(
     name: "Criminal Formation",
     tier: Common,
-    rarity: 0,
+    rarity: -999,
     priority: 20,
     description: "I guess the rules didn't get to you. Your pawns above both knights and both rooks swap places with those pieces.",
     tags: @[Develop, Develop, Develop],
@@ -834,7 +835,7 @@ const differentGame: Synergy = (
 const lineBackersPower: Power = Power(
     name: "Linebackers",
     tier: Rare,
-    rarity: 0,
+    rarity: -999,
     priority: 15,
     description: "Your pawns learn to fight like men. They can take one spaces ahead too.",
     icon: pawnIcon,
@@ -848,7 +849,7 @@ const lineBackersPower: Power = Power(
 
 const linebackers: Synergy = (
     power: lineBackersPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[putInTheWork.name, headStart.name],
     replacements: @[]
 )
@@ -1008,7 +1009,7 @@ const bountyHunterOnEndTurn*: OnPiece = proc (piece: var Piece, board: var Chess
 const bountyHunterPower*: Power = Power(
     name: "Bounty Hunter",
     tier: Common,
-    rarity: 0,
+    rarity: -999,
     priority: 15,
     description: "It's hard to make a living these days. If your king takes 3 pieces, you automatically win.",
     tags: @[King, Special],
@@ -1251,7 +1252,7 @@ const drunkNightRiderPower: Power = Power(
     name: "nighetriedder",
     tier: UltraRare,
     priority: 17,
-    rarity: 0,
+    rarity: -999,
     description: "nighetriedder.?",
     icon: "nightrider.svg",
     onStart: 
@@ -1269,14 +1270,14 @@ const drunkNightRiderPower: Power = Power(
 
 const drunkNightRider: Synergy = (
     power: drunkNightRiderPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[drunkKnights.name, nightRider.name],
     replacements: @[]
 )
 
 const drunkNightRider2: Synergy = (
     power: drunkNightRiderPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[alcoholism.name, nightRider.name],
     replacements: @[]
 )
@@ -1286,7 +1287,7 @@ const virusPower*: Power = Power(
     tier: UltraRare,
     priority: 15,
     description: "They're dying. They're dying. They're dying.",
-    rarity: 0,
+    rarity: -999,
     icon: "",
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) =
@@ -1304,49 +1305,49 @@ const virusPower*: Power = Power(
 #but still decided in advance so that I don't have to sync random seed
 const virus: Synergy = (
     power: virusPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[alcoholism.name, lanceLeft.name, headStart.name, mysteriousSwordsmanLeft.name],
     replacements: @[alcoholism.name]
 )
 
 const virus2: Synergy = (
     power: virusPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[alcoholism.name, backStep.name, knightChargePower.name, altEmpress.name],
     replacements: @[alcoholism.name]
 )
 
 const virus3: Synergy = (
     power: virusPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[alcoholism.name, wanderingRoninLeft.name, superPawnPower.name, empress.name],
     replacements: @[alcoholism.name]
 )
 
 const virus4: Synergy = (
     power: virusPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[alcoholism.name, stepOnMe.name, coward.name, shotgunKing.name, "Vampires"],#i just don't feel like moving the definition up
     replacements: @[alcoholism.name]
 )
 
 const virus5: Synergy = (
     power: virusPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[alcoholism.name, reinforcements.name, empress.name, giraffe.name, werewolves.name],
     replacements: @[alcoholism.name]
 )
 
 const virus6: Synergy = (
     power: virusPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[alcoholism.name, anime.name, developed.name, sacrifice.name, illegalFormationBR.name],
     replacements: @[alcoholism.name]
 )
 
 const virus7: Synergy = (
     power: virusPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[alcoholism.name, linebackersPower.name, nightrider.name, desegregation.name, holy.name],
     replacements: @[alcoholism.name]
 )
@@ -1393,7 +1394,7 @@ const civilians*: Power = Power(
 const calvaryGiraffePower: Power = Power(
     name: "Bandaid",
     tier: UltraRare,
-    rarity: 0,
+    rarity: -999,
     priority: 27, #after calvary charge
     description: """It turns out that calvary plus giraffe is an automatic checkmate for white, 
                     so I'm making the giraffes start one tile back. Sorry.""",
@@ -1412,7 +1413,7 @@ const calvaryGiraffePower: Power = Power(
 
 const calvaryGiraffe: Synergy = (
     power: calvaryGiraffePower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[knightChargePower.name, giraffe.name],
     replacements: @[]
 )
@@ -1429,7 +1430,7 @@ const lesbianBountyHunterOnEndTurn*: OnPiece = proc (piece: var Piece, board: va
 const lesbianBountyHunterPower*: Power = Power(
     name: "Bounty Hunter Nerf",
     tier: Common,
-    rarity: 0,
+    rarity: -999,
     priority: 15,
     description: "Yeah, 3 pieces is way too easy for our lesbian queens, so now it's 7 pieces. You got this!",
     icon: kingIcon,
@@ -1442,7 +1443,7 @@ const lesbianBountyHunterPower*: Power = Power(
 
 const lesbianBountyHunter: Synergy = (
     power: lesbianBountyHunterPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[lesbianPride.name, bountyHunterPower.name],
     replacements: @[bountyHunterPower.name]
 )
@@ -1538,7 +1539,7 @@ const conversion: Power = Power(
 const holyConversionPower: Power = Power(
     name: "God's Disciple",
     tier: Uncommon,
-    rarity: 0, #normal synergy
+    rarity: -999, #normal synergy
     priority: 15,
     description: """Your bishop has now seen God. When it takes, it has a 30% chance to convert it to your color. 
                     When this happens, your bishop swaps places with it instead of taking it.""",
@@ -1679,7 +1680,7 @@ const capitalismPower*: Power = Power(
 const bountyPower*: Power = Power(
     name: "Bounty",
     tier: UltraRare, 
-    rarity: 0,
+    rarity: -999,
     priority: 15,
     description: "Pieces Wanted: Dead or Alive. Bounty: 6 dollars.",
     icon: kingIcon,
@@ -1691,14 +1692,14 @@ const bountyPower*: Power = Power(
 
 const bounty: Synergy = (
     power: bountyPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[bountyHunterPower.name, capitalismPower.name],
     replacements: @[]
 )
 
 const bounty2: Synergy = (
     power: bountyPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[lesbianBountyHunterPower.name, capitalismPower.name],
     replacements: @[]
 )
@@ -1726,21 +1727,31 @@ const blackMoveUp: OnPiece = proc (piece: var Piece, board: var ChessBoard, stat
 const blackMoveUpCondition: BuyCondition = func (piece: Piece, board: ChessBoard, s: BoardState): bool = 
     return piece.tile.rank != 7 and board[piece.tile.tileBelow.rank][piece.tile.file].isAir
 
+const whiteMoveUpCost: BuyCost = func (piece: Piece, b: ChessBoard, s: BoardState): int =
+    if piece.wouldCheckAt(piece.tile.tileAbove, b, s): return 32 else: return 7
+    
+const blackMoveUpCost: BuyCost = func (piece: Piece, b: ChessBoard, s: BoardState): int =
+    if piece.wouldCheckAt(piece.tile.tileBelow, b, s): return 32 else: return 7
+
+const whiteMoveBackCost = blackMoveUpCost
+const blackMoveBackCost = whiteMoveUpCost
+
 const moveUp*: Power = Power(
     name: "Capitalism II",
     technicalName: "Capitalism II: Move Up",
     tier: Common,
-    rarity: 0,
+    rarity: -999,
     priority: 15,
-    description: """Money is pretty neat right? You can spend 8 dollars to move a piece one tile forward. It cannot take with this action.""",
+    description: """Money is pretty neat right? You can spend 8 dollars to move a piece one tile forward. 
+                    It cannot take with this action. If moving would put the king into checkmate, this costs $25 more. """,
     icon: "usflag.svg",
     noColor: true,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             if side == black:
-                s.side[side].buys &= (name: "Move Up", cost: alwaysCost(7), action: blackMoveUp, condition: blackMoveUpCondition)
+                s.side[side].buys &= (name: "Move Up", cost: blackMoveUpCost, action: blackMoveUp, condition: blackMoveUpCondition)
             else:
-                s.side[side].buys &= (name: "Move Up", cost: alwaysCost(7), action: whiteMoveUp, condition: whiteMoveUpCondition)
+                s.side[side].buys &= (name: "Move Up", cost: whiteMoveUpCost, action: whiteMoveUp, condition: whiteMoveUpCondition)
 )
 
 const capitalismTwo1: Synergy = createCapitalism(moveUp)
@@ -1756,17 +1767,18 @@ const moveBack*: Power = Power(
     name: "Capitalism II",
     technicalName: "Capitalism II: Move Back",
     tier: Common,
-    rarity: 0,
+    rarity: -999,
     priority: 15,
-    description: """Money is pretty neat right? You can spend 7 dollars to move a piece one tile backwards. It cannot take with this action.""",
+    description: """Money is pretty neat right? You can spend 7 dollars to move a piece one tile backwards. 
+                    It cannot take with this action. If moving would put the king into checkmate, this costs $25 more. """,
     icon: "usflag.svg",
     noColor: true,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
             if side == black:
-                s.side[side].buys &= (name: "Move Back", cost: alwaysCost(7), action: blackMoveBack, condition: blackMoveBackCondition)
+                s.side[side].buys &= (name: "Move Back", cost: blackMoveBackCost, action: blackMoveBack, condition: blackMoveBackCondition)
             else:
-                s.side[side].buys &= (name: "Move Back", cost: alwaysCost(7), action: whiteMoveBack, condition: whiteMoveBackConditions)
+                s.side[side].buys &= (name: "Move Back", cost: whiteMoveBackCost, action: whiteMoveBack, condition: whiteMoveBackConditions)
 )
 
 const capitalismTwo2: Synergy = createCapitalism(moveBack)
@@ -1775,7 +1787,7 @@ const income*: Power = Power(
     name: "Capitalism II",
     technicalName: "Capitalism II: Income",
     tier: Common,
-    rarity: 0,
+    rarity: -999,
     priority: 35,
     description: """Here, have 10 dollars""",
     icon: "usflag.svg",
@@ -1791,7 +1803,7 @@ const upgrade*: Power = Power(
     name: "Capitalism III",
     technicalName: "Capitalism III: Upgrade Knight",
     tier: Uncommon,
-    rarity: 0, #rarity 0 because it should only be gotten through synergy
+    rarity: -999, #rarity 0 because it should only be gotten through synergy
     priority: 15,
     description: """Money can be used in exchange for goods and services. You can spend 8 dollars to give a piece the movement of a knight.
                     This upgrade is 30 dollars more expensive for the king. The upgraded piece still cannot take like a knight.""",
@@ -1810,7 +1822,7 @@ const upgrade2*: Power = Power(
     name: "Capitalism III",
     technicalName: "Capitalism III: Upgrade Giraffe",
     tier: Uncommon,
-    rarity: 0, #rarity 0 because it should only be gotten through synergy
+    rarity: -999, #rarity 0 because it should only be gotten through synergy
     priority: 15,
     description: """Money can be used in exchange for goods and services. You can spend 8 dollars to give a piece the movement of a giraffe. 
                     This upgrade is 30 dollars more expensive for the king. The upgraded piece still cannot take like a giraffe.""",
@@ -1847,7 +1859,7 @@ const sell*: Power = Power(
     name: "Capitalism V",
     technicalName: "Capitalism V: Sell",
     tier: Uncommon,
-    rarity: 0, #rarity 0 because it should only be gotten through synergy
+    rarity: -999, #rarity 0 because it should only be gotten through synergy
     priority: 15,
     description: """Who needs these pieces? AFUERA! You can sell a piece for 4 dollars. Each subsequent piece gives one dollar less. """,
     icon: "usflag.svg",
@@ -1871,7 +1883,7 @@ const taxes*: Power = Power(
     name: "Capitalism V",
     technicalName: "Capitalism V: Taxes",
     tier: Rare,
-    rarity: 0, #rarity 0 because it should only be gotten through synergy
+    rarity: -999, #rarity 0 because it should only be gotten through synergy
     priority: 15,
     description: """Nothing in the world is certain except for Taxes and one other thing. 
                     You gain 6 more dollars for taking a piece, but you lose 15% every turn.""",
@@ -1891,7 +1903,7 @@ const monopoly*: Power = Power(
     name: "Capitalism IV",
     technicalName: "Capitalism IV: Monopoly",
     tier: Uncommon,
-    rarity: 0,
+    rarity: -999,
     priority: 15,
     description: """More money equals more money! You get 3 more dollars for taking a piece. """,
     icon: "usflag.svg",
@@ -1924,7 +1936,7 @@ const handouts*: Power = Power(
     name: "Capitalism IV",
     technicalName: """Capitalism IV: Handouts""",
     tier: Uncommon,
-    rarity: 0,
+    rarity: -999,
     priority: 15,
     description: """What if everyone had money? Then everyone would have money! You get 1 dollar for moving a piece.""",
     icon: "usflag.svg",
@@ -1959,7 +1971,7 @@ proc createSuperLottery(): BoardAction =
 const slumdogBillionairePower*: Power = Power(
     name: "Slumdog Billionaire",
     tier: Common,
-    rarity: 0,
+    rarity: -999,
     priority: 15,
     description: """Have you seen the movie Slumdog Millionaire? It's kind of like that but more. 
                     Your pawns have a 2% chance of promoting whenever they move. When this happens, you get 10 dollars.""",
@@ -1970,7 +1982,7 @@ const slumdogBillionairePower*: Power = Power(
 
 )
 
-const slumdogBillionaire: Synergy = createCapitalism(slumdogBillionairePower, 0, @[slumdogMillionaire.name], @[slumdogMillionaire.name])
+const slumdogBillionaire: Synergy = createCapitalism(slumdogBillionairePower, -999, @[slumdogMillionaire.name], @[slumdogMillionaire.name])
 
 const exponentialGrowthOnEndTurn: BoardActionAction = proc (side: Color, _: var ChessBoard, state: var BoardState) =
     let currentMoney = getMoney(side, state)
@@ -1980,7 +1992,7 @@ const exponentialGrowthOnEndTurn: BoardActionAction = proc (side: Color, _: var 
 const exponentialGrowth*: Power = Power(
     name: "Capitalism MM",
     tier: UltraRare, 
-    rarity: 0,
+    rarity: -999,
     priority: 15,
     description: "TO THE MOON!!!!",
     icon: "usflag.svg",
@@ -1992,17 +2004,17 @@ const exponentialGrowth*: Power = Power(
 
 const capitalismTwoThousand: Synergy = (
     power: exponentialGrowth,
-    rarity: 0,
+    rarity: -999,
     requirements: @[capitalismPower.name, capitalismTwo2.power.name, capitalismThree1.power.name, capitalismFour1.power.name, capitalismFive1.power.name],
     replacements: @[]
 )
 
 const canSkyGlass: GlassMoves = 
-    func (side: Color, piece: Piece, b: ChessBoard, _: BoardState): Moves =
+    func (side: Color, piece: Piece, b: ChessBoard, s: BoardState): Moves =
         if piece.color != side: return @[]
         else: 
             for tile in b.rankAndFile:
-                if b[tile].item == None and not piece.wouldCheckAt(tile, b):
+                if b[tile].item == None and not piece.wouldCheckAt(tile, b, s):
                     result.add(tile)
 
 
@@ -2096,7 +2108,7 @@ const zeroGlass*: Power = Power(
 const steelGlass*: Power = Power(
     name: "Glass: Steel",
     tier: Common,
-    rarity: 0, #TODO: rebalance steel glass. for now im just disabling it
+    rarity: -999, #TODO: rebalance steel glass. for now im just disabling it
     priority: 15,
     description: """On your turn, instead of moving, you can choose 5 pieces to each cast Steel. 
                     If there is an enemy one tile in front of them when the cast completes, they take forward. """ &
@@ -2275,7 +2287,7 @@ proc createWithClarity(): OnPiece =
 const clarityPower: Power = Power(
     name: "Clarity",
     tier: UltraRare,
-    rarity: 0,
+    rarity: -999,
     priority: 15,
     description: """You now see things in a whole new light. 
                 It's not regret as much as self-disappointment.""",
@@ -2287,7 +2299,7 @@ const clarityPower: Power = Power(
 
 const clarity: Synergy = (
     power: clarityPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[daybreakGlass.name, concubine.name],
     replacements: @[]
 )
@@ -2295,7 +2307,7 @@ const clarity: Synergy = (
 const masterGlassPower: Power = Power(
     name: "Master Glass",
     tier: UltraRare,
-    rarity: 0,
+    rarity: -999,
     priority: 30,
     description: """You have good taste. All glasses can be cast one more time.""",
     icon: "skyglass.svg",
@@ -2313,14 +2325,14 @@ const masterGlassPower: Power = Power(
 
 const masterGlass: Synergy = (
     power: masterGlassPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[skyGlass.name, reverieGlass.name, zeroGlass.name, steelGlass.name, daybreakGlass.name],
     replacements: @[]
 )
 
 const masterGlass2: Synergy = (
     power: masterGlassPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[skyGlass.name, reverieGlass.name, bankruptGlassPower.name, steelGlass.name, daybreakGlass.name],
     replacements: @[]
 )
@@ -2377,7 +2389,7 @@ const comucapitalNull*: Power = Power(
 
 const comucapital: Synergy = (
     power: comucapitalNull,
-    rarity: 0,
+    rarity: -999,
     requirements: @[capitalismPower.name, communism.name],
     replacements: @[communism.name, #needs to remove all money related powers
                         capitalismPower.name, 
@@ -2442,14 +2454,14 @@ const coldWarPower*: Power = Power(
 
 const coldWar1: AntiSynergy = (
     power: coldWarPower,
-    rarity: 0,
+    rarity: -999,
     drafterRequirements: @[capitalismPower.name],
     opponentRequirements: @[communism.name]
 )
 
 const coldWar2: AntiSynergy = (
     power: coldWarPower,
-    rarity: 0,
+    rarity: -999,
     drafterRequirements: @[communism.name],
     opponentRequirements: @[capitalismPower.name]
 )
@@ -2490,7 +2502,7 @@ const inflation*: AntiSynergy = (
 const phalanxPower*: Power = Power(
     name: "Phalanx",
     tier: Uncommon,
-    rarity: 0,
+    rarity: -999,
     priority: 20,
     description: """Your leftmost and rightmost pawns start one tile forward. 
                     It's a classic defense to the lance opening, you can find more information 
@@ -2545,7 +2557,7 @@ func createPropagandaPromoteBuying(promotedIndexes: var seq[int]): OnPiece =
 const propagandaPower*: Power = Power(
     name: "Propaganda",
     tier: Rare,
-    rarity: 0,
+    rarity: -999,
     priority: 35,
     description: "Liberty. Freedom. The Pursuit of Happiness. We are righteous.",
     tags: @[UnHoly, Special, Promote, Promote],
@@ -2579,7 +2591,7 @@ const propaganda: AntiSynergy = (
 const faminePower*: Power = Power(
     name: "Famine",
     tier: Rare,
-    rarity: 0,
+    rarity: -999,
     priority: 55,
     description: "Secret Operation: Famine. If they die they can't be communist.",
     antiDescription: "The communes are struggling to meet our quotas. Too bad.",
@@ -2664,7 +2676,7 @@ const godPower*: Power = Power(
 
 const god: AntiSynergy = (
     power: godPower,
-    rarity: 0,
+    rarity: -999,
     drafterRequirements: @["Holy"], #can't do .name because `Holy` is in `power.nim`
     opponentRequirements: @[vampires.name]
 )
@@ -2704,7 +2716,7 @@ const huhBuck: WhenTaken = proc (taken: var Piece, taker: var Piece, board: var 
 const huhPower*: Power = Power(
     name: "HUH",
     tier: UltraRare,
-    rarity: 0,
+    rarity: -999,
     priority: 7,
     description: "HUH.",
     icon: knightIcon,
@@ -2717,7 +2729,7 @@ const huhPower*: Power = Power(
 
 const huh: Synergy = (
     power: huhPower,
-    rarity: 0,
+    rarity: -999,
     requirements: @[stepOnMe.name, rider.name],
     replacements: @[]
 )
@@ -2845,7 +2857,7 @@ const millerTypeAPlusB*: Power = Power(
 const terminalIllnessPower*: Power = Power(
     name: "Terminal Illness",
     tier: Uncommon,
-    rarity: 0,
+    rarity: -999,
     priority: 40,
     description:
         """It's a little cruel, but all's fair in love and war. Give your opponent's queen Poison 17. 
@@ -2875,7 +2887,7 @@ const terminalIllness: AntiSynergy = (
 const lastStandPower*: Power = Power(
     name: "Last Stand",
     tier: UltraRare,
-    rarity: 0,
+    rarity: -999,
     priority: 17,
     description: "Take it all.",
     tags: @[Special],

@@ -85,7 +85,7 @@ type
 #I really went for 2 months changing the values by hand each time
 const debug: bool = false
 const debugScreen: Screen = Game 
-const myDebugPowers: seq[Power] = @[zeroGlass]
+const myDebugPowers: seq[Power] = @[capitalismPower, moveUp, income]
 const opponentDebugPowers: seq[Power] = @[]
 
 var 
@@ -225,6 +225,8 @@ proc endRound() =
                     c.on = theBoard[i][j].tile.tileBelow()
 
     piecesChecking = theBoard.getPiecesChecking(side)
+    theState.side[side].piecesChecking = piecesChecking
+    theState.side[otherSide(side)].piecesChecking = theBoard.getPiecesChecking(otherSide(side))
     if gameIsOver(theBoard, theState):
         currentScreen = Results
 
