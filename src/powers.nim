@@ -946,6 +946,7 @@ const concubine*: Power = Power(
 )
 
 const reinforcementsOntake: OnAction = proc (piece: var Piece, to: Tile, board: var ChessBoard, state: var BoardState) =
+    let color = piece.color #lock color because it will change after taking because my code sucks because i'm an idiot because im a lesser human being
     let takeResults = to.takenBy(piece, board,state)
     let originalRookTile = piece.tile
     board[takeResults.endTile].timesMoved += 1
@@ -954,7 +955,7 @@ const reinforcementsOntake: OnAction = proc (piece: var Piece, to: Tile, board: 
         board[takeResults.endTile].piecesTaken += 1
         if board[takeResults.endTile].piecesTaken mod 2 == 0:
             board[originalRookTile] = 
-                state.side[piece.color].dna[Pawn].pieceCopy(index = newIndex(state), tile = originalRookTile)
+                state.side[color].dna[Pawn].pieceCopy(index = newIndex(state), tile = originalRookTile)
 
 const reinforcements*: Power = Power(
     name: "Reinforcements",
@@ -2620,6 +2621,7 @@ const famine: AntiSynergy = (
 #default values for some of `Piece`
 #TODO: MOVE THESE TO `basePieces.nim`
 const vampireWhenTaken*: WhenTaken = proc(taken: var Piece, taker: var Piece, board: var ChessBoard, state: var BoardState): tuple[endTile: Tile, takeSuccess: bool] = 
+    echo "hello"
     if taker.item == Bishop:
         taker.pieceMove(taken, board, state)
         return (taken.tile, true)
@@ -2662,16 +2664,9 @@ const godPower*: Power = Power(
     anti: true,
     onStart: 
         proc (side: Color, _: Color, b: var ChessBoard, s: var BoardState) = 
-            if side == black:
-                if b[1][3].item == Pawn:
-                    b[1][3].whenTaken = defaultWhenTaken
-                if b[1][4].item == Pawn:
-                    b[1][4].whenTaken = defaultWhenTaken
-            elif side == white:
-                if b[6][3].item == Pawn:
-                    b[6][3].whenTaken = defaultWhenTaken
-                if b[6][4].item == Pawn:
-                    b[6][4].whenTaken = defaultWhenTaken   
+            for i, j in b.rankAndFile:
+                if b[i][j].filePath.contains("vampire") and b[i][j].isColor(otherSide(side)):
+                    b[i][j].whenTaken = defaultWhenTaken
 )
 
 const god: AntiSynergy = (
